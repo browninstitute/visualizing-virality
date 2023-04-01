@@ -1,7 +1,9 @@
 import onboarding from './sections/onboarding'
 import onboarding2 from './sections/timeline'
 import DocumentMeta from 'react-document-meta';
-
+import React, { useState, useEffect ,  useRef} from "react";
+import { Graph } from '@cosmograph/cosmos'
+import {cosmos_config, cosmos_links, cosmos_nodes} from './sections/cosmos'
 const headFunc = {
   title: 'Twitter Website',
   description: 'We made this website with this description.',
@@ -14,6 +16,16 @@ const headFunc = {
 };
 
 function App() {
+
+  const cosmos_ref = useRef(null)  
+  function load_graph() {
+    //temporary as function for development 
+    const graph = new Graph(cosmos_ref.current, cosmos_config);
+    graph.setData(cosmos_nodes, cosmos_links);
+    graph.zoom(1.2);
+  }
+
+
   return (
     <>
       <DocumentMeta {...headFunc} />
@@ -27,12 +39,14 @@ function App() {
         <div className='intro_sec' id='intro'>
           <div className='parallax_layer back_intro'>
             
-            <div className="cosmosGraph">
+            <div className='cosmos_graph'>
+              <canvas className='cosmos_canvas' ref={cosmos_ref}/>
             </div> 
+            <div className='photos_people'></div>
 
           </div>
-          <div className='parallax_layer front_intro'>
-            <span className="img-txt">Virality on Twitter</span>
+          <div className='parallax_layer front_intro' onClick={()=>{load_graph()}}>
+            <span className='banner_txt'>Visualizing Virality</span>
           </div>
         </div>
 

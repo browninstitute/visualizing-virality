@@ -1,0 +1,81 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+canvas {
+    object-fit: cover;
+    object-position: center;
+    width: 100vw;
+    top: 0;
+    height: 100vh;
+    min-width: 100%;
+}
+
+body{
+    font-family: 'Roboto Mono', Menlo;
+    z-index: 0;
+    font-size: 2em;
+    color: grey;
+    
+
+    .sections_wrapper{
+      overflow-x: hidden;
+      overflow-y: auto;
+      perspective: 100px;
+
+    //INTRO SECTION CSS
+      .intro_sec{
+        scroll-snap-align: start;
+        position: relative;
+        height: 100vh;
+        transform-style: preserve-3d;
+        .parallax_layer{
+            position: absolute;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+                       
+        }
+        .back_intro{
+            transform: translateZ(-150px) scale(2.5);
+            z-index: 10;
+            .cosmos_graph {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                canvas.cosmos_canvas {
+                    object-fit: cover;
+                    object-position: center;
+                    width: 100vw;
+                    top: 0;
+                    height: 100vh;
+                    min-width: 100%;
+                }
+            }
+            
+        }
+        .front_intro{
+            z-index: 0;
+            span.banner_txt{
+                text-transform: uppercase;
+                background-color: #0b5684;
+                color: white;
+                padding-top: 1.1rem;
+                padding-bottom: 1.1rem;
+                padding-left: 3rem;
+                padding-right: 3rem;
+                font-size: 1.5rem;
+                letter-spacing: 10px;
+            }
+        }
+      }
+
+
+    //TIMELINE SECTION CSS
+    
+    }
+}
+

@@ -19,63 +19,218 @@ body{
     color: grey;
     
 
-    .sections_wrapper{
-      overflow-x: hidden;
-      overflow-y: auto;
-      perspective: 100px;
+    // .sections_wrapper{
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    
 
     //INTRO SECTION CSS
-      .intro_sec{
-        scroll-snap-align: start;
+    .intro_sec{
+    scroll-snap-align: start;
+    position: relative;
+    height: 120vh;
+    .parallax_layer{
+        position: absolute;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+                    
+    }
+    .back_intro{
+        z-index: -10;
         position: relative;
-        height: 100vh;
-        transform-style: preserve-3d;
-        .parallax_layer{
-            position: absolute;
-            inset: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-                       
-        }
-        .back_intro{
-            transform: translateZ(-150px) scale(2.5);
-            z-index: 10;
-            .cosmos_graph {
-                position: relative;
-                width: 100%;
-                height: 100%;
+        .video_wrapper{
+            video {
+              object-fit: cover;
+              width: 100vw;
+              top: 0;
+              height: 100vh;
+              min-width: 100%;
+            }
+          }
+
+        .cosmos_graph {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            canvas.cosmos_canvas {
+                object-fit: cover;
+                object-position: center;
+                width: 100vw;
                 top: 0;
-                canvas.cosmos_canvas {
-                    object-fit: cover;
-                    object-position: center;
-                    width: 100vw;
-                    top: 0;
-                    height: 100vh;
-                    min-width: 100%;
-                }
-            }
-            
-        }
-        .front_intro{
-            z-index: 0;
-            span.banner_txt{
-                text-transform: uppercase;
-                background-color: #0b5684;
-                color: white;
-                padding-top: 1.1rem;
-                padding-bottom: 1.1rem;
-                padding-left: 3rem;
-                padding-right: 3rem;
-                font-size: 1.5rem;
-                letter-spacing: 10px;
+                height: 100vh;
+                min-width: 100%;
             }
         }
-      }
+        
+    }
+    .front_intro{
+        z-index: 0;
+        height: 100vh;
+        span.banner_txt{
+            text-transform: uppercase;
+            background-color: #0b5684;
+            color: white;
+            padding-top: 1.1rem;
+            padding-bottom: 1.1rem;
+            padding-left: 3rem;
+            padding-right: 3rem;
+            font-size: 1.5rem;
+            letter-spacing: 10px;
+        }
+    }
+    }
 
 
     //TIMELINE SECTION CSS
+    .timeline_sec{
+    .timeline_wrap{
+        height: 400vh;           
+        width: 100vw;
+        background-color: white;
+        .timeline_intro{
+            z-index: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
+            height: 10vh;
+            width: 100vw;
+        }
+        .parallax_wrap{
+            height: 390vh;
+            width: 100vw;
+            position: relative;
+            .timeline_line{
+                position: absolute;
+                z-index: 0;
+                left: 0;
+                top: 3vh;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                overflow: hidden;
+                svg.line_svg{
+                    display: inline-block;
+                    height: 100%;
+                }
+            }
     
+            .timeline_blocks{
+                position: absolute;
+                z-index: 1;
+                display: flex;
+                flex-flow: column;
+                margin-top: 0;
+                box-sizing: border-box;
+
+                .timeline_block{
+                    position: relative;
+                    display: block;
+                    width: 100vw;
+                    height: 55.5vh;
+                    .timeline_text{
+                        position: absolute;
+                        display:inline-block;
+                        z-index: 2;
+                        color: black;
+                        background-color:rgba(255, 255, 255, 0.8);
+                        padding: 5px;
+                        font-size: 0.8rem;
+                    }
+                    .tweet-wrap {
+                        max-width:400px;
+                        background: #fff;
+                        margin-top: 0%;
+                        border-radius:20px;
+                        padding: 2%;
+                        display: inline-block;
+                        position: absolute;
+                      }
+                      .tweet-header {
+                        display: flex;
+                        align-items:flex-start;
+                        font-size:1rem;
+                        .avator{
+                            border-radius:100px;
+                            width:48px;
+                            margin-right: 15px;
+                        }
+                      }
+                      .tweet-header-info {
+                        font-weight:bold;
+                        span {
+                            font-weight:normal;
+                            margin-left: 5px;
+                          }
+                        p {
+                            font-weight:normal;
+                            margin-top: 5px;
+                            
+                          }
+                      }
+            
+                      .tweet-img-wrap {
+                        padding-left: 60px;
+                        .img{
+                            max-width: 100%;
+                        }
+                      }
+                      
+                      .tweet-info-counts {
+                        display: flex;
+                        margin-left: 60px;
+                        margin-top: 10px;
+                        font-size: 0.9rem;
+                        div {
+                            display: flex;
+                            margin-right: 20px;
+                            svg {
+                                margin-right: 10px;
+                            }
+                        }
+                      }         
+                  }
+                  
+                  .timeline_block:nth-child(odd){
+                    text-align: right;
+                    .tweet-wrap{
+                      right: 10px;
+                      margin-right: -2.5vw;
+                    }
+                    .timeline_text{
+                      left:50.76%;
+                      text-align: left;
+                      margin-left: -0.8vw;
+                    }
+                  }
+                  .timeline_block:nth-child(even){
+                    text-align: left;
+                    .tweet-wrap{
+                      
+                      margin-left: -2.5vw;         
+                    }
+                    .timeline_text{
+                      text-align: right;
+                      right: 50.7%;
+                      margin-right: -0.8vw;
+                    }
+                  }
+                
+                
+                
+            }
+        
+        }
+
     }
+    }
+    
+    
+    
+     
 }
 

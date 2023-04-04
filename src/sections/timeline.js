@@ -1,5 +1,5 @@
 const timeline = () => (
-    <div className='timeline_wrapper'>
+    <div className='timeline_blocks_wrap'>
 
     </div>
 );

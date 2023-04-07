@@ -5,7 +5,7 @@ import React, { useState, useEffect ,  useRef} from "react";
 import { Graph } from '@cosmograph/cosmos';
 import { motion, useScroll, useSpring, useTransform, useMotionValue, useAnimation } from "framer-motion";
 import {cosmos_config, cosmos_links, cosmos_nodes} from './sections/cosmos';
-import bg_vid from './assets/networkbg1.mp4';
+// import bg_vid from './assets/networkbg1.mp4';
 import {useInView} from 'react-intersection-observer';
 import {selection_network} from './sections/selection';
 import {styles_with_css} from'./sections/motion.ts';
@@ -13,8 +13,14 @@ import {ONBOARDING_INTRO} from './sections/onboarding_intro';
 import {TWEET_SVG} from './sections/tweet_svg';
 import { TIMELINE_BLOCK } from './sections/timeline_block';
 import { TIMELINE_LINE } from './sections/timeline_line';
-import {NETWORK1} from './sections/network';
-import {PHONE1} from './sections/phone1'
+
+import {NETWORK1} from './sections/network/network1';
+import {PHONE1} from './sections/phone1';
+import {ALGORITHM} from './sections/algorithm';
+import {DEMOTION} from './sections/demotion';
+import {NETWORK2} from './sections/network/network2';
+import {OUTRO} from './sections/outro';
+
 
 const headFunc = {
   title: 'Visualizing Virality',
@@ -69,17 +75,17 @@ function App() {
         <div className='intro_sec' id='intro'>
           <motion.div className='parallax_layer back_intro' style={{y,opacity}}>
             
-            {/* <div className='cosmos_graph'>
+            <div className='cosmos_graph'>
               <canvas className='cosmos_canvas' ref={cosmos_ref} />
-            </div>  */}
+            </div> 
             <div className='photos_people'></div>
-            <div className='video_wrapper'>
+            {/* <div className='video_wrapper'>
               <video id="background_vid" src={bg_vid} type='video/mp4' loop={true} muted={true} autoPlay={'autoplay'} playsInline={true}  />            
-            </div>
+            </div> */}
           </motion.div>
           
-          <div className='parallax_layer front_intro' >
-          {/* onClick={()=>{load_graph()}} */}
+          <div className='parallax_layer front_intro' onClick={()=>{load_graph()}}>
+          {/*  */}
           
             <span className='banner_txt'>Visualizing Virality</span>
           </div>
@@ -118,7 +124,13 @@ function App() {
           </div>
 
           <PHONE1 />
+
           <NETWORK1 />
+
+          <ALGORITHM />
+          <DEMOTION />
+          <NETWORK2 />
+          <OUTRO />
           
         </div>
         

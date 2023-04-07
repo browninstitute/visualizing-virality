@@ -84,6 +84,188 @@ body{
     }
     }
 
+    //ONBOARDING SECTION CSS
+    .onboarding{
+        height: 1000vh;
+        width: 100vw;
+        background-color: white;
+        position: relative;
+
+        .onboarding_text{
+          height: 1000vh;
+          position: absolute;
+          .intro_text{
+            height: 180vh;
+            position: relative;
+            .text_div{
+              position: absolute;
+              align-items:center;
+              display:flex;
+              justify-content: center;
+              top: 0;
+              height: 100vh;
+              left: 5%;
+              font-size: 1rem;
+              position: sticky;
+  
+            }
+          }
+          .viral_text{
+            height: 150vh;
+            position: relative;
+            .text_div{
+              position: absolute;
+              align-items:center;
+              display:flex;
+              justify-content: center;
+              top: 0;
+              height: 100vh;
+              left: 5%;
+              font-size: 1rem;
+              position: sticky;
+  
+            }
+                     
+          }
+          .viral_text2{
+            height: 200vh;
+            position: relative;
+            .text_div{
+              position: absolute;
+              align-items:center;
+              display:flex;
+              justify-content: center;
+              top: 0;
+              height: 100vh;
+              left: 5%;
+              font-size: 1rem;
+              position: sticky;
+  
+            }
+          }
+        }
+        .onboarding_flare{
+          height: 1000vh;
+          width: 100vw;
+          position: absolute;
+          .intro_phone_screen{
+            height: 210vh;
+            .svg_wrap{
+              height: 100vh;
+              top:0;
+              position: sticky;
+              align-items:center;
+              display:flex;
+                svg.phone{
+                  position:absolute;
+                  display: block;
+                  left:2%; top:4%; width:96%; height:96%
+                }
+            }
+          }
+
+        }
+        .onboarding_tweets{
+          height: 1000vh;
+          width: 100vw;
+          position: absolute;
+          .tweets_padding{
+            height: 50vh;
+            position: relative;
+          }
+          .tweets_wrapper{
+            height: 950vh;
+            position: relative;
+            .tweets_div{
+              position: sticky;
+              top: 0;
+              height: 100vh;
+              width: 100vw;        
+              display: flex;
+  
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              .tweets_animate{
+                  .svg_wrap{
+                    position: absolute;
+                    align-items:center;
+                    display:flex;
+                    
+                    svg.highlight{
+                      position: relative;
+                      top: 0%; left: 0%; width: 90%; height: 90%;
+                    }
+                    
+                  }
+                  #first_svg{
+                    top:14%;
+                  }
+                  #first_svg{
+                    top:14%;
+                  }
+  
+                  .tweet-wrap {
+                  
+                      max-width:300px;
+                      background: #fff;
+                      margin-top: 0%;
+                      border-radius:20px;
+                      padding: 2%;
+                      display: inline-block;
+                    }
+                    .tweet-header {
+                      display: flex;
+                      align-items:flex-start;
+                      font-size:1rem;
+                      .avator{
+                          border-radius:100px;
+                          width:48px;
+                          margin-right: 15px;
+                      }
+                    }
+                    .tweet-header-info {
+                      font-weight:bold;
+                      span {
+                          font-weight:normal;
+                          margin-left: 5px;
+                        }
+                      p {
+                          font-weight:normal;
+                          margin-top: 5px;
+                          
+                        }
+                    }
+          
+                    .tweet-img-wrap {
+                      padding-left: 60px;
+                      .img{
+                          max-width: 100%;
+                      }
+                    }
+                    
+                    .tweet-info-counts {
+                      display: flex;
+                      margin-left: 60px;
+                      margin-top: 10px;
+                      font-size: 0.9rem;
+                      div {
+                          display: flex;
+                          margin-right: 20px;
+                          svg {
+                              margin-right: 10px;
+                          }
+                      }
+                    } 
+              }
+                     
+            }
+          }
+          
+        }
+        
+    }
+
 
     //TIMELINE SECTION CSS
     .timeline_sec{

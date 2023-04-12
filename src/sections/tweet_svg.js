@@ -1,5 +1,7 @@
 import React, {  useRef} from "react";
 import { useScroll} from "framer-motion";
+import { useInView, motion } from "framer-motion";
+
 
 export function TWEET_SVG({username,profile,text,image,date,likes,rts,replies}){
 
@@ -8,11 +10,12 @@ export function TWEET_SVG({username,profile,text,image,date,likes,rts,replies}){
       target:ref,
       offset:["start end", "end start"]
     });
-  
+    const isInView = useInView(ref, { once: false });
+    image = image? image: "https://pbs.twimg.com/profile_images/1609416420076535808/4BwbURyI_400x400.jpg";
     return(
-      <div className="tweet-wrap" ref={ref}>
+      <motion.div className="tweet-wrap" ref={ref}>
           <div className="tweet-header">
-            <img src="https://pbs.twimg.com/profile_images/1012717264108318722/9lP-d2yM_400x400.jpg" alt="" className="avator"/>
+            <img src={image} alt="" className="avator"/>
             <div className="tweet-header-info">
              <span>{username}</span><span>{date}</span>
              <p>{text}</p>           
@@ -49,6 +52,6 @@ export function TWEET_SVG({username,profile,text,image,date,likes,rts,replies}){
             </div>
           </div>
   
-      </div>
+      </motion.div>
     );
     };

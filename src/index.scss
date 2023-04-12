@@ -13,143 +13,380 @@ canvas {
 }
 
 body{
-    font-family: 'Roboto Mono', Menlo;
+    font-family: "Segoe UI", Arial, sans-serif;
     z-index: 0;
     font-size: 2em;
-    color: grey;
-    
-
+    color: darkgray;
+    background-color: #0A6BA8 ;
     // .sections_wrapper{
     height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
+
+    & * > .tweet-wrap {
+                  
+      max-width:300px;
+      background: #fff;
+      margin-top: 0%;
+      border-radius:20px;
+      padding: 2%;
+      display: inline-block;
+    }
+    & * > .tweet-header {
+      display: flex;
+      align-items:flex-start;
+      font-size:1rem;
+      .avator{
+          border-radius:100px;
+          width:48px;
+          margin-right: 15px;
+      }
+    }
+    & * > .tweet-header-info {
+      font-weight:bold;
+      span {
+          font-weight:normal;
+          margin-left: 5px;
+        }
+      p {
+          font-weight:normal;
+          margin-top: 5px;
+          
+        }
+    }
+
+    & * > .tweet-img-wrap {
+      padding-left: 60px;
+      .img{
+          max-width: 100%;
+      }
+    }
+    
+    & * > .tweet-info-counts {
+      display: flex;
+      margin-left: 60px;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      div {
+          display: flex;
+          margin-right: 20px;
+          svg {
+              margin-right: 10px;
+          }
+      }
+    } 
     
 
     //INTRO SECTION CSS
     .intro_sec{
     scroll-snap-align: start;
     position: relative;
-    height: 120vh;
-    .parallax_layer{
-        position: absolute;
-        inset: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-                    
-    }
-    .back_intro{
-        z-index: -10;
-        position: relative;
-        .video_wrapper{
-            video {
-              object-fit: cover;
-              width: 100vw;
-              top: 0;
-              height: 100vh;
-              min-width: 100%;
-            }
-          }
+    height: 140vh;
+    
+      .parallax_layer{
+          position: absolute;
+          inset: 0;
 
-        .cosmos_graph {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            canvas.cosmos_canvas {
+                      
+      }
+      .back_intro{
+          z-index: -10;
+          position: relative;
+
+          .video_wrapper{
+              video {
                 object-fit: cover;
-                object-position: center;
                 width: 100vw;
                 top: 0;
                 height: 100vh;
                 min-width: 100%;
+              }
             }
-        }
-        
+
+          .cosmos_graph {
+              position: relative;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              canvas.cosmos_canvas {
+                  object-fit: cover;
+                  object-position: center;
+                  width: 100vw;
+                  top: 0;
+                  height: 100vh;
+                  min-width: 100%;
+              }
+          }
+          
+      }
+      .front_intro{
+          z-index: 0;
+          height: 140vh;
+          width: 100vw;
+          .main_text{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            span.banner_txt{
+             // text-transform: uppercase;
+              //background-color: #0b5684;
+              color: white;
+              padding-top: 1.1rem;
+              padding-bottom: 1.1rem;
+              padding-left: 3rem;
+              padding-right: 3rem;
+              font-size:3.5rem;
+              letter-spacing: 4px;
+            }
+          }
+          
+          .logos{
+            height: 40vh;
+            width: 100vw;
+            position: relative;
+            display: flex;
+            inset: 0;
+              justify-content: center;
+              align-items: center;
+            ul {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: center;
+              align-items: center;
+
+            }
+            
+            li {
+              height: 40vh;
+              width: 20vw;
+              flex-grow: 1;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              color: black;
+            }
+            
+            img {
+              max-height: 100%;
+              max-width: 100%;
+            
+              object-fit: cover;
+              vertical-align: bottom;
+            }
+            li:last-child {
+              height: 0;
+              width: 0;
+              flex-grow: 10;
+            }
+          }
+      }
     }
-    .front_intro{
-        z-index: 0;
-        height: 100vh;
-        span.banner_txt{
-            text-transform: uppercase;
-            background-color: #0b5684;
-            color: white;
-            padding-top: 1.1rem;
-            padding-bottom: 1.1rem;
-            padding-left: 3rem;
-            padding-right: 3rem;
-            font-size: 1.5rem;
-            letter-spacing: 10px;
-        }
+
+    //FLARE EFFECTS
+
+    
+  .floating {
+   
+    animation: float 5s infinite;
+  }
+ 
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
     }
+    50% {
+      transform: translateY(-10px);
     }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
+  //COUNTER
+
+  
+@property --num {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+
+  .counter {
+    transition: --num 4s;
+    counter-set: num var(--num);
+    font: 800 40px system-ui;
+    --num: 0;
+
+  }
+  .counter::after {
+    content: counter(num);
+  }
+
+
+  //HEART POP
+
+  
+
+.heart {
+  width: 100px;
+  height: 100px;
+  position: flex;
+  text-align: center;
+  justify-content: center;
+  background: url("https://cssanimation.rocks/images/posts/steps/heart.png") no-repeat;
+  background-position: 0 0;
+  cursor: pointer;
+  transition: background-position 1s steps(28);
+  transition-duration: 0s;
+}
+
+  .heart.is-active {
+    transition-duration: 1s;
+    background-position: -2800px 0;
+  }
+
+  .stage {
+    position: relative;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+  
+  }
+
+  //ONBOARDING METHODOLOGY
+  .onboarding2 {
+    height: 400vh;
+    width: 100%;
+    margin-top: 50vh;
+    position: relative;
+    justify-content: center;
+    text-align: center;
+
+    
+    .text_main {
+      //display: flex;
+      
+      display: flex;
+      color: white;
+      height: 20vh;
+      font-size: 2.5rem;
+      margin: 10vh;
+      text-align: center;
+
+      .definition_text {
+        margin:40vh;
+        height: 20vh;
+
+      }
+      .counting_text {
+        height: 20vh;
+      }
+    }
+  }
 
     //ONBOARDING SECTION CSS
     .onboarding{
-        height: 1000vh;
+
+        height: 1500vh;
         width: 100vw;
-        background-color: white;
         position: relative;
 
+       
+
+
         .onboarding_text{
-          height: 1000vh;
+          height: 1500vh;
           position: absolute;
+          width: 100%;
+          color: white;
+          
+
+          & * > .text_div{
+            //position: absolute;
+            align-items:center;
+            display:flex;
+            justify-content: left;
+            top: 0;
+            height: 100vh;
+            left: 5%;
+            width: 100%;
+            font-size: 2rem;
+            position: sticky;
+          }
+
+          & * > .text_side{
+            //position: absolute;
+          
+            display: float;
+            text-align: end;
+          }
+
+
           .intro_text{
-            height: 180vh;
             position: relative;
-            .text_div{
-              position: absolute;
-              align-items:center;
-              display:flex;
-              justify-content: center;
-              top: 0;
-              height: 100vh;
-              left: 5%;
-              font-size: 1rem;
-              position: sticky;
-  
-            }
+            height: 180vh;
+            margin-left: 2%;
+
+            
           }
           .viral_text{
             height: 150vh;
             position: relative;
-            .text_div{
-              position: absolute;
-              align-items:center;
-              display:flex;
-              justify-content: center;
-              top: 0;
-              height: 100vh;
-              left: 5%;
-              font-size: 1rem;
-              position: sticky;
-  
-            }
-                     
+            margin-left: 2%;
+
+                                 
           }
           .viral_text2{
+            height: 150vh;
+            position: relative;
+            margin-left: 2%;
+
+          }
+          .viral_text3{
+            height: 250vh;
+            position: relative;
+            width: 35%;
+            margin-left: 2%;
+
+          }
+          .viral_text4{
+            height: 170vh;
+            position: relative;
+            margin-left: 2%;
+
+          }
+          .january_text1{
             height: 200vh;
             position: relative;
-            .text_div{
-              position: absolute;
-              align-items:center;
-              display:flex;
-              justify-content: center;
-              top: 0;
-              height: 100vh;
-              left: 5%;
-              font-size: 1rem;
-              position: sticky;
-  
-            }
+            width: 35%;
+            margin-left: 2%;
+
           }
+          .january_text2{
+            height: 200vh;
+            position: relative;
+            width: 35%;
+            margin-left: 2%;
+          }
+          .january_text3{
+            height: 200vh;
+            position: block;
+            width: 35%;
+          }
+
+        
         }
         .onboarding_flare{
-          height: 1000vh;
+          height: 1500vh;
           width: 100vw;
           position: absolute;
           .intro_phone_screen{
             height: 210vh;
+            position: relative;
             .svg_wrap{
               height: 100vh;
               top:0;
@@ -163,10 +400,90 @@ body{
                 }
             }
           }
+          .flare_padding1{
+            position: relative;
+            height: 270vh;
+          }
+          .tweets_animate_movein {
+            margin: 2%;
+            
+          }
+          .median_tweets{
+            height: 250vh;
+            width: 50vw;
+            position: relative;
+            left: 50%;
+            .tweets_movein{
+              height: 100vh;
+              width: 80vw;
+              top: 10%;
+              position: sticky;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              margin: 2%;
+              
+            }
+
+          }
+          .stacked_bars{
+            //position: relative;
+            height: 770vh;
+            width: 100vw;
+            color: white;
+            align-items: center;
+            .bars_div{
+              height: 100vh;
+              width: 100vw;
+              top: 0;
+              position: sticky;
+              flex-direction: column;
+              justify-content: start;
+              align-items: center;
+              display: flex;
+              .bar1{
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                display: flex;
+                height: 25vh;
+                width: 25vw;
+                background-color: #0b5684;
+              }
+              .bar2{
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                display: flex;
+                height: 25vh;
+                width: 25vw;
+                background-color: #1d84c3;
+              }
+              .bar3{
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                display: flex;
+                
+                height: 25vh;
+                width: 25vw;
+                background-color: #77bcfd;
+              }
+              .bar4{
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                display: flex;
+                height: 25vh;
+                width: 25vw;
+                background-color: #b0d6f9;
+              }
+            }
+          }
 
         }
         .onboarding_tweets{
-          height: 1000vh;
+          height: 950vh;
           width: 100vw;
           position: absolute;
           .tweets_padding{
@@ -174,7 +491,7 @@ body{
             position: relative;
           }
           .tweets_wrapper{
-            height: 950vh;
+            height: 850vh;
             position: relative;
             .tweets_div{
               position: sticky;
@@ -205,58 +522,7 @@ body{
                     top:14%;
                   }
   
-                  .tweet-wrap {
                   
-                      max-width:300px;
-                      background: #fff;
-                      margin-top: 0%;
-                      border-radius:20px;
-                      padding: 2%;
-                      display: inline-block;
-                    }
-                    .tweet-header {
-                      display: flex;
-                      align-items:flex-start;
-                      font-size:1rem;
-                      .avator{
-                          border-radius:100px;
-                          width:48px;
-                          margin-right: 15px;
-                      }
-                    }
-                    .tweet-header-info {
-                      font-weight:bold;
-                      span {
-                          font-weight:normal;
-                          margin-left: 5px;
-                        }
-                      p {
-                          font-weight:normal;
-                          margin-top: 5px;
-                          
-                        }
-                    }
-          
-                    .tweet-img-wrap {
-                      padding-left: 60px;
-                      .img{
-                          max-width: 100%;
-                      }
-                    }
-                    
-                    .tweet-info-counts {
-                      display: flex;
-                      margin-left: 60px;
-                      margin-top: 10px;
-                      font-size: 0.9rem;
-                      div {
-                          display: flex;
-                          margin-right: 20px;
-                          svg {
-                              margin-right: 10px;
-                          }
-                      }
-                    } 
               }
                      
             }
@@ -265,6 +531,107 @@ body{
         }
         
     }
+
+    //IPHONE SECTION
+
+    .text_iphone
+    {
+      color:#0A6BA8;
+      text-transform:bold;
+      margin-left: 10%;
+      font-weight: 2;
+    }
+    .phone_buffer{
+      height: 50vh;
+      width: 100vw;
+      background-color: white;
+    }
+
+    .phone_section{
+      height: 300vh;
+      width: 100vw;
+      position: relative;
+      background-color: white;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .phone_wrapper{
+        position: absolute;
+        height: 300vh;
+        width: 50vw;
+        left: 50%;
+        text-align: center;
+        align-items: center;
+        .svg_wrap{
+          height: 100vh;
+          top:0;
+          position: sticky;
+          align-items:center;
+          display:flex;
+            svg.phone{
+              position:absolute;
+              display: block;
+              z-index: 20;
+              left:0%; top:0%; width:100%; height:100%
+            }
+        }
+      }
+      .text_wrapper{
+        position: absolute;
+        height: 300vh;
+        width: 50vw;
+        .text_div{
+          height: 100vh;
+          width: 100%;
+          
+          display: flex;
+          justify-content: center;
+          align-content: center;
+          flex-direction: column;
+          right: 30%;
+          
+        }
+      }
+
+      .screen_wrapper{
+        position: absolute;
+        height: 200vh;
+        text-align: center;
+        align-items: center;
+        width: 100%;
+       // left: 50%;
+       // width: 50vw;
+        .carousel{
+         // z-index: 20;
+          height: 100vh;
+          margin-left: 30%;
+          width: 40%;
+          top: 0;
+          position: sticky;
+          align-items: right;
+          text-align: center;
+          
+          .carousel_item{
+            height: 100%;
+            width: 100%;
+           // z-index: 99;
+            .button_wrapper{
+              height: 100%;
+              width: 50vw;
+            }
+            .trending_feed{
+              height: 100%;
+              width: 50vw;
+                      
+            }
+          }
+          
+        }
+
+      }
+    }
+
+
 
 
     //TIMELINE SECTION CSS
@@ -323,58 +690,7 @@ body{
                         padding: 5px;
                         font-size: 0.8rem;
                     }
-                    .tweet-wrap {
-                        max-width:400px;
-                        background: #fff;
-                        margin-top: 0%;
-                        border-radius:20px;
-                        padding: 2%;
-                        display: inline-block;
-                        position: absolute;
-                      }
-                      .tweet-header {
-                        display: flex;
-                        align-items:flex-start;
-                        font-size:1rem;
-                        .avator{
-                            border-radius:100px;
-                            width:48px;
-                            margin-right: 15px;
-                        }
-                      }
-                      .tweet-header-info {
-                        font-weight:bold;
-                        span {
-                            font-weight:normal;
-                            margin-left: 5px;
-                          }
-                        p {
-                            font-weight:normal;
-                            margin-top: 5px;
-                            
-                          }
-                      }
-            
-                      .tweet-img-wrap {
-                        padding-left: 60px;
-                        .img{
-                            max-width: 100%;
-                        }
-                      }
-                      
-                      .tweet-info-counts {
-                        display: flex;
-                        margin-left: 60px;
-                        margin-top: 10px;
-                        font-size: 0.9rem;
-                        div {
-                            display: flex;
-                            margin-right: 20px;
-                            svg {
-                                margin-right: 10px;
-                            }
-                        }
-                      }         
+                       
                   }
                   
                   .timeline_block:nth-child(odd){
@@ -411,7 +727,85 @@ body{
     }
     }
     
+    .network_section{
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      position: relative;
+      justify-content: center;
+      inset: 0;
+      .sketch_sec{
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+      }
+    }
+
+    .demotion_sec{
+      height: 300vh;
+      width: 100vw;
+      position: relative;
+      .text_wrapper{
+        height: 300vh;
+        width: 100vw;
+        position: absolute;
+        .text_div1{
+          height: 100vh;
+          width: 100vw;
+          position: relative;
+          .text{
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            position: relative;
+            justify-content: start;
+            left: 10%;
+          }
+        }
+        .text_div2{
+          height: 200vh;
+          width: 100vw;
+          position: relative;
+          .text{
+            height: 100vh;
+            width: 100vw;
+            position: sticky;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            left: 10%;
+          }
+        }
+      }
+      .tweets_wrapper{}
+    }
+    .slider{
+      height: 100vh;
+      width: 100vw;
+
+      .text_div{
+        position: relative;
+        height: 40vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+      }
+      .slider_div{
+        position: relative;
+        height: 60vh;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        position: relative;
+        justify-content: center;
+      }
+    }
     
+
     
      
 }

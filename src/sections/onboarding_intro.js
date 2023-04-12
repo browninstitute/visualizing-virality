@@ -1,21 +1,77 @@
-import React, {  useRef} from "react";
+import React, { useState, useEffect, useRef} from "react";
 import { motion, useScroll,  useTransform, useSpring } from "framer-motion";
 import {styles_with_css} from'./motion.ts'
 import {TWEET_SVG} from './tweet_svg'
+import {AppearingText} from './appearingtext.js'
+import {Heart} from './heart.js';
+import App from "../App";
 import useMeasure from "react-use-measure";
+import { Counter } from "./counter";
 
 export function ONBOARDING_INTRO(){
     const tweets_scroll_points = {
       start: 0,
 
-      phone_scale_up_start: 0.200,
-      phone_scale_up_finish: 0.201,
+      phone_scale_up_start: 0.133,
+      phone_scale_up_finish: 0.1586,
   
-      highlight_lines_start: 0.250,
-      highlight_lines_finish: 0.265,
+      highlight_lines_start: 0.167,
+      highlight_lines_finish: 0.18,
   
-      remove_nonviral_start: 0.300,
-      remove_nonviral_finish: 0.320,
+      remove_nonviral_start: 0.2567,
+      remove_nonviral_finish: 0.28,
+
+      
+      remove_annotation_start: 0.46,
+      remove_annotation_finish: 0.5,
+
+      opacity_median_tweets_start: 0.367,
+      opacity_median_tweets_middle1: 0.4067,
+      opacity_median_tweets_middle2: 0.433,
+      opacity_median_tweets_finish: 0.46,
+      move_median_tweets_start: 0.367,
+      move_median_tweets_finish: 0.4267,
+
+      bring_bars_start: 0.57,
+      bring_bars_finish: 0.62,
+
+      remove_tweets_start: 0.5533,
+      remove_tweets_finish: 0.555,
+
+      bar_resize1: 0.633,
+      bar_resize2: 0.658,
+      bar_resize3: 0.758,
+      bar_resize4: 0.783,
+
+      bar_resize5: 0.883,
+      bar_resize6: 0.908,
+
+      show_percent1_start: 0.658,
+      show_percent1_mid1: 0.6581,
+      show_percent1_mid2: 0.6829,
+      show_percent1_finish: 0.683,
+      scale_percent1_start: 0.658,
+      scale_percent1_mid1: 0.6581,
+      scale_percent1_mid2: 0.6829,
+      scale_percent1_finish: 0.683,
+
+      show_percent2_start: 0.783,
+      show_percent2_mid1: 0.7831,
+      show_percent2_mid2: 0.8079,
+      show_percent2_finish: 0.808,
+      scale_percent2_start: 0.783,
+      scale_percent2_mid1: 0.7831,
+      scale_percent2_mid2: 0.8079,
+      scale_percent2_finish: 0.808,
+
+      show_percent3_start: 0.908,
+      show_percent3_mid1: 0.9081,
+      show_percent3_mid2: 0.9329,
+      show_percent3_finish: 0.933,
+      scale_percent3_start: 0.908,
+      scale_percent3_mid1: 0.9081,
+      scale_percent3_mid2: 0.9329,
+      scale_percent3_finish: 0.933,
 
       finish: 1,
     };
@@ -28,8 +84,13 @@ export function ONBOARDING_INTRO(){
     });
 
 
-    // let [ref, bounds] = useMeasure()
-
+    
+    // let [refWithImg, boundsWithImg] = useMeasure()
+      
+    // const remove_height_t1 = useTransform(scrollYProgress,[
+    //   tweets_scroll_points.remove_nonviral_start,
+    //   tweets_scroll_points.remove_nonviral_finish      
+    // ],[boundsWithImg.height,0])
   
     const phone_scaleup = useTransform(scrollYProgress, [
       tweets_scroll_points.phone_scale_up_start,
@@ -41,19 +102,168 @@ export function ONBOARDING_INTRO(){
     ], [1,0])
 
     const highlight_pathLength = useTransform(scrollYProgress, [
-        tweets_scroll_points.highlight_lines_start,
-        tweets_scroll_points.highlight_lines_finish
-        ], [ 0 ,1 ])
-    
-    // const tweet_height = useTransform(scrollYProgress, [
-    //     tweets_scroll_points.highlight_lines_start,
-    //     tweets_scroll_points.highlight_lines_finish
-    //     ], [ 100 ,0 ])
-    
+      tweets_scroll_points.highlight_lines_start,
+      tweets_scroll_points.highlight_lines_finish
+    ], [ 0 ,1 ])
+
+
+    const remove_opacity = useTransform(scrollYProgress,[
+      tweets_scroll_points.remove_nonviral_start,
+      tweets_scroll_points.remove_nonviral_finish
+    ], [1,0]) 
+
+    const remove_opacity_2 = useTransform(scrollYProgress,[
+      tweets_scroll_points.remove_annotation_start,
+      tweets_scroll_points.remove_annotation_finish
+    ], [1,0]) 
+
+    const move_up = useTransform(scrollYProgress,[
+      tweets_scroll_points.remove_nonviral_start,
+      tweets_scroll_points.remove_nonviral_finish
+    ], ["0%", "-200%"]) ;
+
+    const last_text_opacity = useTransform(scrollYProgress, [
+      tweets_scroll_points.bar_resize5,
+      tweets_scroll_points.bar_resize6
+    ], [0, 1]);
+
+    const median_opacity = useTransform(scrollYProgress,[
+      tweets_scroll_points.opacity_median_tweets_start,
+      tweets_scroll_points.opacity_median_tweets_middle1,
+      tweets_scroll_points.opacity_median_tweets_middle2,
+      tweets_scroll_points.opacity_median_tweets_finish
+    ], [0,1,1,0]) 
+
+
+   const median_y_top = useTransform(scrollYProgress,[
+      tweets_scroll_points.move_median_tweets_start,
+      tweets_scroll_points.move_median_tweets_finish
+   ], ["90%","0%"])
+
+   const median_y_med_top = useTransform(scrollYProgress,[
+    tweets_scroll_points.move_median_tweets_start,
+    tweets_scroll_points.move_median_tweets_finish
+ ], ["45%","0%"])
+
+    const median_y_med_bot = useTransform(scrollYProgress,[
+      tweets_scroll_points.move_median_tweets_start,
+      tweets_scroll_points.move_median_tweets_finish
+    ], ["-45%","0%"])
+
+    const median_y_bot = useTransform(scrollYProgress,[
+      tweets_scroll_points.move_median_tweets_start,
+      tweets_scroll_points.move_median_tweets_finish
+    ], ["-90%","0%"])
+   const median_x = useTransform(scrollYProgress,[
+    tweets_scroll_points.move_median_tweets_start,
+    tweets_scroll_points.move_median_tweets_finish
+   ], ["-10%","20%"])
+
+   const bars_opacity = useTransform(scrollYProgress,[
+    tweets_scroll_points.bring_bars_start,
+    tweets_scroll_points.bring_bars_finish
+   ], [0,1])
+
+   const tweets_opacity = useTransform(scrollYProgress,[
+    tweets_scroll_points.remove_tweets_start,
+    tweets_scroll_points.remove_tweets_finish
+   ], [1,0])
+
+
+   const percents1_opacity = useTransform(scrollYProgress,[
+    tweets_scroll_points.show_percent1_start,
+    tweets_scroll_points.show_percent1_mid1,
+    tweets_scroll_points.show_percent1_mid2,
+    tweets_scroll_points.show_percent1_finish
+   ], [0,1,1,0])
+   const percents1_scales = useTransform(scrollYProgress,[
+    tweets_scroll_points.scale_percent1_start,
+    tweets_scroll_points.scale_percent1_mid1,
+    tweets_scroll_points.scale_percent1_mid2,
+    tweets_scroll_points.scale_percent1_finish
+   ], [0,1,1,0])
+
+
+   const percents2_opacity = useTransform(scrollYProgress,[
+    tweets_scroll_points.show_percent2_start,
+    tweets_scroll_points.show_percent2_mid1,
+    tweets_scroll_points.show_percent2_mid2,
+    tweets_scroll_points.show_percent2_finish
+   ], [0,1,1,0])
+   const percents2_scales = useTransform(scrollYProgress,[
+    tweets_scroll_points.scale_percent2_start,
+    tweets_scroll_points.scale_percent2_mid1,
+    tweets_scroll_points.scale_percent2_mid2,
+    tweets_scroll_points.scale_percent2_finish
+   ], [0,1,1,0])
+
+
+   const percents3_opacity = useTransform(scrollYProgress,[
+    tweets_scroll_points.show_percent3_start,
+    tweets_scroll_points.show_percent3_mid1,
+    tweets_scroll_points.show_percent3_mid2,
+    tweets_scroll_points.show_percent3_finish
+   ], [0,1,1,0])
+   const percents3_scales = useTransform(scrollYProgress,[
+    tweets_scroll_points.scale_percent3_start,
+    tweets_scroll_points.scale_percent3_mid1,
+    tweets_scroll_points.scale_percent3_mid2,
+    tweets_scroll_points.scale_percent3_finish
+   ], [0,1,1,0])
+
+
+
+
+    // const [windowSize, setWindowSize] = useState([window.innerWidth,window.innerHeight,]);
+
+    // useEffect(() => {
+    //   const handleWindowResize = () => {
+    //     setWindowSize([window.innerWidth, window.innerHeight]);
+    //   };
+    //   window.addEventListener('resize', handleWindowResize);
+    //   return () => {
+    //     window.removeEventListener('resize', handleWindowResize);
+    //   };
+    // });
+
+    const bar1_height = useTransform(scrollYProgress,[
+      tweets_scroll_points.bar_resize1,
+      tweets_scroll_points.bar_resize2,
+      tweets_scroll_points.bar_resize3,
+      tweets_scroll_points.bar_resize4,
+      tweets_scroll_points.bar_resize5,
+      tweets_scroll_points.bar_resize6  
+    ],["25%","59%","59%","32%","32%","67%"])
+    const bar2_height = useTransform(scrollYProgress,[
+      tweets_scroll_points.bar_resize1,
+      tweets_scroll_points.bar_resize2,
+      tweets_scroll_points.bar_resize3,
+      tweets_scroll_points.bar_resize4,
+      tweets_scroll_points.bar_resize5,
+      tweets_scroll_points.bar_resize6     
+    ],["25%","41%","41%","45%","45%","19%"])
+    const bar3_height = useTransform(scrollYProgress,[
+      tweets_scroll_points.bar_resize1,
+      tweets_scroll_points.bar_resize2,
+      tweets_scroll_points.bar_resize3,
+      tweets_scroll_points.bar_resize4,
+      tweets_scroll_points.bar_resize5,
+      tweets_scroll_points.bar_resize6    
+    ],["25%","0%","0%","14%","14%","14%"])
+    const bar4_height = useTransform(scrollYProgress,[
+      tweets_scroll_points.bar_resize1,
+      tweets_scroll_points.bar_resize2,
+      tweets_scroll_points.bar_resize3,
+      tweets_scroll_points.bar_resize4,
+      tweets_scroll_points.bar_resize5,
+      tweets_scroll_points.bar_resize6      
+    ],["25%","0%","0%","8%","8%","0%"])
+
   
     // const position_phone = useTransform(scrollYProgress, (scroll_pos) => {
     //   return scroll_pos===tweets_scroll_points.phone_scale_up_finish ? "relative" : "fixed";
     // })
+
   
     return (
       <div className="onboarding" ref={sec_ref}>
@@ -63,17 +273,17 @@ export function ONBOARDING_INTRO(){
             
           </div>
           <div className="tweets_wrapper">
-            <motion.div className="tweets_div" >
-                  <motion.div className="tweets_animate">
+            <motion.div className="tweets_div" style={styles_with_css({opacity:tweets_opacity})}>
+                  <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity})} >
                     {/* animate={{height: bounds.height > 0 ? bounds.height: null}}
                         transition={{type:"spring", bounce: 0.2, duration: 0.4}}
                     */}
+                    <TWEET_SVG  username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
+                  </motion.div>
+                  <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity})}>
                     <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
                   </motion.div>
-                  <motion.div className="tweets_animate">
-                    <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
-                  </motion.div>
-                  <motion.div className="tweets_animate">
+                  <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity})}>
                         <div className="svg_wrap" id="first_svg"> 
                         <svg viewBox="0 0 315 161" fill="none" className="highlight" >
                             <motion.path 
@@ -86,11 +296,11 @@ export function ONBOARDING_INTRO(){
                     </div>
                     <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
                   </motion.div>
-                  <motion.div className="tweets_animate">
+                  <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity})}>
                     <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
                   </motion.div>
-                  <motion.div className="tweets_animate">
-                        <div className="svg_wrap" id="second_svg"> 
+                  <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity_2, y:move_up})}>
+                        <div className="svg_wrap" id="second_svg" > 
                             <svg viewBox="0 0 315 161" fill="none" className="highlight" >
                                 <motion.path 
                                     d="M3 3V158H312V3H3Z" 
@@ -102,9 +312,7 @@ export function ONBOARDING_INTRO(){
                         </div>
                     <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
                   </motion.div>
-                  <motion.div className="tweets_animate">
-                    <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
-                  </motion.div>
+                
             </motion.div>
           </div>
   
@@ -114,24 +322,63 @@ export function ONBOARDING_INTRO(){
         <div className="onboarding_text">
             <div className='intro_text'>
               <div className='text_div'>
-                Welcome to your feed
+                Welcome to your feed.
               </div>
             </div>
             <div className='viral_text'>
               <div className='text_div'>
-                Often it has tweets that can be considered "viral"
+                Often it has tweets that <br></br> can be considered "viral".
               </div>
             </div>
             <div className='viral_text2'>
               <div className='text_div'>
-                But there are many definitions of virality
-                {/* add text for our definition here that animates in */}
+                But there are many definitions of virality.
               </div>
             </div>
+            <div className='viral_text3'>
+              <div className='text_div'>
+                We defined a "viral" tweet as a tweet that had at least 5x the engagement of the author's average tweet.
+              <div className="stage">
+            <Heart></Heart>
+            </div>
+              </div>
+            </div>
+            <div className='viral_text4'>
+              <div className='text_div'>
+                From this group of tweets, we selected those with more than&nbsp;<span><Counter></Counter></span>&nbsp; likes to explore. 
+              </div>
+             
+            </div>
+            
+            <div className='january_text1'>
+              <div className='text_div'>
+                Out of the 23 billions tweets from January 2023, only 4933 had more than 100000 likes. 
+                <br/>
+                3407 fit our definition of "viral".
+              </div>
+            </div>
+            <div className='january_text2'>
+              <div className='text_div'>
+                78% of viral tweets were from users with less than 50,000 followers.
+              </div>
+            </div>
+            <div className='january_text3'>
+              <div className='text_div'>
+                They also came from a number of different categories.
+                <br/>
+                
+                <motion.span className = 'text_side' style={styles_with_css({opacity:last_text_opacity})}>Now, let's look at some of the heavy-hitters.</motion.span>
+
+              </div>
+              
+
+            </div>
+           
             
         </div>
   
         <div className="onboarding_flare">
+          <AppearingText>
           <motion.div className="intro_phone_screen" style={styles_with_css({opacity: phone_opacity,scale: phone_scaleup})}>
             <div className="svg_wrap">
               <svg viewBox="0 0 484 901" fill="none" className='phone'>
@@ -163,7 +410,53 @@ export function ONBOARDING_INTRO(){
             </div>
           
           </motion.div>
-  
+          </AppearingText>
+          <div className="flare_padding1">
+
+          </div>
+
+          <motion.div className="median_tweets">
+            <div className="tweets_movein">
+                <motion.div className="tweets_animate_movein" style={styles_with_css({opacity: median_opacity,x: median_x, y:median_y_top})}>
+                  <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
+                </motion.div>
+                <motion.div className="tweets_animate_movein" style={styles_with_css({opacity: median_opacity,x: median_x, y:median_y_med_top})}>
+                  <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
+                </motion.div>
+                <motion.div className="tweets_animate_movein" style={styles_with_css({opacity: median_opacity,x: median_x, y:median_y_med_bot})}>
+                  <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
+                </motion.div>
+                <motion.div className="tweets_animate_movein" style={styles_with_css({opacity: median_opacity,x: median_x, y:median_y_bot})}>
+                  <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
+                </motion.div>
+            </div>
+                
+          </motion.div>
+          <div className="stacked_bars"> 
+              <motion.div className="bars_div" style={styles_with_css({opacity: bars_opacity})}>
+                <motion.div className="bar1"  style={styles_with_css({height: bar1_height})}>
+                  <motion.div className="text1" style={styles_with_css({opacity: percents1_opacity,scale: percents1_scales})}>59% Non-Viral</motion.div>
+                  <motion.div className="text2" style={styles_with_css({opacity: percents2_opacity,scale: percents2_scales})}>32% &gt; 1,000,000</motion.div>
+                  <motion.div className="text3" style={styles_with_css({opacity: percents3_opacity,scale: percents3_scales})}>67% Entertainment</motion.div>
+                </motion.div>
+                <motion.div className="bar2" style={styles_with_css({height: bar2_height})}>
+                  <motion.div className="text1" style={styles_with_css({opacity: percents1_opacity,scale: percents1_scales})}>41% Non-Viral</motion.div>
+                  <motion.div className="text2" style={styles_with_css({opacity: percents2_opacity,scale: percents2_scales})}>45% &lt; 1,000,000</motion.div>
+                  <motion.div className="text3" style={styles_with_css({opacity: percents3_opacity,scale: percents3_scales})}>19% Sports</motion.div>
+                </motion.div>
+                <motion.div className="bar3" style={styles_with_css({height: bar3_height})}>
+                  <motion.div className="text1" style={styles_with_css({opacity: percents1_opacity,scale: percents1_scales})}></motion.div>
+                  <motion.div className="text2" style={styles_with_css({opacity: percents2_opacity,scale: percents2_scales})}>14% &lt; 100,000</motion.div>
+                  <motion.div className="text3" style={styles_with_css({opacity: percents3_opacity,scale: percents3_scales})}>14% News</motion.div>
+                </motion.div>
+                <motion.div className="bar4" style={styles_with_css({height: bar4_height})}>
+                  <motion.div className="text1" style={styles_with_css({opacity: percents1_opacity,scale: percents1_scales})}></motion.div>
+                  <motion.div className="text2" style={styles_with_css({opacity: percents2_opacity,scale: percents2_scales})}>8% &lt; 5,000</motion.div>
+                  <motion.div className="text3" style={styles_with_css({opacity: percents3_opacity,scale: percents3_scales})}></motion.div>
+                </motion.div>
+              </motion.div>
+
+          </div>
 
   
         </div>

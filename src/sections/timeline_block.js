@@ -25,7 +25,7 @@ export function TIMELINE_BLOCK({username,name,profile,text,image,date,likes,rts,
   
     return(
       <div ref={ref} className='timeline_block'>
-        <TWEET_SVG username={username} text={text} date={date} likes={likes} rts={rts} replies={replies} />    
+        <TWEET_SVG username={username} text={text} date={date} likes={likes} rts={rts} replies={replies} image={image}  />    
         <motion.div className='timeline_text' animate={animation_movein}>
           <p>{name}</p>
           <h3>{date}</h3>

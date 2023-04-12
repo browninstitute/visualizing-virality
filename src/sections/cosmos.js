@@ -20,7 +20,7 @@ const cosmos_config = {
     nodeColor: "#585858",
     nodeGreyoutOpacity: 0.1,
     linkWidth: 0.1,
-    linkColor: "#CBCBCB",
+    linkColor: "#585858",
     linkArrows: false,
     linkGreyoutOpacity: 0,
     simulation: {

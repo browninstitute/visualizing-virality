@@ -16,7 +16,15 @@ export function TIMELINE_LINE(){
     return(
       <div className='timeline_line' ref={ref} >
         <svg className='line_svg' viewBox="0 0 10 4212" fill="none" preserveAspectRatio='xMidYMax meet' style={{ pointerEvents: "all" }}>
-          <motion.path d="M6.97644 1L3.09038 4117.28L3.00002 4212" stroke="#009EFF" strokeWidth="6" pathLength={pathLength_timeline}/>
+          <defs>
+            <linearGradient id="byDayColor" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#009EFF" stopOpacity="100%" />
+              <stop offset="67%" stopColor="#009EFF" stopOpacity="100%" />
+              <stop offset="67%" stopColor="#01568a" stopOpacity="100%" />
+              <stop offset="100%" stopColor="#01568a" stopOpacity="100%" />
+            </linearGradient>
+          </defs>
+          <motion.path d="M6.97644 1L3.09038 4117.28L3.00002 4212" stroke="url(#byDayColor)" strokeWidth="6" pathLength={pathLength_timeline}/>
         </svg>
   
       </div>

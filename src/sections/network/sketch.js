@@ -5,18 +5,21 @@ const timeToNode = new Map();
 const nameMap = new Map();
 const followerMap = new Map();
 const parentMap = new Map();
-let slider;
+const infoToLoadMap = new Map();
 var names = [];
 var startpoint = 0;
-let pause = false;
-let adjFrame = 0;
+
+//pause value
+let pause = true;
+let adjFrame = -1;
 let popsound;
-let demotionVal = 1;
+let firstClick = true;
+//tweetset input values
+let demotionVal = 0;
+let tweetSet = 'BRADY';
+
 let demotionDen = 10;
-//make restart
-//pause
-//click to end
-//histogram
+
 let histogram_x = 0;
 let histogram_y = 0;
 let histogram_width = 0;
@@ -31,12 +34,20 @@ const num_bars = 150;
 let hist_times = new Array(num_bars).fill(0);
 let hist_heights_blue = new Array(num_bars).fill(0);
 let hist_heights_pink = new Array(num_bars).fill(0);
+let hist_heights_grey = new Array(num_bars).fill(0);
+
 
 let cur_bar = 0
 let tweetimg;
-
+let bradyMap = new Map([
+  ['table', 'links2.csv'],
+  ['nodes_table', 'nodes_tb.csv'],
+  ['info_table', 'users_tb.csv'],
+  ['key_accounts', ['a','b', 'c']]
+]);
 
 function preload() {
+  infoToLoadMap.set("Brady", bradyMap);
   table = loadTable('links2.csv', 'csv', 'header');
   nodes_table = loadTable('nodes_tb.csv', 'csv', 'header');
   info_table = loadTable('users_tb.csv', 'csv', 'header');
@@ -48,10 +59,10 @@ function preload() {
 }
 
 function setup() { 
-  slider = createSlider(0, 10, 0, 1);
+ /* slider = createSlider(0, 10, 0, 1);
   slider.position((windowWidth/30)/load_factor, (windowHeight/20)/load_factor);
   slider.style('width', '500px');
-  slider.style('height', '300px');
+  slider.style('height', '300px');*/
   restartNetwork();
   
   //histogram
@@ -77,6 +88,16 @@ function setup() {
 function mouseClicked() {
 
   pause = !pause;
+
+  if (firstClick)
+  {
+  network.update();
+ 
+  network.feedforward(1, 1);
+  newNode.fire();
+  firstClick = false;
+  }
+ 
   
 
 }
@@ -100,12 +121,28 @@ function draw() {
   textSize((windowHeight/40)/load_factor);
 
   text(formatTime(round(exp(adjFrame/timescale),1)), (windowWidth/30)/load_factor, (windowHeight/10)/load_factor);
+  textSize((windowHeight/60)/load_factor);
+  
+  text("Direct followers of original poster who engaged with tweet", (3/2)*(windowWidth/20)/load_factor, (2.1*windowHeight/10)/load_factor);
+  text("Other accounts who engaged with tweet", (3/2)*(windowWidth/20)/load_factor, (3.1*windowHeight/10)/load_factor);
+  text("Accounts who originally engaged with tweet, but would not under this level of demotion", (3/2)*(windowWidth/20)/load_factor, (4.1*windowHeight/10)/load_factor);
+  text("Time", (3/2)*(windowWidth/20)/load_factor, (9.2*windowHeight/10)/load_factor);
+ 
+  text("Number of Engagements", (windowWidth/30)/load_factor, (5.5*windowHeight/10)/load_factor);
+  if(pause)
+  {
+    fill(200,200,200, 100);
+    triangle((4.5/10)*windowWidth, (2/5)*windowHeight,(4.5/10)*windowWidth, (3/5)*windowHeight, (5.5/10)*windowWidth, (1/2)*windowHeight);
+  }
 
-  text("Adjust Demotion", (windowWidth/30)/load_factor, (2*windowHeight/10)/load_factor);
 
-  text("Reset [SPACE]", (windowWidth/30)/load_factor, (3*windowHeight/10)/load_factor);
+  //text("Adjust Demotion", (windowWidth/30)/load_factor, (2*windowHeight/10)/load_factor);
 
-  image(tweetimg,(windowWidth/30)/load_factor, (3.5*windowHeight/10)/load_factor, 0.75*(windowWidth/3)/load_factor,0.75*(windowHeight/4)/load_factor );
+ // text("Reset [SPACE]", (windowWidth/30)/load_factor, (3*windowHeight/10)/load_factor);
+
+  makeKey();
+
+  //image(tweetimg,(windowWidth/30)/load_factor, (3.5*windowHeight/10)/load_factor, 0.75*(windowWidth/3)/load_factor,0.75*(windowHeight/4)/load_factor );
   if (!pause)
   {
     adjFrame++;
@@ -113,23 +150,30 @@ function draw() {
   }
   //network.displayConnections();
   network.display();
-  demotionVal = slider.value();
+  //demotionVal = slider.value();
 
 
 
   //histogram
   for (let i=0; i < cur_bar; i++){
     xpos = int(map(i,0,num_bars,histogram_x,histogram_x+histogram_width)) 
-    y1 = histogram_y+histogram_height
-    y2 = int(map(hist_heights_blue[i],0,max_bar_height,histogram_y+histogram_height,histogram_y))
-    y3 = int(map(hist_heights_pink[i],0,max_bar_height,histogram_y+histogram_height,histogram_y))
+    y1 = histogram_y+histogram_height;
+    y2 = int(map(hist_heights_blue[i],0,max_bar_height,histogram_y+histogram_height,histogram_y));
+    y3 = int(map(hist_heights_pink[i],0,max_bar_height,histogram_y+histogram_height,histogram_y));
+    y4 = int(map(hist_heights_grey[i]+hist_heights_pink[i]+hist_heights_blue[i],0,max_bar_height,histogram_y+histogram_height,histogram_y));
     //strokeWeight(10);
+    
+
+    stroke(200,200,200);
+    line(xpos, y1, xpos, y4);
     stroke(29, 161, 242);
-    line(xpos,y1,xpos,y2)
-    stroke(200,154,222);
-    line(xpos, y2, xpos, y2-(y1-y3))
+    line(xpos,y1,xpos,y2);
+    stroke(65, 105, 225);
+    y5 = y2-(y1-y3);
+    line(xpos, y2, xpos, y5);
+ 
+
   }
-  console.log(hist_heights_blue[cur_bar])
   if ( (hist_times[cur_bar] - round(exp(adjFrame/timescale),1))  <= 0 ){
     cur_bar = cur_bar + 1
   }
@@ -214,6 +258,8 @@ function restartNetwork()
 
 
 
+  network.displayConnections();
+  network.display();
 
 
   //normalize distances (iterate through and make everything within a certain radius from another)
@@ -224,18 +270,14 @@ function restartNetwork()
   {
   //network.orient();
   }
-  network.update();
- 
-  network.displayConnections();
-  network.display();
-  network.feedforward(1, 1);
-  newNode.fire();
+  
   //fill(200,200,200);
   //rect(200, 600, 700, 700);
 
   cur_bar = 0
   hist_heights_blue = new Array(num_bars).fill(0)
   hist_heights_pink = new Array(num_bars).fill(0)
+  hist_heights_grey = new Array(num_bars).fill(0)
 
 }
 
@@ -303,6 +345,17 @@ function formatTime (seconds)
   minutes = round((seconds%3600)/60, 0); 
   finseconds = round((seconds%3600)%60, 1);
   return (nf(hours, 2, 0) + " hours, " + nf(minutes, 2, 0) + " min, "  + nf(finseconds, 2, 1) + " seconds after tweet");
+}
+
+function makeKey()
+{
+  fill(65, 105, 225, 200);
+  ellipse((windowWidth/20)/load_factor, (2*windowHeight/10)/load_factor, 0.75*windowWidth/20);
+  fill(29, 161, 242, 200);
+  ellipse((windowWidth/20)/load_factor, (3*windowHeight/10)/load_factor, 0.75*windowWidth/20);
+  fill(220,220, 220, 120);
+  ellipse((windowWidth/20)/load_factor, (4*windowHeight/10)/load_factor, 0.75*windowWidth/20);
+
 }
 
 function Network(x, y) {
@@ -394,6 +447,8 @@ function Network(x, y) {
   }
 }
 
+
+
 function Neuron(x, y, name, active, radius, time, isFirst) {
   
   this.position = createVector(x, y);
@@ -403,6 +458,7 @@ function Neuron(x, y, name, active, radius, time, isFirst) {
   this.isTouched = false;
   this.name = name;
   this.active = active;
+  this.seen = false;
   this.time = time;
   this.isSending = false;
   this.isFirst = isFirst;
@@ -414,6 +470,7 @@ function Neuron(x, y, name, active, radius, time, isFirst) {
   this.feedforward = function(input) {
   //  console.log(input);
     this.sum += input;
+   
   /*  if (this.sum > 0) {
       //this.fire();
       this.sum = 0;
@@ -437,6 +494,16 @@ function Neuron(x, y, name, active, radius, time, isFirst) {
   }
   
   this.fire = function() {
+    if (!this.isSending && this.sum <=0 && demotionVal>0)
+    {
+      if (!this.seen)
+      {
+       hist_heights_grey[cur_bar] = hist_heights_grey[cur_bar] + 1;
+      }
+      this.seen = true;
+
+    }
+
     if (!this.isSending && this.sum > 0)
     {
     //popsound.play();
@@ -454,10 +521,15 @@ function Neuron(x, y, name, active, radius, time, isFirst) {
     }
     for (var i = 0; i < this.connections.length; i++) {
       let rand = random(demotionDen);
-      if (this.active && rand>demotionVal)
+      if (this.active)
       {
-       this.connections[i].feedforward(this.sum);
+        if (rand>=demotionVal)
+        {
+          this.connections[i].feedforward(this.sum);
+        }
+
       }
+      
      //  this.connections[i].isTouched = true;
     }
   }
@@ -483,32 +555,16 @@ function Neuron(x, y, name, active, radius, time, isFirst) {
         fill(29, 161, 242, 100);
       if (this.isFirst =='first')
       {
-        fill(200,154,222, 150);
+        fill(220, 208, 255, 100);
         scaler = 200/load_factor;
 
       }
       if (this.isFirst == 'second')
       {
-        fill(218,112,214, 150);
+        fill(65, 105, 225, 150);
 
       }
-      /*if (this.connections.length > 10)
-      {
-      ellipse(this.position.x, this.position.y, this.r*3, this.r*3);
-      }
-      if (this.connections.length > 30)
-      {
-      ellipse(this.position.x, this.position.y, this.r*7, this.r*7);
-      }
-      if (this.connections.length > 100)
-      {
-        ellipse(this.position.x, this.position.y, this.r*9, this.r*9);
-        fill(200);
-        // stroke(200);
-        textSize(10);
-        text(this.name, this.position.x, this.position.y);
-  
-      }*/
+
      
       ellipse(this.position.x, this.position.y, scaler*this.r, scaler*this.r);
       //console.log(this.r);
@@ -519,6 +575,14 @@ function Neuron(x, y, name, active, radius, time, isFirst) {
 
 
       }
+
+    }
+
+    //state without demotion
+    if (this.seen)
+    {
+      fill(220,220,220, 50);
+      ellipse(this.position.x, this.position.y, scaler*this.r, scaler*this.r);
 
     }
   

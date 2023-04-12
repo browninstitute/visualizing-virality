@@ -1,3 +1,6 @@
 export const selection_network = {
-    selection: ""
+    selection: "BRADY",
+    selection_text: "@TomBrady",
+    category_text: "Sports",
+    demotion: 3,
 }

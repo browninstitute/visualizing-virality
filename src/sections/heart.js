@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useInView } from "react-intersection-observer"; 
-import {AnimatePresence, motion} from "framer-motion/dist/framer-motion";
+import { useInView } from "react-intersection-observer";
+import { AnimatePresence, motion } from "framer-motion";
 
 export const Heart = () => {
   const [isVisible, setIsVisible] = useState(false);

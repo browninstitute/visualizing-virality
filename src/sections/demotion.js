@@ -3,9 +3,9 @@ import { AppearingText } from "./appearingtext"
 export function DEMOTION({UserSelection, SetterUserSelection}){
     return (
         <div className="demotion_section container">
-            <div className="row demotionText">
+            {/* <div className="row demotionText">
                 DEMOTIoN ONBOARDING
-            </div>
+            </div> */}
             <AppearingText>
             <div className="row demotionText basicText">
                 Now let's see the effect demotion has on {UserSelection.username}'s tweet we explored earlier.

@@ -1,18 +1,17 @@
 import {selection_network} from './selection';
 import {TWEET_SVG} from './tweet_svg';
 import {useRef} from 'react';
-import Carousel from "framer-motion-carousel";
 import {useInView} from 'react-intersection-observer';
 import {motion, useScroll, useTransform} from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 import {styles_with_css} from'./motion.ts'
 
 import {NETWORK1} from './network_p5/network1';
+import {NETWORK2} from './network_p5/network2';
 import {ALGORITHM} from './algorithm';
 import {DEMOTION} from './demotion';
 import {SELECTION_MENU} from './selection_menu';
 import {OUTRO} from './outro';
-import {NETWORK2} from './network/network2';
 import {ReactP5Wrapper} from 'react-p5-wrapper';
 
 import brady_p from '../assets/brady_profile.jpg'
@@ -40,7 +39,7 @@ export function SELECTION_SECTION(){
                     likes: "111.7K",
                     rts: "4788",
                     replies: "2923",
-                    image: brady_p,
+                    // image: brady_p,
                     // t_image: null,
                     // t_vid: null,
                     demotion: 3,
@@ -55,7 +54,7 @@ export function SELECTION_SECTION(){
                     likes: "34.5K",
                     rts: "9840",
                     replies: "363",
-                    image: black_p,
+                    // image: black_p,
                     // t_image: black_i,
                     // t_vid: null,
                     demotion: 3,
@@ -70,7 +69,7 @@ export function SELECTION_SECTION(){
                     likes: "80.9K",
                     rts: "18.4k",
                     replies: "19.9k",
-                    image: mccarthy_p,
+                    // image: mccarthy_p,
                     // t_image: null,
                     // t_vid:mccarthy_v,
                     demotion: 3,
@@ -85,7 +84,7 @@ export function SELECTION_SECTION(){
                     likes: "111.7K",
                     rts: "4788",
                     replies: "2923",
-                    image: brady_p,
+                    // image: brady_p,
                     // t_image: null,
                     // t_vid: null,
                     demotion: 3,
@@ -109,7 +108,7 @@ export function SELECTION_SECTION(){
         new_selection["likes"] = n_keyvals.likes
         new_selection["rts"] = n_keyvals.rts
         new_selection["replies"] = n_keyvals.replies
-        new_selection["image"] = n_keyvals.image
+        // new_selection["image"] = n_keyvals.image
         // new_selection["t_image"] = n_keyvals.t_image
         // new_selection["t_vid"] = n_keyvals.t_vid
 
@@ -124,7 +123,7 @@ export function SELECTION_SECTION(){
             
             <ALGORITHM UserSelection={selection} />
             <DEMOTION UserSelection={selection} SetterUserSelection={updateSelection} />
-            {/* <NETWORK2 UserSelection={selection} /> */}
+            <NETWORK2 UserSelection={selection} />
             <OUTRO UserSelection={selection} />
         </>
     );

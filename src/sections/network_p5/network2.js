@@ -45,7 +45,7 @@ function sketch(fp5) {
     let firstClick = true;
     //tweetset input values
     let tweetSet = 'BRADY';
-    let demotionVal = 0;
+    
     let demotionDen = 10;
 
     let histogram_x = 0;
@@ -381,7 +381,7 @@ function sketch(fp5) {
         
         this.fire = function() {
             
-            if (!this.isSending && this.sum <=0 && demotionVal>0)
+            if (!this.isSending && this.sum <=0 && selection_user.demotion>0)
             {
             if (!this.seen)
             {
@@ -410,7 +410,7 @@ function sketch(fp5) {
             let rand = fp5.random(demotionDen);
             if (this.active)
             {
-                if (rand>=demotionVal)
+                if (rand>=selection_user.demotion)
                 {
                 
                 this.connections[i].feedforward(this.sum);
@@ -572,7 +572,7 @@ function sketch(fp5) {
 
 
                 Object.assign(selection_user, props.selection_user);
-                console.log(selection_user)
+
                 switch (props.selection_user.username){
                     case "@TomBrady":
                         table=table_tb;
@@ -613,7 +613,7 @@ function sketch(fp5) {
 
 
 }
-export function NETWORK1({UserSelection}){
+export function NETWORK2({UserSelection}){
 
   return(
     <div className="network_section" id="network_demotion">

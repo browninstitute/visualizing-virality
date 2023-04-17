@@ -6,7 +6,7 @@ export function OUTRO({UserSelection}){
     }
     return (
         <div className="outro_section">
-              demoted by: {demotionval}, for username: {username}
+              {/* demoted by: {demotionval}, for username: {username} */}
         </div>
     );
 }

@@ -22,9 +22,8 @@ function sketch(fp5) {
         rts: "4788",
         replies: "2923",
         image: brady_p,
-        // t_image: null,
-        // t_vid: null,
-        demotion: 3,
+        t_image: null,
+        t_vid: null,
     };
     let canvas_second;
     var network;
@@ -39,7 +38,7 @@ function sketch(fp5) {
     var startpoint = 0;
     var newNode;
     //pause value
-    let pause = false;
+    let pause = true;
     let adjFrame = -1;
     let popsound;
     let firstClick = true;
@@ -564,13 +563,8 @@ function sketch(fp5) {
     fp5.updateWithProps = props => {
         console.log(props)
         console.log(selection_user)
-        if (props.selection_user) {
-            
-            
-
+        if (props.selection_user && props.selection_user.username != selection_user.username) {
             if (canvas_second){
-
-
                 Object.assign(selection_user, props.selection_user);
                 console.log(selection_user)
                 switch (props.selection_user.username){
@@ -592,6 +586,20 @@ function sketch(fp5) {
                 }
 
                 restartNetwork();
+                props.network_pause_set(true);
+            }
+        }
+
+        if (props.network_reset) {
+            if (canvas_second){
+                restartNetwork();
+                props.network_reset_set(false);
+                props.network_pause_set(true);
+            }
+        }
+        if (props.network_pause != pause) {
+            if (canvas_second){
+                pause = props.network_pause;                
             }
         }
     };
@@ -613,13 +621,27 @@ function sketch(fp5) {
 
 
 }
-export function NETWORK1({UserSelection}){
+export function NETWORK1({UserSelection, NetworkPause, SetterNetworkPause, NetworkReset, SetterNetworkReset }){
 
   return(
+    <>
+    <div className="row demotionText">
+        <div className="col-4 demo_but_sec">
+        <button className="demo_but" style={{backgroundColor:"#a7dbfa"}} onClick={() => {
+            SetterNetworkPause(!NetworkPause)
+        }}>Pause</button>
+        </div>
+        <div className="col-4 demo_but_sec">
+        <button className="demo_but" style={{backgroundColor:"#44b8fc"}} onClick={() => {
+            SetterNetworkReset(true)
+        }}>Reset</button>
+        </div>
+    </div>
     <div className="network_section" id="network_demotion">
       <div className='sketch_sec'>
-        <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}></ReactP5Wrapper>
+        <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}  network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset}  ></ReactP5Wrapper>
     </div>
     </div>
+    </>
   )
   }

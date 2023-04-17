@@ -39,10 +39,10 @@ export function SELECTION_SECTION(){
                     likes: "111.7K",
                     rts: "4788",
                     replies: "2923",
-                    // image: brady_p,
-                    // t_image: null,
-                    // t_vid: null,
-                    demotion: 3,
+                    image: brady_p,
+                    t_image: null,
+                    t_vid: null,
+
                 });
             case "@6lack":
                 return ({
@@ -54,10 +54,10 @@ export function SELECTION_SECTION(){
                     likes: "34.5K",
                     rts: "9840",
                     replies: "363",
-                    // image: black_p,
-                    // t_image: black_i,
-                    // t_vid: null,
-                    demotion: 3,
+                    image: black_p,
+                    t_image: black_i,
+                    t_vid: null,
+
                 });
             case "@SpeakerMcCarthy":
                 return ({
@@ -69,10 +69,10 @@ export function SELECTION_SECTION(){
                     likes: "80.9K",
                     rts: "18.4k",
                     replies: "19.9k",
-                    // image: mccarthy_p,
-                    // t_image: null,
-                    // t_vid:mccarthy_v,
-                    demotion: 3,
+                    image: mccarthy_p,
+                    t_image: null,
+                    t_vid:mccarthy_v,
+
                 });
             default:
                 return ({
@@ -84,17 +84,17 @@ export function SELECTION_SECTION(){
                     likes: "111.7K",
                     rts: "4788",
                     replies: "2923",
-                    // image: brady_p,
-                    // t_image: null,
-                    // t_vid: null,
-                    demotion: 3,
+                    image: brady_p,
+                    t_image: null,
+                    t_vid: null,
+
                 });
         }
     }
 
 
     const [selection, setSelection] = useState(getkeyvals("@TomBrady"));
-    const updateSelection = (t_uname, t_demotion) => {
+    const updateSelection = (t_uname) => {
 
         console.log('changing to: ' + t_uname)
         let new_selection = Object.create(null);
@@ -108,22 +108,46 @@ export function SELECTION_SECTION(){
         new_selection["likes"] = n_keyvals.likes
         new_selection["rts"] = n_keyvals.rts
         new_selection["replies"] = n_keyvals.replies
-        // new_selection["image"] = n_keyvals.image
-        // new_selection["t_image"] = n_keyvals.t_image
-        // new_selection["t_vid"] = n_keyvals.t_vid
-
-        new_selection["demotion"] = t_demotion
+        new_selection["image"] = n_keyvals.image
+        new_selection["t_image"] = n_keyvals.t_image
+        new_selection["t_vid"] = n_keyvals.t_vid
         setSelection(new_selection)
+    };
+
+    const [demotion, setDemotion] = useState(3);
+    const updateDemotion = (t_demotion) => {
+        console.log('changing demotion to: ' + t_demotion)
+        setDemotion(t_demotion)
+    };
+
+
+    const [pauseN1, setPauseN1] = useState(true);
+    const updatePauseN1 = (pause) => {
+        setPauseN1(pause)
+    };
+    const [pauseN2, setPauseN2] = useState(true);
+    const updatePauseN2 = (pause) => {
+        setPauseN2(pause)
+    };
+
+
+    const [resetN1, setResetN1] = useState(false);
+    const updateResetN1 = (reset) => {
+        setResetN1(reset)
+    };
+    const [resetN2, setResetN2] = useState(false);
+    const updateResetN2 = (reset) => {
+        setResetN2(reset)
     };
 
     return (
         <>
             <SELECTION_MENU UserSelection={selection} SetterUserSelection={updateSelection} />
-            <NETWORK1 UserSelection={selection}  />
+            <NETWORK1 UserSelection={selection} NetworkPause={pauseN1} SetterNetworkPause={updatePauseN1} NetworkReset={resetN1} SetterNetworkReset={updateResetN1} />
             
             <ALGORITHM UserSelection={selection} />
-            <DEMOTION UserSelection={selection} SetterUserSelection={updateSelection} />
-            <NETWORK2 UserSelection={selection} />
+            <DEMOTION UserSelection={selection} UserDemotion={demotion} SetterUserDemotion={setDemotion}  />
+            <NETWORK2 UserSelection={selection} UserDemotion={demotion} NetworkPause={pauseN2} SetterNetworkPause={updatePauseN2} NetworkReset={resetN2} SetterNetworkReset={updateResetN2} />
             <OUTRO UserSelection={selection} />
         </>
     );

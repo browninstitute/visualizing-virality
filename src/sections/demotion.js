@@ -1,6 +1,6 @@
 import { AppearingText } from "./appearingtext"
 
-export function DEMOTION({UserSelection, SetterUserSelection}){
+export function DEMOTION({UserSelection, UserDemotion, SetterUserDemotion}){
     return (
         <div className="demotion_section container">
             {/* <div className="row demotionText">
@@ -14,23 +14,23 @@ export function DEMOTION({UserSelection, SetterUserSelection}){
             <div className="row demotionText">
                 <div className="col-4 demo_but_sec">
                 <button className="demo_but" style={{backgroundColor:"#a7dbfa"}} onClick={() => {
-                    SetterUserSelection(UserSelection.username, 3)
+                    SetterUserDemotion( 3)
                 }}>Low</button>
                 </div>
 
                 <div className="col-4 demo_but_sec">
                 <button className="demo_but" style={{backgroundColor:"#44b8fc"}} onClick={() => {
-                    SetterUserSelection(UserSelection.username, 6)
+                    SetterUserDemotion( 6)
                 }}>Medium</button>
                 </div>
 
                 <div className="col-4 demo_but_sec">
                 <button className="demo_but" style={{backgroundColor:"#076ba6"}} onClick={() => {
-                    SetterUserSelection(UserSelection.username, 9)
+                    SetterUserDemotion( 9)
                 }}>High</button>
                 </div>
-        </div>
-        <AppearingText>
+            </div>
+            <AppearingText>
         <div className="row demotionText basicText">
                 Use the above buttons to control the level of demotion in the visual below.
             </div>

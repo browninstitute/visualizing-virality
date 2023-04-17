@@ -3,6 +3,19 @@
     padding: 0;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Asap", sans-serif;
+}
+
+html {
+  background-color: #1DA1F2;
+  font-family: "Asap", sans-serif;
+
+}
 canvas {
     object-fit: cover;
     object-position: center;
@@ -12,30 +25,126 @@ canvas {
     min-width: 100%;
 }
 
+.icon {
+  border-radius: 100%;
+  width:10vh;
+  margin: 10%;
+  
+}
+
+.basic_wrapper {
+  background: #fff;
+      margin-top: 5%;
+      border-radius:20px;
+      padding: 2%;
+      display: inline-block;
+      width: 80%;
+
+}
+
+.selection_but {
+  background: #77bcfd;
+  color: white;
+  font-size: x-large;
+  padding: 20%;
+  border-radius: 20px;
+  border-width: 0px;
+}
+
+.blackDots {
+  text-decoration: dotted;
+  text-decoration-color:black;
+  text-decoration-line: underline;
+}
+.pink {
+  color: pink;
+}
+
+.darkBlue {
+  color: royalblue;
+}
+
+.lightBlue {
+  color:#abd5ef;
+}
+
+.demo_but_sec{
+  align-items: center;
+  text-align: center;
+}
+
+.demo_but {
+  padding: 20%;
+  border-radius: 20px;
+  font-size: xx-large;
+  border-width: 0px;
+  color: white;
+}
+
+.demotionText {
+  text-align: center;
+  margin: 5%;
+}
+
+.demo_but:hover {
+  border-width: 2px;
+  border-color: white;
+  border-style: dashed;
+}
+
+.algorithm_section {
+  padding: 10%;
+}
+.tweet_intro {
+ // margin: 10%;
+  padding: 10%;
+}
+.center {
+  text-align: center;
+}
+
+.basicText {
+  color: white;
+  font-size: 3vw;
+  padding: auto;
+  margin-top: 40%;
+}
+.selection_but:hover {
+  background: #5189be;
+  color: white;
+  font-size: x-large;
+  padding: 20%;
+  border-radius: 20px;
+  border-width: 0px;
+}
 body{
-    font-family: "Segoe UI", Arial, sans-serif;
+    font-family: "Asap", sans-serif;
     z-index: 0;
     font-size: 2em;
     color: darkgray;
-    background-color: #0A6BA8 ;
+    background-color:  #1DA1F2 ;
     // .sections_wrapper{
     height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
+  
 
     & * > .tweet-wrap {
                   
-      max-width:300px;
+      //max-width:300px;
       background: #fff;
       margin-top: 0%;
       border-radius:20px;
       padding: 2%;
       display: inline-block;
+      max-width: fit-content;
+
     }
     & * > .tweet-header {
       display: flex;
       align-items:flex-start;
       font-size:1rem;
+      max-width: fit-content;
       .avator{
           border-radius:100px;
           width:48px;
@@ -82,6 +191,7 @@ body{
     scroll-snap-align: start;
     position: relative;
     height: 140vh;
+    background-color: #1DA1F2;
     
       .parallax_layer{
           position: absolute;
@@ -218,7 +328,7 @@ body{
   .counter {
     transition: --num 4s;
     counter-set: num var(--num);
-    font: 800 40px system-ui;
+    font-size: 20vw;
     --num: 0;
 
   }
@@ -288,21 +398,66 @@ body{
     }
   }
 
+  .text_div{
+    //position: absolute;
+    align-items:center;
+    display:block;
+    justify-content: left;
+    top: 0;
+    height: 100vh;
+   
+    //font-size: 2rem;
+    position: sticky;
+  }
+
+    //decoration
+
+    .under {
+      text-decoration: underline;
+      text-decoration-style: solid;
+      text-decoration-color: #0b5684;
+    }
+
+    span {
+      display: inline;
+    }
+
+
+    .big  {
+      font-size: 6vw;
+    }
     //ONBOARDING SECTION CSS
     .onboarding{
 
         height: 1500vh;
         width: 100vw;
         position: relative;
+        font-family: "Asap", sans-serif;
+        font-size: xx-large;
+        color: white;
 
        
+
+        .reveal{
+          position: relative;
+          transform: translateY(150px);
+          opacity: 0;
+          transition: 1s all ease;
+        }
 
 
         .onboarding_text{
           height: 1500vh;
           position: absolute;
-          width: 100%;
+          //width: 100%;
           color: white;
+
+         
+
+          .short {
+            height:50vh;
+            text-align: center;
+          }
           
 
           & * > .text_div{
@@ -312,9 +467,9 @@ body{
             justify-content: left;
             top: 0;
             height: 100vh;
-            left: 5%;
+            font-size: 3vw;
             width: 100%;
-            font-size: 2rem;
+            //font-size: 2rem;
             position: sticky;
           }
 
@@ -337,6 +492,7 @@ body{
             height: 150vh;
             position: relative;
             margin-left: 2%;
+            transform: translateY(0);
 
                                  
           }
@@ -349,14 +505,22 @@ body{
           .viral_text3{
             height: 250vh;
             position: relative;
-            width: 35%;
+            width: 65%;
+            display: flex;
+            //white-space: nowrap;
             margin-left: 2%;
+            text-align: center;
 
           }
           .viral_text4{
             height: 170vh;
-            position: relative;
+            //position: relative;
             margin-left: 2%;
+            display: flex;
+            
+          .row {
+            display: inline;
+          }
 
           }
           .january_text1{
@@ -408,6 +572,15 @@ body{
             margin: 2%;
             
           }
+
+          .welcome {
+            font-size: 10vw;
+            position: relative;
+          }
+
+          .tweets_div {
+            color: darkgray;
+          }
           .median_tweets{
             height: 250vh;
             width: 50vw;
@@ -426,12 +599,15 @@ body{
             }
 
           }
+
+        
           .stacked_bars{
             //position: relative;
             height: 770vh;
             width: 100vw;
             color: white;
             align-items: center;
+            z-index: 1000;
             .bars_div{
               height: 100vh;
               width: 100vw;
@@ -482,10 +658,23 @@ body{
           }
 
         }
+
+        .text_div{
+          //position: absolute;
+          align-items:center;
+          display:flex;
+          justify-content: left;
+          top: 0;
+          height: 100vh;
+         
+          font-size: 2rem;
+          position: sticky;
+        }
         .onboarding_tweets{
           height: 950vh;
-          width: 100vw;
-          position: absolute;
+          //width: 100vw;
+          justify-content: center;
+          //position: absolute;
           .tweets_padding{
             height: 50vh;
             position: relative;
@@ -497,7 +686,7 @@ body{
               position: sticky;
               top: 0;
               height: 100vh;
-              width: 100vw;        
+              //width: 100vw;        
               display: flex;
   
               flex-direction: column;
@@ -639,7 +828,7 @@ body{
     .timeline_wrap{
         height: 400vh;           
         width: 100vw;
-        background-color: white;
+        background-color: #1DA1F2;
         .timeline_intro{
             z-index: 0;
             display: flex;
@@ -657,7 +846,7 @@ body{
                 position: absolute;
                 z-index: 0;
                 left: 0;
-                top: 3vh;
+                top:0;
                 width: 100%;
                 height: 100%;
                 text-align: center;
@@ -674,6 +863,7 @@ body{
                 display: flex;
                 flex-flow: column;
                 margin-top: 0;
+
                 box-sizing: border-box;
 
                 .timeline_block{
@@ -695,9 +885,13 @@ body{
                   
                   .timeline_block:nth-child(odd){
                     text-align: right;
+                    margin-left: -5vh;
+
                     .tweet-wrap{
                       right: 10px;
-                      margin-right: -2.5vw;
+                      width:30vw;
+                      text-align: left;
+
                     }
                     .timeline_text{
                       left:50.76%;
@@ -732,76 +926,12 @@ body{
       width: 100vw;
       display: flex;
       align-items: center;
-      position: relative;
       justify-content: center;
       inset: 0;
+      position: relative;
       .sketch_sec{
         height: 100vh;
         width: 100vw;
-        overflow: hidden;
-      }
-    }
-
-    .demotion_sec{
-      height: 300vh;
-      width: 100vw;
-      position: relative;
-      .text_wrapper{
-        height: 300vh;
-        width: 100vw;
-        position: absolute;
-        .text_div1{
-          height: 100vh;
-          width: 100vw;
-          position: relative;
-          .text{
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            align-items: center;
-            position: relative;
-            justify-content: start;
-            left: 10%;
-          }
-        }
-        .text_div2{
-          height: 200vh;
-          width: 100vw;
-          position: relative;
-          .text{
-            height: 100vh;
-            width: 100vw;
-            position: sticky;
-            top: 0;
-            display: flex;
-            align-items: center;
-            justify-content: start;
-            left: 10%;
-          }
-        }
-      }
-      .tweets_wrapper{}
-    }
-    .slider{
-      height: 100vh;
-      width: 100vw;
-
-      .text_div{
-        position: relative;
-        height: 40vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100vw;
-      }
-      .slider_div{
-        position: relative;
-        height: 60vh;
-        width: 100vw;
-        display: flex;
-        align-items: center;
-        position: relative;
-        justify-content: center;
       }
     }
     

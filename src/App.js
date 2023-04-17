@@ -9,7 +9,7 @@ import {cosmos_config, cosmos_links, cosmos_nodes} from './sections/cosmos';
 import {useInView} from 'react-intersection-observer';
 import {selection_network} from './sections/selection';
 import {styles_with_css} from'./sections/motion.ts';
-import {ONBOARDING_INTRO} from './sections/onboarding_intro';
+import {ONBOARDING_INTRO} from './sections/onboarding_bootstrap';
 import { ONBOARDING_METHODOLOGY } from './sections/onboard_methodology';
 import {TWEET_SVG} from './sections/tweet_svg';
 import { TIMELINE_BLOCK } from './sections/timeline_block';
@@ -18,6 +18,18 @@ import brown_logo from './assets/Brown_logo_FULL.png';
 import kfai_logo from './assets/kfai-full_lockup-rgb-updated.png';
 import {NETWORK1} from './sections/network/network1';
 import {PHONE1} from './sections/phone1';
+import {SELECTION_SECTION} from './sections/selection_section';
+import { SELECTION_LEADUP } from './sections/selection_leadup';
+import { AppearingText } from './sections/appearingtext';
+
+import timeline_profile1 from './assets/timeline_profile1.jpg'
+import timeline_profile2 from './assets/timeline_profile2.jpg'
+import timeline_profile3 from './assets/timeline_profile3.jpg'
+import timeline_profile4 from './assets/timeline_profile4.jpg'
+import timeline_profile5 from './assets/timeline_profile5.jpg'
+import timeline_profile6 from './assets/timeline_profile6.jpg'
+import timeline_profile7 from './assets/timeline_profile7.jpg'
+
 
 
 const headFunc = {
@@ -93,6 +105,7 @@ function App() {
           {/*  */}
           
             <div className='main_text'> <span className='banner_txt floating'>Visualizing Virality</span> </div>
+            <AppearingText>
             <div className='logos floating'>
               <ul>
                 <li>
@@ -108,6 +121,7 @@ function App() {
               </ul>              
                
             </div>
+            </AppearingText>
             
 
             {/* <span className='logos floating'>
@@ -119,6 +133,7 @@ function App() {
 
 
 
+            
 
         <ONBOARDING_INTRO />
         {/* <ONBOARDING_METHODOLOGY></ONBOARDING_METHODOLOGY> */}
@@ -129,21 +144,18 @@ function App() {
         <div className='timeline_sec'>
           <div className='timeline_wrap'>
             
-            <div className='timeline_intro'>
-              Timeline of Viral Tweets
-            </div>
 
             <div className='parallax_wrap'>
               <TIMELINE_LINE />
 
               <div className='timeline_blocks'>
-                <TIMELINE_BLOCK name="Collin Rugg" username="@CollinRugg" text="BREAKING: Elon Musk announces that the Fauci Files will be released later this week." date="01/01/2023" likes="197.2k" rts="16.2" replies="643" image="https://pbs.twimg.com/profile_images/1325087660428447746/4DL2iq76_400x400.jpg"/>
-                <TIMELINE_BLOCK name="Andrey Santos" username="@04Andrey" text="Now. I'm blue! 🔵" likes="112k" rts="8695" replies="1365" date="01/07/2023" image="https://pbs.twimg.com/profile_images/1620267753629179905/UNkID5Ni_400x400.jpg"/>
-                <TIMELINE_BLOCK name="Bizarrap" username="bizarrap" text={"MIÉRCOLES \n @shakira \n || BZRP Music Session #53 \n 🇦🇷🇨🇴"} date="01/10/2023" likes="806k" rts="57.2k" replies="48.1k" image="https://pbs.twimg.com/profile_images/1476851194354036739/pym39QAo_400x400.jpg" />
-                <TIMELINE_BLOCK name="atr_ahre" username="@username" text="text of the tweet" date="01/14/2023" likes="2k" rts="20" replies="10" />
-                <TIMELINE_BLOCK name="SaeedDiCaprio" username="@username" text="text of the tweet" date="01/20/2023" likes="2k" rts="20" replies="10" />
-                <TIMELINE_BLOCK name="2525_pc_" username="@username" text="text of the tweet" date="01/24/2023" likes="2k" rts="20" replies="10" />
-                <TIMELINE_BLOCK name="Jaxajueny" username="@username" text="text of the tweet" date="01/30/2023" likes="2k" rts="20" replies="10" />
+                <TIMELINE_BLOCK name="Collin Rugg" username="@CollinRugg" text="BREAKING: Elon Musk announces that the Fauci Files will be released later this week." date="01/01/2023" likes="197.2k" rts="16.2" replies="643" image={timeline_profile1}/>
+                <TIMELINE_BLOCK name="Andrey Santos" username="@04Andrey" text="Now. I'm blue! 🔵" likes="112k" rts="8695" replies="1365" date="01/07/2023" image={timeline_profile2}/>
+                <TIMELINE_BLOCK name="Bizarrap" username="bizarrap" text={"MIÉRCOLES \n @shakira \n || BZRP Music Session #53 \n 🇦🇷🇨🇴"} date="01/10/2023" likes="806k" rts="57.2k" replies="48.1k" image={timeline_profile3} />
+                <TIMELINE_BLOCK name="atr ahre" username="@atre_ahre" text="Este perrito fue adoptado de una perrera y esta fue su reacción con su nueva familia" date="01/14/2023" likes="242.2k" rts="28.4k" replies="5956" image={timeline_profile4} />
+                <TIMELINE_BLOCK name="Hurt CoPain" username="@SaeedDiCaprio" text="this was the fastest I’ve gotten blocked in my life" date="01/20/2023" likes="360.6k" rts="25.1k" replies="477" image={timeline_profile5} />
+                <TIMELINE_BLOCK name="2525🍎@健全SJK" username="@2525_pc_" text="京都駅が雪に対して欠陥構造すぎておもろい" date="01/24/2023" likes="182.2k" rts="59.6k" replies="4655" image={timeline_profile6} />
+                <TIMELINE_BLOCK name="Taurus Girl" username="@jaxajueny" text="people who wake up at 5 am love to talk about how productive their day was but forget to mention the psychotic episode they have around 6pm" date="01/30/2023" likes="180.6k" rts="14.4k" replies="3447" image={timeline_profile7} />
                 
               </div>
 
@@ -153,12 +165,8 @@ function App() {
 
           
         </div>
-        <div className="phone_buffer">
-          {/* add something for transition here */}
-        </div>
-        <PHONE1 />
-
-
+     
+        <SELECTION_SECTION />
 
 
     </>

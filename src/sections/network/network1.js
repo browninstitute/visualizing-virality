@@ -104,22 +104,6 @@ function sketch(p5) {
     }
   }
 
-  p5.keyPressed = () =>{
-    if (p5.key == ' '){ //this means space bar, since it is a space inside of the single quotes 
-  
-  
-      pause = !pause;
-      if (firstClick)
-      {
-      network.update();
-     
-      network.feedforward(1, 1);
-      newNode.fire();
-      firstClick = false;
-      }
-    }
-  }
-
   p5.draw = () => {
     p5.background(255);
  
@@ -609,7 +593,7 @@ export function NETWORK1(){
 
 
   return(
-    <div className="network_section" id="network_non_demotion">
+    <div className="network_section">
       <div className='sketch_sec'><ReactP5Wrapper sketch={sketch} ></ReactP5Wrapper></div>
       
       

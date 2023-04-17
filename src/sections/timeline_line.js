@@ -18,8 +18,8 @@ export function TIMELINE_LINE(){
         <svg className='line_svg' viewBox="0 0 10 4212" fill="none" preserveAspectRatio='xMidYMax meet' style={{ pointerEvents: "all" }}>
           <defs>
             <linearGradient id="byDayColor" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#009EFF" stopOpacity="100%" />
-              <stop offset="67%" stopColor="#009EFF" stopOpacity="100%" />
+              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="100%" />
+              <stop offset="67%" stopColor="#FFFFFF" stopOpacity="100%" />
               <stop offset="67%" stopColor="#01568a" stopOpacity="100%" />
               <stop offset="100%" stopColor="#01568a" stopOpacity="100%" />
             </linearGradient>

@@ -1,11 +1,26 @@
-import {selection_network} from '../selection'
-import {ReactP5Wrapper} from 'react-p5-wrapper';
+import { P5CanvasInstance, ReactP5Wrapper, SketchProps} from 'react-p5-wrapper';
 // import sketch from './sketchv2.js';
 import t1 from './links2.csv';
 import t2 from './nodes_tb.csv';
 import t3 from './users_tb.csv';
+import brady_p from '../../assets/brady_profile.jpg';
 
-function sketch(p5) {
+function sketch(fp5) {
+  let selection_user = {
+    // name:"Tom Brady",
+    // username: "@TomBrady",
+    // category: "Sports",
+    // text: "Now that I’m retired I have time to go see @80forBrady four separate times today.",
+    // date: "02/03/2023",
+    // likes: "111.7K",
+    // rts: "4788",
+    // replies: "2923",
+    // image: brady_p,
+    // t_image: null,
+    // t_vid: null,
+    demotion: 3,
+};
+  let canvasD;
   var network;
   const map1 = new Map();
   const timeMap = new Map();
@@ -18,12 +33,11 @@ function sketch(p5) {
   var startpoint = 0;
   var newNode;
   //pause value
-  let pause = true;
+  let pause = false;
   let adjFrame = -1;
   let popsound;
   let firstClick = true;
   //tweetset input values
-  let demotionVal = selection_network.demotion;
   let tweetSet = 'BRADY';
 
   let demotionDen = 10;
@@ -57,82 +71,67 @@ function sketch(p5) {
     ['info_table', 'users_tb.csv'],
     ['key_accounts', ['a','b', 'c']]
   ]);
-
-  p5.preload = () => {
+  fp5.updateWithProps = props => {
+    if (props.selection_user) {
+      console.log(props.selection_user)
+      selection_user.demotion = props.selection_user.demotion;
+      if (canvasD){
+        console.log('hi')
+        canvasD = null;
+        restartNetwork();
+      }
+    }
+  };
+  fp5.preload = () => {
     infoToLoadMap.set("Brady", bradyMap);
 
-    table = p5.loadTable(t1, 'csv', 'header');
-    nodes_table = p5.loadTable(t2, 'csv', 'header');
-    info_table = p5.loadTable(t3, 'csv', 'header');
+    table = fp5.loadTable(t1, 'csv', 'header');
+    nodes_table = fp5.loadTable(t2, 'csv', 'header');
+    info_table = fp5.loadTable(t3, 'csv', 'header');
 
     //ok first node may not necessarily be author watch out for that
     
   }
 
-  p5.setup = () => {
+
+  fp5.setup = () => {
+    histogram_x = (fp5.windowWidth/30)/load_factor;
+    histogram_y = (8*fp5.windowHeight/10)/load_factor;
+    histogram_width = (8*fp5.windowWidth/30)/load_factor;
+    histogram_height = (1*fp5.windowHeight/10)/load_factor;
+    // this.canvas = null;
     restartNetwork();
-  
-    //histogram
-    end_time = 0;
-    for (let r = 0; r < nodes_table.getRowCount(); r++)
-    {
-      let n_time = p5.int(parseFloat(nodes_table.getString(r,1)))
-      if (end_time < n_time){
-        end_time  = n_time
-      }
-    }
-  
-
-    bar_times = p5.int( end_time/num_bars )
-    hist_times = Array.from({ length: num_bars}, (_, i) => bar_times + (i * bar_times))
-    histogram_x = (p5.windowWidth/30)/load_factor;
-    histogram_y = (8*p5.windowHeight/10)/load_factor;
-    histogram_width = (8*p5.windowWidth/30)/load_factor;
-    histogram_height = (1*p5.windowHeight/10)/load_factor;
-  }
-
-  p5.mouseClicked = () => {
-
     
-  }
-  p5.keyPressed = () =>{
-    if (p5.key == ' '){ //this means space bar, since it is a space inside of the single quotes 
-  
-  
-      pause = !pause;
-      if (firstClick)
-      {
-      network.update();
-     
-      network.feedforward(1, 1);
-      newNode.fire();
-      firstClick = false;
-      }
-    }
+
+
   }
 
-  p5.draw = () => {
-    p5.background(255);
+
+
+
+  fp5.draw = () => {
+    console.log('drawing')
+    fp5.background(255);
  
     let timescale = 120;
     
-    p5.noStroke();
-    p5.fill(150);
-    p5.textSize((p5.windowHeight/40)/load_factor);
+    fp5.noStroke();
+    fp5.fill(150);
+    fp5.textSize((fp5.windowHeight/40)/load_factor);
   
-    p5.text(formatTime(p5.round(p5.exp(adjFrame/timescale),1)), (p5.windowWidth/30)/load_factor, (p5.windowHeight/10)/load_factor);
-    p5.textSize((p5.windowHeight/60)/load_factor);
+    fp5.text(formatTime(fp5.round(fp5.exp(adjFrame/timescale),1)), (fp5.windowWidth/30)/load_factor, (fp5.windowHeight/10)/load_factor);
+    fp5.textSize((fp5.windowHeight/60)/load_factor);
     
-    p5.text("Direct followers of original poster who engaged with tweet", (3/2)*(p5.windowWidth/20)/load_factor, (2.1*p5.windowHeight/10)/load_factor);
-    p5.text("Other accounts who engaged with tweet", (3/2)*(p5.windowWidth/20)/load_factor, (3.1*p5.windowHeight/10)/load_factor);
-    p5.text("Accounts who originally engaged with tweet, but would not under this level of demotion", (3/2)*(p5.windowWidth/20)/load_factor, (4.1*p5.windowHeight/10)/load_factor);
-    p5.text("Time", (3/2)*(p5.windowWidth/20)/load_factor, (9.2*p5.windowHeight/10)/load_factor);
+    fp5.text("Direct followers of original poster who engaged with tweet", (3/2)*(fp5.windowWidth/20)/load_factor, (2.1*fp5.windowHeight/10)/load_factor);
+    fp5.text("Other accounts who engaged with tweet", (3/2)*(fp5.windowWidth/20)/load_factor, (3.1*fp5.windowHeight/10)/load_factor);
+    fp5.text("Accounts who originally engaged with tweet, but would not under this level of demotion", (3/2)*(fp5.windowWidth/20)/load_factor, (4.1*fp5.windowHeight/10)/load_factor);
+    fp5.text("Time", (3/2)*(fp5.windowWidth/20)/load_factor, (9.2*fp5.windowHeight/10)/load_factor);
    
-    p5.text("Number of Engagements", (p5.windowWidth/30)/load_factor, (5.5*p5.windowHeight/10)/load_factor);
+    fp5.text("Number of Engagements", (fp5.windowWidth/30)/load_factor, (5.5*fp5.windowHeight/10)/load_factor);
     if(pause)
     {
-      p5.fill(200,200,200, 100);
-      p5.triangle((4.5/10)*p5.windowWidth, (2/5)*p5.windowHeight,(4.5/10)*p5.windowWidth, (3/5)*p5.windowHeight, (5.5/10)*p5.windowWidth, (1/2)*p5.windowHeight);
+      fp5.fill(200,200,200, 100);
+      fp5.triangle((4.5/10)*fp5.windowWidth, (2/5)*fp5.windowHeight,(4.5/10)*fp5.windowWidth, (3/5)*fp5.windowHeight, (5.5/10)*fp5.windowWidth, (1/2)*fp5.windowHeight);
     }
   
   
@@ -150,31 +149,31 @@ function sketch(p5) {
     }
     //network.displayConnections();
     network.display();
-    //demotionVal = slider.value();
+    //selection_user.demotion = slider.value();
   
   
   
     //histogram
     for (let i=0; i < cur_bar; i++){
-      let xpos = p5.int(p5.map(i,0,num_bars,histogram_x,histogram_x+histogram_width)) 
+      let xpos = fp5.int(fp5.map(i,0,num_bars,histogram_x,histogram_x+histogram_width)) 
       let y1 = histogram_y+histogram_height;
-      let y2 = p5.int(p5.map(hist_heights_blue[i],0,max_bar_height,histogram_y+histogram_height,histogram_y));
-      let y3 = p5.int(p5.map(hist_heights_pink[i],0,max_bar_height,histogram_y+histogram_height,histogram_y));
-      let y4 = p5.int(p5.map(hist_heights_grey[i]+hist_heights_pink[i]+hist_heights_blue[i],0,max_bar_height,histogram_y+histogram_height,histogram_y));
+      let y2 = fp5.int(fp5.map(hist_heights_blue[i],0,max_bar_height,histogram_y+histogram_height,histogram_y));
+      let y3 = fp5.int(fp5.map(hist_heights_pink[i],0,max_bar_height,histogram_y+histogram_height,histogram_y));
+      let y4 = fp5.int(fp5.map(hist_heights_grey[i]+hist_heights_pink[i]+hist_heights_blue[i],0,max_bar_height,histogram_y+histogram_height,histogram_y));
       //strokeWeight(10);
       
   
-      p5.stroke(200,200,200);
-      p5.line(xpos, y1, xpos, y4);
-      p5.stroke(29, 161, 242);
-      p5.line(xpos,y1,xpos,y2);
-      p5.stroke(65, 105, 225);
+      fp5.stroke(200,200,200);
+      fp5.line(xpos, y1, xpos, y4);
+      fp5.stroke(29, 161, 242);
+      fp5.line(xpos,y1,xpos,y2);
+      fp5.stroke(65, 105, 225);
       var y5 = y2-(y1-y3);
-      p5.line(xpos, y2, xpos, y5);
+      fp5.line(xpos, y2, xpos, y5);
    
   
     }
-    if ( (hist_times[cur_bar] - p5.round(p5.exp(adjFrame/timescale),1))  <= 0 ){
+    if ( (hist_times[cur_bar] - fp5.round(fp5.exp(adjFrame/timescale),1))  <= 0 ){
       cur_bar = cur_bar + 1
     }
   };
@@ -186,18 +185,21 @@ function restartNetwork()
   //unfired state
   //redo the setup function?
   //calculate distances
+  console.log('restarting')
 
-  p5.scale(0.25);
-  let defaultradius = (p5.windowHeight/20)/load_factor;
+  pause = true
+  fp5.scale(0.25);
+  let defaultradius = (fp5.windowHeight/20)/load_factor;
   let timescale = 30;
-  p5.createCanvas(p5.windowWidth/load_factor,p5.windowHeight/load_factor);
+  let canvasD = fp5.createCanvas(fp5.windowWidth/load_factor,fp5.windowHeight/load_factor);
+  canvasD.id('second_canvas');
   let lastName = table.getString(1,0);
 
   network = new Network(0, 0);
   let mainName = table.getString(0,1);
   let minTime = 10000000;
-  let mainX = 1.4*(p5.windowWidth/2)/load_factor;
-  let mainY = (p5.windowHeight/2)/load_factor;
+  let mainX = 1.4*(fp5.windowWidth/2)/load_factor;
+  let mainY = (fp5.windowHeight/2)/load_factor;
   veryfirstguy = nodes_table.getString(0, 0);
 
   newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius*4);
@@ -216,25 +218,33 @@ function restartNetwork()
      parentMap.set(id, parent);
   }
 
+  end_time = 0;
   for (let r = 0; r < nodes_table.getRowCount(); r++)
   {
     let id = nodes_table.getString(r,0);
-    let time = p5.int(parseFloat(nodes_table.getString(r,1)));
+    let time = fp5.int(parseFloat(nodes_table.getString(r,1)));
    // console.log(time);
-    let angle = p5.random(0, p5.TWO_PI);
-    let distance = p5.random(40,p5.windowHeight/2)/load_factor;
+    let angle = fp5.random(0, fp5.TWO_PI);
+    let distance = fp5.random(40,fp5.windowHeight/2)/load_factor;
     if (parentMap.get(id) == veryfirstguy)
     {
-     map1.set(id, new Neuron(mainX+p5.cos(angle)*distance, mainY+p5.sin(angle)*distance, id, true, defaultradius, time, "second"));
+     map1.set(id, new Neuron(mainX+fp5.cos(angle)*distance, mainY+fp5.sin(angle)*distance, id, true, defaultradius, time, "second"));
     }
     else if (parentMap.get(id)!=veryfirstguy)
     {
-      map1.set(id, new Neuron(mainX+p5.cos(angle)*distance, mainY+p5.sin(angle)*distance, id, true, defaultradius, time, "other"));
+      map1.set(id, new Neuron(mainX+fp5.cos(angle)*distance, mainY+fp5.sin(angle)*distance, id, true, defaultradius, time, "other"));
     }
     timeMap.set(nodes_table.getString(r, 0), nodes_table.getString(r,1));
     timeToNode.set(nodes_table.getString(r, 1), nodes_table.getString(r,0));
     names.push(id);
+
+    let n_time = fp5.int(parseFloat(nodes_table.getString(r,1)))
+    if (end_time < n_time){
+      end_time  = n_time
+    }
   }
+  bar_times = fp5.int( end_time/num_bars )
+  hist_times = Array.from({ length: num_bars}, (_, i) => bar_times + (i * bar_times))
 
   map1.set(veryfirstguy, new Neuron(mainX, mainY, veryfirstguy, true, defaultradius, timeMap.get(veryfirstguy), "first"));
 
@@ -254,13 +264,9 @@ function restartNetwork()
   }
 
 
-  // first = map1.get(names[0]);
-  // console.log(first);
 
 
 
-  network.displayConnections();
-  network.display();
 
 
   //normalize distances (iterate through and make everything within a certain radius from another)
@@ -274,11 +280,16 @@ function restartNetwork()
   
   //fill(200,200,200);
   //rect(200, 600, 700, 700);
-
+  
   cur_bar = 0
   hist_heights_blue = new Array(num_bars).fill(0)
   hist_heights_pink = new Array(num_bars).fill(0)
   hist_heights_grey = new Array(num_bars).fill(0)
+  pause = false
+  network.displayConnections();
+  network.display();
+
+  console.log('finished_restart')
 
 }
 
@@ -305,8 +316,8 @@ function Connection(from, to,w) {
   
   this.update = function() {
     if (this.sending) {
-      this.sender.x = p5.lerp(this.sender.x, this.b.position.x, 0.1);
-      this.sender.y = p5.lerp(this.sender.y, this.b.position.y, 0.1);
+      this.sender.x = fp5.lerp(this.sender.x, this.b.position.x, 0.1);
+      this.sender.y = fp5.lerp(this.sender.y, this.b.position.y, 0.1);
       var d = this.sender.dist(this.b.position);
       if (d < 1) {
         this.b.feedforward(this.output);
@@ -316,7 +327,7 @@ function Connection(from, to,w) {
   }
 
   this.displayLine = function() {
-    p5.line(this.a.position.x, this.a.position.y, this.b.position.x, this.b.position.y);
+    fp5.line(this.a.position.x, this.a.position.y, this.b.position.x, this.b.position.y);
 
   }
   
@@ -328,7 +339,7 @@ function Connection(from, to,w) {
       if (this.activate)
       {
         
-        p5.ellipse(this.sender.x, this.sender.y, 2, 2);
+        fp5.ellipse(this.sender.x, this.sender.y, 2, 2);
       }
       
     }
@@ -342,20 +353,20 @@ function Connection(from, to,w) {
 
 function formatTime (seconds)
 {
-  let hours = p5.round(seconds/3600,0);
-  let minutes = p5.round((seconds%3600)/60, 0); 
-  let finseconds = p5.round((seconds%3600)%60, 1);
-  return (p5.nf(hours, 2, 0) + " hours, " + p5.nf(minutes, 2, 0) + " min, "  + p5.nf(finseconds, 2, 1) + " seconds after tweet");
+  let hours = fp5.round(seconds/3600,0);
+  let minutes = fp5.round((seconds%3600)/60, 0); 
+  let finseconds = fp5.round((seconds%3600)%60, 1);
+  return (fp5.nf(hours, 2, 0) + " hours, " + fp5.nf(minutes, 2, 0) + " min, "  + fp5.nf(finseconds, 2, 1) + " seconds after tweet");
 }
 
 function makeKey()
 {
-  p5.fill(65, 105, 225, 200);
-  p5.ellipse((p5.windowWidth/20)/load_factor, (2*p5.windowHeight/10)/load_factor, 0.75*p5.windowWidth/20);
-  p5.fill(29, 161, 242, 200);
-  p5.ellipse((p5.windowWidth/20)/load_factor, (3*p5.windowHeight/10)/load_factor, 0.75*p5.windowWidth/20);
-  p5.fill(220,220, 220, 120);
-  p5.ellipse((p5.windowWidth/20)/load_factor, (4*p5.windowHeight/10)/load_factor, 0.75*p5.windowWidth/20);
+  fp5.fill(65, 105, 225, 200);
+  fp5.ellipse((fp5.windowWidth/20)/load_factor, (2*fp5.windowHeight/10)/load_factor, 0.75*fp5.windowWidth/20);
+  fp5.fill(29, 161, 242, 200);
+  fp5.ellipse((fp5.windowWidth/20)/load_factor, (3*fp5.windowHeight/10)/load_factor, 0.75*fp5.windowWidth/20);
+  fp5.fill(220,220, 220, 120);
+  fp5.ellipse((fp5.windowWidth/20)/load_factor, (4*fp5.windowHeight/10)/load_factor, 0.75*fp5.windowWidth/20);
 
 }
 
@@ -363,7 +374,7 @@ function Network(x, y) {
   
   this.neurons = [];
   this.connections = [];
-  this.position = p5.createVector(x, y);
+  this.position = fp5.createVector(x, y);
   
   this.addNeuron = function(n) {
     this.neurons.push(n);
@@ -401,7 +412,7 @@ function Network(x, y) {
     
     for (var i = 0; i < this.neurons.length; i++)
     {
-      let check = p5.log(this.neurons[i].time)*120 - adjFrame;
+      let check = fp5.log(this.neurons[i].time)*120 - adjFrame;
      // console.log(check);
       if ( check <= 0)
       {
@@ -412,10 +423,10 @@ function Network(x, y) {
   }
 
   this.displayConnections = function() {
-    p5.push();
-    p5.translate(this.position.x, this.position.y);
-    p5.stroke(220);
-    p5.strokeWeight(2*0.4);
+    fp5.push();
+    fp5.translate(this.position.x, this.position.y);
+    fp5.stroke(220);
+    fp5.strokeWeight(2*0.4);
    
     
     for (var i = 0; i < this.connections.length; i++) {
@@ -425,15 +436,15 @@ function Network(x, y) {
   }
   
   this.display = function() {
-    p5.push();
-    p5.translate(this.position.x, this.position.y);
-    p5.fill(0);
+    fp5.push();
+    fp5.translate(this.position.x, this.position.y);
+    fp5.fill(0);
     //strokeWeight(1);
     for (var i = 0; i < this.connections.length; i++) {
       //maybe make it a function of the follower count
      if (this.connections[i].a.isSending)//(followerMap.get((this.connections[i].a.name)) >= 0.5*(followerMap.get(veryfirstguy)))
        {
-        if (p5.random() < 0.18)
+        if (fp5.random() < 0.18)
         {
           this.connections[i].deactivate();
         }
@@ -444,7 +455,7 @@ function Network(x, y) {
     for (var i = 0; i < this.neurons.length; i++) {
       this.neurons[i].display();
     }
-    p5.pop();
+    fp5.pop();
   }
 }
 
@@ -452,7 +463,7 @@ function Network(x, y) {
 
 function Neuron(x, y, name, active, radius, time, isFirst) {
   
-  this.position = p5.createVector(x, y);
+  this.position = fp5.createVector(x, y);
   this.connections = [];
   this.sum = (isFirst == 'first'? 1: 0);
   this.r = 1;
@@ -476,7 +487,6 @@ function Neuron(x, y, name, active, radius, time, isFirst) {
       //this.fire();
       this.sum = 0;
       this.isTouched = true;
-
     }*/
   }
 
@@ -490,12 +500,13 @@ function Neuron(x, y, name, active, radius, time, isFirst) {
     }
     if (sumx != 0 && sumy != 0)
     {
-    this.position = p5.createVector(sumx/this.connections.length, sumy/this.connections.length);
+    this.position = fp5.createVector(sumx/this.connections.length, sumy/this.connections.length);
     }
   }
   
   this.fire = function() {
-    if (!this.isSending && this.sum <=0 && demotionVal>0)
+    
+    if (!this.isSending && this.sum <=0 && selection_user.demotion>0)
     {
       if (!this.seen)
       {
@@ -521,17 +532,17 @@ function Neuron(x, y, name, active, radius, time, isFirst) {
 
     }
     for (var i = 0; i < this.connections.length; i++) {
-      let rand = p5.random(demotionDen);
+      let rand = fp5.random(demotionDen);
       if (this.active)
       {
-        if (rand>=demotionVal)
+        if (rand>=selection_user.demotion)
         {
+          
           this.connections[i].feedforward(this.sum);
         }
 
       }
       
-     //  this.connections[i].isTouched = true;
     }
   }
   }
@@ -539,7 +550,7 @@ function Neuron(x, y, name, active, radius, time, isFirst) {
   this.display = function() {
     //console.log(followerMap.get(this.name));
    
-    let scaler = (p5.int(followerMap.get(this.name))/4000+10)/load_factor;
+    let scaler = (fp5.int(followerMap.get(this.name))/4000+10)/load_factor;
    
    // console.log(scaler);
     //console.log(this.isTouched);
@@ -550,29 +561,29 @@ function Neuron(x, y, name, active, radius, time, isFirst) {
       {
         fill(29, 161, 242);
       }*/
-      p5.noStroke();
+      fp5.noStroke();
       if (this.isSending)
       {
-        p5.fill(29, 161, 242, 100);
+        fp5.fill(29, 161, 242, 100);
       if (this.isFirst =='first')
       {
-        p5.fill(220, 208, 255, 100);
+        fp5.fill(220, 208, 255, 100);
         scaler = 200/load_factor;
 
       }
       if (this.isFirst == 'second')
       {
-        p5.fill(65, 105, 225, 150);
+        fp5.fill(65, 105, 225, 150);
 
       }
 
      
-      p5.ellipse(this.position.x, this.position.y, scaler*this.r, scaler*this.r);
+      fp5.ellipse(this.position.x, this.position.y, scaler*this.r, scaler*this.r);
       //console.log(this.r);
      
 
 
-      this.r = p5.lerp(this.r, 0.7,0.1);
+      this.r = fp5.lerp(this.r, 0.7,0.1);
 
 
       }
@@ -582,8 +593,8 @@ function Neuron(x, y, name, active, radius, time, isFirst) {
     //state without demotion
     if (this.seen)
     {
-      p5.fill(220,220,220, 50);
-      p5.ellipse(this.position.x, this.position.y, scaler*this.r, scaler*this.r);
+      fp5.fill(220,220,220, 50);
+      fp5.ellipse(this.position.x, this.position.y, scaler*this.r, scaler*this.r);
 
     }
   
@@ -594,10 +605,10 @@ function Neuron(x, y, name, active, radius, time, isFirst) {
 
 
 }
-export function NETWORK2(){
+export function NETWORK2({UserSelection}){
   return(
     <div className="network_section" id="network_demotion">
-      <div className='sketch_sec'><ReactP5Wrapper sketch={sketch} ></ReactP5Wrapper></div>
+      <div className='sketch_sec'><ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}></ReactP5Wrapper></div>
     </div>
   )
   }

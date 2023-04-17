@@ -1,91 +1,42 @@
-import {NETWORK2} from './network/network2';
-import {selection_network} from './selection'
-import {OUTRO} from './outro';
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
+import { AppearingText } from "./appearingtext"
 
-import React, { useEffect, useState } from 'react';
-export function DEMOTION(){
-    const [, updateState] = React.useState();
-    const forceUpdate = React.useCallback(() => updateState({}), []);
-    const marks = [
-        {
-          value: 3,
-          label: 'Low',
-        },
-        {
-          value: 6,
-          label: 'Medium',
-        },
-        {
-          value: 9,
-          label: 'High',
-        },
-      ];
-      function reset_demotion(value){
-        selection_network.demotion = value;
-        forceUpdate();
-      }
-      function valuetext(value) {
-        if(selection_network.demotion !== value){
-            reset_demotion(value);
-        }
-        return `${value}`;
-      }
-      
-      function valueLabelFormat(value) {
-        return marks.findIndex(mark => mark.value === value) + 1
-      }
+export function DEMOTION({UserSelection, SetterUserSelection}){
     return (
-        <>
-            <div className='demotion_sec'>
-                <div className='text_wrapper'>
-                    <div className='text_div1'>
-                        <div className='text'>
-                            But what if @TomBrady's tweet was demotion?
-                        </div>
-                        
-                    </div>
-                    <div className='text_div2'>
-                        <div className='text'>
-                            Demotion generally lowers a particular post in your feed.
-                            <br/>
-                            <br/>
-                            The lower it is in your feed, the less likely you are to see it.
-                        </div>
-                        
-                    </div>
-                </div>
-                <div className='tweets_wrapper'></div>
+        <div className="demotion_section container">
+            <div className="row demotionText">
+                DEMOTIoN ONBOARDING
             </div>
-            <div className='slider'>
-                <div className='text_div'> 
-                    Lets see how demotion could theoretically impact the reach from our tweet.
-                    <br />
-                    Select the desired amount of demotion in the slider below.
-                </div>
-                <div className='slider_div'>
-                <Box sx={{ width: 300 }}>
-                <Slider
-                    aria-label="Restricted values"
-                    defaultValue={3}
-                    step={3}
-                    min={3}
-                    max={9}
-                    valueLabelFormat={valueLabelFormat}
-                    getAriaValueText={valuetext}
-
-                    valueLabelDisplay="off"
-                    marks={marks}
-                />
-                </Box>
-                </div>
-                
-
+            <AppearingText>
+            <div className="row demotionText basicText">
+                Now let's see the effect demotion has on {UserSelection.username}'s tweet we explored earlier.
             </div>
-            <NETWORK2 />
-            <OUTRO />
-        </>
+            </AppearingText>
+            <div className="row demotionText">
+                <div className="col-4 demo_but_sec">
+                <button className="demo_but" style={{backgroundColor:"#a7dbfa"}} onClick={() => {
+                    SetterUserSelection(UserSelection.username, 3)
+                }}>Low</button>
+                </div>
 
+                <div className="col-4 demo_but_sec">
+                <button className="demo_but" style={{backgroundColor:"#44b8fc"}} onClick={() => {
+                    SetterUserSelection(UserSelection.username, 6)
+                }}>Medium</button>
+                </div>
+
+                <div className="col-4 demo_but_sec">
+                <button className="demo_but" style={{backgroundColor:"#076ba6"}} onClick={() => {
+                    SetterUserSelection(UserSelection.username, 9)
+                }}>High</button>
+                </div>
+        </div>
+        <AppearingText>
+        <div className="row demotionText basicText">
+                Use the above buttons to control the level of demotion in the visual below.
+            </div>
+        </AppearingText>
+
+        </div>
+        
     )
 }

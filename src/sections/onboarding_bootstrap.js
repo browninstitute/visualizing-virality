@@ -16,15 +16,20 @@ export function ONBOARDING_INTRO(){
       phone_scale_up_start: 0.133,
       phone_scale_up_finish: 0.1586,
   
-      highlight_lines_start: 0.167,
-      highlight_lines_finish: 0.18,
+      highlight_lines_start: 0.16,
+      highlight_lines_finish: 0.185,
+      highlight_lines_finish2: 0.22,
+
   
       remove_nonviral_start: 0.2567,
       remove_nonviral_finish: 0.28,
 
+      annotate_engagemenets_start: 0.29,
+      annotate_engagements_finish: 0.33,
+
       
-      remove_annotation_start: 0.46,
-      remove_annotation_finish: 0.5,
+      remove_annotation_start: 0.34,
+      remove_annotation_finish: 0.37,
 
       opacity_median_tweets_start: 0.367,
       opacity_median_tweets_middle1: 0.4067,
@@ -122,6 +127,19 @@ export function ONBOARDING_INTRO(){
       tweets_scroll_points.remove_nonviral_start,
       tweets_scroll_points.remove_nonviral_finish
     ], ["0%", "-200%"]) ;
+
+
+    const engagments = useTransform(scrollYProgress,[
+        tweets_scroll_points.annotate_engagemenets_start,
+        tweets_scroll_points.annotate_engagements_finish,
+      ], [0, 1]) ;
+
+    
+    const emphasize = useTransform(scrollYProgress,[
+        tweets_scroll_points.highlight_lines_start,
+        tweets_scroll_points.highlight_lines_finish,
+        tweets_scroll_points.highlight_lines_finish2
+      ], ["0%", "-40%", "0%"]) ;
 
     const last_text_opacity = useTransform(scrollYProgress, [
       tweets_scroll_points.bar_resize5,
@@ -267,16 +285,103 @@ export function ONBOARDING_INTRO(){
 
   
     return (
-      <div className="onboarding" ref={sec_ref}>
-  
-        <div className="onboarding_tweets">
-          <div className="tweets_padding">
+      <div className="container onboarding" ref={sec_ref}>
+        <div className="row">
+        <div className="col-8">
+        <div className="onboarding_text">
+            <AppearingText>
+            <div className="welcome">
+              <div className='text_div'>
+                Welcome to your feed.
+              </div>
+            </div>
+            </AppearingText>
+            <AppearingText>
+            <div className='viral_text'>
+              <div className='text_div'>
+                Often it has tweets that <br></br> can be considered "viral".
+              </div>
+            </div>
+            </AppearingText>
+            <AppearingText>
+            <div className='viral_text2'>
+              <div className='text_div'>
+                But there are many definitions of virality.
+              </div>
+            </div>
+            </AppearingText>
+            <AppearingText>
+            <div className='viral_text3 container'>
+              <div className='text_div container'>
+                <div className='row col-12'>
+               <span>We defined a "viral" tweet as</span>   <span className="under">a tweet that had at least 5x</span> 
+               <span> the engagement </span> 
+                <div className="stage row">
+            <Heart></Heart>
+               </div> <span>of the author's average tweet.</span>
+                </div>
+              
+              </div>
+            </div>
+            </AppearingText>
+            <AppearingText>
+            <div className='viral_text4 container'>
             
-          </div>
+              <div className='text_div short container'>
+              <div className='row col-12'>We then narrowed that group down to tweets that had at least
+              <div className='row col-12 big'>
+              <Counter></Counter>
+              </div>
+              likes.
+              </div>
+               
+
+              <br></br>
+              </div>
+             
+            </div>
+            </AppearingText>
+            <AppearingText>
+
+            <div className='january_text1'>
+              <div className='text_div container'>
+               <div className='row col-12'> Out of the 23 billions tweets from January 2023, only 4933 had more than 100000 likes. 
+                <div className='row'>
+                3407 fit our definition of "viral".
+                </div>
+                </div>
+              </div>
+            </div>
+            </AppearingText>
+
+            <AppearingText>
+            <div className='january_text2'>
+              <div className='text_div'>
+                78% of viral tweets were from users with less than 50,000 followers.
+              </div>
+            </div>
+            </AppearingText>
+            <div className='january_text3'>
+              <div className='text_div row'>
+                They also came from a number of different categories.
+                <br/>
+                <div className ='row'>
+                <motion.span className = 'text_side' style={styles_with_css({opacity:last_text_opacity})}>Now, let's look at some of the heavy-hitters.</motion.span>
+                </div>
+              </div>
+              
+
+            </div>
+            </div>
+        </div>
+           
+        <div className="col-4  ">
+          <div className="onboarding_tweets">
+            
           <div className="tweets_wrapper">
             <motion.div className="tweets_div" style={styles_with_css({opacity:tweets_opacity})}>
                   <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity})} >
-                    {/* animate={{: bounds.height > 0 ? bounds.height: null}}
+                    {/* animate={{height: bounds.height > 0 ? bounds.height: null}}
                         transition={{type:"spring", bounce: 0.2, duration: 0.4}}
                     */}
                     <TWEET_SVG  username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
@@ -284,15 +389,15 @@ export function ONBOARDING_INTRO(){
                   <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity})}>
                     <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
                   </motion.div>
-                  <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity})}>
+                  <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity, x:emphasize})}>
                         <div className="svg_wrap" id="first_svg"> 
                         <svg viewBox="0 0 315 161" fill="none" className="highlight" >
-                            <motion.path 
+                           {/*} <motion.path 
                                 d="M3 3V158H312V3H3Z" 
                                 stroke="#0B5684" 
                                 strokeWidth="5"
                                 pathLength={highlight_pathLength}
-                            />
+                />*/}
                         </svg>
                     </div>
                     <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
@@ -300,15 +405,15 @@ export function ONBOARDING_INTRO(){
                   <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity})}>
                     <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
                   </motion.div>
-                  <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity_2, y:move_up})}>
+                  <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity_2, y:move_up, x:emphasize})}>
                         <div className="svg_wrap" id="second_svg" > 
-                            <svg viewBox="0 0 315 161" fill="none" className="highlight" >
-                                <motion.path 
-                                    d="M3 3V158H312V3H3Z" 
+                            <svg viewBox="-100 -100 500 300" fill="none" className="highlight" >
+                               { <motion.path 
+                                    d="M157.5 3A154.5 78.5 0 1 0 157.5 157.5A154.5 78.5 0 1 0 157.5 3Z" 
                                     stroke="#0B5684" 
                                     strokeWidth="5"
-                                    pathLength={highlight_pathLength}
-                                />
+                                    pathLength={engagments}
+            />}
                             </svg>
                         </div>
                     <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
@@ -317,69 +422,38 @@ export function ONBOARDING_INTRO(){
             </motion.div>
           </div>
   
-        </div>
         
-  
-        <div className="onboarding_text container">
-            <div className='intro_text container'>
-              <div className='text_div'>
-                Welcome to your feed.
-              </div>
-            </div>
-            <div className='viral_text container'>
-              <div className='text_div'>
-                Often it has tweets that <br></br> can be considered "viral".
-              </div>
-            </div>
-            <div className='viral_text2 container'>
-              <div className='text_div'>
-                But there are many definitions of virality.
-              </div>
-            </div>
-            <div className='viral_text3 container'>
-              <div className='text_div row'>
-                <div className='col'>
-                We defined a "viral" tweet as a tweet that had at least 5x the engagement of the author's average tweet.
-                </div>
-                </div>
-              <div className="stage row">
-            <Heart></Heart>
-              </div>
-            </div>
-            <div className='viral_text4'>
-              <div className='text_div'>
-                From this group of tweets, we selected those with more than&nbsp;<span><Counter></Counter></span>&nbsp; likes to explore. 
-              </div>
-             
-            </div>
-            
-            <div className='january_text1'>
-              <div className='text_div'>
-                Out of the 23 billions tweets from January 2023, only 4933 had more than 100000 likes. 
-                <br/>
-                3407 fit our definition of "viral".
-              </div>
-            </div>
-            <div className='january_text2'>
-              <div className='text_div'>
-                78% of viral tweets were from users with less than 50,000 followers.
-              </div>
-            </div>
-            <div className='january_text3'>
-              <div className='text_div'>
-                They also came from a number of different categories.
-                <br/>
-                
-                <motion.span className = 'text_side' style={styles_with_css({opacity:last_text_opacity})}>Now, let's look at some of the heavy-hitters.</motion.span>
-
-              </div>
-              
-
-            </div>
-           
             
         </div>
+        <div className="stacked_bars"> 
+              <motion.div className="bars_div" style={styles_with_css({opacity: bars_opacity, position:"sticky"})}>
+                <motion.div className="bar1"  style={styles_with_css({height: bar1_height, backgroundColor:"red"})}>
+                  <motion.div className="text1" style={styles_with_css({opacity: percents1_opacity,scale: percents1_scales})}>59% Non-Viral</motion.div>
+                  <motion.div className="text2" style={styles_with_css({opacity: percents2_opacity,scale: percents2_scales})}>32% &gt; 1,000,000</motion.div>
+                  <motion.div className="text3" style={styles_with_css({opacity: percents3_opacity,scale: percents3_scales})}>67% Entertainment</motion.div>
+                </motion.div>
+                <motion.div className="bar2" style={styles_with_css({height: bar2_height})}>
+                  <motion.div className="text1" style={styles_with_css({opacity: percents1_opacity,scale: percents1_scales})}>41% Non-Viral</motion.div>
+                  <motion.div className="text2" style={styles_with_css({opacity: percents2_opacity,scale: percents2_scales})}>45% &lt; 1,000,000</motion.div>
+                  <motion.div className="text3" style={styles_with_css({opacity: percents3_opacity,scale: percents3_scales})}>19% Sports</motion.div>
+                </motion.div>
+                <motion.div className="bar3" style={styles_with_css({height: bar3_height})}>
+                  <motion.div className="text1" style={styles_with_css({opacity: percents1_opacity,scale: percents1_scales})}></motion.div>
+                  <motion.div className="text2" style={styles_with_css({opacity: percents2_opacity,scale: percents2_scales})}>14% &lt; 100,000</motion.div>
+                  <motion.div className="text3" style={styles_with_css({opacity: percents3_opacity,scale: percents3_scales})}>14% News</motion.div>
+                </motion.div>
+                <motion.div className="bar4" style={styles_with_css({height: bar4_height})}>
+                  <motion.div className="text1" style={styles_with_css({opacity: percents1_opacity,scale: percents1_scales})}></motion.div>
+                  <motion.div className="text2" style={styles_with_css({opacity: percents2_opacity,scale: percents2_scales})}>8% &lt; 5,000</motion.div>
+                  <motion.div className="text3" style={styles_with_css({opacity: percents3_opacity,scale: percents3_scales})}></motion.div>
+                </motion.div>
+              </motion.div>
+
+          </div>
+        </div>
+
   
+  {/*
         <div className="onboarding_flare">
           <AppearingText>
           <motion.div className="intro_phone_screen" style={styles_with_css({opacity: phone_opacity,scale: phone_scaleup})}>
@@ -413,7 +487,7 @@ export function ONBOARDING_INTRO(){
             </div>
           
           </motion.div>
-          </AppearingText>
+                  </AppearingText>
           <div className="flare_padding1">
 
           </div>
@@ -434,37 +508,14 @@ export function ONBOARDING_INTRO(){
                 </motion.div>
             </div>
                 
-          </motion.div>
-          <div className="stacked_bars"> 
-              <motion.div className="bars_div" style={styles_with_css({opacity: bars_opacity})}>
-                <motion.div className="bar1"  style={styles_with_css({height: bar1_height})}>
-                  <motion.div className="text1" style={styles_with_css({opacity: percents1_opacity,scale: percents1_scales})}>59% Non-Viral</motion.div>
-                  <motion.div className="text2" style={styles_with_css({opacity: percents2_opacity,scale: percents2_scales})}>32% &gt; 1,000,000</motion.div>
-                  <motion.div className="text3" style={styles_with_css({opacity: percents3_opacity,scale: percents3_scales})}>67% Entertainment</motion.div>
-                </motion.div>
-                <motion.div className="bar2" style={styles_with_css({height: bar2_height})}>
-                  <motion.div className="text1" style={styles_with_css({opacity: percents1_opacity,scale: percents1_scales})}>41% Non-Viral</motion.div>
-                  <motion.div className="text2" style={styles_with_css({opacity: percents2_opacity,scale: percents2_scales})}>45% &lt; 1,000,000</motion.div>
-                  <motion.div className="text3" style={styles_with_css({opacity: percents3_opacity,scale: percents3_scales})}>19% Sports</motion.div>
-                </motion.div>
-                <motion.div className="bar3" style={styles_with_css({height: bar3_height})}>
-                  <motion.div className="text1" style={styles_with_css({opacity: percents1_opacity,scale: percents1_scales})}></motion.div>
-                  <motion.div className="text2" style={styles_with_css({opacity: percents2_opacity,scale: percents2_scales})}>14% &lt; 100,000</motion.div>
-                  <motion.div className="text3" style={styles_with_css({opacity: percents3_opacity,scale: percents3_scales})}>14% News</motion.div>
-                </motion.div>
-                <motion.div className="bar4" style={styles_with_css({height: bar4_height})}>
-                  <motion.div className="text1" style={styles_with_css({opacity: percents1_opacity,scale: percents1_scales})}></motion.div>
-                  <motion.div className="text2" style={styles_with_css({opacity: percents2_opacity,scale: percents2_scales})}>8% &lt; 5,000</motion.div>
-                  <motion.div className="text3" style={styles_with_css({opacity: percents3_opacity,scale: percents3_scales})}></motion.div>
-                </motion.div>
-              </motion.div>
-
-          </div>
+          </motion.div>*/}
+          
 
   
         </div>
   
-  
-      </div>
+        </div>
+
+      
     );
   };

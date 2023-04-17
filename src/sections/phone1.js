@@ -9,6 +9,8 @@ import {styles_with_css} from'./motion.ts'
 import {NETWORK1} from './network/network1';
 import {ALGORITHM} from './algorithm';
 import {DEMOTION} from './demotion';
+import {NETWORK2} from './network/network2';
+import {OUTRO} from './outro';
 
 
 
@@ -255,10 +257,11 @@ export function PHONE1(){
         </div>
 
 
-        <NETWORK1 />
+        {/*<NETWORK1 />
         <ALGORITHM />
         <DEMOTION />
-        
+       <NETWORK2 />*/}  
+        {/* <OUTRO /> */}
       </>    
       
     )

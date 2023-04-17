@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useInView } from "react-intersection-observer"; 
+import { useInView } from "react-intersection-observer";
 import {AnimatePresence, motion} from "framer-motion/dist/framer-motion";
 
 export const Heart = () => {

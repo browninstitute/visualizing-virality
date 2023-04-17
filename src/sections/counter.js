@@ -2,9 +2,11 @@ import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import {useEffect, useState} from 'react';
    
+
+//jump when they're 80% down
 export function Counter() {
   const [ref, inView] = useInView({ threshold: 0.5 });
-  const [count, setCount] = useState(99800);
+  const [count, setCount] = useState(99900);
 
   useEffect(() => {
     if (inView) {

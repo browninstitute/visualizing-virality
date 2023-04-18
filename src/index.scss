@@ -73,8 +73,16 @@ canvas {
   text-align: center;
 }
 
+.play_pause_con{
+  position: absolute;
+  top: 2%;
+}
+
 .demo_but {
-  padding: 20%;
+  padding-left: 20%;
+  padding-right: 20%;
+  padding-top: 2%;
+  padding-bottom: 2%;
   border-radius: 20px;
   font-size: xx-large;
   border-width: 0px;

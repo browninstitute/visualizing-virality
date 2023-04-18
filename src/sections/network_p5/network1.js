@@ -442,6 +442,7 @@ function sketch(fp5) {
             if (this.isFirst =='first')
             {
                 fp5.fill(220, 208, 255, 100);
+                fp5.text(nameMap.get(this.name), 500,500)
                 scaler = 200/load_factor;
 
             }
@@ -625,19 +626,22 @@ export function NETWORK1({UserSelection, NetworkPause, SetterNetworkPause, Netwo
 
   return(
     <>
+    <div className="network_section" id="network_demotion">
+    <div className="play_pause_con container">
     <div className="row demotionText">
-        <div className="col-4 demo_but_sec">
+        <div className="col-8"></div>
+        <div className="col-2 demo_but_sec">
         <button className="demo_but" style={{backgroundColor:"#a7dbfa"}} onClick={() => {
             SetterNetworkPause(!NetworkPause)
-        }}>Pause</button>
+        }}>Play/Pause</button>
         </div>
-        <div className="col-4 demo_but_sec">
+        <div className="col-2 demo_but_sec">
         <button className="demo_but" style={{backgroundColor:"#44b8fc"}} onClick={() => {
             SetterNetworkReset(true)
         }}>Reset</button>
         </div>
     </div>
-    <div className="network_section" id="network_demotion">
+    </div>
       <div className='sketch_sec'>
         <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}  network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset}  ></ReactP5Wrapper>
     </div>

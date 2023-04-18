@@ -453,17 +453,28 @@ function sketch(fp5) {
             fp5.noStroke();
             if (this.isSending)
             {
-                fp5.fill(29, 161, 242, 100);
             if (this.isFirst =='first')
             {
-                fp5.fill(220, 208, 255, 100);
+                fp5.fill(29, 161, 242, 100);
                 fp5.text(nameMap.get(this.name), 500,500)
                 scaler = 200/load_factor;
 
             }
-            if (this.isFirst == 'second')
+            if ( hopMap.get(this.name) ==1|| hopMap.get(this.name)==0)
             {
-                fp5.fill(65, 105, 225, 150);
+                fp5.fill(50, 120, 242, 150);
+
+            }
+            if ( hopMap.get(this.name) == 2)
+            {
+                fp5.fill(102, 0, 153, 150);
+
+            }
+
+            if ( hopMap.get(this.name) == 3)
+
+            {
+                fp5.fill(153, 0, 102, 150);
 
             }
 
@@ -520,7 +531,7 @@ function sketch(fp5) {
                 followerMap.set(info_table.getString(r, 0), info_table.getString(r,1));
                 nameMap.set(info_table.getString(r, 0), info_table.getString(r,2));
                 finalTimeMap.set(info_table.getString(r,0), info_table.getString(r,4));
-                hopMap.set(info_table.getString(r,0), info_table.getString(r,5));
+                hopMap.set(info_table.getString(r,0), fp5.int(info_table.getString(r,5)));
             }
             for (let r = 0; r < table.getRowCount(); r++)
             {

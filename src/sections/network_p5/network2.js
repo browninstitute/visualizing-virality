@@ -423,6 +423,11 @@ function sketch(fp5) {
         
         this.display = function() {
             //console.log(followerMap.get(this.name));
+            let timeSince = fp5.log(this.time)*120 - adjFrame;
+            if (timeSince < -500 && this.isFirst != 'first')
+            {
+              return;
+            }
         
             let scaler = (fp5.int(followerMap.get(this.name))/4000+10)/load_factor;
         

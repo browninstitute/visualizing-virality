@@ -3,7 +3,7 @@
     padding: 0;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap:wght@600&display=swap');
 *{
   margin: 0;
   padding: 0;
@@ -427,9 +427,19 @@ body{
       font-size: 6vw;
     }
     //ONBOARDING SECTION CSS
+    .timeline_padding{
+      height: 20vh;
+      background-color: white;
+      display: flex;
+        align-items: center;
+        justify-content: center;
+      .padding_text{
+        color: rgb(108, 108, 108);
+      }
+    }
     .onboarding{
 
-        height: 1500vh;
+        height: 800vh;
         width: 100vw;
         position: relative;
         font-family: "Asap", sans-serif;
@@ -447,7 +457,7 @@ body{
 
 
         .onboarding_text{
-          height: 1500vh;
+          height: 900vh;
           position: absolute;
           //width: 100%;
           color: white;
@@ -523,24 +533,7 @@ body{
           }
 
           }
-          .january_text1{
-            height: 200vh;
-            position: relative;
-            width: 35%;
-            margin-left: 2%;
-
-          }
-          .january_text2{
-            height: 200vh;
-            position: relative;
-            width: 35%;
-            margin-left: 2%;
-          }
-          .january_text3{
-            height: 200vh;
-            position: block;
-            width: 35%;
-          }
+          
 
         
         }
@@ -671,7 +664,7 @@ body{
           position: sticky;
         }
         .onboarding_tweets{
-          height: 950vh;
+          height: 900vh;
           //width: 100vw;
           justify-content: center;
           //position: absolute;
@@ -828,7 +821,7 @@ body{
     .timeline_wrap{
         height: 400vh;           
         width: 100vw;
-        background-color: #1DA1F2;
+        background-color: white;
         .timeline_intro{
             z-index: 0;
             display: flex;
@@ -875,10 +868,11 @@ body{
                         position: absolute;
                         display:inline-block;
                         z-index: 2;
-                        color: black;
+                        color: rgb(108, 108, 108);
                         background-color:rgba(255, 255, 255, 0.8);
                         padding: 5px;
-                        font-size: 0.8rem;
+                        font-size: 0.7rem;
+                        
                     }
                        
                   }
@@ -894,7 +888,7 @@ body{
 
                     }
                     .timeline_text{
-                      left:50.76%;
+                      left:53%;
                       text-align: left;
                       margin-left: -0.8vw;
                     }
@@ -907,7 +901,7 @@ body{
                     }
                     .timeline_text{
                       text-align: right;
-                      right: 50.7%;
+                      right: 50.3%;
                       margin-right: -0.8vw;
                     }
                   }
@@ -933,6 +927,89 @@ body{
         height: 100vh;
         width: 100vw;
       }
+    }
+
+    .github_section{
+      height: 180vh;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      inset: 0;
+      position: relative;
+      background-color: white;
+      .highlight_text_div{
+        height: 180vh;
+        width: 55vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        inset: 0;
+        position: relative;
+        .highligh_text_background{
+          background-color: #1DA1F2;
+          height: 70vh;
+          width: 45vw;
+          position: relative;
+          max-width: 45vw;
+          font-size: 1.7rem;
+          color: white;
+          .highlight_text{
+            
+            margin-left: 8%;
+            margin-right: 8%;
+            margin-top: 10%;
+            margin-bottom:10%;
+            
+
+            align-items: center;
+            inset: 0;
+            ul{
+              list-style-type: none; /* Remove bullets */
+              padding: 0; /* Remove padding */
+              margin: 0; /* Remove margins */
+              li{
+                display: inline;
+              }
+            }
+          }
+        }
+      }
+      .highlight_tweet_div{
+        height: 180vh;
+        width: 45vw;
+        background-color: white;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        inset: 0;
+        position: relative;
+        flex-direction: column;
+        .svg_div{
+          height: 5vh;
+          width: 45vw;
+          .svg_moveup{
+            top: -47%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            flex-direction: row;
+            .svg_wrap{
+              height: 2.5vw;
+              width: 2.5vw;
+            }
+          }
+        }
+      }
+    }
+
+    .bargraph_section{
+      height: 200vh;
+      width: 100vw;
+      position: relative;
+      background-color: white;
     }
     
 

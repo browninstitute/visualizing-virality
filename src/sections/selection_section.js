@@ -9,6 +9,7 @@ import {styles_with_css} from'./motion.ts'
 import {NETWORK1} from './network_p5/network1';
 import {NETWORK2} from './network_p5/network2';
 import {ALGORITHM} from './algorithm';
+import {GITHUB} from './github';
 import {DEMOTION} from './demotion';
 import {SELECTION_MENU} from './selection_menu';
 import {OUTRO} from './outro';
@@ -144,7 +145,7 @@ export function SELECTION_SECTION(){
         <>
             <SELECTION_MENU UserSelection={selection} SetterUserSelection={updateSelection} />
             <NETWORK1 UserSelection={selection} NetworkPause={pauseN1} SetterNetworkPause={updatePauseN1} NetworkReset={resetN1} SetterNetworkReset={updateResetN1} />
-            
+            <GITHUB UserSelection={selection}/>
             <ALGORITHM UserSelection={selection} />
             <DEMOTION UserSelection={selection} UserDemotion={demotion} SetterUserDemotion={setDemotion}  />
             <NETWORK2 UserSelection={selection} UserDemotion={demotion} NetworkPause={pauseN2} SetterNetworkPause={updatePauseN2} NetworkReset={resetN2} SetterNetworkReset={updateResetN2} />

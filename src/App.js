@@ -10,6 +10,7 @@ import {useInView} from 'react-intersection-observer';
 import {selection_network} from './sections/selection';
 import {styles_with_css} from'./sections/motion.ts';
 import {ONBOARDING_INTRO} from './sections/onboarding_bootstrap';
+import {ONBOARDING_BARS} from './sections/onboarding_bars'
 import { ONBOARDING_METHODOLOGY } from './sections/onboard_methodology';
 import {TWEET_SVG} from './sections/tweet_svg';
 import { TIMELINE_BLOCK } from './sections/timeline_block';
@@ -138,9 +139,12 @@ function App() {
         <ONBOARDING_INTRO />
         {/* <ONBOARDING_METHODOLOGY></ONBOARDING_METHODOLOGY> */}
 
+        <ONBOARDING_BARS />
 
-
-
+        <div className='timeline_padding'>
+          <div className='padding_text'><h7>Timeline of Selected <font color="#1DA1F2">"Viral"</font> Tweets</h7></div>
+          
+        </div>
         <div className='timeline_sec'>
           <div className='timeline_wrap'>
             
@@ -165,6 +169,7 @@ function App() {
 
           
         </div>
+        <div className='timeline_padding'></div>
      
         <SELECTION_SECTION />
 

@@ -14,7 +14,7 @@ export function TIMELINE_BLOCK({username,name,profile,text,image,date,likes,rts,
           y:0,
           opacity:1,
           transition:{
-            type: 'spring', duration: 0.8, bounce: 0.3
+            type: 'spring', duration: 1, bounce: 0.3
           }
         })
       }
@@ -26,10 +26,12 @@ export function TIMELINE_BLOCK({username,name,profile,text,image,date,likes,rts,
   
     return(
       <div ref={ref} className='timeline_block'>
-        <TIMELINE_TWEET_SVG username={username} text={text} date={date} likes={likes} rts={rts} replies={replies} image={image}  />    
+        
+        <TIMELINE_TWEET_SVG username={username} text={text} date={date} likes={likes} rts={rts} replies={replies} image={image}  />   
+        
         <motion.div className='timeline_text' animate={animation_movein}>
           <p>{name}</p>
-          <h3>{date}</h3>
+          <h5>{date}</h5>
         </motion.div>
       </div>
     );

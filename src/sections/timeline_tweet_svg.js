@@ -1,6 +1,5 @@
 import React, {  useRef} from "react";
-import { useScroll} from "framer-motion";
-import { useInView, motion } from "framer-motion";
+import { useScroll, useInView, motion, useTransform } from "framer-motion";
 import { AppearingTweet } from "./appearingtweet";
 import { AppearingText } from "./appearingtext";
 
@@ -12,11 +11,12 @@ export function TIMELINE_TWEET_SVG({username,profile,text,image,date,likes,rts,r
       target:ref,
       offset:["start end", "end start"]
     });
+    const y = useTransform(scrollYProgress, [0.3,1], ["0%","10%"]);
+
     const isInView = useInView(ref, { once: false });
     image = image? image: "https://pbs.twimg.com/profile_images/1609416420076535808/4BwbURyI_400x400.jpg";
     return(
-      <AppearingText>
-      <motion.div className="tweet-wrap" ref={ref}>
+      <motion.div className="tweet-wrap" ref={ref} style={{y}}>
           <div className="tweet-header">
             <img src={image} alt="" className="avator"/>
             <div className="tweet-header-info">
@@ -56,6 +56,5 @@ export function TIMELINE_TWEET_SVG({username,profile,text,image,date,likes,rts,r
           </div>
   
       </motion.div>
-      </AppearingText>
     );
     };

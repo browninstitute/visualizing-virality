@@ -33,6 +33,8 @@ function sketch(fp5) {
     const nameMap = new Map();
     const followerMap = new Map();
     const parentMap = new Map();
+    const hopMap = new Map();
+    const finalTimeMap = new Map();
     const infoToLoadMap = new Map();
     var names = [];
     var startpoint = 0;
@@ -422,9 +424,15 @@ function sketch(fp5) {
         }
         
         this.display = function() {
-            //console.log(followerMap.get(this.name));
-          //  if (adjFrame)
+          
+            //first check if final child is gone
+          let checkFinalChild = fp5.log(fp5.int(parseFloat(finalTimeMap.get(this.name))))*120 - adjFrame;
+          if ( checkFinalChild <= 0)
+          {
+              return;
+          }
 
+          //then brute force go away if too long
           let timeSince = fp5.log(this.time)*120 - adjFrame;
           if (timeSince < -500 && this.isFirst != 'first')
           {
@@ -510,7 +518,9 @@ function sketch(fp5) {
             for (let r = 0; r < info_table.getRowCount(); r++)
             {
                 followerMap.set(info_table.getString(r, 0), info_table.getString(r,1));
-                nameMap.set(info_table.getString(r, 0), info_table.getString(r,2))
+                nameMap.set(info_table.getString(r, 0), info_table.getString(r,2));
+                finalTimeMap.set(info_table.getString(r,0), info_table.getString(r,4));
+                hopMap.set(info_table.getString(r,0), info_table.getString(r,5));
             }
             for (let r = 0; r < table.getRowCount(); r++)
             {

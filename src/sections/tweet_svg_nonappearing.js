@@ -1,22 +1,19 @@
 import React, {  useRef} from "react";
-import { useScroll, useInView, motion, useTransform } from "framer-motion";
-import { AppearingTweet } from "./appearingtweet";
-import { AppearingText } from "./appearingtext";
+import { useScroll} from "framer-motion";
+import { useInView, motion } from "framer-motion";
 
 
-export function TIMELINE_TWEET_SVG({username,profile,text,image,date,likes,rts,replies}){
+export function TWEET_SVG_NONAPPEAR({username,profile,text,image,date,likes,rts,replies}){
 
     const ref = useRef(null);
     const {scrollYProgress} = useScroll({
       target:ref,
-      offset:["start end", "start start"]
+      offset:["start end", "end start"]
     });
-    const y = useTransform(scrollYProgress, [0.3,1], ["0%","10%"]);
-
     const isInView = useInView(ref, { once: false });
     image = image? image: "https://pbs.twimg.com/profile_images/1609416420076535808/4BwbURyI_400x400.jpg";
     return(
-      <motion.div className="tweet-wrap" ref={ref} style={{y}}>
+      <motion.div className="tweet-wrap" ref={ref}>
           <div className="tweet-header">
             <img src={image} alt="" className="avator"/>
             <div className="tweet-header-info">

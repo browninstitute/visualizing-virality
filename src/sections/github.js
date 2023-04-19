@@ -1,6 +1,6 @@
 import {motion, useScroll, useTransform} from 'framer-motion';
 import React, { useEffect, useState, useRef } from 'react';
-import {TWEET_SVG} from './tweet_svg';
+import {TWEET_SVG_NONAPPEAR} from './tweet_svg_nonappearing';
 import {styles_with_css} from'./motion.ts'
 
 export function GITHUB({UserSelection}){
@@ -179,7 +179,7 @@ export function GITHUB({UserSelection}){
             </div>
 
             <div className='highlight_tweet_div'>
-                <TWEET_SVG username={UserSelection.username} text={UserSelection.text} date={UserSelection.date} likes={UserSelection.likes} rts={UserSelection.rts} replies={UserSelection.replies} image={UserSelection.image}  />    
+                <TWEET_SVG_NONAPPEAR username={UserSelection.username} text={UserSelection.text} date={UserSelection.date} likes={UserSelection.likes} rts={UserSelection.rts} replies={UserSelection.replies} image={UserSelection.image}  />    
                 <div className='svg_div'>
                     <div className='svg_moveup'>
 

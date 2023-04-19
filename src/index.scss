@@ -613,61 +613,7 @@ body{
           }
 
         
-          .stacked_bars{
-            //position: relative;
-            height: 770vh;
-            width: 100vw;
-            color: white;
-            align-items: center;
-            z-index: 1000;
-            .bars_div{
-              height: 100vh;
-              width: 100vw;
-              top: 0;
-              position: sticky;
-              flex-direction: column;
-              justify-content: start;
-              align-items: center;
-              display: flex;
-              .bar1{
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                display: flex;
-                height: 25vh;
-                width: 25vw;
-                background-color: #0b5684;
-              }
-              .bar2{
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                display: flex;
-                height: 25vh;
-                width: 25vw;
-                background-color: #1d84c3;
-              }
-              .bar3{
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                display: flex;
-                
-                height: 25vh;
-                width: 25vw;
-                background-color: #77bcfd;
-              }
-              .bar4{
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                display: flex;
-                height: 25vh;
-                width: 25vw;
-                background-color: #b0d6f9;
-              }
-            }
-          }
+          
 
         }
 
@@ -1025,14 +971,217 @@ body{
     }
 
     .bargraph_section{
-      height: 200vh;
+      height: 220vh;
       width: 100vw;
       position: relative;
       background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      inset: 0;
+      .bars_div{
+        height: 220vh;
+        width: 50vw;
+        .bars_sticky{
+          height: 100vh;
+          width: 50vw;
+          position: sticky;
+          top: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          .bars_container{
+            height: 60vh;
+            width: 25vw;
+            .bar1{
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              display: flex;
+              height: 15vh;
+              width: 25vw;
+              background-color: #0b5684;
+            }
+            .bar2{
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              display: flex;
+              height: 15vh;
+              width: 25vw;
+              background-color: #1d84c3;
+            }
+            .bar3{
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              display: flex;
+              
+              height: 15vh;
+              width: 25vw;
+              background-color: #77bcfd;
+            }
+            .bar4{
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              display: flex;
+              height: 15vh;
+              width: 25vw;
+              background-color: #b0d6f9;
+            }
+          }
+        }
+      }
+      .text_div{
+        height: 220vh;
+        width: 50vw;
+        align-items: center;
+        .text_sticky{
+          height: 100vh;
+          width: 45vw;
+          position: sticky;
+          top: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          .text_container_background{
+            background-color: #1DA1F2;
+            height: 45vh;
+            width: 45vw;
+            position: relative;
+            max-width: 45vw;
+            font-size: 1.7rem;
+            color: white;
+            .text_container{
+              display:flex;
+              align-items: center;
+              inset: 0;
+              justify-content: center;
+              .text_scroller{
+                margin-left: 8%;
+                margin-right: 8%;
+            
+                height: 45vh;
+                display:flex;
+                align-items: center;
+                inset: 0;
+                justify-content: center;
+                position: absolute;
+              }
+            }
+            
+          }
+        }
+
+      }
+      
+      
     }
     
 
-    
-     
+    // .stacked_bars{
+    //   //position: relative;
+    //   height: 770vh;
+    //   width: 100vw;
+    //   color: white;
+    //   align-items: center;
+    //   z-index: 1000;
+    //   .bars_div{
+    //     height: 100vh;
+    //     width: 100vw;
+    //     top: 0;
+    //     position: sticky;
+    //     flex-direction: column;
+    //     justify-content: start;
+    //     align-items: center;
+    //     display: flex;
+    //     .bar1{
+    //       flex-direction: column;
+    //       justify-content: center;
+    //       align-items: center;
+    //       display: flex;
+    //       height: 25vh;
+    //       width: 25vw;
+    //       background-color: #0b5684;
+    //     }
+    //     .bar2{
+    //       flex-direction: column;
+    //       justify-content: center;
+    //       align-items: center;
+    //       display: flex;
+    //       height: 25vh;
+    //       width: 25vw;
+    //       background-color: #1d84c3;
+    //     }
+    //     .bar3{
+    //       flex-direction: column;
+    //       justify-content: center;
+    //       align-items: center;
+    //       display: flex;
+          
+    //       height: 25vh;
+    //       width: 25vw;
+    //       background-color: #77bcfd;
+    //     }
+    //     .bar4{
+    //       flex-direction: column;
+    //       justify-content: center;
+    //       align-items: center;
+    //       display: flex;
+    //       height: 25vh;
+    //       width: 25vw;
+    //       background-color: #b0d6f9;
+    //     }
+    //   }
+    // }
+    .demotion_intro_section{
+      background-color: #1DA1F2;
+      color: white;
+
+      inset: 0;
+      height: 300vh;
+      width: 100vw;
+      position: relative;
+      .amplification_demotion{
+
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        inset: 0;
+      }
+      .demotion_how{
+        height: 200vh;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        inset: 0;
+        .demotion_tweet_div{
+          height: 100vh;
+          width: 50vw;
+          position: sticky;
+          top:0;
+          display: flex;
+        align-items: center;
+        justify-content: center;
+        inset: 0;
+          .demotion_tweet_container{
+            height: 70vh;
+            width: 50vw;
+
+          }
+        }
+      }
+    }
+    .outro_section{
+      height: 100vh;
+      width: 100vw;
+      background-color: #1DA1F2;
+      color: white;
+
+    }
 }
 

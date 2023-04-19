@@ -11,6 +11,7 @@ import {NETWORK2} from './network_p5/network2';
 import {ALGORITHM} from './algorithm';
 import {GITHUB} from './github';
 import {DEMOTION} from './demotion';
+import {DEMOTION_INTRO} from './demotion_intro';
 import {SELECTION_MENU} from './selection_menu';
 import {OUTRO} from './outro';
 import {ReactP5Wrapper} from 'react-p5-wrapper';
@@ -147,8 +148,10 @@ export function SELECTION_SECTION(){
             <ALGORITHM UserSelection={selection} />
             <NETWORK1 UserSelection={selection} NetworkPause={pauseN1} SetterNetworkPause={updatePauseN1} NetworkReset={resetN1} SetterNetworkReset={updateResetN1} />
             <GITHUB UserSelection={selection}/>
+            <DEMOTION_INTRO UserSelection={selection}/>
             <DEMOTION UserSelection={selection} UserDemotion={demotion} SetterUserDemotion={setDemotion}  />
             <NETWORK2 UserSelection={selection} UserDemotion={demotion} NetworkPause={pauseN2} SetterNetworkPause={updatePauseN2} NetworkReset={resetN2} SetterNetworkReset={updateResetN2} />
+            
             <OUTRO UserSelection={selection} />
         </>
     );

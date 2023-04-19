@@ -112,7 +112,7 @@ function sketch(fp5) {
         fp5.fill(150);
         fp5.textSize((fp5.windowHeight/40)/load_factor);
     
-        fp5.text(formatTime(fp5.round(fp5.exp(adjFrame/timescale),1)), (fp5.windowWidth/30)/load_factor, (fp5.windowHeight/10)/load_factor);
+        fp5.text(formatTime(fp5.round(fp5.exp(adjFrame/timescale),1)), (fp5.windowWidth/30)/load_factor, 1.5*(fp5.windowHeight/10)/load_factor);
         fp5.textSize((fp5.windowHeight/60)/load_factor);
         
         fp5.text("Direct followers of original poster who engaged with tweet", (3/2)*(fp5.windowWidth/20)/load_factor, (2.3*fp5.windowHeight/10)/load_factor);
@@ -670,18 +670,18 @@ export function NETWORK1({UserSelection, NetworkPause, SetterNetworkPause, Netwo
     <>
     <div className="network_section" id="network_demotion">
     <div className="play_pause_con container">
-    <div className="row demotionText">
-        <div className="col-8"></div>
-        <div className="col-2 demo_but_sec">
-        <button className="demo_but" style={{backgroundColor:"#a7dbfa"}} onClick={() => {
+    <div className="row demotionText">   
+        <div className="col-1 demo_but_sec">
+        <button className="play_but" style={{backgroundColor:"#a7dbfa"}} onClick={() => {
             SetterNetworkPause(!NetworkPause)
         }}>Play/Pause</button>
         </div>
-        <div className="col-2 demo_but_sec">
-        <button className="demo_but" style={{backgroundColor:"#44b8fc"}} onClick={() => {
+        <div className="col-1 demo_but_sec">
+        <button className="play_but" style={{backgroundColor:"#44b8fc"}} onClick={() => {
             SetterNetworkReset(true)
         }}>Reset</button>
         </div>
+        <div className="col-10"></div>
     </div>
     </div>
       <div className='sketch_sec'>

@@ -115,17 +115,14 @@ function sketch(fp5) {
         fp5.text(formatTime(fp5.round(fp5.exp(adjFrame/timescale),1)), (fp5.windowWidth/30)/load_factor, (fp5.windowHeight/10)/load_factor);
         fp5.textSize((fp5.windowHeight/60)/load_factor);
         
-        fp5.text("Direct followers of original poster who engaged with tweet", (3/2)*(fp5.windowWidth/20)/load_factor, (2.1*fp5.windowHeight/10)/load_factor);
-        fp5.text("Other accounts who engaged with tweet", (3/2)*(fp5.windowWidth/20)/load_factor, (3.1*fp5.windowHeight/10)/load_factor);
-        fp5.text("Accounts who originally engaged with tweet, but would not under this level of demotion", (3/2)*(fp5.windowWidth/20)/load_factor, (4.1*fp5.windowHeight/10)/load_factor);
-        fp5.text("Time", (3/2)*(fp5.windowWidth/20)/load_factor, (9.2*fp5.windowHeight/10)/load_factor);
+        fp5.text("Direct followers of original poster who engaged with tweet", (3/2)*(fp5.windowWidth/20)/load_factor, (2.3*fp5.windowHeight/10)/load_factor);
+        fp5.text("2nd degree of separation from OP", (3/2)*(fp5.windowWidth/20)/load_factor, (2.8*fp5.windowHeight/10)/load_factor);
+        fp5.text("3rd degree of separation from OP", (3/2)*(fp5.windowWidth/20)/load_factor, (3.3*fp5.windowHeight/10)/load_factor);
+        fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.windowWidth/20)/load_factor, (3.7*fp5.windowHeight/10)/load_factor);
+        fp5.text("Time", (3/2)*(fp5.windowWidth/20)/load_factor, (9.3*fp5.windowHeight/10)/load_factor);
     
-        fp5.text("Number of Engagements", (fp5.windowWidth/30)/load_factor, (5.5*fp5.windowHeight/10)/load_factor);
-        if(pause)
-        {
-        fp5.fill(200,200,200, 100);
-        fp5.triangle((4.5/10)*fp5.windowWidth, (2/5)*fp5.windowHeight,(4.5/10)*fp5.windowWidth, (3/5)*fp5.windowHeight, (5.5/10)*fp5.windowWidth, (1/2)*fp5.windowHeight);
-        }
+        fp5.text("Number of Engagements", 1.3*(fp5.windowWidth/30)/load_factor, (5.5*fp5.windowHeight/10)/load_factor);
+        
     
     
         //text("Adjust Demotion", (windowWidth/30)/load_factor, (2*windowHeight/10)/load_factor);
@@ -237,12 +234,29 @@ function sketch(fp5) {
 
     function makeKey()
     {
-        fp5.fill(65, 105, 225, 200);
-        fp5.ellipse((fp5.windowWidth/20)/load_factor, (2*fp5.windowHeight/10)/load_factor, 0.75*fp5.windowWidth/20);
-        fp5.fill(29, 161, 242, 200);
-        fp5.ellipse((fp5.windowWidth/20)/load_factor, (3*fp5.windowHeight/10)/load_factor, 0.75*fp5.windowWidth/20);
-        fp5.fill(220,220, 220, 120);
-        fp5.ellipse((fp5.windowWidth/20)/load_factor, (4*fp5.windowHeight/10)/load_factor, 0.75*fp5.windowWidth/20);
+        fp5.fill(50, 120, 242, 150);
+        fp5.rect((fp5.windowWidth/20)/load_factor, (4*fp5.windowHeight/20)/load_factor, 0.75*fp5.windowWidth/40);
+        fp5.fill(102, 0, 153, 150);
+        fp5.rect((fp5.windowWidth/20)/load_factor, (5*fp5.windowHeight/20)/load_factor, 0.75*fp5.windowWidth/40);
+        fp5.fill(153, 0, 102, 150);
+        fp5.rect((fp5.windowWidth/20)/load_factor, (6*fp5.windowHeight/20)/load_factor, 0.75*fp5.windowWidth/40);
+        fp5.fill(200,200,200, 150);
+        fp5.rect((fp5.windowWidth/20)/load_factor, (7*fp5.windowHeight/20)/load_factor, 0.75*fp5.windowWidth/40);
+
+        let yAxBot = histogram_y+histogram_height;
+        let yAxTop = fp5.int(fp5.map(3000,0,max_bar_height,histogram_y+histogram_height,histogram_y));
+
+        fp5.stroke(200,200,200,150);
+        fp5.line(histogram_x, yAxBot, histogram_x, yAxTop);
+        fp5.line(histogram_x, histogram_y+histogram_height, histogram_x+histogram_width, histogram_y+histogram_height);
+       // fp5.line(3.5*(fp5.windowWidth/20), histogram_y+histogram_height-10, 3.5*(fp5.windowWidth/20), histogram_y+histogram_height+10);
+        //fp5.line(2.15*(fp5.windowWidth/20), histogram_y+histogram_height-10, 2.15*(fp5.windowWidth/20), histogram_y+histogram_height+10);
+        fp5.text("12h", 2.1*(fp5.windowWidth/20), histogram_y+histogram_height+15);
+        fp5.text("1d", 3.5*(fp5.windowWidth/20), histogram_y+histogram_height+15);
+        fp5.text("3000", histogram_x+10, yAxTop);
+
+
+
 
     }
 
@@ -456,7 +470,7 @@ function sketch(fp5) {
             if (this.isFirst =='first')
             {
                 fp5.fill(29, 161, 242, 100);
-                fp5.text(nameMap.get(this.name), 500,500)
+               // fp5.text(nameMap.get(this.name), 500,500)
                 scaler = 200/load_factor;
 
             }

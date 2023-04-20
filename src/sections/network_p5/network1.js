@@ -152,6 +152,20 @@ function sketch(fp5) {
             onboardingTextY = 0.75*(fp5.windowHeight);
         }
 
+        if (1260 <= timesecs  && timesecs < 2000)
+        {
+            onboardingText = "The lighter blue bar are direct followers of " + selection_user.name + "\nthe darker is everyone else.";
+            onboardingTextX = 0.10*(fp5.windowWidth);
+            onboardingTextY = 0.75*(fp5.windowHeight);
+        }
+
+        if (2000 <= timesecs  && timesecs < 3000)
+        {
+            onboardingText = "Watch the distribution as time goes by.";
+            onboardingTextX = 0.10*(fp5.windowWidth);
+            onboardingTextY = 0.75*(fp5.windowHeight);
+        }
+
         fp5.text(onboardingText, onboardingTextX, onboardingTextY);
 
         fp5.textSize((fp5.windowHeight/60)/load_factor);
@@ -176,9 +190,10 @@ function sketch(fp5) {
         {
         adjFrame++;
         network.update();
+        network.display();
+
         }
         //network.displayConnections();
-        network.display();
         //selection_user.demotion = slider.value();
     
     
@@ -632,7 +647,7 @@ function sketch(fp5) {
                 network.addNeuron(map1.get(names[i]));
             }
     
-            network.displayConnections();
+            //network.displayConnections();
             network.display();
     
             cur_bar = 0;

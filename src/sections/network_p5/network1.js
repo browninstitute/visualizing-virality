@@ -71,7 +71,7 @@ function sketch(fp5) {
     let nodes_table = 0;
     let info_table = 0;
     let key_accounts = 0;
-    //let first_eng = 0;
+    let first_eng = 0;
     let table_tb = 0;
     let nodes_table_tb = 0;
     let info_table_tb = 0;
@@ -127,9 +127,9 @@ function sketch(fp5) {
 
 
         }
-        if (3 <= timesecs  && timesecs < 7)
+        if (3 <= timesecs  && timesecs < first_eng)
         {
-            onboardingText = "After 7 seconds, the first account will engage with his tweet. ";
+            onboardingText = "After" + first_eng + " seconds, the first account will engage with his tweet. ";
             onboardingTextX = 0.545*(fp5.windowWidth);
 
         }
@@ -138,9 +138,16 @@ function sketch(fp5) {
             onboardingText = "There they go!";
         }
 
-        if (250 <= timesecs  && timesecs < 660)
+        if (250 <= timesecs  && timesecs < 630)
         {
             onboardingText = "At around 18 minutes, this histogram will show\nhow many engagements happened over time.";
+            onboardingTextX = 0.10*(fp5.windowWidth);
+            onboardingTextY = 0.75*(fp5.windowHeight);
+        }
+
+        if (630 <= timesecs  && timesecs < 1260)
+        {
+            onboardingText = "It goes by pretty fast.";
             onboardingTextX = 0.10*(fp5.windowWidth);
             onboardingTextY = 0.75*(fp5.windowHeight);
         }
@@ -569,7 +576,7 @@ function sketch(fp5) {
             let mainX = 1.4*(fp5.windowWidth/2)/load_factor;
             let mainY = (fp5.windowHeight/2)/load_factor;
             veryfirstguy = nodes_table.getString(0, 0);
-            //first_eng = info_table.fp5.int(parseFloat(fp5.getString(1,4)));
+            first_eng = fp5.int(parseFloat(info_table.getString(1,3)));
             newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius*4);
             map1.set(veryfirstguy, newNode);
             //console.log("FIRST ENGAGMENT" + first_eng);

@@ -146,7 +146,7 @@ export function SELECTION_SECTION(){
         <>
             <SELECTION_MENU UserSelection={selection} SetterUserSelection={updateSelection} />
             <ALGORITHM UserSelection={selection} />
-           {/* <NETWORK1 UserSelection={selection} NetworkPause={pauseN1} SetterNetworkPause={updatePauseN1} NetworkReset={resetN1} SetterNetworkReset={updateResetN1} */}
+          <NETWORK1 UserSelection={selection} NetworkPause={pauseN1} SetterNetworkPause={updatePauseN1} NetworkReset={resetN1} SetterNetworkReset={updateResetN1} />
             <GITHUB UserSelection={selection}/>
             <DEMOTION_INTRO UserSelection={selection}/>
             <DEMOTION UserSelection={selection} UserDemotion={demotion} SetterUserDemotion={setDemotion}  />

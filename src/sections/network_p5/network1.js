@@ -71,7 +71,7 @@ function sketch(fp5) {
     let nodes_table = 0;
     let info_table = 0;
     let key_accounts = 0;
-    //let first_eng = 0;
+    let first_eng = 0;
     let table_tb = 0;
     let nodes_table_tb = 0;
     let info_table_tb = 0;
@@ -569,7 +569,8 @@ function sketch(fp5) {
             let mainX = 1.4*(fp5.windowWidth/2)/load_factor;
             let mainY = (fp5.windowHeight/2)/load_factor;
             veryfirstguy = nodes_table.getString(0, 0);
-            //first_eng = info_table.fp5.int(parseFloat(fp5.getString(1,4)));
+            first_eng = fp5.int(parseFloat(info_table.getString(1,4)));
+            console.log(first_eng);
             newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius*4);
             map1.set(veryfirstguy, newNode);
             //console.log("FIRST ENGAGMENT" + first_eng);

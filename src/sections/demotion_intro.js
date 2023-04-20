@@ -75,19 +75,19 @@ export function DEMOTION_INTRO({UserSelection}){
                     </div>
                 </div>  
                 <div className="demotion_text_div">
-                <AppearingText>
+
                     <div className="demotion_text_div_sticky">
                         
-                            What would happen if Tom's tweet were demoted?
+                            What would happen if Tom's tweet were <span style={styles_with_css({fontSize:amplify_scale,color:"#1DA1F2"})}>demoted</span>?
                             <br/>
                             <br/>
                             <br/>
-                            Demotion generally works by lowring a particular tweet in your feed. The lower the tweet is in your feed, the less likely you are to see it and engage with it.
+                            Demotion generally works by lowering a particular tweet in your feed. The lower the tweet is in your feed, the <span style={styles_with_css({fontSize:amplify_scale,color:"#1DA1F2"})}>less likely</span> you are to <span style={styles_with_css({fontSize:amplify_scale,color:"#1DA1F2"})}>see it</span> and <span style={styles_with_css({fontSize:amplify_scale,color:"#1DA1F2"})}>engage</span> with it.
                         
                         
 
                     </div>
-                </AppearingText>
+
                 </div>
                               
             </div>

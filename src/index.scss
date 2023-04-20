@@ -665,9 +665,7 @@ body{
                   #first_svg{
                     top:14%;
                   }
-                  #first_svg{
-                    top:14%;
-                  }
+
   
                   
               }
@@ -1001,6 +999,11 @@ body{
               height: 15vh;
               width: 25vw;
               background-color: #0b5684;
+              .bar_text{
+                color: white;
+                font-size: 1.3rem;
+                position: absolute;
+              }
             }
             .bar2{
               flex-direction: column;
@@ -1010,6 +1013,11 @@ body{
               height: 15vh;
               width: 25vw;
               background-color: #1d84c3;
+              .bar_text{
+                color: white;
+                font-size: 1.3rem;
+                position: absolute;
+              }
             }
             .bar3{
               flex-direction: column;
@@ -1020,6 +1028,11 @@ body{
               height: 15vh;
               width: 25vw;
               background-color: #77bcfd;
+              .bar_text{
+                color: white;
+                font-size: 1.3rem;
+                position: absolute;
+              }
             }
             .bar4{
               flex-direction: column;
@@ -1029,6 +1042,11 @@ body{
               height: 15vh;
               width: 25vw;
               background-color: #b0d6f9;
+              .bar_text{
+                color: white;
+                font-size: 1.3rem;
+                position: absolute;
+              }
             }
           }
         }
@@ -1140,17 +1158,39 @@ body{
       color: white;
 
       inset: 0;
-      height: 300vh;
+      height: 250vh;
       width: 100vw;
       position: relative;
       .amplification_demotion{
 
-        height: 100vh;
+        height: 50vh;
         width: 100vw;
         display: flex;
         align-items: center;
         justify-content: center;
         inset: 0;
+        background-color: white;
+        color: rgb(108, 108, 108);
+        .amplification_text{
+          margin-left: 10%;
+          margin-right: 10%;
+          font-size: 1.5rem;
+          line-height: 3rem;
+          .non_changing{
+            padding-left: 4rem;
+            padding-right: 4rem;
+            width: 16rem;
+            max-width: 16rem;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+
+            .changing{
+                text-align: center
+            }
+          }
+        }
       }
       .demotion_how{
         height: 200vh;
@@ -1168,12 +1208,57 @@ body{
         align-items: center;
         justify-content: center;
         inset: 0;
-          .demotion_tweet_container{
-            height: 70vh;
+          .demotion_tweet_div_sticky{
+            height: 100vh;
             width: 50vw;
+            .tweets_div{
+              position: sticky;
+              top: 0;
+              height: 100vh;
+                
+              display: flex;
+  
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              .tweets_animate{
+                margin: 0.25%;
+              }
+              #main{
+                z-index: 20;
+              }
+                     
+            }
 
           }
         }
+        .demotion_text_div{
+          height: 100vh;
+          width: 50vw;
+          position: sticky;
+          top:0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          inset: 0;
+          .demotion_text_div_sticky{
+            height: 70vh;
+            width: 40vw;     
+            font-size: 2rem;  
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+          }
+          
+        }
+      }
+    }
+    .demotion_section{
+      height: 100vh;
+      width: 100vw;
+      .padding{
+        height: 20vh
       }
     }
     .outro_section{

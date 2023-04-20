@@ -16,7 +16,7 @@ export function ALGORITHM({UserSelection}){
         </div>
         <div className="row basicText">
           <div className="col-12 center">
-        We're going to visualize how this tweet spread on Twitter over 4 days
+        We're going to visualize how this tweet spread on Twitter's platform.
           </div>
         </div>
       </div>

@@ -42,6 +42,8 @@ function sketch(fp5) {
     //pause value
     let pause = true;
     let adjFrame = -1;
+    let onboardingText="";
+    let timesecs = 0;
     let popsound;
     let firstClick = true;
     //tweetset input values
@@ -69,7 +71,7 @@ function sketch(fp5) {
     let nodes_table = 0;
     let info_table = 0;
     let key_accounts = 0;
-
+    //let first_eng = 0;
     let table_tb = 0;
     let nodes_table_tb = 0;
     let info_table_tb = 0;
@@ -111,8 +113,40 @@ function sketch(fp5) {
         fp5.noStroke();
         fp5.fill(150);
         fp5.textSize((fp5.windowHeight/40)/load_factor);
-    
-        fp5.text(formatTime(fp5.round(fp5.exp(adjFrame/timescale),1)), (fp5.windowWidth/30)/load_factor, 1.5*(fp5.windowHeight/10)/load_factor);
+        timesecs = fp5.round(fp5.exp(adjFrame/timescale),1);
+        fp5.text(formatTime(timesecs), (fp5.windowWidth/30)/load_factor, 1.5*(fp5.windowHeight/10)/load_factor);
+        onboardingText = "";
+        let onboardingTextX = 0.66*(fp5.windowWidth);
+        let onboardingTextY = 0.35*(fp5.windowHeight);
+        if (1.5 < timesecs && timesecs < 3 )
+        {
+            
+            onboardingText = "This is " + selection_user.name + ".";
+            onboardingTextX = 0.65*(fp5.windowWidth);
+           // onboardingTextY = 0.35*(fp5.windowHeight);
+
+
+        }
+        if (3 <= timesecs  && timesecs < 7)
+        {
+            onboardingText = "After 7 seconds, the first account will engage with his tweet. ";
+            onboardingTextX = 0.545*(fp5.windowWidth);
+
+        }
+        if (7 <= timesecs  && timesecs < 11)
+        {
+            onboardingText = "There they go!";
+        }
+
+        if (250 <= timesecs  && timesecs < 660)
+        {
+            onboardingText = "At around 18 minutes, this histogram will show\nhow many engagements happened over time.";
+            onboardingTextX = 0.10*(fp5.windowWidth);
+            onboardingTextY = 0.75*(fp5.windowHeight);
+        }
+
+        fp5.text(onboardingText, onboardingTextX, onboardingTextY);
+
         fp5.textSize((fp5.windowHeight/60)/load_factor);
         
         fp5.text("Direct followers of original poster who engaged with tweet", (3/2)*(fp5.windowWidth/20)/load_factor, (2.3*fp5.windowHeight/10)/load_factor);
@@ -123,7 +157,7 @@ function sketch(fp5) {
     
         fp5.text("Number of Engagements", 1.3*(fp5.windowWidth/30)/load_factor, (5.5*fp5.windowHeight/10)/load_factor);
         
-    
+        
     
         //text("Adjust Demotion", (windowWidth/30)/load_factor, (2*windowHeight/10)/load_factor);
     
@@ -131,7 +165,7 @@ function sketch(fp5) {
     
         makeKey();
     
-        if (!pause)
+        if (!pause && timesecs < 144000)
         {
         adjFrame++;
         network.update();
@@ -535,9 +569,10 @@ function sketch(fp5) {
             let mainX = 1.4*(fp5.windowWidth/2)/load_factor;
             let mainY = (fp5.windowHeight/2)/load_factor;
             veryfirstguy = nodes_table.getString(0, 0);
-    
+            //first_eng = info_table.fp5.int(parseFloat(fp5.getString(1,4)));
             newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius*4);
             map1.set(veryfirstguy, newNode);
+            //console.log("FIRST ENGAGMENT" + first_eng);
     
             
             for (let r = 0; r < info_table.getRowCount(); r++)

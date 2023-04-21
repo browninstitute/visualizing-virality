@@ -11,7 +11,7 @@ export function ALGORITHM({UserSelection}){
         </div>
         <div className="row tweet_intro">
           <div className="col-12 center">
-        <TWEET_SVG username={UserSelection.username} text={UserSelection.text} date={UserSelection.date} likes={UserSelection.likes} rts={UserSelection.rts} replies={UserSelection.replies} image={UserSelection.image}  />    
+        <TWEET_SVG username={UserSelection.username} text={UserSelection.text} date={UserSelection.date} likes={UserSelection.likes} rts={UserSelection.rts} replies={UserSelection.replies} image={UserSelection.image} t_link={UserSelection.t_link} t_image={UserSelection.t_image} t_vid={UserSelection.t_vid} />    
           </div>
         </div>
         <div className="row basicText">

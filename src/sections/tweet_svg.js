@@ -5,7 +5,7 @@ import { AppearingTweet } from "./appearingtweet";
 import App from "../App";
 
 
-export function TWEET_SVG({username,profile,text,image,date,likes,rts,replies}){
+export function TWEET_SVG({username,profile,text,image,date,likes,rts,replies,t_image,t_vid,t_link}){
 
     const ref = useRef(null);
     const {scrollYProgress} = useScroll({
@@ -16,16 +16,31 @@ export function TWEET_SVG({username,profile,text,image,date,likes,rts,replies}){
     image = image? image: "https://pbs.twimg.com/profile_images/1609416420076535808/4BwbURyI_400x400.jpg";
     return(
       <AppearingTweet>
-      <motion.div className="tweet-wrap" ref={ref}>
+      <a  href={t_link}>
+      <motion.div className="tweet-wrap" ref={ref} >
           <div className="tweet-header">
             <img src={image} alt="" className="avator"/>
+            
             <div className="tweet-header-info">
              <span>{username}</span><span>{date}</span>
-             <p>{text}</p>           
+             <p>{text}</p>  
+            
+              { (t_image) && 
+              <div className="tweet-content">
+                <img className="content_img" src={t_image} />
+              </div>
+              }
+              { (t_vid) && 
+                <div className="tweet-content">
+                  <video className="content_vid" src={t_vid} type='video/mp4' loop={true} muted={true} autoPlay={'autoplay'} playsInline={true}  />
+                </div>
+              }
+
             </div>
             
           </div>
-  
+
+          
   
           <div className="tweet-info-counts">
             <div className="comments">
@@ -56,6 +71,7 @@ export function TWEET_SVG({username,profile,text,image,date,likes,rts,replies}){
           </div>
   
       </motion.div>
+      </a>
       </AppearingTweet>
     );
     };

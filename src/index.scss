@@ -133,16 +133,20 @@ canvas {
 .center {
   text-align: center;
 }
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
 
 .basicText {
   color: white;
-  font-size: 3vw;
+  font-size: 2.5vw;
   padding: auto;
   margin-top: 40%;
 }
 
 .select {
-  margin-top: 20%;
+  margin-top: 30%;
 }
 .selection_but:hover {
   background: #5189be;
@@ -166,28 +170,37 @@ body{
 
     & * > .tweet-wrap {
                   
-      //max-width:300px;
+      width: 30vw;
+     // max-width: 400px;
+     // min-width: 400px;
+      
       background: #fff;
       margin-top: 0%;
       border-radius:20px;
       padding: 2%;
       display: inline-block;
-      max-width: fit-content;
+      border:1px solid rgb(233, 233, 233);
+      color:rgb(108, 108, 108)
 
     }
     & * > .tweet-header {
       display: flex;
       align-items:flex-start;
-      font-size:1rem;
-      max-width: fit-content;
+      font-size:0.9rem;
+      width: 27vw;
+
       .avator{
           border-radius:100px;
-          width:48px;
+          width:4vw;
           margin-right: 15px;
       }
+      
+      
     }
+    
     & * > .tweet-header-info {
       font-weight:bold;
+      width: 297px;
       span {
           font-weight:normal;
           margin-left: 5px;
@@ -195,7 +208,25 @@ body{
       p {
           font-weight:normal;
           margin-top: 5px;
+          margin-bottom: 0;
           
+        }
+      .tweet-content {
+          display: flex;
+          justify-content:  left;
+          align-items: center;
+          width: 297px;
+          margin-left: 10px;
+          .content_img{
+            
+            max-height: 158.93px;
+            border-radius: 5%;
+          }
+          .content_vid{
+            margin-left: 60px;
+            height: 158.93px;
+            border-radius: 5%;
+          }
         }
     }
 
@@ -205,19 +236,32 @@ body{
           max-width: 100%;
       }
     }
+
+    
     
     & * > .tweet-info-counts {
       display: flex;
       margin-left: 60px;
       margin-top: 10px;
-      font-size: 0.9rem;
+      width: 297px;
+      font-size: 0.8rem;
+      
       div {
+          width: 80px;
           display: flex;
-          margin-right: 20px;
           svg {
               margin-right: 10px;
           }
       }
+      .message {
+        width: 57px;
+        height: 20px;
+        svg{
+          width: 20px;
+          height: 20px;
+        }
+        
+    }
     } 
     
 
@@ -691,12 +735,13 @@ body{
                     
                     svg.highlight{
                       position: relative;
-                      top: 0%; left: 0%; width: 90%; height: 90%;
+                      z-index: 20;
+                      top: 0%; left: 0%; width: 110%; height: 90%;
                     }
                     
                   }
                   #first_svg{
-                    top:14%;
+                    top:10%;
                   }
 
   
@@ -922,6 +967,7 @@ body{
       .sketch_sec{
         height: 100vh;
         width: 100vw;
+        background-color: white;
       }
     }
 
@@ -1102,7 +1148,7 @@ body{
             width: 45vw;
             position: relative;
             max-width: 45vw;
-            font-size: 3vw;
+            font-size: 2.5vw;
             color: white;
             .text_container{
               display:flex;
@@ -1207,7 +1253,7 @@ body{
         .amplification_text{
           margin-left: 10%;
           margin-right: 10%;
-          font-size: 2.5vw;
+          font-size: 2vw;
           line-height: 3rem;
           text-align: center;
           .non_changing{
@@ -1233,6 +1279,7 @@ body{
         align-items: center;
         justify-content: center;
         inset: 0;
+        background-color: white;
         .demotion_tweet_div{
           height: 100vh;
           width: 50vw;
@@ -1246,24 +1293,36 @@ body{
           .demotion_tweet_div_sticky{
             height: 100vh;
             width: 45vw;
-            background-color: #1DA1F2;
-            .tweets_div{
-              position: sticky;
-              top: 0;
-              height: 100vh;
-                
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            inset: 0;
+            .demotion_tweet_bg{
+              height: 90vh;
+              width: 100%;
+              background-color: #1DA1F2;
               display: flex;
-  
-              flex-direction: column;
-              justify-content: center;
               align-items: center;
-              .tweets_animate{
-                margin: 0.25%;
+              justify-content: center;
+              inset: 0;
+              .tweets_div{
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                  
+                display: flex;
+    
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .tweets_animate{
+                  margin: 0.25%;
+                }
+                #main{
+                  z-index: 20;
+                }
+                      
               }
-              #main{
-                z-index: 20;
-              }
-                     
             }
 
           }
@@ -1282,7 +1341,7 @@ body{
           .demotion_text_div_sticky{
             height: 70vh;
             width: 40vw;     
-            font-size: 2.5vw;  
+            font-size: 2vw;  
 
             
           }
@@ -1302,7 +1361,7 @@ body{
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 3vw;
+        font-size: 2.5vw;
       }
     }
     .outro_section{

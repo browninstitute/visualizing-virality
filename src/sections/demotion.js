@@ -13,6 +13,9 @@ export function DEMOTION({UserSelection, UserDemotion, SetterUserDemotion}){
                 Select the level of demotion for {UserSelection.username}'s tweet to visualize
             </div>
 
+            <div className="demotion_slider_div">
+                <div className=""></div>
+            </div>
 
             <div className="demotionText">
 

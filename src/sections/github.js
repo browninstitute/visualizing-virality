@@ -43,6 +43,7 @@ export function GITHUB({UserSelection}){
         highlight_s6_end: 0.638-0.06,
 
       };
+      console.log(UserSelection)
         const opacity_s1 = useTransform(scrollYProgress, [
             tweets_scroll_points.highlight_s1_start,
             tweets_scroll_points.highlight_s1_middle1,
@@ -179,7 +180,7 @@ export function GITHUB({UserSelection}){
             </div>
 
             <div className='highlight_tweet_div'>
-                <TWEET_SVG_NONAPPEAR username={UserSelection.username} text={UserSelection.text} date={UserSelection.date} likes={UserSelection.likes} rts={UserSelection.rts} replies={UserSelection.replies} image={UserSelection.image}  />    
+                <TWEET_SVG_NONAPPEAR username={UserSelection.username} text={UserSelection.text} date={UserSelection.date} likes={UserSelection.likes} rts={UserSelection.rts} replies={UserSelection.replies} image={UserSelection.image} t_image={UserSelection.t_image} t_vid={UserSelection.t_vid} t_link={UserSelection.t_link}  />    
                 <div className='svg_div'>
                     <div className='svg_moveup'>
 

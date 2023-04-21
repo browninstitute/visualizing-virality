@@ -8,6 +8,12 @@ import App from "../App";
 import useMeasure from "react-use-measure";
 import { Counter } from "./counter";
 
+import profile1 from "../assets/onboarding_profile1.jpg"
+import profile2 from "../assets/onboarding_profile2.jpg"
+import profile3 from "../assets/onboarding_profile3.jpg"
+import profile4 from "../assets/onboarding_profile4.jpg"
+import profile5 from "../assets/onboarding_profile5.jpg"
+
 
 export function ONBOARDING_INTRO(){
     const tweets_scroll_points = {
@@ -156,10 +162,10 @@ export function ONBOARDING_INTRO(){
                     {/* animate={{height: bounds.height > 0 ? bounds.height: null}}
                         transition={{type:"spring", bounce: 0.2, duration: 0.4}}
                     */}
-                    <TWEET_SVG  username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
+                    <TWEET_SVG  username="@StateFarm" image={profile4} text="We manifested that State Farm red, Rihanna. Epic! #SuperBowl" date="02/12/2023" likes="52" rts="10" replies="6" t_link={"https://twitter.com/StateFarm/status/1624945135917191169"}/>    
                   </motion.div>
                   <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity})}>
-                    <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
+                    <TWEET_SVG username="@Wendys" image={profile3} text="Where's the beef?" date="02/13/2023" likes="6399" rts="411" replies="1250" t_link={"https://twitter.com/Wendys/status/1625165317189009409"}/>    
                   </motion.div>
                   <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity, x:emphasize})}>
                         <div className="svg_wrap" id="first_svg"> 
@@ -172,14 +178,14 @@ export function ONBOARDING_INTRO(){
                 />*/}
                         </svg>
                     </div>
-                    <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
+                    <TWEET_SVG username="@cxrtezs" text="Nvm = you should have listened when i was talking to u." date="04/23/2023" likes="82.1k" rts="21.1k" replies="63" image={profile1} t_link={"https://twitter.com/cxrtezs/status/1648949370690076672"} />    
                   </motion.div>
                   <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity})}>
-                    <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
+                    <TWEET_SVG username="@MTA" image={profile5} text="Tomorrow is the big day, @Yankees fans! ⚾️ Pitch your travel advice to your fellow fans, what's the best way to get to the home opener? 🏟️" date="03/29/2023" likes="13" rts="5" replies="0" t_link={"https://twitter.com/MTA/status/1641074159621996545"}/>    
                   </motion.div>
                   <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity_2, y:move_up, x:emphasize})}>
                         <div className="svg_wrap" id="second_svg" > 
-                            <svg viewBox="-100 -100 500 300" fill="none" className="highlight" >
+                            <svg viewBox="-105 -100 450 350" fill="none" className="highlight" >
                                { <motion.path 
                                     d="M157.5 3A154.5 78.5 0 1 0 157.5 157.5A154.5 78.5 0 1 0 157.5 3Z" 
                                     stroke="#0B5684" 
@@ -187,8 +193,15 @@ export function ONBOARDING_INTRO(){
                                     pathLength={engagments}
                               />}
                             </svg>
+
+                            {/* <svg viewBox="100 100 262 43" fill="none" className="highlight" >
+                              {<motion.path
+                              d="M3.65003 18.1045C10.8742 11.2415 23.0993 10.2547 32.3572 7.09353C48.309 1.64657 66.8775 2.37455 83.5231 2.37455C119.877 2.37455 156.23 2.37455 192.584 2.37455C203.715 2.37455 214.689 2.4416 225.704 4.34079C232.724 5.55103 241.98 7.74236 247.901 11.6377C250.904 13.6137 258.045 15.224 259.218 19.3279C261.13 26.0223 255.491 29.447 249.998 31.3001C233.133 36.9895 213.297 36.3877 195.73 36.9367C177.664 37.5013 159.632 37.7669 141.549 37.7669C122.42 37.7669 103.463 40.1264 84.3096 40.1264C72.4343 40.1264 58.3575 42.2339 46.9073 38.903C34.5145 35.2978 16.452 42.1817 6.00952 32.2614C1.64106 28.1114 1.3661 21.0993 3.65003 16.5315" 
+                              stroke="#0B5684" strokeWidth="3" pathLength={engagments}/>}
+                            </svg> */}
+
                         </div>
-                    <TWEET_SVG username="@username" text="text of the tweet" date="01/01/2023" likes="2k" rts="20" replies="10"/>    
+                    <TWEET_SVG username="@JUNlPER" text="the fact there hasn’t been any new internet famous cat for the last couple of years is a sign of the oncoming apocalypse" date="01/30/2023" likes="203.6k" rts="19.6k" replies="4872" image={profile2} t_link={"https://twitter.com/JUNlPER/status/1620265396539629570"} />    
                   </motion.div>
                 
             </motion.div>

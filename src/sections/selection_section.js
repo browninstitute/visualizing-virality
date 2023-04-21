@@ -44,6 +44,7 @@ export function SELECTION_SECTION(){
                     image: brady_p,
                     t_image: null,
                     t_vid: null,
+                    t_link: "https://twitter.com/TomBrady/status/1621502628222980097",
 
                 });
             case "@6lack":
@@ -59,6 +60,7 @@ export function SELECTION_SECTION(){
                     image: black_p,
                     t_image: black_i,
                     t_vid: null,
+                    t_link: "https://twitter.com/6LACK/status/1639114939087618050",
 
                 });
             case "@SpeakerMcCarthy":
@@ -74,6 +76,7 @@ export function SELECTION_SECTION(){
                     image: mccarthy_p,
                     t_image: null,
                     t_vid:mccarthy_v,
+                    t_link: "https://twitter.com/speakermccarthy/status/1637850612992753664",
 
                 });
             default:
@@ -89,6 +92,7 @@ export function SELECTION_SECTION(){
                     image: brady_p,
                     t_image: null,
                     t_vid: null,
+                    t_link: "https://twitter.com/TomBrady/status/1621502628222980097",
 
                 });
         }
@@ -113,6 +117,7 @@ export function SELECTION_SECTION(){
         new_selection["image"] = n_keyvals.image
         new_selection["t_image"] = n_keyvals.t_image
         new_selection["t_vid"] = n_keyvals.t_vid
+        new_selection['t_link'] = n_keyvals.t_link
         setSelection(new_selection)
     };
 
@@ -146,7 +151,7 @@ export function SELECTION_SECTION(){
         <>
             <SELECTION_MENU UserSelection={selection} SetterUserSelection={updateSelection} />
             <ALGORITHM UserSelection={selection} />
-          <NETWORK1 UserSelection={selection} NetworkPause={pauseN1} SetterNetworkPause={updatePauseN1} NetworkReset={resetN1} SetterNetworkReset={updateResetN1} />
+            <NETWORK1 UserSelection={selection} NetworkPause={pauseN1} SetterNetworkPause={updatePauseN1} NetworkReset={resetN1} SetterNetworkReset={updateResetN1} />
             <GITHUB UserSelection={selection}/>
             <DEMOTION_INTRO UserSelection={selection}/>
             <DEMOTION UserSelection={selection} UserDemotion={demotion} SetterUserDemotion={setDemotion}  />

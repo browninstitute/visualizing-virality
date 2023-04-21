@@ -10,6 +10,9 @@ import m1 from './links_mc.csv';
 import m2 from './nodes_mc.csv';
 import m3 from './users_mc.csv';
 import brady_p from '../../assets/brady_profile.jpg';
+import { useState, useEffect } from "react";
+import { useInView } from "react-intersection-observer";
+import { AnimatePresence, motion } from "framer-motion";
 
 function sketch(fp5) {
     let selection_user = {
@@ -37,6 +40,7 @@ function sketch(fp5) {
     const finalTimeMap = new Map();
     const infoToLoadMap = new Map();
     var names = [];
+    let img = "";
     var startpoint = 0;
     var newNode;
     //pause value
@@ -84,6 +88,9 @@ function sketch(fp5) {
     let nodes_table_mc = 0;
     let info_table_mc = 0;
     let key_accounts_mc = 0; //this is defined manually here
+    let heart="";
+    let quote="";
+    let retweet="";
 
     let cur_bar = 0
     fp5.preload = () => {
@@ -97,7 +104,12 @@ function sketch(fp5) {
 
         table_mc = fp5.loadTable(m1, 'csv', 'header');
         nodes_table_mc = fp5.loadTable(m2, 'csv', 'header');
-        info_table_mc = fp5.loadTable(m3, 'csv', 'header');        
+        info_table_mc = fp5.loadTable(m3, 'csv', 'header');  
+        
+        img = fp5.loadImage("https://upload.wikimedia.org/wikipedia/sco/thumb/9/9f/Twitter_bird_logo_2012.svg/1200px-Twitter_bird_logo_2012.svg.png");
+
+
+    
     }
 
 
@@ -114,7 +126,8 @@ function sketch(fp5) {
         fp5.fill(150);
         fp5.textSize((fp5.windowHeight/40)/load_factor);
         timesecs = fp5.round(fp5.exp(adjFrame/timescale),1);
-        fp5.text(formatTime(timesecs), (fp5.windowWidth/30)/load_factor, 1.5*(fp5.windowHeight/10)/load_factor);
+        fp5.text(formatTime(timesecs), (fp5.windowWidth/30)/load_factor, 1.5*(fp5.windowHeight/15)/load_factor);
+        
         onboardingText = "";
         let onboardingTextX = 0.66*(fp5.windowWidth);
         let onboardingTextY = 0.35*(fp5.windowHeight);
@@ -129,7 +142,7 @@ function sketch(fp5) {
         }
         if (3 <= timesecs  && timesecs < first_eng)
         {
-            onboardingText = "After" + first_eng + " seconds, the first account will engage with his tweet. ";
+            onboardingText = "After " + first_eng + " seconds, the first account will engage with his tweet. ";
             onboardingTextX = 0.545*(fp5.windowWidth);
 
         }
@@ -170,15 +183,22 @@ function sketch(fp5) {
 
         fp5.textSize((fp5.windowHeight/60)/load_factor);
         
-        fp5.text("Direct followers of original poster who engaged with tweet", (3/2)*(fp5.windowWidth/20)/load_factor, (2.3*fp5.windowHeight/10)/load_factor);
-        fp5.text("2nd degree of separation from OP", (3/2)*(fp5.windowWidth/20)/load_factor, (2.8*fp5.windowHeight/10)/load_factor);
-        fp5.text("3rd degree of separation from OP", (3/2)*(fp5.windowWidth/20)/load_factor, (3.3*fp5.windowHeight/10)/load_factor);
-        fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.windowWidth/20)/load_factor, (3.7*fp5.windowHeight/10)/load_factor);
+        fp5.text("Direct followers of original poster who engaged with tweet", (3/2)*(fp5.windowWidth/20)/load_factor, (1.8*fp5.windowHeight/10)/load_factor);
+        fp5.text("2nd degree of separation from OP", (3/2)*(fp5.windowWidth/20)/load_factor, (2.3*fp5.windowHeight/10)/load_factor);
+        fp5.text("3rd degree of separation from OP", (3/2)*(fp5.windowWidth/20)/load_factor, (2.8*fp5.windowHeight/10)/load_factor);
+        fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.windowWidth/20)/load_factor, (3.2*fp5.windowHeight/10)/load_factor);
         fp5.text("Time", (3/2)*(fp5.windowWidth/20)/load_factor, (9.3*fp5.windowHeight/10)/load_factor);
     
-        fp5.text("Number of Engagements", 1.3*(fp5.windowWidth/30)/load_factor, (5.5*fp5.windowHeight/10)/load_factor);
-        
-        
+        fp5.text("Number of Engagements", 1.3*(fp5.windowWidth/30)/load_factor, (5.7*fp5.windowHeight/10)/load_factor);
+        fp5.text(selection_user.username, fp5.windowWidth/30+(fp5.windowWidth/60)+(fp5.windowWidth/30), (fp5.windowHeight/2.5+1.5*fp5.windowHeight/40));
+        fp5.fill(0,0,0,0);
+        fp5.stroke(200,200,200);
+        fp5.rect(fp5.windowWidth/30, (fp5.windowHeight/2.5), (fp5.windowWidth/4), (fp5.windowHeight/8), 20);
+        img.resize((fp5.windowWidth/40),(fp5.windowHeight/24));
+        fp5.image(img, fp5.windowWidth/30+(fp5.windowWidth/60), (fp5.windowHeight/2.5+fp5.windowHeight/40))
+
+        fp5.text("  ♥, 🗨, ⇆",  fp5.windowWidth/30+(fp5.windowWidth/60)+(fp5.windowWidth/30), (fp5.windowHeight/2.5+ 2*fp5.windowHeight/40) );
+
     
         //text("Adjust Demotion", (windowWidth/30)/load_factor, (2*windowHeight/10)/load_factor);
     
@@ -192,6 +212,11 @@ function sketch(fp5) {
         network.update();
         network.display();
 
+        }
+
+        if (timesecs >= 144000)
+        {
+            network.display();
         }
         //network.displayConnections();
         //selection_user.demotion = slider.value();
@@ -291,13 +316,13 @@ function sketch(fp5) {
     function makeKey()
     {
         fp5.fill(50, 120, 242, 150);
-        fp5.rect((fp5.windowWidth/20)/load_factor, (4*fp5.windowHeight/20)/load_factor, 0.75*fp5.windowWidth/40);
+        fp5.rect((fp5.windowWidth/20)/load_factor, (3*fp5.windowHeight/20)/load_factor, 0.75*fp5.windowWidth/40);
         fp5.fill(102, 0, 153, 150);
-        fp5.rect((fp5.windowWidth/20)/load_factor, (5*fp5.windowHeight/20)/load_factor, 0.75*fp5.windowWidth/40);
+        fp5.rect((fp5.windowWidth/20)/load_factor, (4*fp5.windowHeight/20)/load_factor, 0.75*fp5.windowWidth/40);
         fp5.fill(153, 0, 102, 150);
-        fp5.rect((fp5.windowWidth/20)/load_factor, (6*fp5.windowHeight/20)/load_factor, 0.75*fp5.windowWidth/40);
+        fp5.rect((fp5.windowWidth/20)/load_factor, (5*fp5.windowHeight/20)/load_factor, 0.75*fp5.windowWidth/40);
         fp5.fill(200,200,200, 150);
-        fp5.rect((fp5.windowWidth/20)/load_factor, (7*fp5.windowHeight/20)/load_factor, 0.75*fp5.windowWidth/40);
+        fp5.rect((fp5.windowWidth/20)/load_factor, (6*fp5.windowHeight/20)/load_factor, 0.75*fp5.windowWidth/40);
 
         let yAxBot = histogram_y+histogram_height;
         let yAxTop = fp5.int(fp5.map(3000,0,max_bar_height,histogram_y+histogram_height,histogram_y));
@@ -721,11 +746,23 @@ function sketch(fp5) {
 
 
 }
+
 export function NETWORK1({UserSelection, NetworkPause, SetterNetworkPause, NetworkReset, SetterNetworkReset }){
 
+    const [isVisible, setIsVisible] = useState(false);
+    const { ref, inView } = useInView({ threshold: 0 });
+
+    useEffect(() => {
+        if (inView) {
+          setIsVisible(true);
+          SetterNetworkPause(!NetworkPause);
+          console.log("hi");
+        }
+      }, [inView]);
   return(
     <>
-    <div className="network_section" id="network_demotion">
+    <div className="network_section" id="network_demotion" ref={ref}
+>
     <div className="play_pause_con container">
     <div className="row demotionText">   
         <div className="col-1 demo_but_sec">

@@ -142,7 +142,7 @@ function App() {
         <ONBOARDING_BARS />
 
         <div className='timeline_padding'>
-          <div className='padding_text'><h7>Timeline of Selected <font color="#1DA1F2">"Viral"</font> Tweets</h7></div>
+          <div className='padding_text'><h7>Here are some <font color="#1DA1F2">"viral"</font> tweets that caught our eye:</h7></div>
           
         </div>
         <div className='timeline_sec'>

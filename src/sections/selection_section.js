@@ -128,7 +128,7 @@ export function SELECTION_SECTION(){
     };
 
 
-    const [pauseN1, setPauseN1] = useState(true);
+    const [pauseN1, setPauseN1] = useState(false);
     const updatePauseN1 = (pause) => {
         setPauseN1(pause)
     };

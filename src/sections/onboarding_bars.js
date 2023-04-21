@@ -171,16 +171,16 @@ export function ONBOARDING_BARS(){
                     <div className='text_container_background'>
                         <div className='text_container'>
                             <motion.div className='text_scroller' style={styles_with_css({opacity: text1_opacity,y: text1_y})}>
-                                Out of the 23 billions tweets from January 2023, only 4933 had more than 100000 likes. 
+                                Out of the 23 billion tweets from January 2023, only 4933 had more than 100000 likes. That's 0.000015%.
                             </motion.div>
                             <motion.div className='text_scroller' style={styles_with_css({opacity: text2_opacity,y: text2_y})}>
                                 From the 4933 total tweets, 3402 fit our definition of "viral".
                             </motion.div>
                             <motion.div className='text_scroller' style={styles_with_css({opacity: text3_opacity,y: text3_y})}>
-                                78% of "viral" tweets were authored by users with more than 50,000 followers. 
+                                78% of "viral" tweets were authored by users with more than 100,000 followers. 
                             </motion.div>
                             <motion.div className='text_scroller' style={styles_with_css({opacity: text4_opacity,y: text4_y})}>
-                                They also came from a number of different categories.
+                                They also came from a number of different categories. Here's a few we enjoyed:
                             </motion.div>
                         </div>
                     </div>

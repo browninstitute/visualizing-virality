@@ -2,7 +2,7 @@ import { AppearingText } from "./appearingtext"
 import { BUTTON_WRAP } from "./button_wrapper"
 
 export function SELECTION_MENU( {UserSelection, SetterUserSelection}){
-    const scrollHeight =15800;
+    const scrollHeight =11650;
 
     return (
         <div className = "container">

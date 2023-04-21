@@ -150,7 +150,7 @@ export function SELECTION_SECTION(){
             <GITHUB UserSelection={selection}/>
             <DEMOTION_INTRO UserSelection={selection}/>
             <DEMOTION UserSelection={selection} UserDemotion={demotion} SetterUserDemotion={setDemotion}  />
-            {/*<NETWORK2 UserSelection={selection} UserDemotion={demotion} NetworkPause={pauseN2} SetterNetworkPause={updatePauseN2} NetworkReset={resetN2} SetterNetworkReset={updateResetN2}*/} 
+            <NETWORK2 UserSelection={selection} UserDemotion={demotion} NetworkPause={pauseN2} SetterNetworkPause={updatePauseN2} NetworkReset={resetN2} SetterNetworkReset={updateResetN2} /> 
             
             <OUTRO UserSelection={selection} />
         </>

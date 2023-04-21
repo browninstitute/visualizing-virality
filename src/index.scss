@@ -11,6 +11,10 @@
   font-family: "Asap", sans-serif;
 }
 
+.no_margin {
+  margin: 0;
+}
+
 html {
   background-color: #1DA1F2;
   font-family: "Asap", sans-serif;
@@ -267,7 +271,7 @@ body{
               padding-bottom: 1.1rem;
               padding-left: 3rem;
               padding-right: 3rem;
-              font-size:3.5rem;
+              font-size:4.5vw;
               letter-spacing: 4px;
             }
           }
@@ -380,8 +384,8 @@ body{
 
   .stage {
     position: relative;
-    justify-content: center;
-    text-align: center;
+    justify-content: left;
+    text-align: left;
     display: flex;
   
   }
@@ -497,6 +501,20 @@ body{
             top: 0;
             height: 100vh;
             font-size: 3vw;
+            width: 50%;
+            //font-size: 2rem;
+            position: sticky;
+          }
+
+          
+          & * > .text_div2{
+            //position: absolute;
+            align-items:center;
+            display:flex;
+            justify-content: left;
+            top: 0;
+            height: 100vh;
+            font-size: 3vw;
             width: 100%;
             //font-size: 2rem;
             position: sticky;
@@ -530,15 +548,18 @@ body{
             position: relative;
             margin-left: 2%;
 
+
+
           }
           .viral_text3{
             height: 250vh;
             position: relative;
-            width: 65%;
-            display: flex;
+            width: 80%;
+            //display: flex;
             //white-space: nowrap;
             margin-left: 2%;
-            text-align: center;
+            text-align: left;
+            padding: 0;
 
           }
           .viral_text4{
@@ -915,7 +936,7 @@ body{
           width: 45vw;
           position: relative;
           max-width: 45vw;
-          font-size: 1.7rem;
+          font-size: 1.6vw;
           color: white;
           .highlight_text{
             
@@ -1069,7 +1090,7 @@ body{
             width: 45vw;
             position: relative;
             max-width: 45vw;
-            font-size: 1.7rem;
+            font-size: 3vw;
             color: white;
             .text_container{
               display:flex;
@@ -1174,7 +1195,7 @@ body{
         .amplification_text{
           margin-left: 10%;
           margin-right: 10%;
-          font-size: 1.5rem;
+          font-size: 2.5vw;
           line-height: 3rem;
           .non_changing{
             padding-left: 4rem;
@@ -1248,7 +1269,7 @@ body{
           .demotion_text_div_sticky{
             height: 70vh;
             width: 40vw;     
-            font-size: 2rem;  
+            font-size: 2.5vw;  
 
             
           }
@@ -1268,7 +1289,7 @@ body{
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 2rem;
+        font-size: 3vw;
       }
     }
     .outro_section{

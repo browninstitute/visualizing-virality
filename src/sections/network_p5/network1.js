@@ -775,8 +775,9 @@ export function NETWORK1({UserSelection, NetworkPause, SetterNetworkPause, Netwo
     useEffect(() => {
         if (inView) {
           setIsVisible(true);
+         
           SetterNetworkPause(!NetworkPause);
-          console.log("hi");
+        
         }
       }, [inView]);
   return(

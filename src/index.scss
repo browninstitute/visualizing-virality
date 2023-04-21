@@ -46,6 +46,8 @@ canvas {
 
 }
 
+
+
 .selection_but {
   background: #77bcfd;
   color: white;
@@ -118,6 +120,12 @@ canvas {
 .algorithm_section {
   padding: 10%;
 }
+
+.gradient-transition {
+  background-image: linear-gradient(#1DA1F2, #FFF);
+  height: 500px;
+
+}
 .tweet_intro {
  // margin: 10%;
   padding: 10%;
@@ -131,6 +139,10 @@ canvas {
   font-size: 3vw;
   padding: auto;
   margin-top: 40%;
+}
+
+.select {
+  margin-top: 20%;
 }
 .selection_but:hover {
   background: #5189be;

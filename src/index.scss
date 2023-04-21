@@ -11,6 +11,10 @@
   font-family: "Asap", sans-serif;
 }
 
+.no_margin {
+  margin: 0;
+}
+
 html {
   background-color: #1DA1F2;
   font-family: "Asap", sans-serif;
@@ -41,6 +45,8 @@ canvas {
       width: 80%;
 
 }
+
+
 
 .selection_but {
   background: #77bcfd;
@@ -114,6 +120,12 @@ canvas {
 .algorithm_section {
   padding: 10%;
 }
+
+.gradient-transition {
+  background-image: linear-gradient(#1DA1F2, #FFF);
+  height: 500px;
+
+}
 .tweet_intro {
  // margin: 10%;
   padding: 10%;
@@ -127,6 +139,10 @@ canvas {
   font-size: 3vw;
   padding: auto;
   margin-top: 40%;
+}
+
+.select {
+  margin-top: 20%;
 }
 .selection_but:hover {
   background: #5189be;
@@ -267,7 +283,7 @@ body{
               padding-bottom: 1.1rem;
               padding-left: 3rem;
               padding-right: 3rem;
-              font-size:3.5rem;
+              font-size:4.5vw;
               letter-spacing: 4px;
             }
           }
@@ -380,8 +396,8 @@ body{
 
   .stage {
     position: relative;
-    justify-content: center;
-    text-align: center;
+    justify-content: left;
+    text-align: left;
     display: flex;
   
   }
@@ -497,6 +513,20 @@ body{
             top: 0;
             height: 100vh;
             font-size: 3vw;
+            width: 50%;
+            //font-size: 2rem;
+            position: sticky;
+          }
+
+          
+          & * > .text_div2{
+            //position: absolute;
+            align-items:center;
+            display:flex;
+            justify-content: left;
+            top: 0;
+            height: 100vh;
+            font-size: 3vw;
             width: 100%;
             //font-size: 2rem;
             position: sticky;
@@ -530,15 +560,18 @@ body{
             position: relative;
             margin-left: 2%;
 
+
+
           }
           .viral_text3{
             height: 250vh;
             position: relative;
-            width: 65%;
-            display: flex;
+            width: 80%;
+            //display: flex;
             //white-space: nowrap;
             margin-left: 2%;
-            text-align: center;
+            text-align: left;
+            padding: 0;
 
           }
           .viral_text4{
@@ -665,9 +698,7 @@ body{
                   #first_svg{
                     top:14%;
                   }
-                  #first_svg{
-                    top:14%;
-                  }
+
   
                   
               }
@@ -917,7 +948,7 @@ body{
           width: 45vw;
           position: relative;
           max-width: 45vw;
-          font-size: 1.7rem;
+          font-size: 1.6vw;
           color: white;
           .highlight_text{
             
@@ -1001,6 +1032,11 @@ body{
               height: 15vh;
               width: 25vw;
               background-color: #0b5684;
+              .bar_text{
+                color: white;
+                font-size: 1.3rem;
+                position: absolute;
+              }
             }
             .bar2{
               flex-direction: column;
@@ -1010,6 +1046,11 @@ body{
               height: 15vh;
               width: 25vw;
               background-color: #1d84c3;
+              .bar_text{
+                color: white;
+                font-size: 1.3rem;
+                position: absolute;
+              }
             }
             .bar3{
               flex-direction: column;
@@ -1020,6 +1061,11 @@ body{
               height: 15vh;
               width: 25vw;
               background-color: #77bcfd;
+              .bar_text{
+                color: white;
+                font-size: 1.3rem;
+                position: absolute;
+              }
             }
             .bar4{
               flex-direction: column;
@@ -1029,6 +1075,11 @@ body{
               height: 15vh;
               width: 25vw;
               background-color: #b0d6f9;
+              .bar_text{
+                color: white;
+                font-size: 1.3rem;
+                position: absolute;
+              }
             }
           }
         }
@@ -1051,7 +1102,7 @@ body{
             width: 45vw;
             position: relative;
             max-width: 45vw;
-            font-size: 1.7rem;
+            font-size: 3vw;
             color: white;
             .text_container{
               display:flex;
@@ -1140,17 +1191,39 @@ body{
       color: white;
 
       inset: 0;
-      height: 300vh;
+      height: 250vh;
       width: 100vw;
       position: relative;
       .amplification_demotion{
 
-        height: 100vh;
+        height: 50vh;
         width: 100vw;
         display: flex;
         align-items: center;
         justify-content: center;
         inset: 0;
+        background-color: white;
+        color: rgb(108, 108, 108);
+        .amplification_text{
+          margin-left: 10%;
+          margin-right: 10%;
+          font-size: 2.5vw;
+          line-height: 3rem;
+          .non_changing{
+            padding-left: 4rem;
+            padding-right: 4rem;
+            width: 16rem;
+            max-width: 16rem;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+
+            .changing{
+                text-align: center
+            }
+          }
+        }
       }
       .demotion_how{
         height: 200vh;
@@ -1165,15 +1238,70 @@ body{
           position: sticky;
           top:0;
           display: flex;
-        align-items: center;
-        justify-content: center;
-        inset: 0;
-          .demotion_tweet_container{
-            height: 70vh;
-            width: 50vw;
+          align-items: center;
+          justify-content: center;
+          inset: 0;
+          background-color: white;
+          .demotion_tweet_div_sticky{
+            height: 100vh;
+            width: 45vw;
+            background-color: #1DA1F2;
+            .tweets_div{
+              position: sticky;
+              top: 0;
+              height: 100vh;
+                
+              display: flex;
+  
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              .tweets_animate{
+                margin: 0.25%;
+              }
+              #main{
+                z-index: 20;
+              }
+                     
+            }
 
           }
         }
+        .demotion_text_div{
+          height: 100vh;
+          width: 50vw;
+          position: sticky;
+          top:0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          inset: 0;
+          background-color: white;
+          color: rgb(108, 108, 108);
+          .demotion_text_div_sticky{
+            height: 70vh;
+            width: 40vw;     
+            font-size: 2.5vw;  
+
+            
+          }
+          
+        }
+      }
+    }
+    .demotion_section{
+      height: 100vh;
+      width: 100vw;
+      background-color: white;
+      color: rgb(108, 108, 108);
+      .padding{
+        height: 20vh
+      }
+      .demotionText{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3vw;
       }
     }
     .outro_section{

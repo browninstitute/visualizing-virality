@@ -114,7 +114,7 @@ export function ONBOARDING_INTRO(){
             </AppearingText>
             <AppearingText>
             <div className='viral_text3 container'>
-              <div className='text_div container'>
+              <div className='text_div2 container'>
                 <div className='row col-12'>
                <span>We defined a "viral" tweet as</span>  <span>a  tweet that had at least 5x</span>
                <span> the engagement </span> 

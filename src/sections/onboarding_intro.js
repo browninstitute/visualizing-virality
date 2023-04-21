@@ -336,8 +336,8 @@ export function ONBOARDING_INTRO(){
                 But there are many definitions of virality.
               </div>
             </div>
-            <div className='viral_text3 container'>
-              <div className='text_div row'>
+            <div className='viral_text3 container no_margin'>
+              <div className='text_div2 row'>
                 <div className='col'>
                 We defined a "viral" tweet as a tweet that had at least 5x the engagement of the author's average tweet.
                 </div>

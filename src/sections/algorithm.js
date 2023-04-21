@@ -16,38 +16,12 @@ export function ALGORITHM({UserSelection}){
         </div>
         <div className="row basicText">
           <div className="col-12 center">
-        We're going to visualize how this tweet spread on Twitter over 4 days
+        We're going to visualize how this tweet spread on Twitter's platform.
           </div>
         </div>
       </div>
-      <div className="algorithm_section container">
-        <AppearingText>
-        <div className="row basicText">
-          <div className="col-12 center">
-        {UserSelection.username} is going to be represented by the <span className="pink">light pink</span> circle.
-          </div>
-        </div>
-        </AppearingText>
-        <br/><br/>        <br/><br/>
-
-        <AppearingText>
-        <div className="row basicText">
-          <div className="col-12 center">
-          The <span className="darkBlue">dark blue</span> and <span className="lightBlue">light blue</span> circles are accounts that interacted with the tweet.
-        Their size is proportional to their follower count.
-          </div>
-        </div>
-        </AppearingText>
-        <br/><br/>        <br/><br/>
-
-        <AppearingText>
-        <div className="row basicText">
-          <div className="col-12 center">
-          When these accounts retweet, like, or reply to the original tweet, it will be shown by a burst of <span className="blackDots">black dots</span> across the network.    
-
-          </div>
-        </div>
-       </ AppearingText>
+      <div className="gradient-transition">
+       
       </div>
       </div>
     )

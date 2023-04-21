@@ -2,16 +2,20 @@ import { AppearingText } from "./appearingtext"
 
 export function DEMOTION({UserSelection, UserDemotion, SetterUserDemotion}){
     return (
-        <div className="demotion_section container">
-            {/* <div className="row demotionText">
-                DEMOTIoN ONBOARDING
-            </div> */}
-            <AppearingText>
-            <div className="row demotionText basicText">
-                Now let's see the effect demotion has on {UserSelection.username}'s tweet we explored earlier.
+        
+        <div className="demotion_section">
+
+            <div className="padding">
+                
+                </div>
+
+            <div className="demotionText">
+                Select the level of demotion for {UserSelection.username}'s tweet to visualize
             </div>
-            </AppearingText>
-            <div className="row demotionText">
+
+
+            <div className="demotionText">
+
                 <div className="col-4 demo_but_sec">
                 <button className="demo_but" style={{backgroundColor:"#a7dbfa"}} onClick={() => {
                     SetterUserDemotion( 3)
@@ -29,12 +33,10 @@ export function DEMOTION({UserSelection, UserDemotion, SetterUserDemotion}){
                     SetterUserDemotion( 9)
                 }}>High</button>
                 </div>
+
+
             </div>
-            <AppearingText>
-        <div className="row demotionText basicText">
-                Use the above buttons to control the level of demotion in the visual below.
-            </div>
-        </AppearingText>
+            
 
         </div>
         

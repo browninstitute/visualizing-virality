@@ -776,10 +776,18 @@ export function NETWORK1({UserSelection, NetworkPause, SetterNetworkPause, Netwo
     useEffect(() => {
         if (inView) {
           setIsVisible(true);
-         
-          SetterNetworkPause(!NetworkPause);
+          
+          SetterNetworkPause(false);
         
         }
+        if (!inView) {
+            setIsVisible(true);
+            
+            SetterNetworkPause(true);
+          
+          }
+
+        
       }, [inView]);
   return(
     <>

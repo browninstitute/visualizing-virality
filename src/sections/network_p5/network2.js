@@ -785,12 +785,18 @@ export function NETWORK2({UserSelection, NetworkPause,UserDemotion, SetterNetwor
 
     useEffect(() => {
         if (inView) {
-          setIsVisible(true);
-         
-          SetterNetworkPause(!NetworkPause);
+            setIsVisible(true);
+            
+            SetterNetworkPause(false);
           
-          console.log("hi");
-        }
+          }
+          if (!inView) {
+              setIsVisible(true);
+              
+              SetterNetworkPause(true);
+            
+            }
+  
       }, [inView]);
 
   return(

@@ -38,6 +38,7 @@ function sketch(fp5) {
     const parentMap = new Map();
     const hopMap = new Map();
     const finalTimeMap = new Map();
+    const categoryMap = new Map();
     const infoToLoadMap = new Map();
     var names = [];
     let img = "";
@@ -61,6 +62,11 @@ function sketch(fp5) {
     let histogram_height = 0;
     const max_bar_height = 1000;
     const load_factor = 1;
+
+
+    let retweetSum = 0;
+    let replySum = 0;
+    let likeSum = 0;
 
     let veryfirstguy ="";
     let end_time = 0;
@@ -180,6 +186,7 @@ function sketch(fp5) {
         }
 
         fp5.text(onboardingText, onboardingTextX, onboardingTextY);
+        fp5.text(retweetSum + " retweets " + likeSum + " likes " + replySum  + " replies",  fp5.windowWidth/30+(fp5.windowWidth/60)+(fp5.windowWidth/30), (fp5.windowHeight/2.5+ fp5.windowHeight/12) );
 
         fp5.textSize((fp5.windowHeight/60)/load_factor);
         
@@ -188,7 +195,7 @@ function sketch(fp5) {
         fp5.text("3rd degree of separation from OP", (3/2)*(fp5.windowWidth/20)/load_factor, (2.8*fp5.windowHeight/10)/load_factor);
         fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.windowWidth/20)/load_factor, (3.2*fp5.windowHeight/10)/load_factor);
         fp5.text("Time", (3/2)*(fp5.windowWidth/20)/load_factor, (9.3*fp5.windowHeight/10)/load_factor);
-    
+        
         fp5.text("Number of Engagements", 1.3*(fp5.windowWidth/30)/load_factor, (5.7*fp5.windowHeight/10)/load_factor);
         fp5.text(selection_user.username, fp5.windowWidth/30+(fp5.windowWidth/60)+(fp5.windowWidth/30), (fp5.windowHeight/2.5+1.5*fp5.windowHeight/40));
         fp5.fill(0,0,0,0);
@@ -197,7 +204,6 @@ function sketch(fp5) {
         img.resize((fp5.windowWidth/40),(fp5.windowHeight/24));
         fp5.image(img, fp5.windowWidth/30+(fp5.windowWidth/60), (fp5.windowHeight/2.5+fp5.windowHeight/40))
 
-        fp5.text("  ♥, 🗨, ⇆",  fp5.windowWidth/30+(fp5.windowWidth/60)+(fp5.windowWidth/30), (fp5.windowHeight/2.5+ 2*fp5.windowHeight/40) );
 
     
         //text("Adjust Demotion", (windowWidth/30)/load_factor, (2*windowHeight/10)/load_factor);
@@ -493,6 +499,19 @@ function sketch(fp5) {
             //console.log("fire!!");
             //this.r = 64;
             this.isSending = true;
+            let type = categoryMap.get(this.name);
+            if (type=="retweet")
+            {
+                retweetSum++;
+            }
+            if (type=="reply")
+            {
+                replySum++;
+            }
+            if (type=="like")
+            {
+                likeSum++;
+            }
             if (isFirst == 'second')
             {
             hist_heights_pink[cur_bar]  = hist_heights_pink[cur_bar] + 1
@@ -642,6 +661,7 @@ function sketch(fp5) {
                 let time = fp5.int(parseFloat(nodes_table.getString(r,1)));
                 let angle = fp5.random(0, fp5.TWO_PI);
                 let distance = fp5.random(40,fp5.windowHeight/2)/load_factor;
+                categoryMap.set(id, nodes_table.getString(r,2));
                 if (parentMap.get(id) == veryfirstguy)
                 {
                 map1.set(id, new Neuron(mainX+fp5.cos(angle)*distance, mainY+fp5.sin(angle)*distance, id, true, defaultradius, time, "second"));

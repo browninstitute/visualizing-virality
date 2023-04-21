@@ -45,7 +45,7 @@ function sketch(fp5) {
     var startpoint = 0;
     var newNode;
     //pause value
-    let pause = false;
+    let pause = true;
     let adjFrame = -1;
     let onboardingText="";
     let timesecs = 0;
@@ -218,8 +218,11 @@ function sketch(fp5) {
         
             if (timesecs < 144000)
             {
-            adjFrame++;
-            network.update();
+                if (!pause)
+            {
+                adjFrame++;
+                network.update();
+            }
             network.display();
 
             }
@@ -737,7 +740,7 @@ function sketch(fp5) {
                 }
 
                 restartNetwork();
-                props.network_pause_set(true);
+                props.network_pause_set(false);
             }
         }
 
@@ -745,7 +748,7 @@ function sketch(fp5) {
             if (canvas_second){
                 restartNetwork();
                 props.network_reset_set(false);
-                props.network_pause_set(true);
+                props.network_pause_set(false);
             }
         }
 
@@ -791,14 +794,10 @@ export function NETWORK1({UserSelection, NetworkPause, SetterNetworkPause, Netwo
     useEffect(() => {
         if (inView) {
           setIsVisible(true);
-          console.log("viewing now")
-
         
         }
         if (!inView) {
             setIsVisible(false);
-            console.log("not viewing now")
-
           
           }
 

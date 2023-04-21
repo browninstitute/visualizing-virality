@@ -218,7 +218,10 @@ function sketch(fp5) {
         
             if (timesecs < 144000)
             {
-            adjFrame++;
+                
+                if (!pause){adjFrame++;}
+
+
             network.update();
             network.display();
 

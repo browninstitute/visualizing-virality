@@ -636,6 +636,7 @@ function sketch(fp5) {
             let mainY = (fp5.windowHeight/2)/load_factor;
             veryfirstguy = nodes_table.getString(0, 0);
             first_eng = fp5.int(parseFloat(info_table.getString(1,3)));
+
             newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius*4);
             map1.set(veryfirstguy, newNode);
             //console.log("FIRST ENGAGMENT" + first_eng);

@@ -625,7 +625,7 @@ function sketch(fp5) {
             let defaultradius = (fp5.windowHeight/20)/load_factor;
             let timescale = 30;
             canvas_second = null
-            canvas_second = fp5.createCanvas(fp5.windowWidth/load_factor,fp5.windowHeight/load_factor);
+            canvas_second = fp5.createCanvas(1920,1080);
 
     
             let lastName = table.getString(1,0);
@@ -776,10 +776,18 @@ export function NETWORK1({UserSelection, NetworkPause, SetterNetworkPause, Netwo
     useEffect(() => {
         if (inView) {
           setIsVisible(true);
-         
-          SetterNetworkPause(!NetworkPause);
+          
+          SetterNetworkPause(false);
         
         }
+        if (!inView) {
+            setIsVisible(true);
+            
+            SetterNetworkPause(true);
+          
+          }
+
+        
       }, [inView]);
   return(
     <>

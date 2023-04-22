@@ -156,7 +156,7 @@ export function GITHUB({UserSelection}){
                                 &nbsp;But not all engagements are treated by Twitter in the same manner.
                             </motion.li>
                             <motion.li style={styles_with_css({opacity:opacity_s3})}>
-                                &nbsp;Of all the complex, interrelated aspects of a given tweet used in thier recommendation algorithm, tweets are given a numeric rank where:
+                                &nbsp;Of all the complex, interrelated aspects of a given tweet used in their recommendation algorithm, tweets are given a numeric rank where:
                             </motion.li>
                             <motion.li style={styles_with_css({opacity:opacity_s4})}>
                                 &nbsp;replies are weighted by a factor of 1,

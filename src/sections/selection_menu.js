@@ -13,7 +13,7 @@ export function SELECTION_MENU( {UserSelection, SetterUserSelection}){
                 <BUTTON_WRAP image='https://pbs.twimg.com/profile_images/1592153812315394050/E4iwHS_B_400x400.jpg'>
                 <button className="selection_but" onClick={() => {
                     SetterUserSelection("@TomBrady")
-                    window.scrollTo({ top: scrollHeight, behavior: 'smooth' }); //must connect to element not height
+                   // window.scrollTo({ top: scrollHeight, behavior: 'smooth' }); //must connect to element not height
 
                 }}>Sports</button>
                 </BUTTON_WRAP>

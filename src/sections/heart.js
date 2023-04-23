@@ -15,6 +15,7 @@ export const Heart = () => {
 
   return (
     <AnimatePresence>
+        <div className="heart_div">
         <motion.div
           ref={ref}
           className={inView?"heart is-active":"heart"}
@@ -24,6 +25,7 @@ export const Heart = () => {
         >
           {/* Your component content here */}
         </motion.div>
+        </div>
      
     </AnimatePresence>
   );

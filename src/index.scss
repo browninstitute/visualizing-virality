@@ -114,6 +114,12 @@ canvas {
 .algorithm_section {
   padding: 10%;
 }
+
+.gradient-transition {
+  background-image: linear-gradient(#1DA1F2, #FFF);
+  height: 30vh;
+
+}
 .tweet_intro {
  // margin: 10%;
   padding: 10%;
@@ -150,28 +156,37 @@ body{
 
     & * > .tweet-wrap {
                   
-      //max-width:300px;
+      width: 30vw;
+     // max-width: 400px;
+     // min-width: 400px;
+      
       background: #fff;
       margin-top: 0%;
       border-radius:20px;
       padding: 2%;
       display: inline-block;
-      max-width: fit-content;
+      border:1px solid rgb(233, 233, 233);
+      color:rgb(108, 108, 108)
 
     }
     & * > .tweet-header {
       display: flex;
       align-items:flex-start;
-      font-size:1rem;
-      max-width: fit-content;
+      font-size:0.9rem;
+      width: 27vw;
+
       .avator{
           border-radius:100px;
-          width:48px;
+          width:4vw;
           margin-right: 15px;
       }
+      
+      
     }
+    
     & * > .tweet-header-info {
       font-weight:bold;
+      width: 297px;
       span {
           font-weight:normal;
           margin-left: 5px;
@@ -179,7 +194,25 @@ body{
       p {
           font-weight:normal;
           margin-top: 5px;
+          margin-bottom: 0;
           
+        }
+      .tweet-content {
+          display: flex;
+          justify-content:  left;
+          align-items: center;
+          width: 297px;
+          margin-left: 10px;
+          .content_img{
+            
+            max-height: 158.93px;
+            border-radius: 5%;
+          }
+          .content_vid{
+            margin-left: 60px;
+            height: 158.93px;
+            border-radius: 5%;
+          }
         }
     }
 
@@ -189,24 +222,38 @@ body{
           max-width: 100%;
       }
     }
+
+    
     
     & * > .tweet-info-counts {
       display: flex;
       margin-left: 60px;
       margin-top: 10px;
-      font-size: 0.9rem;
+      width: 297px;
+      font-size: 0.8rem;
+      
       div {
+          width: 80px;
           display: flex;
-          margin-right: 20px;
           svg {
               margin-right: 10px;
           }
       }
+      .message {
+        width: 57px;
+        height: 20px;
+        svg{
+          width: 20px;
+          height: 20px;
+        }
+        
+    }
     } 
     
 
+
     //INTRO SECTION CSS
-    .intro_sec{
+    .intro_section{
     scroll-snap-align: start;
     position: relative;
     height: 140vh;
@@ -363,9 +410,7 @@ body{
 .heart {
   width: 100px;
   height: 100px;
-  position: flex;
-  text-align: center;
-  justify-content: center;
+  display: inline-block;
   background: url("https://cssanimation.rocks/images/posts/steps/heart.png") no-repeat;
   background-position: 0 0;
   cursor: pointer;
@@ -387,47 +432,47 @@ body{
   }
 
   //ONBOARDING METHODOLOGY
-  .onboarding2 {
-    height: 400vh;
-    width: 100%;
-    margin-top: 50vh;
-    position: relative;
-    justify-content: center;
-    text-align: center;
+  // .onboarding2 {
+  //   height: 400vh;
+  //   width: 100%;
+  //   margin-top: 50vh;
+  //   position: relative;
+  //   justify-content: center;
+  //   text-align: center;
 
     
-    .text_main {
-      //display: flex;
+  //   .text_main {
+  //     //display: flex;
       
-      display: flex;
-      color: white;
-      height: 20vh;
-      font-size: 2.5rem;
-      margin: 10vh;
-      text-align: center;
+  //     display: flex;
+  //     color: white;
+  //     height: 20vh;
+  //     font-size: 2.5rem;
+  //     margin: 10vh;
+  //     text-align: center;
 
-      .definition_text {
-        margin:40vh;
-        height: 20vh;
+  //     .definition_text {
+  //       margin:40vh;
+  //       height: 20vh;
 
-      }
-      .counting_text {
-        height: 20vh;
-      }
-    }
-  }
+  //     }
+  //     .counting_text {
+  //       height: 20vh;
+  //     }
+  //   }
+  // }
 
-  .text_div{
-    //position: absolute;
-    align-items:center;
-    display:block;
-    justify-content: left;
-    top: 0;
-    height: 100vh;
+  // .text_div{
+  //   //position: absolute;
+  //   align-items:center;
+  //   display:block;
+  //   justify-content: left;
+  //   top: 0;
+  //   height: 100vh;
    
-    //font-size: 2rem;
-    position: sticky;
-  }
+  //   //font-size: 2rem;
+  //   position: sticky;
+  // }
 
     //decoration
 
@@ -448,6 +493,7 @@ body{
     //ONBOARDING SECTION CSS
     .timeline_padding{
       height: 20vh;
+      width: 100vw;
       background-color: white;
       display: flex;
         align-items: center;
@@ -456,326 +502,242 @@ body{
         color: rgb(108, 108, 108);
       }
     }
-    .onboarding{
+    // .onboarding{
 
-        height: 800vh;
-        width: 100vw;
-        position: relative;
-        font-family: "Asap", sans-serif;
-        font-size: xx-large;
-        color: white;
-
+    //     height: 600vh;
+    //     width: 100vw;
+    //     position: relative;
+    //     font-family: "Asap", sans-serif;
+    //     font-size: 1.5rem;
+    //     background-color: white;
+    //     color: rgb(108, 108, 108);
        
 
-        .reveal{
-          position: relative;
-          transform: translateY(150px);
-          opacity: 0;
-          transition: 1s all ease;
-        }
+    //     .reveal{
+    //       position: relative;
+    //       transform: translateY(150px);
+    //       opacity: 0;
+    //       transition: 1s all ease;
+    //     }
 
 
-        .onboarding_text{
-          height: 900vh;
-          position: absolute;
-          //width: 100%;
-          color: white;
+    //     .onboarding_text{
+    //       height: 600vh;
+    //       position: absolute;
+    //       //width: 100%;
 
          
 
-          .short {
-            height:50vh;
-            text-align: center;
-          }
+    //       .short {
+    //         height:50vh;
+    //         text-align: center;
+    //       }
           
 
-          & * > .text_div{
-            //position: absolute;
-            align-items:center;
-            display:flex;
-            justify-content: left;
-            top: 0;
-            height: 100vh;
-            font-size: 3vw;
-            width: 100%;
-            //font-size: 2rem;
-            position: sticky;
-          }
+    //       & * > .text_div{
+    //         //position: absolute;
+    //         align-items:center;
+    //         display:flex;
+    //         justify-content: left;
+    //         top: 0;
+    //         height: 100vh;
+    //         width: 50%;
+    //         font-size: 1.5rem;
+    //         position: sticky;
+    //         .text_highlight{
+    //         }
+    //       }
 
-          & * > .text_side{
-            //position: absolute;
           
-            display: float;
-            text-align: end;
-          }
+    //       & * > .text_div2{
+    //         //position: absolute;
+    //         align-items:center;
+    //         display:flex;
+    //         justify-content: left;
+    //         top: 0;
+    //         height: 100vh;
+    //         width: 100%;
+    //         //font-size: 2rem;
+    //         position: sticky;
+    //       }
+
+    //       & * > .text_side{
+    //         //position: absolute;
+          
+    //         display: float;
+    //         text-align: end;
+    //       }
 
 
-          .intro_text{
-            position: relative;
-            height: 180vh;
-            margin-left: 2%;
+    //       .intro_text{
+    //         position: relative;
+    //         height: 100vh;
+    //         margin-left: 2%;
 
             
-          }
-          .viral_text{
-            height: 150vh;
-            position: relative;
-            margin-left: 2%;
-            transform: translateY(0);
+    //       }
+    //       .viral_text1{
+    //         height: 10vh;
+    //         position: relative;
+    //         margin-left: 2%;
+    //         transform: translateY(0);
 
                                  
-          }
-          .viral_text2{
-            height: 150vh;
-            position: relative;
-            margin-left: 2%;
+    //       }
+    //       .viral_text2{
+    //         height: 150vh;
+    //         position: relative;
+    //         margin-left: 2%;
 
-          }
-          .viral_text3{
-            height: 250vh;
-            position: relative;
-            width: 65%;
-            display: flex;
-            //white-space: nowrap;
-            margin-left: 2%;
-            text-align: center;
 
-          }
-          .viral_text4{
-            height: 170vh;
-            //position: relative;
-            margin-left: 2%;
-            display: flex;
+
+    //       }
+    //       .viral_text3{
+    //         height: 250vh;
+    //         position: relative;
+    //         width: 80%;
+    //         //display: flex;
+    //         //white-space: nowrap;
+    //         margin-left: 2%;
+    //         text-align: left;
+    //         padding: 0;
+
+    //       }
+    //       .viral_text4{
+    //         height: 100vh;
+    //         //position: relative;
+    //         margin-left: 2%;
             
-          .row {
-            display: inline;
-          }
+    //       .row {
+    //         display: inline;
+    //       }
 
-          }
+    //       }
           
 
         
-        }
-        .onboarding_flare{
-          height: 1500vh;
-          width: 100vw;
-          position: absolute;
-          .intro_phone_screen{
-            height: 210vh;
-            position: relative;
-            .svg_wrap{
-              height: 100vh;
-              top:0;
-              position: sticky;
-              align-items:center;
-              display:flex;
-                svg.phone{
-                  position:absolute;
-                  display: block;
-                  left:2%; top:4%; width:96%; height:96%
-                }
-            }
-          }
-          .flare_padding1{
-            position: relative;
-            height: 270vh;
-          }
-          .tweets_animate_movein {
-            margin: 2%;
+    //     }
+    //     .onboarding_flare{
+    //       height: 1500vh;
+    //       width: 100vw;
+    //       position: absolute;
+    //       .intro_phone_screen{
+    //         height: 210vh;
+    //         position: relative;
+    //         .svg_wrap{
+    //           height: 100vh;
+    //           top:0;
+    //           position: sticky;
+    //           align-items:center;
+    //           display:flex;
+    //             svg.phone{
+    //               position:absolute;
+    //               display: block;
+    //               left:2%; top:4%; width:96%; height:96%
+    //             }
+    //         }
+    //       }
+    //       .flare_padding1{
+    //         position: relative;
+    //         height: 270vh;
+    //       }
+    //       .tweets_animate_movein {
+    //         margin: 2%;
             
-          }
+    //       }
 
-          .welcome {
-            font-size: 10vw;
-            position: relative;
-          }
+    //       .welcome {
+    //         font-size: 10vw;
+    //         position: relative;
+    //       }
 
-          .tweets_div {
-            color: darkgray;
-          }
-          .median_tweets{
-            height: 250vh;
-            width: 50vw;
-            position: relative;
-            left: 50%;
-            .tweets_movein{
-              height: 100vh;
-              width: 80vw;
-              top: 10%;
-              position: sticky;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              margin: 2%;
+    //       .tweets_div {
+    //         color: darkgray;
+    //       }
+    //       .median_tweets{
+    //         height: 250vh;
+    //         width: 50vw;
+    //         position: relative;
+    //         left: 50%;
+    //         .tweets_movein{
+    //           height: 100vh;
+    //           width: 80vw;
+    //           top: 10%;
+    //           position: sticky;
+    //           flex-direction: column;
+    //           justify-content: center;
+    //           align-items: center;
+    //           margin: 2%;
               
-            }
+    //         }
 
-          }
+    //       }
 
         
           
 
-        }
+    //     }
 
-        .text_div{
-          //position: absolute;
-          align-items:center;
-          display:flex;
-          justify-content: left;
-          top: 0;
-          height: 100vh;
+    //     .text_div{
+    //       //position: absolute;
+    //       align-items:center;
+    //       display:flex;
+    //       justify-content: left;
+    //       top: 0;
+    //       height: 100vh;
          
-          font-size: 2rem;
-          position: sticky;
-        }
-        .onboarding_tweets{
-          height: 900vh;
-          //width: 100vw;
-          justify-content: center;
-          //position: absolute;
-          .tweets_padding{
-            height: 50vh;
-            position: relative;
-          }
-          .tweets_wrapper{
-            height: 850vh;
-            position: relative;
-            .tweets_div{
-              position: sticky;
-              top: 0;
-              height: 100vh;
-              //width: 100vw;        
-              display: flex;
+    //       font-size: 2rem;
+    //       position: sticky;
+    //     }
+    //     .onboarding_tweets{
+    //       height: 900vh;
+    //       //width: 100vw;
+    //       justify-content: center;
+    //       //position: absolute;
+    //       .tweets_padding{
+    //         height: 50vh;
+    //         position: relative;
+    //       }
+    //       .tweets_wrapper{
+    //         height: 850vh;
+    //         position: relative;
+    //         .tweets_div{
+    //           position: sticky;
+    //           top: 0;
+    //           height: 100vh;
+    //           //width: 100vw;        
+    //           display: flex;
   
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              .tweets_animate{
-                  .svg_wrap{
-                    position: absolute;
-                    align-items:center;
-                    display:flex;
+    //           flex-direction: column;
+    //           justify-content: center;
+    //           align-items: center;
+    //           .tweets_animate{
+    //               .svg_wrap{
+    //                 position: absolute;
+    //                 align-items:center;
+    //                 display:flex;
                     
-                    svg.highlight{
-                      position: relative;
-                      top: 0%; left: 0%; width: 90%; height: 90%;
-                    }
+    //                 svg.highlight{
+    //                   position: relative;
+    //                   z-index: 20;
+    //                   top: 0%; left: 0%; width: 110%; height: 90%;
+    //                 }
                     
-                  }
-                  #first_svg{
-                    top:14%;
-                  }
+    //               }
+    //               #first_svg{
+    //                 top:10%;
+    //               }
 
   
                   
-              }
+    //           }
                      
-            }
-          }
+    //         }
+    //       }
           
-        }
+    //     }
         
-    }
-
-    //IPHONE SECTION
-
-    .text_iphone
-    {
-      color:#0A6BA8;
-      text-transform:bold;
-      margin-left: 10%;
-      font-weight: 2;
-    }
-    .phone_buffer{
-      height: 50vh;
-      width: 100vw;
-      background-color: white;
-    }
-
-    .phone_section{
-      height: 300vh;
-      width: 100vw;
-      position: relative;
-      background-color: white;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      .phone_wrapper{
-        position: absolute;
-        height: 300vh;
-        width: 50vw;
-        left: 50%;
-        text-align: center;
-        align-items: center;
-        .svg_wrap{
-          height: 100vh;
-          top:0;
-          position: sticky;
-          align-items:center;
-          display:flex;
-            svg.phone{
-              position:absolute;
-              display: block;
-              z-index: 20;
-              left:0%; top:0%; width:100%; height:100%
-            }
-        }
-      }
-      .text_wrapper{
-        position: absolute;
-        height: 300vh;
-        width: 50vw;
-        .text_div{
-          height: 100vh;
-          width: 100%;
-          
-          display: flex;
-          justify-content: center;
-          align-content: center;
-          flex-direction: column;
-          right: 30%;
-          
-        }
-      }
-
-      .screen_wrapper{
-        position: absolute;
-        height: 200vh;
-        text-align: center;
-        align-items: center;
-        width: 100%;
-       // left: 50%;
-       // width: 50vw;
-        .carousel{
-         // z-index: 20;
-          height: 100vh;
-          margin-left: 30%;
-          width: 40%;
-          top: 0;
-          position: sticky;
-          align-items: right;
-          text-align: center;
-          
-          .carousel_item{
-            height: 100%;
-            width: 100%;
-           // z-index: 99;
-            .button_wrapper{
-              height: 100%;
-              width: 50vw;
-            }
-            .trending_feed{
-              height: 100%;
-              width: 50vw;
-                      
-            }
-          }
-          
-        }
-
-      }
-    }
-
+    // }
 
 
 
@@ -886,14 +848,34 @@ body{
       justify-content: center;
       inset: 0;
       position: relative;
+      .play_pause_con{
+        position: absolute;
+      }
       .sketch_sec{
-        height: 100vh;
-        width: 100vw;
+        height: 100%;
+        width: 100%;
+        background-color: white;
+        .react-p5-wrapper{
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          inset: 0;
+          canvas{
+            object-fit: contain;
+            max-height: 100%;
+            max-width: 100%;
+            width: 1920px;
+            height: 1080px;
+
+          }
+        }
       }
     }
 
     .github_section{
-      height: 180vh;
+      height: 160vh;
       width: 100vw;
       display: flex;
       align-items: center;
@@ -902,7 +884,7 @@ body{
       position: relative;
       background-color: white;
       .highlight_text_div{
-        height: 180vh;
+        height: 160vh;
         width: 55vw;
         display: flex;
         align-items: center;
@@ -939,7 +921,7 @@ body{
         }
       }
       .highlight_tweet_div{
-        height: 180vh;
+        height: 160vh;
         width: 45vw;
         background-color: white;
         
@@ -969,7 +951,7 @@ body{
     }
 
     .bargraph_section{
-      height: 220vh;
+      height: 300vh;
       width: 100vw;
       position: relative;
       background-color: white;
@@ -978,7 +960,7 @@ body{
       justify-content: center;
       inset: 0;
       .bars_div{
-        height: 220vh;
+        height: 300vh;
         width: 50vw;
         .bars_sticky{
           height: 100vh;
@@ -1052,7 +1034,7 @@ body{
         }
       }
       .text_div{
-        height: 220vh;
+        height: 300vh;
         width: 50vw;
         align-items: center;
         .text_sticky{
@@ -1153,6 +1135,130 @@ body{
     //     }
     //   }
     // }
+    .onboarding_section{
+      height: 500vh;
+      width: 100vw;
+      background-color: white;
+      color: rgb(108, 108, 108);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      inset: 0;
+      .onboarding_text{
+        height: 500vh;
+        width: 50vw;
+        font-size: 1.5rem;
+        .viral_text{
+
+
+          .text_sticky{
+            top: 0;
+            position: sticky;
+            height: 100vh;
+            margin-left: 20%;
+            margin-right: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .text_container{
+              display: block;
+            }
+          }
+        }
+        .text1{
+          height: 100vh;
+        }
+        .text2{
+          height: 140vh;
+        }
+        .text3{
+          height: 130vh;
+        }
+        .text4{
+          height: 130vh;
+        }
+        // .demotion_text_div{
+        //   height: 100vh;
+        //   width: 50vw;
+        //   position: sticky;
+        //   top:0;
+        //   display: flex;
+        //   align-items: center;
+        //   justify-content: center;
+        //   inset: 0;
+        //   background-color: white;
+        //   color: rgb(108, 108, 108);
+        //   .demotion_text_div_sticky{
+        //     height: 70vh;
+        //     width: 40vw;     
+        //     font-size: 2vw;  
+
+            
+        //   }
+          
+        // }
+        
+      }
+      .onboarding_tweets{
+          height: 100vh;
+          width: 50vw;
+          position: sticky;
+          top:0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          inset: 0;
+          background-color: white;
+          .onboarding_tweet_div_sticky{
+            height: 100vh;
+            width: 45vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            inset: 0;
+            .onboarding_tweet_bg{
+              height: 90vh;
+              width: 100%;
+              background-color: #1DA1F2;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              inset: 0;
+              .tweets_div{
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                  
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                .tweets_animate{
+                  margin: 0.25%;
+                  .svg_wrap{
+                    position: absolute;
+                    align-items:center;
+                    display:flex;
+                    
+                    svg.highlight{
+                      position: relative;
+                      z-index: 21;
+                      top: 0%; left: 0%; width: 110%; height: 90%;
+                    }
+                  }
+                }
+                #main{
+                  z-index: 20;
+                }
+                      
+              }
+            }
+
+          }
+      }
+    }
+
     .demotion_intro_section{
       background-color: #1DA1F2;
       color: white;
@@ -1277,6 +1383,32 @@ body{
       background-color: #1DA1F2;
       color: white;
 
+    }
+    .counter_section{
+      height: 60vh;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        inset: 0;
+        background-color: white;
+        color: rgb(108, 108, 108);
+        .counter_text{
+          margin-left: 10%;
+          margin-right: 10%;
+          font-size: 1.5rem;
+          line-height: 3rem;
+          text-align: center;
+          .counter_div{
+            display: inline-block;
+            font-size: 1.8rem;
+            line-height: 5rem;
+            color: #1DA1F2;
+          }
+          .heart_div{
+            display: block;
+          }
+        }
     }
 }
 

@@ -11,6 +11,7 @@ import {selection_network} from './sections/selection';
 import {styles_with_css} from'./sections/motion.ts';
 import {ONBOARDING_INTRO} from './sections/onboarding_bootstrap';
 import {ONBOARDING_BARS} from './sections/onboarding_bars'
+import {ONBOARDING_COUNTER} from './sections/onboarding_counter'
 import { ONBOARDING_METHODOLOGY } from './sections/onboard_methodology';
 import {TWEET_SVG} from './sections/tweet_svg';
 import { TIMELINE_BLOCK } from './sections/timeline_block';
@@ -89,7 +90,7 @@ function App() {
   
 
 
-        <div className='intro_sec' id='intro' ref={ref}>
+        <div className='intro_section' id='intro' ref={ref}>
           <motion.div className='parallax_layer back_intro' style={{y,opacity}}>
             
            {/*} <div className='cosmos_graph'>
@@ -138,7 +139,7 @@ function App() {
 
         <ONBOARDING_INTRO />
         {/* <ONBOARDING_METHODOLOGY></ONBOARDING_METHODOLOGY> */}
-
+        <ONBOARDING_COUNTER />
         <ONBOARDING_BARS />
 
         <div className='timeline_padding'>

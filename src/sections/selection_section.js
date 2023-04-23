@@ -21,6 +21,7 @@ import black_p from '../assets/black_profile.jpg'
 import mccarthy_p from '../assets/mccarthy_profile.jpg'
 import black_i from '../assets/black_tweet_pic2.jpg'
 import mccarthy_v from '../assets/mccarthy_tweet_vid.mp4'
+import { NETWORK1MOBILE } from './network_p5/network1-mobile';
 
 
 export function SELECTION_SECTION(){

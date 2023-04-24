@@ -12,7 +12,6 @@
 }
 
 html {
-  background-color: #1DA1F2;
   font-family: "Asap", sans-serif;
 
 }
@@ -807,14 +806,13 @@ body{
                   
                   .timeline_block:nth-child(odd){
                     text-align: right;
-                    margin-left: -5vh;
                     .tweet-wrap{
                       width:30vw;
                       text-align: left;
 
                     }
                     .timeline_text{
-                      left:53%;
+                      left:50.3%;
                       text-align: left;
                       margin-left: -0.8vw;
                     }
@@ -885,19 +883,18 @@ body{
       position: relative;
       background-color: white;
       .highlight_text_div{
-        height: 160vh;
-        width: 55vw;
+        height: 100%;
+        width: 50%;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: right;
         inset: 0;
         position: relative;
         .highligh_text_background{
           background-color: #1DA1F2;
-          height: 70vh;
-          width: 45vw;
+          height: 43.75%;
+          width: 90%;
           position: relative;
-          max-width: 45vw;
           font-size: 1.7rem;
           color: white;
           display: flex;
@@ -923,8 +920,8 @@ body{
         }
       }
       .highlight_tweet_div{
-        height: 160vh;
-        width: 45vw;
+        height: 100%;
+        width: 50%;
         background-color: white;
         
         display: flex;
@@ -962,26 +959,26 @@ body{
       justify-content: center;
       inset: 0;
       .bars_div{
-        height: 300vh;
-        width: 50vw;
+        height: 100%;
+        width: 50%;
         .bars_sticky{
-          height: 100vh;
-          width: 50vw;
+          height: 33.333%;
+          width: 100%;
           position: sticky;
           top: 0;
           display: flex;
           align-items: center;
           justify-content: center;
           .bars_container{
-            height: 60vh;
-            width: 25vw;
+            height: 60%;
+            width: 50%;
             .bar1{
               flex-direction: column;
               justify-content: center;
               align-items: center;
               display: flex;
               height: 15vh;
-              width: 25vw;
+              width: 100%;
               background-color: #0b5684;
               .bar_text{
                 color: white;
@@ -995,7 +992,7 @@ body{
               align-items: center;
               display: flex;
               height: 15vh;
-              width: 25vw;
+              width: 100%;
               background-color: #1d84c3;
               .bar_text{
                 color: white;
@@ -1010,7 +1007,7 @@ body{
               display: flex;
               
               height: 15vh;
-              width: 25vw;
+              width: 100%;
               background-color: #77bcfd;
               .bar_text{
                 color: white;
@@ -1024,7 +1021,7 @@ body{
               align-items: center;
               display: flex;
               height: 15vh;
-              width: 25vw;
+              width: 100%;
               background-color: #b0d6f9;
               .bar_text{
                 color: white;
@@ -1036,12 +1033,12 @@ body{
         }
       }
       .text_div{
-        height: 300vh;
-        width: 50vw;
+        height: 100%;
+        width: 50%;
         align-items: center;
         .text_sticky{
-          height: 100vh;
-          width: 45vw;
+          height: 33.33%;
+          width: 90%;
           position: sticky;
           top: 0;
           display: flex;
@@ -1049,10 +1046,9 @@ body{
           justify-content: center;
           .text_container_background{
             background-color: #1DA1F2;
-            height: 45vh;
-            width: 45vw;
+            height: 45%;
+            width: 100%;
             position: relative;
-            max-width: 45vw;
             font-size: 1.7rem;
             color: white;
             .text_container{
@@ -1064,7 +1060,7 @@ body{
                 margin-left: 8%;
                 margin-right: 8%;
             
-                height: 45vh;
+                height: 100%;
                 display:flex;
                 align-items: center;
                 inset: 0;
@@ -1149,7 +1145,7 @@ body{
       inset: 0;
       .onboarding_text{
         height: 500vh;
-        width: 50vw;
+        width: 50%;
         font-size: 1.5rem;
         .viral_text{
 
@@ -1213,14 +1209,18 @@ body{
           inset: 0;
           background-color: white;
           .onboarding_tweet_div_sticky{
-            height: 100vh;
-            width: 45vw;
+            height: 100%;
+            width: 90%;
             display: flex;
             align-items: center;
             justify-content: center;
             inset: 0;
             .onboarding_tweet_bg{
+<<<<<<< Updated upstream
               height: 98vh;
+=======
+              height: 90%;
+>>>>>>> Stashed changes
               width: 100%;
               background-color: #1DA1F2;
               display: flex;
@@ -1230,7 +1230,7 @@ body{
               .tweets_div{
                 position: sticky;
                 top: 0;
-                height: 100vh;
+                height: 100%;
                   
                 display: flex;
                 flex-direction: column;
@@ -1272,7 +1272,7 @@ body{
       .amplification_demotion{
 
         height: 50vh;
-        width: 100vw;
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1308,8 +1308,8 @@ body{
         justify-content: center;
         inset: 0;
         .demotion_tweet_div{
-          height: 100vh;
-          width: 50vw;
+          height: 50%;
+          width: 50%;
           position: sticky;
           top:0;
           display: flex;
@@ -1318,13 +1318,17 @@ body{
           inset: 0;
           background-color: white;
           .demotion_tweet_div_sticky{
-            height: 100vh;
-            width: 45vw;
+            height: 90%;
+            width: 90%;
             background-color: #1DA1F2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             .tweets_div{
               position: sticky;
               top: 0;
-              height: 100vh;
+              height: 100%;
                 
               display: flex;
   
@@ -1343,8 +1347,8 @@ body{
           }
         }
         .demotion_text_div{
-          height: 100vh;
-          width: 50vw;
+          height: 50%;
+          width: 50%;
           position: sticky;
           top:0;
           display: flex;
@@ -1354,8 +1358,8 @@ body{
           background-color: white;
           color: rgb(108, 108, 108);
           .demotion_text_div_sticky{
-            height: 70vh;
-            width: 40vw;     
+            height: 70%;
+            width: 80%;     
             font-size: 2rem;  
 
             
@@ -1365,7 +1369,7 @@ body{
       }
     }
     .demotion_section{
-      height: 70vh;
+      height: 100vh;
       width: 100vw;
       background-color: white;
       color: rgb(108, 108, 108);
@@ -1379,7 +1383,6 @@ body{
         justify-content: center;
         font-size: 2rem;
         line-height: 3rem;
-        padding: 5%;
       }
       .demotion_slider_container{
         display: flex;
@@ -1391,7 +1394,7 @@ body{
         position: relative;
         .demotion_clicker{
           width: 100%;
-          height: 100%;
+          height: 75%;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -1409,7 +1412,7 @@ body{
         }
         .demotion_nonclicker{
           width: 100%;
-          height: 100%;
+          height: 75%;
           position: absolute;
           display: flex;
           align-items: center;
@@ -1454,8 +1457,8 @@ body{
               .demotion_button{
 
 
-                margin-top:20%;
-                margin-bottom:20%;
+                margin-top:10%;
+                margin-bottom:10%;
                 margin-left:20%;
                 margin-right:20%;
                 height: 60%;
@@ -1508,16 +1511,19 @@ body{
     }
     .algorithm_section {
       height: 100vh;
-      margin-left: 20%;
-      margin-right: 20%;
+      width: 100vw;
+
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
+      background-color: #1DA1F2;
       .algorithm_tweet_container{
         margin: 10%
       }
       .algorithm_text{
+        margin-left: 20%;
+        margin-right: 20%;
         color: white;
         font-size: 2rem;
         text-align: center;
@@ -1569,15 +1575,15 @@ body{
           align-items: center;
           justify-content: center;
           .outro_menu_block_banner{
-            font-size: 3vh;
-            line-height: 3vh;
+            font-size: 1.5rem;
+            line-height: 1.5rem;
             margin: 3%;
             text-align: center;
             text-decoration: none;
           }
           .outro_menu_block_tweet{
-            height: 41vh;
-            width: 33vw;
+            height: 79%;
+            width: 100%;
             & * > .tweet-wrap {
               
               width: 27vw;
@@ -1693,8 +1699,8 @@ body{
       align-items: center;
       justify-content: center;
       .menu_buttons_div{
-        height: 100vh;
-        width: 50vw;
+        height: 100%;
+        width: 50%;
         .menu_buttons_background{
           height: 80%;
           width: 60%;
@@ -1724,10 +1730,10 @@ body{
               display: flex;
               justify-content: center;
               align-items: center;
-              .avator{
+              img{
                 position: absolute;
                 border-radius:100px;
-                width:4vw;
+                width: 5vw;
                 z-index: 2;
               }
               a{
@@ -1758,8 +1764,8 @@ body{
         }
       }
       .menu_text_div{
-        height: 100vh;
-        width: 50vw;
+        height: 100%;
+        width: 50%;
         display: flex;
         align-items: center;
         justify-content: center;

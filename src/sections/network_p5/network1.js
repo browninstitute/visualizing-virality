@@ -796,6 +796,7 @@ function sketch(fp5) {
         if (canvas_second){
 
                 user_on_network = props.network_visible;
+               
                 
             }         
 
@@ -803,9 +804,9 @@ function sketch(fp5) {
     };
     fp5.setup = () => {
 
-        table=table_b;
-        nodes_table=nodes_table_b;
-        info_table=info_table_b;
+        table=table_tb;
+        nodes_table=nodes_table_tb;
+        info_table=info_table_tb;
 
        
 

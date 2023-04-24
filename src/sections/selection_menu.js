@@ -29,20 +29,20 @@ export function SELECTION_MENU( {UserSelection, SetterUserSelection,ScrollToSele
             })
             controlsB2.start({opacity:0.5,scale:1})
             controlsI2.start({
-                y:"0vw",
-                opacity:0.5
+                y:"-0vw",
+                opacity:0
             })
             controlsB3.start({opacity:0.5,scale:1})
             controlsI3.start({
-                y:"0vw",
-                opacity:0.5
+                y:"-0vw",
+                opacity:0
             })
         }
         if(hoverB2){
             controlsB1.start({opacity:0.5,scale:1})
             controlsI1.start({
-                y:"0vw",
-                opacity:0.5
+                y:"-0vw",
+                opacity:0
             })
             controlsB2.start({
                 scale:1.1,
@@ -54,20 +54,20 @@ export function SELECTION_MENU( {UserSelection, SetterUserSelection,ScrollToSele
                 })
             controlsB3.start({opacity:0.5,scale:1})   
             controlsI3.start({
-                y:"0vw",
-                opacity:0.5
+                y:"-0vw",
+                opacity:0
             })        
         }
         if(hoverB3){
             controlsB1.start({opacity:0.5,scale:1})
             controlsI1.start({
-                y:"0vw",
-                opacity:0.5
+                y:"-0vw",
+                opacity:0
             })
             controlsB2.start({opacity:0.5,scale:1})
             controlsI2.start({
-                y:"0vw",
-                opacity:0.5
+                y:"-0vw",
+                opacity:0
             })
             controlsB3.start({
                 scale:1.1,
@@ -101,19 +101,19 @@ export function SELECTION_MENU( {UserSelection, SetterUserSelection,ScrollToSele
                 <div className="menu_buttons_background">
                     <div className="menu_buttons_wrapper">
                         <div className="menu_button_block">
-                            <motion.img src={brady_p} alt="" className="avator" animate={controlsI1} />
+                            <motion.img src={brady_p} alt="" className="menu_pic" animate={controlsI1} />
                             <a  href="#0">
                             <motion.div className="menu_button sports" onClick={() => {SetterUserSelection("@TomBrady");ScrollToSelection();}} onHoverStart={e => {setHoverB1(true)}} onHoverEnd={e => {setHoverB1(false)}} animate={controlsB1} >Sports</motion.div>
                             </a>
                         </div>
                         <div className="menu_button_block">
-                            <motion.img src={mccarthy_p} alt="" className="avator" animate={controlsI2}/>
+                            <motion.img src={black_p} alt="" className="menu_pic" animate={controlsI2}/>
                             <a  href="#0">
                             <motion.div className="menu_button news" onClick={() => {SetterUserSelection("@SpeakerMcCarthy");ScrollToSelection();}} onHoverStart={e => {setHoverB2(true)}} onHoverEnd={e => {setHoverB2(false)}} animate={controlsB2}  >News</motion.div>
                             </a>
                         </div>
                         <div className="menu_button_block">
-                            <motion.img src={black_p} alt="" className="avator" animate={controlsI3}/>
+                            <motion.img src={mccarthy_p} alt="" className="menu_pic" animate={controlsI3}/>
                             <a  href="#0">
                             <motion.div className="menu_button entertainment" onClick={() => {SetterUserSelection("@6lack");ScrollToSelection();}} onHoverStart={e => {setHoverB3(true)}} onHoverEnd={e => {setHoverB3(false)}} animate={controlsB3} >Entertainment</motion.div>
                             </a>

@@ -21,12 +21,12 @@ export function DEMOTION_INTRO({UserSelection}){
 
     const amplify_scale = useTransform(scrollYProgress,[
         0.1,
-        0.2
+        0.25
       ], ["1.5rem","2.5rem"])
     
     const demotion_scale = useTransform(scrollYProgress,[
         0.1,
-        0.2
+        0.25
       ], ["1.5rem","0.7rem"]) 
     
 

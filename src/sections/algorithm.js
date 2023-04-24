@@ -1,54 +1,50 @@
-import { AppearingText } from './appearingtext'
-import {TWEET_SVG} from './tweet_svg'
-export function ALGORITHM({UserSelection}){
-    return(
-      <div>
-      <div className="algorithm_section container">
-        <div className="row basicText">
-          <div className="col-12 center">
-        You selected this tweet by {UserSelection.username} 
-          </div>
-        </div>
-        <div className="row tweet_intro">
-          <div className="col-12 center">
-        <TWEET_SVG username={UserSelection.username} text={UserSelection.text} date={UserSelection.date} likes={UserSelection.likes} rts={UserSelection.rts} replies={UserSelection.replies} image={UserSelection.image}  />    
-          </div>
-        </div>
-        <div className="row basicText">
-          <div className="col-12 center">
-        We're going to visualize how this tweet spread on Twitter's platform.
-          </div>
-        </div>
-      </div>
-      <div className="algorithm_section container">
-        <AppearingText>
-        <div className="row basicText">
-          <div className="col-12 center">
-        {UserSelection.username} is going to be represented by the <span className="pink">light pink</span> circle.
-          </div>
-        </div>
-        </AppearingText>
-        <br/><br/>        <br/><br/>
+import { motion, useScroll, useSpring, useTransform, useMotionValue, useAnimation } from "framer-motion";
+import React, { useState, useEffect ,  useRef} from "react";
+import {useInView} from 'react-intersection-observer';
+import {TWEET_SVG_NONAPPEAR} from './tweet_svg_nonappearing'
 
-        <AppearingText>
-        <div className="row basicText">
-          <div className="col-12 center">
-          The <span className="darkBlue">dark blue</span> and <span className="lightBlue">light blue</span> circles are accounts that interacted with the tweet.
-        Their size is proportional to their follower count.
-          </div>
-        </div>
-        </AppearingText>
-        <br/><br/>        <br/><br/>
+export function ALGORITHM({UserSelection, SetterUserSelection}){
+  // const {ref, inView} = useInView({threshold:0.2, triggerOnce:true});
 
-        <AppearingText>
-        <div className="row basicText">
-          <div className="col-12 center">
-          When these accounts retweet, like, or reply to the original tweet, it will be shown by a burst of <span className="blackDots">black dots</span> across the network.    
+  // useEffect(() => {
+  //   if(inView){
+  //     if (!("unchecked" in UserSelection)){
+  //       SetterUserSelection("@TomBrady2")
+  //     }
+  //   }
 
-          </div>
-        </div>
-       </ AppearingText>
+    
+  // }, [inView]);
+
+  console.log(UserSelection)
+
+  return(
+    <>      
+    <div className="algorithm_section">
+      <div className="algorithm_text">  
+       
+      { (!("unselected" in UserSelection)) && 
+        <span>You selected the {UserSelection.category} category. </span>
+      }
+      { (("unselected" in UserSelection)) && 
+        <span>Since you did not select a category, we selected {UserSelection.category} category for you. </span>
+      }
+       Within this category, {UserSelection.username} tweeted this tweet:
       </div>
+      <div className="algorithm_tweet_container">
+      <TWEET_SVG_NONAPPEAR username={UserSelection.username} text={UserSelection.text} date={UserSelection.date} likes={UserSelection.likes} rts={UserSelection.rts} replies={UserSelection.replies} image={UserSelection.image} t_image={UserSelection.t_image} t_vid={UserSelection.t_vid} t_link={UserSelection.t_link}  />    
       </div>
-    )
+      <div className="algorithm_text">
+      We're going to visualize how this tweet spread on Twitter's platform.
+      </div>
+    </div>
+
+
+
+
+    <div className="gradient-transition" />
+    </>
+
+
+  )
   }

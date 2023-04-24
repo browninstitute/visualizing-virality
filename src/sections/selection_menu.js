@@ -1,48 +1,137 @@
 import { AppearingText } from "./appearingtext"
 import { BUTTON_WRAP } from "./button_wrapper"
+import {styles_with_css} from'./motion.ts'
+import { motion, useScroll, useSpring, useTransform, useMotionValue, useAnimation,  useAnimationControls } from "framer-motion";
+import React, { useState, useEffect ,  useRef} from "react";
+import brady_p from '../assets/brady_profile.jpg'
+import black_p from '../assets/black_profile.jpg'
+import mccarthy_p from '../assets/mccarthy_profile.jpg'
 
-export function SELECTION_MENU( {UserSelection, SetterUserSelection}){
-    const scrollHeight =11650;
-
-    
+export function SELECTION_MENU( {UserSelection, SetterUserSelection,ScrollToSelection}){
+    const [hoverB1, setHoverB1] = useState(false);
+    const [hoverB2, setHoverB2] = useState(false);
+    const [hoverB3, setHoverB3] = useState(false);
+    const controlsB1 = useAnimationControls();
+    const controlsB2 = useAnimationControls();
+    const controlsB3 = useAnimationControls();
+    const controlsI1 = useAnimationControls();
+    const controlsI2 = useAnimationControls();
+    const controlsI3 = useAnimationControls();
+    useEffect(() => {
+        if(hoverB1){
+            controlsB1.start({
+                scale:1.1,
+                opacity:1,
+                })
+            controlsI1.start({
+                y:"-5vw",
+                opacity: 1,
+            })
+            controlsB2.start({opacity:0.5,scale:1})
+            controlsI2.start({
+                y:"0vw",
+                opacity:0.5
+            })
+            controlsB3.start({opacity:0.5,scale:1})
+            controlsI3.start({
+                y:"0vw",
+                opacity:0.5
+            })
+        }
+        if(hoverB2){
+            controlsB1.start({opacity:0.5,scale:1})
+            controlsI1.start({
+                y:"0vw",
+                opacity:0.5
+            })
+            controlsB2.start({
+                scale:1.1,
+                opacity:1,
+                })
+            controlsI2.start({
+                y:"-5vw",
+                opacity: 1,
+                })
+            controlsB3.start({opacity:0.5,scale:1})   
+            controlsI3.start({
+                y:"0vw",
+                opacity:0.5
+            })        
+        }
+        if(hoverB3){
+            controlsB1.start({opacity:0.5,scale:1})
+            controlsI1.start({
+                y:"0vw",
+                opacity:0.5
+            })
+            controlsB2.start({opacity:0.5,scale:1})
+            controlsI2.start({
+                y:"0vw",
+                opacity:0.5
+            })
+            controlsB3.start({
+                scale:1.1,
+                opacity:1,
+                })          
+            controlsI3.start({
+                y:"-5vw",
+                opacity: 1,
+                })
+        }
+        if (!hoverB1 && !hoverB2 && !hoverB3){
+            controlsB1.start({opacity:1,scale:1})
+            controlsI1.start({
+                y:"0vw",
+            })
+            controlsB2.start({opacity:1,scale:1})
+            controlsI2.start({
+                y:"0vw",
+            })
+            controlsB3.start({opacity:1,scale:1})  
+            controlsI3.start({
+                y:"0vw",
+            })     
+        }
+    }, [hoverB1,hoverB2,hoverB3]);
 
     return (
-        <div className = "container">
-        <div className = "row">
-            <div className = "col-6">
-        <div className="selection_menu">
-            <div className='buttons_div'>
-                <BUTTON_WRAP image='https://pbs.twimg.com/profile_images/1592153812315394050/E4iwHS_B_400x400.jpg'>
-                <button className="selection_but" onClick={() => {
-                    SetterUserSelection("@TomBrady")
-                   // window.scrollTo({ top: scrollHeight, behavior: 'smooth' }); //must connect to element not height
+        <div className="menu_section">
 
-                }}>Sports</button>
-                </BUTTON_WRAP>
-                
-                <BUTTON_WRAP image='https://pbs.twimg.com/profile_images/1636533747154550784/Gz_R3VU0_400x400.jpg'>
-                <button className = "selection_but" onClick={() => {
-                   // SetterUserSelection("@6lack")
-                   // window.scrollTo({ top: scrollHeight, behavior: 'smooth' }); //must connect to element not height
-
-                }}>Entertainment</button>
-                </BUTTON_WRAP>
-
-                <BUTTON_WRAP image='https://pbs.twimg.com/profile_images/1613262093800677376/r3bwUusR_400x400.jpg'>
-                <button className = "selection_but" onClick={() => {
-                    //SetterUserSelection("@SpeakerMcCarthy")
-                   // window.scrollTo({ top: scrollHeight, behavior: 'smooth' }); //must connect to element not height
-                }}>News</button>
-                </BUTTON_WRAP>
+            <div className="menu_buttons_div">
+                <div className="menu_buttons_background">
+                    <div className="menu_buttons_wrapper">
+                        <div className="menu_button_block">
+                            <motion.img src={brady_p} alt="" className="avator" animate={controlsI1} />
+                            <a  href="#0">
+                            <motion.div className="menu_button sports" onClick={() => {SetterUserSelection("@TomBrady");ScrollToSelection();}} onHoverStart={e => {setHoverB1(true)}} onHoverEnd={e => {setHoverB1(false)}} animate={controlsB1} >Sports</motion.div>
+                            </a>
+                        </div>
+                        <div className="menu_button_block">
+                            <motion.img src={mccarthy_p} alt="" className="avator" animate={controlsI2}/>
+                            <a  href="#0">
+                            <motion.div className="menu_button news" onClick={() => {SetterUserSelection("@SpeakerMcCarthy");ScrollToSelection();}} onHoverStart={e => {setHoverB2(true)}} onHoverEnd={e => {setHoverB2(false)}} animate={controlsB2}  >News</motion.div>
+                            </a>
+                        </div>
+                        <div className="menu_button_block">
+                            <motion.img src={black_p} alt="" className="avator" animate={controlsI3}/>
+                            <a  href="#0">
+                            <motion.div className="menu_button entertainment" onClick={() => {SetterUserSelection("@6lack");ScrollToSelection();}} onHoverStart={e => {setHoverB3(true)}} onHoverEnd={e => {setHoverB3(false)}} animate={controlsB3} >Entertainment</motion.div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        </div>
-        <div className="col-6">
-            <AppearingText><p className="basicText select">Now, let's dive into one of these tweets.</p></AppearingText> 
 
-           <AppearingText><p className="basicText select">Select a category to get started</p></AppearingText> 
-        </div>
-        </div>
+            <div className="menu_text_div">
+                <div className="menu_text">
+                    Let's dive into one of these tweets<br/>
+                    <br/>
+                    <br/>
+                    Select a category to get started
+                </div>
+
+            </div>
+
         </div>
         
     )

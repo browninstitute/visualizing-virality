@@ -111,13 +111,12 @@ canvas {
   border-style: dashed;
 }
 
-.algorithm_section {
-  padding: 10%;
-}
+
 
 .gradient-transition {
   background-image: linear-gradient(#1DA1F2, #FFF);
   height: 30vh;
+  width: 100vw;
 
 }
 .tweet_intro {
@@ -142,12 +141,16 @@ canvas {
   border-radius: 20px;
   border-width: 0px;
 }
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
 body{
     font-family: "Asap", sans-serif;
     z-index: 0;
     font-size: 2em;
     color: darkgray;
-    background-color:  #1DA1F2 ;
+    background-color:  white ;
     // .sections_wrapper{
     height: 100vh;
     overflow-x: hidden;
@@ -744,7 +747,7 @@ body{
     //TIMELINE SECTION CSS
     .timeline_sec{
     .timeline_wrap{
-        height: 400vh;           
+        height: 390vh;           
         width: 100vw;
         background-color: white;
         .timeline_intro{
@@ -805,9 +808,7 @@ body{
                   .timeline_block:nth-child(odd){
                     text-align: right;
                     margin-left: -5vh;
-
                     .tweet-wrap{
-                      right: 10px;
                       width:30vw;
                       text-align: left;
 
@@ -822,7 +823,7 @@ body{
                     text-align: left;
                     .tweet-wrap{
                       
-                      margin-left: -2.5vw;         
+                      margin-left: 1%;         
                     }
                     .timeline_text{
                       text-align: right;
@@ -899,20 +900,21 @@ body{
           max-width: 45vw;
           font-size: 1.7rem;
           color: white;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           .highlight_text{
-            
-            margin-left: 8%;
-            margin-right: 8%;
+
+            margin-left: 4%;
+            margin-right: 4%;
             margin-top: 10%;
-            margin-bottom:10%;
+            margin-bottom: 10%;
             
 
-            align-items: center;
-            inset: 0;
+            
             ul{
               list-style-type: none; /* Remove bullets */
-              padding: 0; /* Remove padding */
-              margin: 0; /* Remove margins */
+
               li{
                 display: inline;
               }
@@ -1363,27 +1365,121 @@ body{
       }
     }
     .demotion_section{
-      height: 100vh;
+      height: 70vh;
       width: 100vw;
       background-color: white;
       color: rgb(108, 108, 108);
-      .padding{
-        height: 20vh
-      }
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
       .demotionText{
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 2rem;
+        line-height: 3rem;
+        padding: 5%;
+      }
+      .demotion_slider_container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60vw;
+        height: 8vw;
+        min-height: 5vh;
+        position: relative;
+        .demotion_clicker{
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: row;
+          z-index: 10;
+          position: absolute;
+          a{
+            width: 33.33%;
+            height: 100%; 
+            .button{
+              width: 100%;
+              height: 100%; 
+            }
+          }
+        }
+        .demotion_nonclicker{
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          .demotion_slider{
+            width: 100%;
+            height: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            .demotion_slider_main{
+              width: 77%;
+              height: 10%;
+              position: absolute;
+              background-color: rgb(108, 108, 108);
+              border-radius: 25px;
+            }
+            .demotion_slider_bar{
+              position: absolute;
+              width: 10%;
+              height: 50%;
+              border-radius: 25px;
+            }
+
+          }   
+          .demotion_buttons{
+            position: relative;
+            width: 100%;
+            height: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+
+            .demotion_button_container{
+              position: relative;
+              width: 33.33%;
+              height: 100%;
+
+              .demotion_button{
+
+
+                margin-top:20%;
+                margin-bottom:20%;
+                margin-left:20%;
+                margin-right:20%;
+                height: 60%;
+                width: 60%;
+
+                border-radius: 20px;
+                color: white;
+                font-size: 1.5rem;
+                z-index: 3;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+              .low{ background-color: #A7DBFA;}
+              .medium{ background-color: #1DA1F2;}
+              .high{ background-color: #076BA6;}
+
+
+            }
+          }      
+        }
       }
     }
-    .outro_section{
-      height: 100vh;
-      width: 100vw;
-      background-color: #1DA1F2;
-      color: white;
 
-    }
     .counter_section{
       height: 60vh;
         width: 100vw;
@@ -1410,5 +1506,295 @@ body{
           }
         }
     }
+    .algorithm_section {
+      height: 100vh;
+      margin-left: 20%;
+      margin-right: 20%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      .algorithm_tweet_container{
+        margin: 10%
+      }
+      .algorithm_text{
+        color: white;
+        font-size: 2rem;
+        text-align: center;
+      }
+    }
+    
+    
+    
+    
+    
+    .outro_section{
+      height: 100vh;
+      width: 100vw;
+      background-color: white;
+      color: rgb(108, 108, 108);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      .outro_text{
+        width: 100vw;
+        font-size: 1.5rem;
+        margin: 5%;
+        text-align: center;
+      }
+
+      .outro_menu{
+        width: 30vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .carousel-root{
+          width: 100%;
+          height: 100%;
+
+        }
+        & * > button{
+          color: red;
+        }
+        a{
+          text-decoration: none;
+        .outro_menu_block{
+          height: 40vh;
+          width: 30vw;
+          color: #1d84c3; /* blue colors for links too */
+
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          .outro_menu_block_banner{
+            font-size: 3vh;
+            line-height: 3vh;
+            margin: 3%;
+            text-align: center;
+            text-decoration: none;
+          }
+          .outro_menu_block_tweet{
+            height: 41vh;
+            width: 33vw;
+            & * > .tweet-wrap {
+              
+              width: 27vw;
+             // max-width: 400px;
+             // min-width: 400px;
+              
+              background: #fff;
+              margin-top: 0%;
+              border-radius:20px;
+              padding: 2%;
+              display: inline-block;
+              border:1px solid rgb(233, 233, 233);
+              color:rgb(108, 108, 108)
+        
+            }
+            & * > .tweet-header {
+              display: flex;
+              align-items:flex-start;
+              text-align: left;
+              font-size:0.9rem;
+              width: 27vw;
+        
+              .avator{
+                  border-radius:100px;
+                  width:4vw;
+                  margin-right: 15px;
+              }
+              
+              
+            }
+            
+            & * > .tweet-header-info {
+              font-weight:bold;
+              width: 297px;
+              span {
+                  font-weight:normal;
+                  margin-left: 5px;
+                }
+              p {
+                  font-weight:normal;
+                  margin-top: 5px;
+                  margin-bottom: 0;
+                  text-align: left;
+                  
+                }
+              .tweet-content {
+                  display: flex;
+                  justify-content:  center;
+                  align-items: center;
+                  width: 297px;
+                  margin-left: 10px;
+                  
+                  .content_img{
+                    max-height: 158.93px;
+                    max-width: 50%;
+                    margin-left: -40px;
+                    border-radius: 5%;
+                  }
+                  .content_vid{
+                    max-height: 158.93px;
+                    margin-bottom: -30px;
+                    margin-left: -20px;
+                    max-width: 70%;
+                    border-radius: 5%;
+                  }
+                }
+            }
+        
+            & * > .tweet-img-wrap {
+              padding-left: 60px;
+              .img{
+                  max-width: 100%;
+              }
+            }
+        
+            
+            
+            & * > .tweet-info-counts {
+              display: flex;
+              margin-left: 60px;
+              width: 297px;
+              font-size: 0.8rem;
+              
+              div {
+                  width: 80px;
+                  display: flex;
+                  svg {
+                      margin-right: 10px;
+                  }
+              }
+              .message {
+                width: 57px;
+                height: 20px;
+                svg{
+                  width: 20px;
+                  height: 20px;
+                }       
+              }
+            } 
+          }
+        }
+        }
+      }
+    }
+
+
+    .menu_section{
+      height: 100vh;
+      width: 100vw;
+      background-color: #1DA1F2;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .menu_buttons_div{
+        height: 100vh;
+        width: 50vw;
+        .menu_buttons_background{
+          height: 80%;
+          width: 60%;
+          margin-top: 10%;
+          margin-bottom: 10%;
+          margin-left: 20%;
+          margin-left: 20%;
+          background-color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          .menu_buttons_wrapper{
+            height: 80%;
+            width: 80%;
+            margin: 10%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            .menu_button_block{
+              height: 20%;
+              width: 60%;
+              margin-top: 10%;
+              margin-bottom: 10%;
+              margin-left: 5%;
+              margin-right: 5%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              .avator{
+                position: absolute;
+                border-radius:100px;
+                width:4vw;
+                z-index: 2;
+              }
+              a{
+                text-decoration: none;
+                height: 100%;
+                width: 100%;
+                border-radius: 20px;
+                
+                z-index: 3;
+              .menu_button{
+                background-color: #0b5684;
+                height: 100%;
+                width: 100%;
+                border-radius: 20px;
+                color: white;
+                z-index: 3;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 1.5rem;
+                text-decoration: none;
+              }
+            }
+
+            }   
+          }
+
+        }
+      }
+      .menu_text_div{
+        height: 100vh;
+        width: 50vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        inset: 0;
+        .menu_text{
+          height: 50%;
+          width: 80%;
+          font-size: 2rem;
+        }
+        
+      }
+    }
+
+    .scroll_div_show{
+      position: fixed;
+      display: flex;
+      top:0;
+      align-items: end;
+      justify-content: center;
+      z-index: 99;
+      left: 0.5%;
+      top: 50%;
+      .scroll_div{
+        background-color: #0b5684;
+        color: white;
+        font-size: 1rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        border-radius: 0.4rem;
+        transform: rotate(-90deg);
+
+      }
+    }
+
+
+
 }
 

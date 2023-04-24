@@ -3,12 +3,12 @@ import { P5CanvasInstance, ReactP5Wrapper, SketchProps} from 'react-p5-wrapper';
 import t1 from './links_tb.csv';
 import t2 from './nodes_tb.csv';
 import t3 from './users_tb.csv';
-import b1 from './links_b.csv';
-import b2 from './nodes_b.csv';
-import b3 from './users_b.csv';
-import m1 from './links_mc.csv';
-import m2 from './nodes_mc.csv';
-import m3 from './users_mc.csv';
+import b1 from './links_black.csv';
+import b2 from './nodes_black.csv';
+import b3 from './users_black.csv';
+import m1 from './links_mccarthy.csv';
+import m2 from './nodes_mccarthy.csv';
+import m3 from './users_mccarthy.csv';
 import brady_p from '../../assets/brady_profile.jpg';
 import { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
@@ -40,6 +40,7 @@ function sketch(fp5) {
     const finalTimeMap = new Map();
     const categoryMap = new Map();
     const infoToLoadMap = new Map();
+    let kevinFactor = 1;
     var names = [];
     let img = "";
     var startpoint = 0;
@@ -81,7 +82,7 @@ function sketch(fp5) {
     let nodes_table = 0;
     let info_table = 0;
     let key_accounts = 0;
-    let first_eng = 0;
+    let first_eng = 20;
     let table_tb = 0;
     let nodes_table_tb = 0;
     let info_table_tb = 0;
@@ -97,6 +98,7 @@ function sketch(fp5) {
     let heart="";
     let quote="";
     let retweet="";
+    
 
     let user_on_network = false;
 
@@ -127,7 +129,7 @@ function sketch(fp5) {
     
     fp5.draw = () => {
         if (user_on_network){
-            console.log(user_on_network)
+           // console.log(user_on_network)
             fp5.background(255);
         
             let timescale = 120;
@@ -204,7 +206,7 @@ function sketch(fp5) {
             fp5.text(selection_user.username, fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/2.5+1.5*fp5.displayHeight*0.9/40));
             fp5.fill(0,0,0,0);
             fp5.stroke(200,200,200);
-            fp5.rect(fp5.displayWidth/30, (fp5.displayHeight*0.9/2.5), (fp5.displayWidth/4), (fp5.displayHeight*0.9/8), 20);
+            fp5.rect(fp5.displayWidth/30, (fp5.displayHeight*0.9/2.5), (fp5.displayWidth/3.5), (fp5.displayHeight*0.9/8), 20);
             img.resize((fp5.displayWidth/40),(fp5.displayHeight*0.9/24));
             fp5.image(img, fp5.displayWidth/30+(fp5.displayWidth/60), (fp5.displayHeight*0.9/2.5+fp5.displayHeight*0.9/40))
 
@@ -429,7 +431,7 @@ function sketch(fp5) {
             //maybe make it a function of the follower count
             if (this.connections[i].a.isSending)//(followerMap.get((this.connections[i].a.name)) >= 0.5*(followerMap.get(veryfirstguy)))
             {
-                if (fp5.random() < 0.18)
+                if (fp5.random() < 0.18*kevinFactor)
                 {
                 this.connections[i].deactivate();
                 }
@@ -459,6 +461,7 @@ function sketch(fp5) {
         this.time = time;
         this.isSending = false;
         this.isFirst = isFirst;
+        this.opacity = 255;
         
         this.addConnection = function(c) {
             this.connections.push(c);
@@ -548,12 +551,16 @@ function sketch(fp5) {
         this.display = function() {
           
             //first check if final child is gone
+        if (kevinFactor >1 && fp5.int(followerMap.get(this.name)) < 200)
+        {
+            return;
+        }
+        
           let checkFinalChild = fp5.log(fp5.int(parseFloat(finalTimeMap.get(this.name))))*120 - adjFrame;
           if ( checkFinalChild <= 0)
           {
               return;
           }
-
           //then brute force go away if too long
         /*  let timeSince = fp5.log(this.time)*120 - adjFrame;
           if (timeSince < -500 && this.isFirst != 'first')
@@ -603,8 +610,17 @@ function sketch(fp5) {
             
             fp5.ellipse(this.position.x, this.position.y, scaler*this.r, scaler*this.r);
             //console.log(this.r);
-            
+            if (fp5.int(followerMap.get(this.name)) > 100000 && this.isFirst != 'first'){
+                let w = fp5.textWidth(categoryMap.get(this.name) + " by @"+nameMap.get(this.name));
+                let h = fp5.textAscent(categoryMap.get(this.name) + " by @"+nameMap.get(this.name));
+                fp5.fill(255,255,255, this.opacity);
+                fp5.rect(this.position.x-10, this.position.y-h, w+20, h+5, 10);
+                fp5.fill(0, 0, 0, this.opacity);
+                fp5.text(categoryMap.get(this.name) + " by @"+nameMap.get(this.name), this.position.x, this.position.y);//fp5.displayWidth/5, 0.39*fp5.displayHeight);
+                this.opacity = this.opacity-5;
 
+            }
+            
 
             this.r = fp5.lerp(this.r, 0.7,0.1);
 
@@ -643,13 +659,23 @@ function sketch(fp5) {
             let mainX = 1.4*(fp5.displayWidth/2)/load_factor;
             let mainY = (fp5.displayHeight*0.9/2)/load_factor;
             veryfirstguy = nodes_table.getString(0, 0);
-            first_eng = fp5.int(parseFloat(info_table.getString(1,3)));
+       
 
             newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius*4);
             map1.set(veryfirstguy, newNode);
             //console.log("FIRST ENGAGMENT" + first_eng);
     
-            
+            followerMap.clear();
+            nameMap.clear();
+            finalTimeMap.clear();
+            hopMap.clear();
+            timeMap.clear();
+            parentMap.clear();
+            timeToNode.clear();
+            retweetSum = 0;
+            likeSum = 0;
+            replySum = 0;
+
             for (let r = 0; r < info_table.getRowCount(); r++)
             {
                 followerMap.set(info_table.getString(r, 0), info_table.getString(r,1));
@@ -680,6 +706,11 @@ function sketch(fp5) {
                 map1.set(id, new Neuron(mainX+fp5.cos(angle)*distance, mainY+fp5.sin(angle)*distance, id, true, defaultradius, time, "other"));
                 }
                 timeMap.set(nodes_table.getString(r, 0), nodes_table.getString(r,1));
+                if (fp5.int(parseFloat(nodes_table.getString(r,1))) < first_eng && fp5.int(parseFloat(nodes_table.getString(r,1)))  != 0 )
+                {
+                    first_eng = fp5.int(parseFloat(nodes_table.getString(r,1)));
+                    console.log(first_eng);
+                }
                 timeToNode.set(nodes_table.getString(r, 1), nodes_table.getString(r,0));
                 names.push(id);
 
@@ -726,16 +757,19 @@ function sketch(fp5) {
                         table=table_tb;
                         nodes_table=nodes_table_tb;
                         info_table=info_table_tb;
+                        kevinFactor = 1;
                         break;
                     case "@6lack":
                         table=table_b;
                         nodes_table=nodes_table_b;
                         info_table=info_table_b;
+                        kevinFactor = 1;
                         break;
                     case "@SpeakerMcCarthy":
                         table=table_mc;
                         nodes_table=nodes_table_mc;
                         info_table=info_table_mc;
+                        kevinFactor = 3;
                         break;
                 }
 
@@ -769,11 +803,14 @@ function sketch(fp5) {
     };
     fp5.setup = () => {
 
+        table=table_b;
+        nodes_table=nodes_table_b;
+        info_table=info_table_b;
+
        
 
-        table=table_tb;
-        nodes_table=nodes_table_tb;
-        info_table=info_table_tb;
+       
+       
 
 
 

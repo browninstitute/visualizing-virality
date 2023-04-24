@@ -204,7 +204,7 @@ function sketch(fp5) {
             fp5.text(selection_user.username, fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/2.5+1.5*fp5.displayHeight*0.9/40));
             fp5.fill(0,0,0,0);
             fp5.stroke(200,200,200);
-            fp5.rect(fp5.displayWidth/30, (fp5.displayHeight*0.9/2.5), (fp5.displayWidth/4), (fp5.displayHeight*0.9/8), 20);
+            fp5.rect(fp5.displayWidth/30, (fp5.displayHeight*0.9/2.5), (fp5.displayWidth/3.5), (fp5.displayHeight*0.9/8), 20);
             img.resize((fp5.displayWidth/40),(fp5.displayHeight*0.9/24));
             fp5.image(img, fp5.displayWidth/30+(fp5.displayWidth/60), (fp5.displayHeight*0.9/2.5+fp5.displayHeight*0.9/40))
 
@@ -459,6 +459,7 @@ function sketch(fp5) {
         this.time = time;
         this.isSending = false;
         this.isFirst = isFirst;
+        this.opacity = 255;
         
         this.addConnection = function(c) {
             this.connections.push(c);
@@ -603,8 +604,17 @@ function sketch(fp5) {
             
             fp5.ellipse(this.position.x, this.position.y, scaler*this.r, scaler*this.r);
             //console.log(this.r);
-            
+            if (fp5.int(followerMap.get(this.name)) > 100000 && this.isFirst != 'first'){
+                let w = fp5.textWidth(categoryMap.get(this.name) + " by @"+nameMap.get(this.name));
+                let h = fp5.textAscent(categoryMap.get(this.name) + " by @"+nameMap.get(this.name));
+                fp5.fill(255,255,255, this.opacity);
+                fp5.rect(this.position.x-10, this.position.y-h, w+20, h+5, 10);
+                fp5.fill(0, 0, 0, this.opacity);
+                fp5.text(categoryMap.get(this.name) + " by @"+nameMap.get(this.name), this.position.x, this.position.y);//fp5.displayWidth/5, 0.39*fp5.displayHeight);
+                this.opacity = this.opacity-5;
 
+            }
+            
 
             this.r = fp5.lerp(this.r, 0.7,0.1);
 

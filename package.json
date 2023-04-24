@@ -9,6 +9,7 @@
     "bootstrap": "^5.2.3",
     "framer-motion": "^10.12.2",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.4",
     "react-document-meta": "^3.0.0-beta.2",
     "react-dom": "^18.2.0",
     "react-intersection-observer": "^9.4.3",

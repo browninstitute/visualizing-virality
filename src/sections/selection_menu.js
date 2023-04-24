@@ -124,10 +124,10 @@ export function SELECTION_MENU( {UserSelection, SetterUserSelection,ScrollToSele
 
             <div className="menu_text_div">
                 <div className="menu_text">
-                    Let's dive into one of these tweets<br/>
+                    Let's dive into one of these tweets!<br/>
                     <br/>
                     <br/>
-                    Select a category to get started
+                    Select a category to get started.
                 </div>
 
             </div>

@@ -20,7 +20,7 @@ export function SELECTION_MENU( {UserSelection, SetterUserSelection}){
                 
                 <BUTTON_WRAP image='https://pbs.twimg.com/profile_images/1636533747154550784/Gz_R3VU0_400x400.jpg'>
                 <button className = "selection_but" onClick={() => {
-                   // SetterUserSelection("@6lack")
+                   SetterUserSelection("@6lack")
                    // window.scrollTo({ top: scrollHeight, behavior: 'smooth' }); //must connect to element not height
 
                 }}>Entertainment</button>
@@ -28,7 +28,7 @@ export function SELECTION_MENU( {UserSelection, SetterUserSelection}){
 
                 <BUTTON_WRAP image='https://pbs.twimg.com/profile_images/1613262093800677376/r3bwUusR_400x400.jpg'>
                 <button className = "selection_but" onClick={() => {
-                    //SetterUserSelection("@SpeakerMcCarthy")
+                    SetterUserSelection("@SpeakerMcCarthy")
                    // window.scrollTo({ top: scrollHeight, behavior: 'smooth' }); //must connect to element not height
                 }}>News</button>
                 </BUTTON_WRAP>

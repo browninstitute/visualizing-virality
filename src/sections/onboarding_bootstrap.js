@@ -13,6 +13,7 @@ import profile2 from "../assets/onboarding_profile2.jpg"
 import profile3 from "../assets/onboarding_profile3.jpg"
 import profile4 from "../assets/onboarding_profile4.jpg"
 import profile5 from "../assets/onboarding_profile5.jpg"
+import { AppearingTweet } from "./appearingtweet";
 
 export function ONBOARDING_INTRO(){
     const tweets_scroll_points = {
@@ -122,18 +123,27 @@ export function ONBOARDING_INTRO(){
           <div className="onboarding_tweet_div_sticky">
             <div className='onboarding_tweet_bg'>
             <div className="tweets_div">
+              <AppearingTweet>
                   <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity})} >
                         <TWEET_SVG_NONAPPEAR  username="@StateFarm" image={profile4} text="We manifested that State Farm red, Rihanna. Epic! #SuperBowl" date="02/12/2023" likes="52" rts="10" replies="6" t_link={"https://twitter.com/StateFarm/status/1624945135917191169"}/>    
                   </motion.div>
+              </AppearingTweet>
+              <AppearingTweet>
                   <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity})} >
                         <TWEET_SVG_NONAPPEAR username="@Wendys" image={profile3} text="Where's the beef?" date="02/13/2023" likes="6399" rts="411" replies="1250" t_link={"https://twitter.com/Wendys/status/1625165317189009409"}/>    
                   </motion.div>
+              </AppearingTweet>
+              <AppearingTweet>
                   <motion.div className="tweets_animate" style={styles_with_css({x:emphasize,opacity:remove_opacity})}>
                         <TWEET_SVG_NONAPPEAR username="@cxrtezs" text="Nvm = you should have listened when i was talking to u." date="04/23/2023" likes="82.1k" rts="21.1k" replies="63" image={profile1} t_link={"https://twitter.com/cxrtezs/status/1648949370690076672"} />    
                   </motion.div>
+              </AppearingTweet>
+              <AppearingTweet>
                   <motion.div className="tweets_animate" style={styles_with_css({opacity:remove_opacity})} >
                         <TWEET_SVG_NONAPPEAR username="@MTA" image={profile5} text="Tomorrow is the big day, @Yankees fans! ⚾️ Pitch your travel advice to your fellow fans, what's the best way to get to the home opener? 🏟️" date="03/29/2023" likes="13" rts="5" replies="0" t_link={"https://twitter.com/MTA/status/1641074159621996545"}/>    
                   </motion.div>
+              </AppearingTweet>
+              <AppearingTweet>
                   <motion.div className="tweets_animate"  id='main' style={styles_with_css({x:emphasize,y:move_up})}>
                         <div className="svg_wrap" id="second_svg" > 
                             <svg viewBox="-100 -100 500 300" fill="none" className="highlight" >
@@ -147,6 +157,7 @@ export function ONBOARDING_INTRO(){
                         </div>
                         <TWEET_SVG_NONAPPEAR username="@JUNlPER" text="the fact there hasn’t been any new internet famous cat for the last couple of years is a sign of the oncoming apocalypse" date="01/30/2023" likes="203.6k" rts="19.6k" replies="4872" image={profile2} t_link={"https://twitter.com/JUNlPER/status/1620265396539629570"} />    
                   </motion.div> 
+                </AppearingTweet>
 
             </div>
           </div>

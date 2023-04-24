@@ -6,6 +6,7 @@ import React, { useState, useEffect ,  useRef} from "react";
 import brady_p from '../assets/brady_profile.jpg'
 import black_p from '../assets/black_profile.jpg'
 import mccarthy_p from '../assets/mccarthy_profile.jpg'
+import App from "../App";
 
 export function SELECTION_MENU( {UserSelection, SetterUserSelection,ScrollToSelection}){
     const [hoverB1, setHoverB1] = useState(false);
@@ -124,10 +125,10 @@ export function SELECTION_MENU( {UserSelection, SetterUserSelection,ScrollToSele
 
             <div className="menu_text_div">
                 <div className="menu_text">
-                    Let's dive into one of these tweets!<br/>
+                   <AppearingText>Let's dive into one of these tweets!<br/></AppearingText> 
                     <br/>
                     <br/>
-                    Select a category to get started.
+                   <AppearingText>Select a category to get started.</AppearingText> 
                 </div>
 
             </div>

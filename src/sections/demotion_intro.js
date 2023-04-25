@@ -37,7 +37,7 @@ export function DEMOTION_INTRO({UserSelection}){
 
     const [heightM,setHeightM] = useState(0)
     const refM =  useRef(null)
-    
+
     useEffect(() =>{
         setHeightM(refM.current.clientHeight)
     }, [UserSelection,dimensions])
@@ -93,7 +93,7 @@ export function DEMOTION_INTRO({UserSelection}){
         <div className="demotion_intro_section" ref={sec_ref}>
             <div className="amplification_demotion" >
                 <div className="amplification_text">
-                    But such ranking is intended to accomodate <span className='non_changing'><motion.span className='changing' style={styles_with_css({fontSize:amplify_scale,color:"#1DA1F2"})}>amplification</motion.span></span> of tweets that are deemed individually or wholly worthwhile. There is also <span  className='non_changing'><motion.span  className='changing' style={styles_with_css({fontSize:demotion_scale,color:"#1DA1F2"})}>demotion</motion.span></span> within the platform for tweets that are deemed problematic.
+                    But such ranking is intended to accomodate <span className='non_changing'><motion.span className='changing' style={styles_with_css({fontSize:amplify_scale,color:"#1DA1F2"})}>amplification</motion.span></span> of content that is deemed engagement worthy for the user. There is also <span  className='non_changing'><motion.span  className='changing' style={styles_with_css({fontSize:demotion_scale,color:"#1DA1F2"})}>demotion</motion.span></span> within the platform for content that is deemed problematic.
                 </div>
                 </div>
             <div className="demotion_how">

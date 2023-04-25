@@ -83,14 +83,17 @@ export function SELECTION_MENU( {UserSelection, SetterUserSelection,ScrollToSele
             controlsB1.start({opacity:1,scale:1})
             controlsI1.start({
                 y:"0vw",
+                opacity:0,
             })
             controlsB2.start({opacity:1,scale:1})
             controlsI2.start({
                 y:"0vw",
+                opacity:0,
             })
             controlsB3.start({opacity:1,scale:1})  
             controlsI3.start({
                 y:"0vw",
+                opacity:0,
             })     
         }
     }, [hoverB1,hoverB2,hoverB3]);

@@ -83,7 +83,7 @@ canvas {
   padding-top: 2%;
   padding-bottom: 2%;
   border-radius: 20px;
-  font-size: xx-large;
+  font-size: 2vmin;
   border-width: 0px;
   color: white;
 }
@@ -158,13 +158,13 @@ body{
 
     & * > .tweet-wrap {
                   
-      width: 30vw;
-     // max-width: 400px;
-     // min-width: 400px;
+      // width: 30vw;
+      // aspect-ratio: 352.08/96.01;
+      // max-height: 15vh;
       
       background: #fff;
       margin-top: 0%;
-      border-radius:20px;
+      border-radius: min(1.5vw, 1.5vh);
       padding: 2%;
       display: inline-block;
       border:1px solid rgb(233, 233, 233);
@@ -174,13 +174,19 @@ body{
     & * > .tweet-header {
       display: flex;
       align-items:flex-start;
-      font-size:0.9rem;
+      font-size:  min(0.9vw, 1.5vh);
       width: 27vw;
+      aspect-ratio: 316.86/53.38;
+      max-height: 6vh;
 
       .avator{
-          border-radius:100px;
-          width:4vw;
-          margin-right: 15px;
+        border-radius: max(4vw, 8vh);
+        margin-right: max(1vw, 2vh);
+        max-height: 8vh;
+        max-width: 3.5vw;
+        width: auto;
+        height: auto;
+        aspect-ratio: 1/1;
       }
       
       
@@ -188,65 +194,69 @@ body{
     
     & * > .tweet-header-info {
       font-weight:bold;
-      width: 297px;
+      width: 81.48%;
       span {
           font-weight:normal;
-          margin-left: 5px;
+          margin-left: min(1vw, 8vh);
         }
       p {
           font-weight:normal;
-          margin-top: 5px;
+          margin-top: min(0.5vw, 8vh);
           margin-bottom: 0;
           
         }
       .tweet-content {
           display: flex;
-          justify-content:  left;
+          justify-content:  center;
           align-items: center;
-          width: 297px;
-          margin-left: 10px;
+          width: 100%;
+          margin-left:  min(-2vw, -3vh);
           .content_img{
-            
-            max-height: 158.93px;
+            display: block;
+            max-width:9vw;
+            max-height:15vh;
+            width: auto;
+            height: auto;
             border-radius: 5%;
           }
           .content_vid{
-            margin-left: 60px;
-            height: 158.93px;
+            display: block;
+            max-width:9vw;
+            max-height:15vh;
+            width: auto;
+            height: auto;          
             border-radius: 5%;
           }
         }
     }
 
-    & * > .tweet-img-wrap {
-      padding-left: 60px;
-      .img{
-          max-width: 100%;
-      }
-    }
+
 
     
     
     & * > .tweet-info-counts {
       display: flex;
-      margin-left: 60px;
-      margin-top: 10px;
-      width: 297px;
-      font-size: 0.8rem;
-      
+      margin-left: min(6vw, 8vh);
+      margin-top: min(0.6vw, 1.5vh);
+      font-size: min(0.9vw, 1.5vh);
+
+      width: 22vw;
+      aspect-ratio: 270.15/20;
+      max-height: 3vh;
       div {
-          width: 80px;
+          width: 25.27%;
           display: flex;
           svg {
-              margin-right: 10px;
+              margin-right: 20%;
+              width: 20%;
+              max-height: 100%;
           }
       }
       .message {
-        width: 57px;
-        height: 20px;
+        width: 27.27%;
         svg{
-          width: 20px;
-          height: 20px;
+          width: 25.64%;
+
         }
         
     }
@@ -450,51 +460,6 @@ body{
   
   }
 
-  //ONBOARDING METHODOLOGY
-  // .onboarding2 {
-  //   height: 400vh;
-  //   width: 100%;
-  //   margin-top: 50vh;
-  //   position: relative;
-  //   justify-content: center;
-  //   text-align: center;
-
-    
-  //   .text_main {
-  //     //display: flex;
-      
-  //     display: flex;
-  //     color: white;
-  //     height: 20vh;
-  //     font-size: 2.5rem;
-  //     margin: 10vh;
-  //     text-align: center;
-
-  //     .definition_text {
-  //       margin:40vh;
-  //       height: 20vh;
-
-  //     }
-  //     .counting_text {
-  //       height: 20vh;
-  //     }
-  //   }
-  // }
-
-  // .text_div{
-  //   //position: absolute;
-  //   align-items:center;
-  //   display:block;
-  //   justify-content: left;
-  //   top: 0;
-  //   height: 100vh;
-   
-  //   //font-size: 2rem;
-  //   position: sticky;
-  // }
-
-    //decoration
-
     .under {
       text-decoration: underline;
       text-decoration-style: solid;
@@ -521,245 +486,7 @@ body{
         color: rgb(108, 108, 108);
       }
     }
-    // .onboarding{
-
-    //     height: 600vh;
-    //     width: 100vw;
-    //     position: relative;
-    //     font-family: "Asap", sans-serif;
-    //     font-size: 1.5rem;
-    //     background-color: white;
-    //     color: rgb(108, 108, 108);
-       
-
-    //     .reveal{
-    //       position: relative;
-    //       transform: translateY(150px);
-    //       opacity: 0;
-    //       transition: 1s all ease;
-    //     }
-
-
-    //     .onboarding_text{
-    //       height: 600vh;
-    //       position: absolute;
-    //       //width: 100%;
-
-         
-
-    //       .short {
-    //         height:50vh;
-    //         text-align: center;
-    //       }
-          
-
-    //       & * > .text_div{
-    //         //position: absolute;
-    //         align-items:center;
-    //         display:flex;
-    //         justify-content: left;
-    //         top: 0;
-    //         height: 100vh;
-    //         width: 50%;
-    //         font-size: 1.5rem;
-    //         position: sticky;
-    //         .text_highlight{
-    //         }
-    //       }
-
-          
-    //       & * > .text_div2{
-    //         //position: absolute;
-    //         align-items:center;
-    //         display:flex;
-    //         justify-content: left;
-    //         top: 0;
-    //         height: 100vh;
-    //         width: 100%;
-    //         //font-size: 2rem;
-    //         position: sticky;
-    //       }
-
-    //       & * > .text_side{
-    //         //position: absolute;
-          
-    //         display: float;
-    //         text-align: end;
-    //       }
-
-
-    //       .intro_text{
-    //         position: relative;
-    //         height: 100vh;
-    //         margin-left: 2%;
-
-            
-    //       }
-    //       .viral_text1{
-    //         height: 10vh;
-    //         position: relative;
-    //         margin-left: 2%;
-    //         transform: translateY(0);
-
-                                 
-    //       }
-    //       .viral_text2{
-    //         height: 150vh;
-    //         position: relative;
-    //         margin-left: 2%;
-
-
-
-    //       }
-    //       .viral_text3{
-    //         height: 250vh;
-    //         position: relative;
-    //         width: 80%;
-    //         //display: flex;
-    //         //white-space: nowrap;
-    //         margin-left: 2%;
-    //         text-align: left;
-    //         padding: 0;
-
-    //       }
-    //       .viral_text4{
-    //         height: 100vh;
-    //         //position: relative;
-    //         margin-left: 2%;
-            
-    //       .row {
-    //         display: inline;
-    //       }
-
-    //       }
-          
-
-        
-    //     }
-    //     .onboarding_flare{
-    //       height: 1500vh;
-    //       width: 100vw;
-    //       position: absolute;
-    //       .intro_phone_screen{
-    //         height: 210vh;
-    //         position: relative;
-    //         .svg_wrap{
-    //           height: 100vh;
-    //           top:0;
-    //           position: sticky;
-    //           align-items:center;
-    //           display:flex;
-    //             svg.phone{
-    //               position:absolute;
-    //               display: block;
-    //               left:2%; top:4%; width:96%; height:96%
-    //             }
-    //         }
-    //       }
-    //       .flare_padding1{
-    //         position: relative;
-    //         height: 270vh;
-    //       }
-    //       .tweets_animate_movein {
-    //         margin: 2%;
-            
-    //       }
-
-    //       .welcome {
-    //         font-size: 10vw;
-    //         position: relative;
-    //       }
-
-    //       .tweets_div {
-    //         color: darkgray;
-    //       }
-    //       .median_tweets{
-    //         height: 250vh;
-    //         width: 50vw;
-    //         position: relative;
-    //         left: 50%;
-    //         .tweets_movein{
-    //           height: 100vh;
-    //           width: 80vw;
-    //           top: 10%;
-    //           position: sticky;
-    //           flex-direction: column;
-    //           justify-content: center;
-    //           align-items: center;
-    //           margin: 2%;
-              
-    //         }
-
-    //       }
-
-        
-          
-
-    //     }
-
-    //     .text_div{
-    //       //position: absolute;
-    //       align-items:center;
-    //       display:flex;
-    //       justify-content: left;
-    //       top: 0;
-    //       height: 100vh;
-         
-    //       font-size: 2rem;
-    //       position: sticky;
-    //     }
-    //     .onboarding_tweets{
-    //       height: 900vh;
-    //       //width: 100vw;
-    //       justify-content: center;
-    //       //position: absolute;
-    //       .tweets_padding{
-    //         height: 50vh;
-    //         position: relative;
-    //       }
-    //       .tweets_wrapper{
-    //         height: 850vh;
-    //         position: relative;
-    //         .tweets_div{
-    //           position: sticky;
-    //           top: 0;
-    //           height: 100vh;
-    //           //width: 100vw;        
-    //           display: flex;
   
-    //           flex-direction: column;
-    //           justify-content: center;
-    //           align-items: center;
-    //           .tweets_animate{
-    //               .svg_wrap{
-    //                 position: absolute;
-    //                 align-items:center;
-    //                 display:flex;
-                    
-    //                 svg.highlight{
-    //                   position: relative;
-    //                   z-index: 20;
-    //                   top: 0%; left: 0%; width: 110%; height: 90%;
-    //                 }
-                    
-    //               }
-    //               #first_svg{
-    //                 top:10%;
-    //               }
-
-  
-                  
-    //           }
-                     
-    //         }
-    //       }
-          
-    //     }
-        
-    // }
-
-
-
     //TIMELINE SECTION CSS
     .timeline_sec{
     .timeline_wrap{
@@ -771,7 +498,7 @@ body{
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1rem;
+            font-size: 2vmin;
             height: 10vh;
             width: 100vw;
         }
@@ -815,7 +542,10 @@ body{
                         color: rgb(108, 108, 108);
                         background-color:rgba(255, 255, 255, 0.8);
                         padding: 5px;
-                        font-size: 0.7rem;
+                        font-size: 0.7vw;
+                        .timeline_date{
+                          font-size: 1.2vw;
+                        }
                         
                     }
                        
@@ -825,6 +555,7 @@ body{
                     text-align: right;
                     .tweet-wrap{
                       width:30vw;
+                      margin-right: 4%;
                       text-align: left;
 
                     }
@@ -838,12 +569,14 @@ body{
                     text-align: left;
                     .tweet-wrap{
                       
+                      width:30vw;
                       margin-left: 1%;         
                     }
                     .timeline_text{
                       text-align: right;
                       right: 50.3%;
                       margin-right: -0.8vw;
+                      
                     }
                   }
                 
@@ -947,30 +680,15 @@ body{
         inset: 0;
         position: relative;
         flex-direction: column;
-        // .svg_div{
-        //   height: 5vh;
-        //   width: 45vw;
-        //   .svg_moveup{
-        //     top: -47%;
-        //     position: relative;
-        //     display: flex;
-        //     align-items: center;
-        //     justify-content: start;
-        //     flex-direction: row;
-        //     .svg_wrap{
-        //       height: 2.5vw;
-        //       width: 2.5vw;
-        //     }
-        //   }
-        // }
+
         .tweet-wrap{
         .svg_wrap{
           position: absolute;
           z-index: 20;
           margin-top: 1%;
           margin-left: 3%;
-          width: 50px;
-          height: 50px;
+          width: 4vw;
+          height: 4vw;
         }
         }
       }
@@ -999,6 +717,7 @@ body{
           .bars_container{
             height: 60%;
             width: 50%;
+            font-size: 2.3vmin;
             .bar1{
               flex-direction: column;
               justify-content: center;
@@ -1009,7 +728,7 @@ body{
               background-color: #0b5684;
               .bar_text{
                 color: white;
-                font-size: 1.3rem;
+                
                 position: absolute;
               }
             }
@@ -1023,7 +742,7 @@ body{
               background-color: #1d84c3;
               .bar_text{
                 color: white;
-                font-size: 1.3rem;
+                
                 position: absolute;
               }
             }
@@ -1038,7 +757,7 @@ body{
               background-color: #77bcfd;
               .bar_text{
                 color: white;
-                font-size: 1.3rem;
+                
                 position: absolute;
               }
             }
@@ -1052,7 +771,7 @@ body{
               background-color: #b0d6f9;
               .bar_text{
                 color: white;
-                font-size: 1.3rem;
+                
                 position: absolute;
               }
             }
@@ -1076,7 +795,7 @@ body{
             height: 45%;
             width: 100%;
             position: relative;
-            font-size: 1.7rem;
+            font-size: 3.5vmin;
             color: white;
             .text_container{
               display:flex;
@@ -1103,63 +822,7 @@ body{
       
       
     }
-    
-
-    // .stacked_bars{
-    //   //position: relative;
-    //   height: 770vh;
-    //   width: 100vw;
-    //   color: white;
-    //   align-items: center;
-    //   z-index: 1000;
-    //   .bars_div{
-    //     height: 100vh;
-    //     width: 100vw;
-    //     top: 0;
-    //     position: sticky;
-    //     flex-direction: column;
-    //     justify-content: start;
-    //     align-items: center;
-    //     display: flex;
-    //     .bar1{
-    //       flex-direction: column;
-    //       justify-content: center;
-    //       align-items: center;
-    //       display: flex;
-    //       height: 25vh;
-    //       width: 25vw;
-    //       background-color: #0b5684;
-    //     }
-    //     .bar2{
-    //       flex-direction: column;
-    //       justify-content: center;
-    //       align-items: center;
-    //       display: flex;
-    //       height: 25vh;
-    //       width: 25vw;
-    //       background-color: #1d84c3;
-    //     }
-    //     .bar3{
-    //       flex-direction: column;
-    //       justify-content: center;
-    //       align-items: center;
-    //       display: flex;
-          
-    //       height: 25vh;
-    //       width: 25vw;
-    //       background-color: #77bcfd;
-    //     }
-    //     .bar4{
-    //       flex-direction: column;
-    //       justify-content: center;
-    //       align-items: center;
-    //       display: flex;
-    //       height: 25vh;
-    //       width: 25vw;
-    //       background-color: #b0d6f9;
-    //     }
-    //   }
-    // }
+   
     .onboarding_section{
       height: 500vh;
       width: 100vw;
@@ -1173,7 +836,7 @@ body{
       .onboarding_text{
         height: 500vh;
         width: 50%;
-        font-size: 1.5rem;
+        font-size: 3vmin;
         .viral_text{
 
 
@@ -1203,26 +866,7 @@ body{
         .text4{
           height: 130vh;
         }
-        // .demotion_text_div{
-        //   height: 100vh;
-        //   width: 50vw;
-        //   position: sticky;
-        //   top:0;
-        //   display: flex;
-        //   align-items: center;
-        //   justify-content: center;
-        //   inset: 0;
-        //   background-color: white;
-        //   color: rgb(108, 108, 108);
-        //   .demotion_text_div_sticky{
-        //     height: 70vh;
-        //     width: 40vw;     
-        //     font-size: 2vw;  
-
-            
-        //   }
-          
-        // }
+       
         
       }
       .onboarding_tweets{
@@ -1263,16 +907,13 @@ body{
                   margin: 0.25%;
                   .svg_wrap{
                     position: absolute;          
-                    width: 120%; 
-                    height: 120%;       
-                    left: -22%;
-                    top: 10%;   
+                    width: 350%; 
+                    height: 350%;       
+                    left: 6%;
+                    top: -110%;   
                     svg.highlight{
                       position: inline-block;
-                      z-index: 21;
-                      width: 100%; 
-
-                      height: 100%;
+                      z-index: 21; 
                     }
                   }
                 }
@@ -1308,13 +949,13 @@ body{
         .amplification_text{
           margin-left: 20%;
           margin-right: 20%;
-          font-size: 1.5rem;
-          line-height: 3rem;
+          font-size: 3vmin;
+          line-height: 5vmin;
           .non_changing{
-            padding-left: 4rem;
-            padding-right: 4rem;
-            width: 16rem;
-            max-width: 16rem;
+            padding-left: 6vmin;
+            padding-right: 6vmin;
+            width: 33vmin;
+            max-width: 33vmin;
             display: inline-flex;
             justify-content: center;
             align-items: center;
@@ -1386,7 +1027,7 @@ body{
           .demotion_text_div_sticky{
             height: 70%;
             width: 80%;     
-            font-size: 2rem;  
+            font-size: 3.5vmin;  
 
             
           }
@@ -1407,8 +1048,8 @@ body{
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 2rem;
-        line-height: 3rem;
+        font-size: 3vmin;
+        line-height: 9vmin;
       }
       .demotion_slider_container{
         display: flex;
@@ -1492,7 +1133,7 @@ body{
 
                 border-radius: 20px;
                 color: white;
-                font-size: 1.5rem;
+                font-size: 3vmin;
                 z-index: 3;
                 display: flex;
                 justify-content: center;
@@ -1521,7 +1162,7 @@ body{
         .counter_text{
           margin-left: 10%;
           margin-right: 10%;
-          font-size: 1.5rem;
+          font-size: x-large;
           line-height: 3rem;
           text-align: center;
           .counter_div{
@@ -1545,13 +1186,13 @@ body{
       flex-direction: column;
       background-color: #1DA1F2;
       .algorithm_tweet_container{
-        margin: 10%
+        margin: 5%
       }
       .algorithm_text{
         margin-left: 20%;
         margin-right: 20%;
         color: white;
-        font-size: 2rem;
+        font-size: 3vmin;
         text-align: center;
       }
     }
@@ -1571,7 +1212,7 @@ body{
       flex-direction: column;
       .outro_text{
         width: 100vw;
-        font-size: 1.5rem;
+        font-size: 3.5vmin;
         margin: 5%;
         text-align: center;
       }
@@ -1592,7 +1233,7 @@ body{
         a{
           text-decoration: none;
         .outro_menu_block{
-          height: 40vh;
+          height: 45vh;
           width: 30vw;
           color: #1d84c3; /* blue colors for links too */
 
@@ -1601,8 +1242,8 @@ body{
           align-items: center;
           justify-content: center;
           .outro_menu_block_banner{
-            font-size: 1.5rem;
-            line-height: 1.5rem;
+            font-size: 3vmin;
+            line-height: 3vmin;
             margin: 3%;
             text-align: center;
             text-decoration: none;
@@ -1610,105 +1251,27 @@ body{
           .outro_menu_block_tweet{
             height: 79%;
             width: 100%;
-            & * > .tweet-wrap {
-              
-              width: 27vw;
-             // max-width: 400px;
-             // min-width: 400px;
-              
-              background: #fff;
-              margin-top: 0%;
-              border-radius:20px;
-              padding: 2%;
-              display: inline-block;
-              border:1px solid rgb(233, 233, 233);
-              color:rgb(108, 108, 108)
-        
-            }
+            text-align: left;
             & * > .tweet-header {
               display: flex;
               align-items:flex-start;
-              text-align: left;
-              font-size:0.9rem;
+              font-size:  min(0.9vw, 1.5vh);
               width: 27vw;
+              aspect-ratio: 316.86/53.38;
+              max-height: 6vh;
         
               .avator{
-                  border-radius:100px;
-                  width:4vw;
-                  margin-right: 15px;
+                  border-radius: max(4vw, 8vh);
+                  margin-right: max(1vw, 2vh);
+                  max-height: 8vh;
+                  max-width: 4vw;
+                  width: auto;
+                  height: auto;
+                  aspect-ratio: 1/1;
               }
               
               
             }
-            
-            & * > .tweet-header-info {
-              font-weight:bold;
-              width: 297px;
-              span {
-                  font-weight:normal;
-                  margin-left: 5px;
-                }
-              p {
-                  font-weight:normal;
-                  margin-top: 5px;
-                  margin-bottom: 0;
-                  text-align: left;
-                  
-                }
-              .tweet-content {
-                  display: flex;
-                  justify-content:  center;
-                  align-items: center;
-                  width: 297px;
-                  margin-left: 10px;
-                  
-                  .content_img{
-                    max-height: 158.93px;
-                    max-width: 50%;
-                    margin-left: -40px;
-                    border-radius: 5%;
-                  }
-                  .content_vid{
-                    max-height: 158.93px;
-                    margin-bottom: -30px;
-                    margin-left: -20px;
-                    max-width: 70%;
-                    border-radius: 5%;
-                  }
-                }
-            }
-        
-            & * > .tweet-img-wrap {
-              padding-left: 60px;
-              .img{
-                  max-width: 100%;
-              }
-            }
-        
-            
-            
-            & * > .tweet-info-counts {
-              display: flex;
-              margin-left: 60px;
-              width: 297px;
-              font-size: 0.8rem;
-              
-              div {
-                  width: 80px;
-                  display: flex;
-                  svg {
-                      margin-right: 10px;
-                  }
-              }
-              .message {
-                width: 57px;
-                height: 20px;
-                svg{
-                  width: 20px;
-                  height: 20px;
-                }       
-              }
-            } 
           }
         }
         }
@@ -1755,7 +1318,7 @@ body{
               margin-right: 5%;
               display: flex;
               justify-content: center;
-              align-items: center;
+              align-items: start;
               img{
                 position: absolute;
                 border-radius:100px;
@@ -1771,15 +1334,19 @@ body{
                 z-index: 3;
               .menu_button{
                 background-color: #0b5684;
-                height: 100%;
-                width: 100%;
+                max-height: 100%;
+                max-width: 100%;
+                height: auto;
+                width: auto;
+                aspect-ratio: 2.5/1;
+
                 border-radius: 20px;
                 color: white;
                 z-index: 3;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-size: 1.5rem;
+                font-size: 3vmin;
                 text-decoration: none;
               }
             }
@@ -1799,7 +1366,7 @@ body{
         .menu_text{
           height: 50%;
           width: 80%;
-          font-size: 2rem;
+          font-size: 3.5vmin;
         }
         
       }

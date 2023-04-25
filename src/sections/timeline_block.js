@@ -31,7 +31,7 @@ export function TIMELINE_BLOCK({username,name,profile,text,image,date,likes,rts,
         
         <motion.div className='timeline_text' animate={animation_movein}>
           <p>{name}</p>
-          <h5>{date}</h5>
+          <p className="timeline_date">{date}</p>
         </motion.div>
       </div>
     );

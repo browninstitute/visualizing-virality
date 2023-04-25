@@ -12,16 +12,35 @@ import profile5 from "../assets/onboarding_profile5.jpg"
 import profile6 from "../assets/onboarding_profile6.jpg"
 
 export function DEMOTION_INTRO({UserSelection}){
+
+    const [dimensions, setDimensions] = React.useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    const handleResize = () => {
+        setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+        });
+      }
+    React.useEffect(() => {
+      window.addEventListener("resize", handleResize, false);
+    }, []);
+
+
     const [heightT,setHeightT] = useState(0)
     const refT =  useRef(null)
+
     useEffect(() =>{
         setHeightT(refT.current.clientHeight)
-    })
+    }, [UserSelection,dimensions])
+
     const [heightM,setHeightM] = useState(0)
     const refM =  useRef(null)
+    
     useEffect(() =>{
         setHeightM(refM.current.clientHeight)
-    })
+    }, [UserSelection,dimensions])
 
     const sec_ref = useRef(null);
     const {scrollYProgress} = useScroll({
@@ -74,7 +93,7 @@ export function DEMOTION_INTRO({UserSelection}){
         <div className="demotion_intro_section" ref={sec_ref}>
             <div className="amplification_demotion" >
                 <div className="amplification_text">
-                    But {heightT} such ranking is intended to accomodate <span className='non_changing'><motion.span className='changing' style={styles_with_css({fontSize:amplify_scale,color:"#1DA1F2"})}>amplification</motion.span></span> of tweets that are deemed individually or wholly worthwhile. There is also <span  className='non_changing'><motion.span  className='changing' style={styles_with_css({fontSize:demotion_scale,color:"#1DA1F2"})}>demotion</motion.span></span> within the platform for tweets that are deemed problematic.
+                    But such ranking is intended to accomodate <span className='non_changing'><motion.span className='changing' style={styles_with_css({fontSize:amplify_scale,color:"#1DA1F2"})}>amplification</motion.span></span> of tweets that are deemed individually or wholly worthwhile. There is also <span  className='non_changing'><motion.span  className='changing' style={styles_with_css({fontSize:demotion_scale,color:"#1DA1F2"})}>demotion</motion.span></span> within the platform for tweets that are deemed problematic.
                 </div>
                 </div>
             <div className="demotion_how">

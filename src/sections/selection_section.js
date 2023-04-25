@@ -104,11 +104,11 @@ export function SELECTION_SECTION(){
     const [selection, setSelection] = useState(getkeyvals("default"));
     const updateSelection = (t_uname) => {
 
-        console.log('changing to: ' + t_uname)
+        console.log('changing to: ' + t_uname);
         let new_selection = Object.create(null);
 
         // let n_keyvals = getkeyvals(t_uname);
-        let n_keyvals = getkeyvals("@TomBrady");
+        let n_keyvals = getkeyvals(t_uname);
         new_selection["name"] = n_keyvals.name 
         new_selection["username"] = n_keyvals.username
         new_selection["category"] = n_keyvals.category

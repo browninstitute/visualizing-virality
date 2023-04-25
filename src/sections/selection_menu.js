@@ -108,13 +108,13 @@ export function SELECTION_MENU( {UserSelection, SetterUserSelection,ScrollToSele
                             </a>
                         </div>
                         <div className="menu_button_block">
-                            <motion.img src={black_p} alt="" className="menu_pic" animate={controlsI2}/>
+                            <motion.img src={mccarthy_p} alt="" className="menu_pic" animate={controlsI2}/>
                             <a  href="#0">
                             <motion.div className="menu_button news" onClick={() => {SetterUserSelection("@SpeakerMcCarthy");ScrollToSelection();}} onHoverStart={e => {setHoverB2(true)}} onHoverEnd={e => {setHoverB2(false)}} animate={controlsB2}  >News</motion.div>
                             </a>
                         </div>
                         <div className="menu_button_block">
-                            <motion.img src={mccarthy_p} alt="" className="menu_pic" animate={controlsI3}/>
+                            <motion.img src={black_p} alt="" className="menu_pic" animate={controlsI3}/>
                             <a  href="#0">
                             <motion.div className="menu_button entertainment" onClick={() => {SetterUserSelection("@6lack");ScrollToSelection();}} onHoverStart={e => {setHoverB3(true)}} onHoverEnd={e => {setHoverB3(false)}} animate={controlsB3} >Entertainment</motion.div>
                             </a>

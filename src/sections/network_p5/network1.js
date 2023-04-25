@@ -682,9 +682,16 @@ function sketch(fp5) {
             timeMap.clear();
             parentMap.clear();
             timeToNode.clear();
+            categoryMap.clear();
             retweetSum = 0;
             likeSum = 0;
             replySum = 0;
+            cur_bar = 0;
+            adjFrame = -1;
+            hist_heights_blue.fill(0);
+            hist_heights_pink.fill(0);
+            hist_heights_grey.fill(0);    
+
 
             for (let r = 0; r < info_table.getRowCount(); r++)
             {
@@ -748,12 +755,7 @@ function sketch(fp5) {
             //network.displayConnections();
             network.display();
     
-            cur_bar = 0;
-            adjFrame = -1;
-            hist_heights_blue = new Array(num_bars).fill(0)
-            hist_heights_pink = new Array(num_bars).fill(0)
-            hist_heights_grey = new Array(num_bars).fill(0)      
-
+            names = [];
             console.log('finished restarting')  
     
     }
@@ -790,6 +792,7 @@ function sketch(fp5) {
                 }
 
                 restartNetwork();
+                props.network_reset_set(false);
                 props.network_pause_set(false);
             }
         }
@@ -823,11 +826,6 @@ function sketch(fp5) {
         table=table_tb;
         nodes_table=nodes_table_tb;
         info_table=info_table_tb;
-
-       
-
-       
-       
 
 
 

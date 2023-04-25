@@ -742,6 +742,9 @@ function sketch(fp5) {
             hist_heights_pink = new Array(num_bars).fill(0)
             hist_heights_grey = new Array(num_bars).fill(0)      
 
+            names = [];
+
+
             console.log('finished restarting')  
     
     }

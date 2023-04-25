@@ -861,7 +861,7 @@ export function NETWORK1({UserSelection, NetworkPause, SetterNetworkPause, Netwo
       }, [inView]);
   return(
     <>
-    <div className="network_section" id="network_demotion" ref={ref}
+    <div className="network_section" id="network_demotion" 
 >
     <div className="play_pause_con container">
     <div className="row demotionText">   
@@ -878,7 +878,7 @@ export function NETWORK1({UserSelection, NetworkPause, SetterNetworkPause, Netwo
         <div className="col-10"></div>
     </div>
     </div>
-      <div className='sketch_sec'>
+      <div className='sketch_sec' ref={ref}>
         <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}  network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset}  network_visible={isVisible} ></ReactP5Wrapper>
     </div>
     </div>

@@ -383,6 +383,23 @@ body{
       transform: translateY(0px);
     }
   }
+  .floatingX {
+   
+    animation: floatX 5s infinite;
+  }
+ 
+  
+  @keyframes floatX {
+    0% {
+      transform: translateX(0px);
+    }
+    50% {
+      transform: translateX(-10px);
+    }
+    100% {
+      transform: translateX(0px);
+    }
+  }
 
   //COUNTER
 
@@ -895,7 +912,7 @@ body{
           height: 43.75%;
           width: 90%;
           position: relative;
-          font-size: 1.7rem;
+          font-size: 3vmin;
           color: white;
           display: flex;
           justify-content: center;
@@ -930,21 +947,31 @@ body{
         inset: 0;
         position: relative;
         flex-direction: column;
-        .svg_div{
-          height: 5vh;
-          width: 45vw;
-          .svg_moveup{
-            top: -47%;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: start;
-            flex-direction: row;
-            .svg_wrap{
-              height: 2.5vw;
-              width: 2.5vw;
-            }
-          }
+        // .svg_div{
+        //   height: 5vh;
+        //   width: 45vw;
+        //   .svg_moveup{
+        //     top: -47%;
+        //     position: relative;
+        //     display: flex;
+        //     align-items: center;
+        //     justify-content: start;
+        //     flex-direction: row;
+        //     .svg_wrap{
+        //       height: 2.5vw;
+        //       width: 2.5vw;
+        //     }
+        //   }
+        // }
+        .tweet-wrap{
+        .svg_wrap{
+          position: absolute;
+          z-index: 20;
+          margin-top: 1%;
+          margin-left: 3%;
+          width: 50px;
+          height: 50px;
+        }
         }
       }
     }
@@ -1235,14 +1262,17 @@ body{
                 .tweets_animate{
                   margin: 0.25%;
                   .svg_wrap{
-                    position: absolute;
-                    align-items:center;
-                    display:flex;
-                    
+                    position: absolute;          
+                    width: 120%; 
+                    height: 120%;       
+                    left: -22%;
+                    top: 10%;   
                     svg.highlight{
-                      position: relative;
+                      position: inline-block;
                       z-index: 21;
-                      top: 0%; left: 0%; width: 110%; height: 90%;
+                      width: 100%; 
+
+                      height: 100%;
                     }
                   }
                 }
@@ -1778,12 +1808,13 @@ body{
     .scroll_div_show{
       position: fixed;
       display: flex;
-      top:0;
       align-items: end;
       justify-content: center;
       z-index: 99;
-      left: 0.5%;
+      left: 0%;
       top: 50%;
+      transform: rotate(-90deg);
+      
       .scroll_div{
         background-color: #0b5684;
         color: white;
@@ -1791,7 +1822,6 @@ body{
         padding-left: 0.5rem;
         padding-right: 0.5rem;
         border-radius: 0.4rem;
-        transform: rotate(-90deg);
 
       }
     }

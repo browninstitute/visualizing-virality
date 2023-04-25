@@ -21,7 +21,7 @@ import black_p from '../assets/black_profile.jpg'
 import mccarthy_p from '../assets/mccarthy_profile.jpg'
 import black_i from '../assets/black_tweet_pic2.jpg'
 import mccarthy_v from '../assets/mccarthy_tweet_vid.mp4'
-// import { NETWORK1MOBILE } from './network_p5/network1-mobile';
+import { NETWORK1MOBILE } from './network_p5/network1-mobile';
 
 
 export function SELECTION_SECTION(){
@@ -165,14 +165,20 @@ export function SELECTION_SECTION(){
             <div className='scroll_to_algorithm' ref={scrollRef}>
                 <ALGORITHM UserSelection={selection} />
             </div>
-            {/* <NETWORK1 UserSelection={selection} NetworkPause={pauseN1} SetterNetworkPause={updatePauseN1} NetworkReset={resetN1} SetterNetworkReset={updateResetN1} /> */}
+            {!isMobile() &&
+            <NETWORK1 UserSelection={selection} NetworkPause={pauseN1} SetterNetworkPause={updatePauseN1} NetworkReset={resetN1} SetterNetworkReset={updateResetN1} />
+            }
 
+            
+
+            
             <GITHUB UserSelection={selection}/>
             <DEMOTION_INTRO UserSelection={selection}/>
             <DEMOTION UserSelection={selection} UserDemotion={demotion} SetterUserDemotion={setDemotion}  />
            
-            {/* <NETWORK2 UserSelection={selection} UserDemotion={demotion} NetworkPause={pauseN2} SetterNetworkPause={updatePauseN2} NetworkReset={resetN2} SetterNetworkReset={updateResetN2}/>  */}
-         
+            {!isMobile() &&
+            <NETWORK2 UserSelection={selection} UserDemotion={demotion} NetworkPause={pauseN2} SetterNetworkPause={updatePauseN2} NetworkReset={resetN2} SetterNetworkReset={updateResetN2}/> 
+            }
             
             <OUTRO UserSelection={selection} SetterUserSelection={updateSelection} ScrollToSelection={executeScroll} />
         </>

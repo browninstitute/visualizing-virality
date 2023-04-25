@@ -12,6 +12,16 @@ import profile5 from "../assets/onboarding_profile5.jpg"
 import profile6 from "../assets/onboarding_profile6.jpg"
 
 export function DEMOTION_INTRO({UserSelection}){
+    const [heightT,setHeightT] = useState(0)
+    const refT =  useRef(null)
+    useEffect(() =>{
+        setHeightT(refT.current.clientHeight)
+    })
+    const [heightM,setHeightM] = useState(0)
+    const refM =  useRef(null)
+    useEffect(() =>{
+        setHeightM(refM.current.clientHeight)
+    })
 
     const sec_ref = useRef(null);
     const {scrollYProgress} = useScroll({
@@ -33,7 +43,7 @@ export function DEMOTION_INTRO({UserSelection}){
     const move_tweet_down = useTransform(scrollYProgress,[
         0.5,
         0.7
-      ], ["0%","368%"])
+      ], [0,heightT])
 
     
       const move_tweet_right = useTransform(scrollYProgress,[
@@ -46,7 +56,7 @@ export function DEMOTION_INTRO({UserSelection}){
     const move_tweet_up = useTransform(scrollYProgress,[
     0.5,
     0.55
-    ], ["0%","-28%"]) 
+    ], [0,heightM*-1]) 
 
 
       const t_variants = {
@@ -64,7 +74,7 @@ export function DEMOTION_INTRO({UserSelection}){
         <div className="demotion_intro_section" ref={sec_ref}>
             <div className="amplification_demotion" >
                 <div className="amplification_text">
-                    But such ranking is intended to accomodate <span className='non_changing'><motion.span className='changing' style={styles_with_css({fontSize:amplify_scale,color:"#1DA1F2"})}>amplification</motion.span></span> of tweets that are deemed individually or wholly worthwhile. There is also <span  className='non_changing'><motion.span  className='changing' style={styles_with_css({fontSize:demotion_scale,color:"#1DA1F2"})}>demotion</motion.span></span> within the platform for tweets that are deemed problematic.
+                    But {heightT} such ranking is intended to accomodate <span className='non_changing'><motion.span className='changing' style={styles_with_css({fontSize:amplify_scale,color:"#1DA1F2"})}>amplification</motion.span></span> of tweets that are deemed individually or wholly worthwhile. There is also <span  className='non_changing'><motion.span  className='changing' style={styles_with_css({fontSize:demotion_scale,color:"#1DA1F2"})}>demotion</motion.span></span> within the platform for tweets that are deemed problematic.
                 </div>
                 </div>
             <div className="demotion_how">
@@ -75,21 +85,21 @@ export function DEMOTION_INTRO({UserSelection}){
                             <motion.div className="tweets_div" 
                                 initial={"exit"}
                                 whileInView={"enter"}
-                                viewport={{once:true, amount:1}}
+                                viewport={{once:true, amount:0.9}}
                                 transition={{staggerChildren:0.2}}>
                                     
                                 <motion.div className="important_tweets"  id='main' style={styles_with_css({y:move_tweet_down,x:move_tweet_right})} >
                                     {/* animate={{height: bounds.height > 0 ? bounds.height: null}}
                                         transition={{type:"spring", bounce: 0.2, duration: 0.4}}
                                     */}
-                                        <motion.div className='tweets_animate'  variants={t_variants} >
+                                        <motion.div className='tweets_animate' ref={refM}  variants={t_variants} >
                                             <TWEET_SVG_NONAPPEAR username={UserSelection.username} text={UserSelection.text} date={UserSelection.date} likes={UserSelection.likes} rts={UserSelection.rts} replies={UserSelection.replies} image={UserSelection.image} t_image={UserSelection.t_image} t_vid={UserSelection.t_vid} t_link={UserSelection.t_link}/>    
                                 
                                         </motion.div>
                                 </motion.div>
 
-                                <motion.div className='non_important_tweets' style={styles_with_css({y:move_tweet_up})}>
-                                    <motion.div className="tweets_animate" variants={t_variants} >
+                                <motion.div className='non_important_tweets' ref={refT} style={styles_with_css({y:move_tweet_up})}>
+                                    <motion.div className="tweets_animate" variants={t_variants}  >
                                         <TWEET_SVG_NONAPPEAR  username="@StateFarm" image={profile4} text="We manifested that State Farm red, Rihanna. Epic! #SuperBowl" date="02/12/2023" likes="52" rts="10" replies="6" t_link={"https://twitter.com/StateFarm/status/1624945135917191169"}/>    
                                     </motion.div>
                                     <motion.div className="tweets_animate"  variants={t_variants} >

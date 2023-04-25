@@ -62,6 +62,9 @@ const headFunc = {
 
 
 function App() {
+  useEffect(() => {
+    window.history.scrollRestoration = 'manual'
+  }, []);
 
   //intro_sec
   const cosmos_ref = useRef(null)  
@@ -96,7 +99,10 @@ function App() {
   
 
         <div className='scroll_div_show'>
-          <div className='scroll_div'>Scroll</div>
+          <motion.div className='scroll_div floatingX' 
+           >
+            Scroll
+          </motion.div>
         </div>
         <div className='intro_section' id='intro' ref={ref}>
           <motion.div className='parallax_layer back_intro' style={{y,opacity}}>

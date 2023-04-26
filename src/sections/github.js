@@ -42,6 +42,11 @@ export function GITHUB({UserSelection}){
         highlight_s6_middle2: 0.637-0.06,
         highlight_s6_end: 0.638-0.06,
 
+        highlight_s7_start: 0.638-0.06,
+        highlight_s7_middle1: 0.639-0.06,
+        highlight_s7_middle2: 0.675-0.06,
+        highlight_s7_end: 0.676-0.06,
+
       };
         const opacity_s1 = useTransform(scrollYProgress, [
             tweets_scroll_points.highlight_s1_start,
@@ -79,7 +84,16 @@ export function GITHUB({UserSelection}){
             tweets_scroll_points.highlight_s6_middle2,
             tweets_scroll_points.highlight_s6_end
             ], [0.4,1,1,0.4])
-        
+        const opacity_s7 = useTransform(scrollYProgress, [
+            tweets_scroll_points.highlight_s7_start,
+            tweets_scroll_points.highlight_s7_middle1,
+            tweets_scroll_points.highlight_s7_middle2,
+            tweets_scroll_points.highlight_s7_end
+            ], [0.4,1,1,0.4])
+        const svg0_p1 = useTransform(scrollYProgress,[
+            tweets_scroll_points.highlight_s6_start,
+            tweets_scroll_points.highlight_s6_start+0.005,
+            ], [0,1])
 
         const svg1_p1 = useTransform(scrollYProgress,[
             tweets_scroll_points.highlight_s4_start,
@@ -99,47 +113,7 @@ export function GITHUB({UserSelection}){
             ], [0,1])
         
 
-        const svg2_p1 = useTransform(scrollYProgress,[
-            tweets_scroll_points.highlight_s5_start,
-            tweets_scroll_points.highlight_s5_start+0.005,
-            ], [0,1])
-        const svg2_p2 = useTransform(scrollYProgress,[
-            tweets_scroll_points.highlight_s5_start+0.005,
-            tweets_scroll_points.highlight_s5_start+0.01,
-            ], [0,1])
-        const svg2_p3 = useTransform(scrollYProgress,[
-            tweets_scroll_points.highlight_s5_start+0.01,
-            tweets_scroll_points.highlight_s5_start+0.015,
-            ], [0,1])
-        const svg2_p4 = useTransform(scrollYProgress,[
-            tweets_scroll_points.highlight_s5_start+0.015,
-            tweets_scroll_points.highlight_s5_start+0.02,
-            ], [0,1])
-        const svg2_p5 = useTransform(scrollYProgress,[
-            tweets_scroll_points.highlight_s5_start+0.02,
-            tweets_scroll_points.highlight_s5_start+0.025,
-            ], [0,1])
-
-        const svg3_p1 = useTransform(scrollYProgress,[
-            tweets_scroll_points.highlight_s6_start,
-            tweets_scroll_points.highlight_s6_start+0.005,
-            ], [0,1])
-        const svg3_p2 = useTransform(scrollYProgress,[
-            tweets_scroll_points.highlight_s6_start+0.005,
-            tweets_scroll_points.highlight_s6_start+0.01,
-            ], [0,1])
-        const svg3_p3 = useTransform(scrollYProgress,[
-            tweets_scroll_points.highlight_s6_start+0.01,
-            tweets_scroll_points.highlight_s6_start+0.015,
-            ], [0,1])
-        const svg3_p4 = useTransform(scrollYProgress,[
-            tweets_scroll_points.highlight_s6_start+0.015,
-            tweets_scroll_points.highlight_s6_start+0.02,
-            ], [0,1])
-        const svg3_p5 = useTransform(scrollYProgress,[
-            tweets_scroll_points.highlight_s6_start+0.02,
-            tweets_scroll_points.highlight_s6_start+0.025,
-            ], [0,1])
+        
         
 
     return (
@@ -149,22 +123,25 @@ export function GITHUB({UserSelection}){
                     <div className='highlight_text'>
                         <motion.ul>
                             <motion.li style={styles_with_css({opacity:opacity_s1})}>
-                                We showed you all the engagement sources for the tweet.
+                                We showed you the users that together made the tweet "viral".
                             </motion.li>
                             <motion.li style={styles_with_css({opacity:opacity_s2})}>
-                                &nbsp;But not all engagements are treated by Twitter in the same manner.
+                                &nbsp;But how did Twitter itself aide in the journey?
                             </motion.li>
                             <motion.li style={styles_with_css({opacity:opacity_s3})}>
-                                &nbsp;Of all the complex, interrelated aspects of a given tweet used in thier recommendation algorithm, tweets are given a numeric rank where:
+                                &nbsp;Twitter and other social media platforms interpret many aspects of a given tweet to define its engagement score, and then use that numeric score to rank it within the user's feed.
                             </motion.li>
                             <motion.li style={styles_with_css({opacity:opacity_s4})}>
-                                &nbsp;replies are weighted by a factor of 1,
+                                &nbsp;As hinted by the name, the user's predicted probability of replying, retweeting or liking the tweet are factored in when ranking the tweet.
                             </motion.li>
                             <motion.li style={styles_with_css({opacity:opacity_s5})}>
-                                &nbsp;retweets are weighted by a factor of 20 
+                                &nbsp;There are also less obvious aspects of the tweet that can be used. 
                             </motion.li>
                             <motion.li style={styles_with_css({opacity:opacity_s6})}>
-                                &nbsp;and likes are weighted by a factor of 30.
+                                &nbsp;For example, Twitter revealed they factor in user's probability of opening the author's profile (and further engage with other tweets) into their ranking.
+                            </motion.li>
+                            <motion.li style={styles_with_css({opacity:opacity_s7})}>
+                                &nbsp;Obviously, this tweet was highly ranked for many of the users across the platform.
                             </motion.li>
                         </motion.ul>
                         {/* <motion.div className='highlight_sentence'>We showed you all the engagement sources for the tweet.</motion.div>
@@ -188,6 +165,12 @@ export function GITHUB({UserSelection}){
                             
                             <div className="tweet-header-info">
                             <span>{UserSelection.username}</span><span>{UserSelection.date}</span>
+                            <div className='svg_wrap_name'>
+                                <svg viewBox="0 0 112 15" fill="none" >
+                                    <motion.path pathLength={svg0_p1} d="M1.59857 12.8735C5.74366 11.63 7.16003 3.89801 11.364 3.14731C14.137 2.65212 16.8527 10.6773 20.9725 10.6773C23.9524 10.6773 26.6798 5.05354 28.6594 3.30418C31.638 0.671874 32.0565 3.96358 34.6206 6.91229C36.7718 9.38617 38.5441 12.1556 41.1701 8.87321C43.4314 6.04659 45.0551 0.502333 48.8961 4.20621C50.2313 5.49371 52.2049 11.6041 54.622 9.18696C56.2467 7.56227 58.4885 0.954408 60.9362 4.16699C62.086 5.67609 63.8919 9.74912 66.3091 9.18696C68.2655 8.732 72.741 3.02762 74.3097 3.85324C78.5912 6.10666 80.6911 13.8574 85.6047 7.579C91.134 0.513789 91.8436 15.932 96.8996 9.89289C99.4556 6.83984 100.819 3.92249 104.116 7.06916C105.826 8.70181 107.89 10.7557 110.312 10.7557" stroke="#0B5684" strokeWidth="3"/>
+                                </svg>
+                            </div>
+
                             <p>{UserSelection.text}</p>  
                             
                             { (UserSelection.t_image) && 
@@ -211,12 +194,12 @@ export function GITHUB({UserSelection}){
                             <div className="comments">
                             <svg className="feather feather-message-circle sc-dnqmqq jxshSx" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                             <div className="comment-count">{UserSelection.replies}</div>
+
+
                             <motion.div className='svg_wrap' >
-                                <svg viewBox="0 0 58 35" fill="none">
-                                <motion.path pathLength={svg1_p1} d="M2 10C4.6084 9.28449 7.14026 7.83231 9.82279 7.11106C16.0514 5.43638 22.2317 4.50878 28.5823 3.90614C37.7651 3.03475 46.7753 1.32763 56 2.28112" stroke="#0B5684" strokeWidth="3" />
-                                <motion.path pathLength={svg1_p2} d="M12 26C15.2605 26 16.8549 30 20 30" stroke="#0B5684" strokeWidth="3" />
-                                <motion.path pathLength={svg1_p3} d="M20 24C19.2901 24.089 19.0148 25.0408 18.5679 25.5526C17.5099 26.7644 16.8929 28.1011 16.1358 29.5395C15.5542 30.6444 14.3616 31.8439 14 33" stroke="#0B5684" strokeWidth="3" />
-                                <motion.path pathLength={svg1_p4} d="M28 15.7145C29.5567 15.3779 30.2481 13.3976 31.5897 12.6557C31.8505 12.5115 32.2856 11.7457 32.3077 12.0866C32.4175 13.784 32.2437 15.5065 32.3376 17.2083C32.4716 19.6374 33.1368 21.9561 33.5043 24.3394C33.7819 26.1397 33.9322 27.9726 34.3269 29.7456C34.5515 30.7544 35 31.9619 35 33" stroke="#0B5684" strokeWidth="3" />
+                                <svg viewBox="0 0 111 31" fill="none" >
+                                <motion.path pathLength={svg1_p1} d="M7.51125 4.01587C14.6997 1.00137 25.0231 2.68458 30.8473 7.81913C36.3915 12.7067 37.3054 25.024 29.6031 28.2441C24.3484 30.4408 17.854 29.0068 12.864 26.8237C9.18708 25.2151 3.05567 22.2817 2.53414 17.656C1.5855 9.24188 10.5767 4.13145 17.2307 1.69165" stroke="#0B5684" strokeWidth="3" />
+                                <motion.path pathLength={svg1_p1} d="M46.3891 27.6806C52.3382 27.8327 58.3786 28.1734 64.3254 27.7511C70.14 27.3381 75.9413 26.6973 81.7688 26.4598C90.657 26.0977 99.7586 26.05 108.509 24.3" stroke="#0B5684" strokeWidth="3" />
                                 </svg>
                             </motion.div>
                             
@@ -225,12 +208,9 @@ export function GITHUB({UserSelection}){
                             <svg className="feather feather-repeat sc-dnqmqq jxshSx" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
                             <div className="retweet-count">{UserSelection.rts}</div>
                             <motion.div className='svg_wrap' >
-                                <svg  viewBox="0 0 58 35" fill="none">
-                                <motion.path pathLength={svg2_p1} d="M2 10C4.6084 9.28449 7.14026 7.83231 9.82279 7.11106C16.0514 5.43638 22.2317 4.50878 28.5823 3.90614C37.7651 3.03475 46.7753 1.32763 56 2.28112" stroke="#0B5684" strokeWidth="3"/>
-                                <motion.path pathLength={svg2_p2} d="M12 26C15.2605 26 16.8549 30 20 30" stroke="#0B5684" strokeWidth="3" />
-                                <motion.path pathLength={svg2_p3} d="M20 24C19.2901 24.089 19.0148 25.0408 18.5679 25.5526C17.5099 26.7644 16.8929 28.1011 16.1358 29.5395C15.5542 30.6444 14.3616 31.8439 14 33" stroke="#0B5684" strokeWidth="3"/>
-                                <motion.path pathLength={svg2_p4} d="M26.5631 18.2514C27.2004 18.1718 28.0074 17.3814 28.7545 17.2045C30.1288 16.879 31.2191 17.6076 32.2363 18.434C33.3842 19.3668 33.7757 20.0222 33.7946 21.5872C33.8185 23.5725 34.0097 25.4629 32.7963 27.1386C31.9018 28.3739 31.1841 29.6274 30.0936 30.7178C29.5658 31.2457 29.2912 31.7203 28.9736 32.3979C28.707 32.9667 29.6067 32.0975 29.6797 32.0448C30.8115 31.2275 32.1403 31.0446 33.4902 30.8518C35.2911 30.5945 36.757 30.3023 38.3965 29.6465" stroke="#0B5684" strokeWidth="3"/>
-                                <motion.path pathLength={svg2_p5} d="M47.381 22.1959C46.9597 21.6692 47.0342 20.1134 47.2593 19.5175C47.8025 18.0797 48.9761 17.6167 50.4002 17.4236C52.0323 17.2023 53.2702 18.601 54.296 19.7367C55.0805 20.6053 56.1175 21.4099 56.1464 22.6828C56.1735 23.8736 56.3434 25.0532 55.1482 25.7021C54.2235 26.204 53.2286 26.1546 52.202 26.1403C50.5463 26.1173 48.6739 25.9111 47.7706 24.3385C46.7956 22.6414 46.566 20.7926 46.9427 18.9088" stroke="#0B5684" strokeWidth="3" />
+                                <svg viewBox="0 0 111 31" fill="none" >
+                                <motion.path pathLength={svg1_p2} d="M7.51125 4.01587C14.6997 1.00137 25.0231 2.68458 30.8473 7.81913C36.3915 12.7067 37.3054 25.024 29.6031 28.2441C24.3484 30.4408 17.854 29.0068 12.864 26.8237C9.18708 25.2151 3.05567 22.2817 2.53414 17.656C1.5855 9.24188 10.5767 4.13145 17.2307 1.69165" stroke="#0B5684" strokeWidth="3"/>
+                                <motion.path pathLength={svg1_p2} d="M46.3891 27.6806C52.3382 27.8327 58.3786 28.1734 64.3254 27.7511C70.14 27.3381 75.9413 26.6973 81.7688 26.4598C90.657 26.0977 99.7586 26.05 108.509 24.3" stroke="#0B5684" stroke-width="3" />
                                 </svg>
                             </motion.div>
                             </div>
@@ -239,12 +219,9 @@ export function GITHUB({UserSelection}){
                             <svg className="feather feather-heart sc-dnqmqq jxshSx" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                             <div className="likes-count">{UserSelection.likes}</div>
                             <motion.div className='svg_wrap' >
-                                <svg viewBox="0 0 58 36" fill="none">
-                                <motion.path pathLength={svg3_p1} d="M2 10C4.6084 9.28449 7.14026 7.83231 9.82279 7.11106C16.0514 5.43638 22.2317 4.50878 28.5823 3.90614C37.7651 3.03475 46.7753 1.32763 56 2.28112" stroke="#0B5684" strokeWidth="3" />
-                                <motion.path pathLength={svg3_p2} d="M12 26C15.2605 26 16.8549 30 20 30" stroke="#0B5684" strokeWidth="3" />
-                                <motion.path pathLength={svg3_p3} d="M20 24C19.2901 24.089 19.0148 25.0408 18.5679 25.5526C17.5099 26.7644 16.8929 28.1011 16.1358 29.5395C15.5542 30.6444 14.3616 31.8439 14 33" stroke="#0B5684" strokeWidth="3"/>
-                                <motion.path pathLength={svg3_p4} d="M26.5631 17.3749C26.5631 14.3487 32.1593 13.519 33.6607 15.8288C34.5924 17.2621 34.7161 18.3474 34.6711 20.0776C34.6495 20.9111 33.6185 24.7525 32.4311 24.7525C31.5825 24.7525 33.7562 23.6419 34.5494 23.3403C35.237 23.0788 36.3418 22.6598 37.0695 22.9872C38.7921 23.7624 38.8958 26.1951 39.3947 27.723C40.0105 29.6086 39.166 32.194 37.386 33.0553C34.9269 34.2452 32.6574 33.584 30.0693 33.1527" stroke="#0B5684" strokeWidth="3" />
-                                <motion.path pathLength={svg3_p5} d="M47.381 22.1959C46.9597 21.6692 47.0342 20.1134 47.2593 19.5175C47.8025 18.0797 48.9761 17.6167 50.4002 17.4236C52.0323 17.2023 53.2702 18.601 54.296 19.7367C55.0805 20.6053 56.1175 21.4099 56.1464 22.6828C56.1735 23.8736 56.3434 25.0532 55.1482 25.7021C54.2235 26.204 53.2286 26.1546 52.202 26.1403C50.5463 26.1173 48.6739 25.9111 47.7706 24.3385C46.7956 22.6414 46.566 20.7926 46.9427 18.9088" stroke="#0B5684" strokeWidth="3" />
+                                <svg viewBox="0 0 111 31" fill="none" >
+                                <motion.path pathLength={svg1_p3} d="M7.51125 4.01587C14.6997 1.00137 25.0231 2.68458 30.8473 7.81913C36.3915 12.7067 37.3054 25.024 29.6031 28.2441C24.3484 30.4408 17.854 29.0068 12.864 26.8237C9.18708 25.2151 3.05567 22.2817 2.53414 17.656C1.5855 9.24188 10.5767 4.13145 17.2307 1.69165" stroke="#0B5684" strokeWidth="3"/>
+                                <motion.path pathLength={svg1_p3} d="M46.3891 27.6806C52.3382 27.8327 58.3786 28.1734 64.3254 27.7511C70.14 27.3381 75.9413 26.6973 81.7688 26.4598C90.657 26.0977 99.7586 26.05 108.509 24.3" stroke="#0B5684" strokeWidth="3" />
                                 </svg>
                             </motion.div>
                             </div>

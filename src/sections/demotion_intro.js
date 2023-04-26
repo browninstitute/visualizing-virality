@@ -51,12 +51,12 @@ export function DEMOTION_INTRO({UserSelection}){
     const amplify_scale = useTransform(scrollYProgress,[
         0.1,
         0.25
-      ], ["1.5rem","2.5rem"])
+      ], ["3vmin","5vmin"])
     
     const demotion_scale = useTransform(scrollYProgress,[
         0.1,
         0.25
-      ], ["1.5rem","0.7rem"]) 
+      ], ["3vmin","1vmin"]) 
     
 
     const move_tweet_down = useTransform(scrollYProgress,[

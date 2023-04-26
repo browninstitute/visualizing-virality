@@ -22,6 +22,7 @@ import {PHONE1} from './sections/phone1';
 import {SELECTION_SECTION} from './sections/selection_section';
 import { SELECTION_LEADUP } from './sections/selection_leadup';
 import { AppearingText } from './sections/appearingtext';
+import { ONBOARDING_COUNTER } from './sections/onboarding_counter';
 
 import timeline_pic from './assets/timeline_scale.png'
 
@@ -155,11 +156,11 @@ function App() {
 
         <ONBOARDING_INTRO />
         {/* <ONBOARDING_METHODOLOGY></ONBOARDING_METHODOLOGY> */}
-
+        <ONBOARDING_COUNTER />
         <ONBOARDING_BARS />
 
         <div className='timeline_padding'>
-          <div className='padding_text'><h6><font color="#1DA1F2">"Viral"</font> tweet counts in January 2023:</h6></div>
+          <div className='padding_text'><font color="#1DA1F2">"Viral"</font> tweet counts in January 2023:</div>
           
         </div>
         <div className='timeline_sec'>

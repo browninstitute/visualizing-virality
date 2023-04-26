@@ -1,14 +1,19 @@
 import { P5CanvasInstance, ReactP5Wrapper, SketchProps} from 'react-p5-wrapper';
 // import sketch from './sketchv2.js';
+/*
 import t1 from './links_tb.csv';
 import t2 from './nodes_tb.csv';
 import t3 from './users_tb.csv';
+*/
+
 import b1 from './links_black.csv';
 import b2 from './nodes_black.csv';
 import b3 from './users_black.csv';
-import m1 from './links_mccarthy.csv';
-import m2 from './nodes_mccarthy.csv';
-import m3 from './users_mccarthy.csv';
+/*
+import m1 from './links_black.csv';
+import m2 from './nodes_black.csv';
+import m3 from './users_black.csv';
+*/
 import brady_p from '../../assets/brady_profile.jpg';
 import { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
@@ -102,17 +107,19 @@ function sketch(fp5) {
 
     let cur_bar = 0
     fp5.preload = () => {
-        table_tb = fp5.loadTable(t1, 'csv', 'header');
-        nodes_table_tb = fp5.loadTable(t2, 'csv', 'header');
-        info_table_tb = fp5.loadTable(t3, 'csv', 'header');
+      
 
         table_b = fp5.loadTable(b1, 'csv', 'header');
         nodes_table_b = fp5.loadTable(b2, 'csv', 'header');
         info_table_b = fp5.loadTable(b3, 'csv', 'header');
 
-        table_mc = fp5.loadTable(m1, 'csv', 'header');
-        nodes_table_mc = fp5.loadTable(m2, 'csv', 'header');
-        info_table_mc = fp5.loadTable(m3, 'csv', 'header');  
+        table_tb = table_b//fp5.loadTable(t1, 'csv', 'header');
+        nodes_table_tb = nodes_table_b//fp5.loadTable(t2, 'csv', 'header');
+        info_table_tb = info_table_b//fp5.loadTable(t3, 'csv', 'header');
+
+        table_mc = table_b//fp5.loadTable(m1, 'csv', 'header');
+        nodes_table_mc =  nodes_table_b//fp5.loadTable(m2, 'csv', 'header');
+        info_table_mc =  info_table_b //fp5.loadTable(m3, 'csv', 'header');  
         
         img = fp5.loadImage("https://upload.wikimedia.org/wikipedia/sco/thumb/9/9f/Twitter_bird_logo_2012.svg/1200px-Twitter_bird_logo_2012.svg.png");
 
@@ -133,7 +140,7 @@ function sketch(fp5) {
             let timescale = 120;
             
             fp5.noStroke();
-            fp5.fill(150);
+            fp5.fill(100);
             fp5.textSize((fp5.displayWidth*0.9/30)/load_factor);
             timesecs = fp5.round(fp5.exp(adjFrame/timescale),1);
             fp5.text(formatTime(timesecs), (fp5.displayWidth/30)/load_factor, 1.5*(fp5.displayHeight*0.9/15)/load_factor);
@@ -195,12 +202,14 @@ function sketch(fp5) {
             fp5.text(selection_user.username + "\n\n🕊" + retweetSum + " rts " + likeSum + "  ♡s  " + replySum  + " 💬s",  fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/7) );
 
             fp5.textSize((fp5.displayHeight*0.9/60)/load_factor);
+            let yAxTop = fp5.int(fp5.map(3000,0,max_bar_height,histogram_y+histogram_height,histogram_y));
+
             
-           /* fp5.text("Direct followers of original poster who engaged with tweet", (3/2)*(fp5.displayWidth/20)/load_factor, (1.8*fp5.displayHeight*0.9/10)/load_factor);
-            fp5.text("2nd degree of separation from OP", (3/2)*(fp5.displayWidth/20)/load_factor, (2.3*fp5.displayHeight*0.9/10)/load_factor);
-            fp5.text("3rd degree of separation from OP", (3/2)*(fp5.displayWidth/20)/load_factor, (2.8*fp5.displayHeight*0.9/10)/load_factor);
-            fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.displayWidth/20)/load_factor, (3.2*fp5.displayHeight*0.9/10)/load_factor);
-            */
+            fp5.text("Direct followers", 12*(fp5.displayWidth/20)/load_factor, yAxTop+0.75*fp5.displayHeight/40);
+            fp5.text("2nd degree of separation ", 12*(fp5.displayWidth/20)/load_factor, yAxTop+2*0.75*fp5.displayHeight/40);
+            fp5.text("3rd degree of separation " , 12*(fp5.displayWidth/20)/load_factor, yAxTop+3*0.75*fp5.displayHeight/40);
+            //fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.displayWidth/20)/load_factor, (3.2*fp5.displayHeight*0.9/10)/load_factor);
+            
             fp5.text("Time", (7)*(fp5.displayWidth/20)/load_factor, (9.3*fp5.displayHeight*0.9/10)/load_factor);
             
             fp5.text("Number of Engagements", 1.3*(fp5.displayWidth/30)/load_factor, (7*fp5.displayHeight*0.9/10)/load_factor);
@@ -331,18 +340,20 @@ function sketch(fp5) {
     }
 
     function makeKey()
+
     {
-        /*fp5.fill(50, 120, 242, 150);
-        fp5.rect((fp5.displayWidth/20)/load_factor, (3*fp5.displayHeight*0.9/20)/load_factor, 0.75*fp5.displayWidth/40);
+        let yAxTop = fp5.int(fp5.map(3000,0,max_bar_height,histogram_y+histogram_height,histogram_y));
+
+        fp5.fill(50, 120, 242, 150);
+        fp5.rect(11*(fp5.displayWidth/20)/load_factor, yAxTop, 0.75*fp5.displayHeight/40);
         fp5.fill(102, 0, 153, 150);
-        fp5.rect((fp5.displayWidth/20)/load_factor, (4*fp5.displayHeight*0.9/20)/load_factor, 0.75*fp5.displayWidth/40);
+        fp5.rect(11*(fp5.displayWidth/20)/load_factor, yAxTop+0.75*fp5.displayHeight/40, 0.75*fp5.displayHeight/40);
         fp5.fill(153, 0, 102, 150);
-        fp5.rect((fp5.displayWidth/20)/load_factor, (5*fp5.displayHeight*0.9/20)/load_factor, 0.75*fp5.displayWidth/40);
-        fp5.fill(200,200,200, 150);
+        fp5.rect(11*(fp5.displayWidth/20)/load_factor, yAxTop+1.5*fp5.displayHeight/40, 0.75*fp5.displayHeight/40);
+ /*       fp5.fill(200,200,200, 150);
         fp5.rect((fp5.displayWidth/20)/load_factor, (6*fp5.displayHeight*0.9/20)/load_factor, 0.75*fp5.displayWidth/40);
 */
         let yAxBot = histogram_y+histogram_height;
-        let yAxTop = fp5.int(fp5.map(3000,0,max_bar_height,histogram_y+histogram_height,histogram_y));
 
         fp5.stroke(200,200,200,150);
         fp5.line(histogram_x, yAxBot, histogram_x, yAxTop);
@@ -462,6 +473,8 @@ function sketch(fp5) {
         this.time = time;
         this.isSending = false;
         this.isFirst = isFirst;
+        this.opacity = 255;
+
         
         this.addConnection = function(c) {
             this.connections.push(c);
@@ -607,6 +620,16 @@ function sketch(fp5) {
             fp5.ellipse(this.position.x, this.position.y, scaler*this.r, scaler*this.r);
             //console.log(this.r);
             
+            if (fp5.int(followerMap.get(this.name)) > 100000 && this.isFirst != 'first'){
+                let w = fp5.textWidth(categoryMap.get(this.name) + " by @"+nameMap.get(this.name));
+                let h = fp5.textAscent(categoryMap.get(this.name) + " by @"+nameMap.get(this.name));
+                fp5.fill(255,255,255, this.opacity);
+                fp5.rect(this.position.x-10, this.position.y-h, w+20, h+5, 10);
+                fp5.fill(0, 0, 0, this.opacity);
+                fp5.text(categoryMap.get(this.name) + " by @"+nameMap.get(this.name), this.position.x, this.position.y);//fp5.displayWidth/5, 0.39*fp5.displayHeight);
+                this.opacity = this.opacity-5;
+
+            }
 
 
             this.r = fp5.lerp(this.r, 0.7,0.1);
@@ -711,7 +734,8 @@ function sketch(fp5) {
             adjFrame = -1;
             hist_heights_blue = new Array(num_bars).fill(0)
             hist_heights_pink = new Array(num_bars).fill(0)
-            hist_heights_grey = new Array(num_bars).fill(0)      
+            hist_heights_grey = new Array(num_bars).fill(0)   
+            names = [];   
 
             console.log('finished restarting')  
     

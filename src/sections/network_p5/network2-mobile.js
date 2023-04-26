@@ -3,12 +3,14 @@ import { P5CanvasInstance, ReactP5Wrapper, SketchProps} from 'react-p5-wrapper';
 import t1 from './links_tb.csv';
 import t2 from './nodes_tb.csv';
 import t3 from './users_tb.csv';
-import b1 from './links_black.csv';
-import b2 from './nodes_black.csv';
-import b3 from './users_black.csv';
-import m1 from './links_mccarthy.csv';
-import m2 from './nodes_mccarthy.csv';
-import m3 from './users_mccarthy.csv';
+import b1 from './links_tb.csv';
+import b2 from './nodes_tb.csv';
+import b3 from './users_tb.csv';
+/*
+import m1 from './links_black.csv';
+import m2 from './nodes_black.csv';
+import m3 from './users_black.csv';
+*/
 import brady_p from '../../assets/brady_profile.jpg';
 import { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
@@ -40,8 +42,6 @@ function sketch(fp5) {
     const finalTimeMap = new Map();
     const categoryMap = new Map();
     const infoToLoadMap = new Map();
-    let kevinFactor = 1;
-    let upFactor = fp5.displayHeight/4;
     var names = [];
     let img = "";
     var startpoint = 0;
@@ -57,12 +57,12 @@ function sketch(fp5) {
     let tweetSet = 'BRADY';
     let demotionVal = 0;
     let demotionDen = 10;
-    let yAxisMax = 3000;
+
     let histogram_x = 0;
     let histogram_y = 0;
     let histogram_width = 0;
     let histogram_height = 0;
-    const max_bar_height = 1000;
+    const max_bar_height = 2000;
     const load_factor = 1;
 
 
@@ -83,7 +83,7 @@ function sketch(fp5) {
     let nodes_table = 0;
     let info_table = 0;
     let key_accounts = 0;
-    let first_eng = 20;
+    let first_eng = 0;
     let table_tb = 0;
     let nodes_table_tb = 0;
     let info_table_tb = 0;
@@ -99,26 +99,24 @@ function sketch(fp5) {
     let heart="";
     let quote="";
     let retweet="";
-    
 
     let user_on_network = false;
 
     let cur_bar = 0
     fp5.preload = () => {
-        table_tb = fp5.loadTable(t1, 'csv', 'header');
-        nodes_table_tb = fp5.loadTable(t2, 'csv', 'header');
-        info_table_tb = fp5.loadTable(t3, 'csv', 'header');
-
         table_b = fp5.loadTable(b1, 'csv', 'header');
         nodes_table_b = fp5.loadTable(b2, 'csv', 'header');
         info_table_b = fp5.loadTable(b3, 'csv', 'header');
 
-        table_mc = fp5.loadTable(m1, 'csv', 'header');
-        nodes_table_mc = fp5.loadTable(m2, 'csv', 'header');
-        info_table_mc = fp5.loadTable(m3, 'csv', 'header');  
+        table_tb = table_b//fp5.loadTable(t1, 'csv', 'header');
+        nodes_table_tb = nodes_table_b//fp5.loadTable(t2, 'csv', 'header');
+        info_table_tb = info_table_b//fp5.loadTable(t3, 'csv', 'header');
+
+        table_mc = table_b//fp5.loadTable(m1, 'csv', 'header');
+        nodes_table_mc =  nodes_table_b//fp5.loadTable(m2, 'csv', 'header');
+        info_table_mc =  info_table_b //fp5.loadTable(m3, 'csv', 'header');  
         
         img = fp5.loadImage("https://upload.wikimedia.org/wikipedia/sco/thumb/9/9f/Twitter_bird_logo_2012.svg/1200px-Twitter_bird_logo_2012.svg.png");
-
 
     
     }
@@ -130,86 +128,91 @@ function sketch(fp5) {
     
     fp5.draw = () => {
         if (user_on_network){
-           // console.log(user_on_network)
+            console.log(user_on_network)
             fp5.background(255);
         
             let timescale = 120;
             
             fp5.noStroke();
             fp5.fill(100);
-            fp5.textSize((fp5.displayHeight*0.9/40)/load_factor);
+            fp5.textSize((fp5.displayWidth*0.9/30)/load_factor);
             timesecs = fp5.round(fp5.exp(adjFrame/timescale),1);
             fp5.text(formatTime(timesecs), (fp5.displayWidth/30)/load_factor, 1.5*(fp5.displayHeight*0.9/15)/load_factor);
             
             onboardingText = "";
-            let onboardingTextX = 0.66*(fp5.displayWidth);
+            let onboardingTextX = 0.38*(fp5.displayWidth);
             let onboardingTextY = 0.35*(fp5.displayHeight*0.9);
-            let mainX = 1.4*(fp5.displayWidth/2);
-            if (1.5 < timesecs && timesecs < 2.3 )
+            if (1.5 < timesecs && timesecs < 3 )
             {
                 
-                onboardingText = "This is " + selection_user.name + ", again.";
-                onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;
+                onboardingText = "This is " + selection_user.name + ".";
+                //onboardingTextX = 0.65*(fp5.displayWidth);
             // onboardingTextY = 0.35*(fp5.displayHeight*0.9);
 
 
             }
-            if (2.3 <= timesecs && timesecs < 2.7 )
+            if (3 <= timesecs  && timesecs < first_eng)
             {
-                
-                onboardingText = "Last time, it took " + first_eng + " seconds for someone to see the tweet.";
-                onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;
-            // onboardingTextY = 0.35*(fp5.displayHeight*0.9);
-
+                onboardingText = "        After " + first_eng + " seconds, the first \naccount will engage with his tweet. ";
+                onboardingTextX = 0.25*(fp5.displayWidth);
 
             }
-            if (2.7 <= timesecs  && timesecs < first_eng)
+            if (7 <= timesecs  && timesecs < 11)
             {
-                onboardingText = "This time, some accounts may not see his tweet because of demotion.";
-                onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
+                onboardingTextX = 0.41*(fp5.displayWidth);
 
-            }
-            if (first_eng <= timesecs  && timesecs < first_eng+4)
-            {
-                onboardingText = "Those accounts will be shown in gray.";
-                onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
-
+                onboardingText = "There they go!";
             }
 
             if (250 <= timesecs  && timesecs < 630)
             {
-                onboardingText = "The histogram will now have a gray bar that will show you\nhow many people 'missed' the post due to demotion";
+                onboardingText = "At around 18 minutes, this histogram will show\nhow many engagements happened over time.";
                 onboardingTextX = 0.10*(fp5.displayWidth);
-                onboardingTextY = 0.75*(fp5.displayHeight*0.9);
+                onboardingTextY = 0.85*(fp5.displayHeight*0.9);
             }
 
             if (630 <= timesecs  && timesecs < 1260)
             {
-                onboardingText = "After watching for a while, try different levels of demotion.";
+                onboardingText = "It goes by pretty fast.";
                 onboardingTextX = 0.10*(fp5.displayWidth);
-                onboardingTextY = 0.75*(fp5.displayHeight*0.9);
+                onboardingTextY = 0.85*(fp5.displayHeight*0.9);
             }
 
-         
+            if (1260 <= timesecs  && timesecs < 2000)
+            {
+                onboardingText = "The lighter blue bar are direct followers of " + selection_user.name + "\nthe darker is everyone else.";
+                onboardingTextX = 0.10*(fp5.displayWidth);
+                onboardingTextY = 0.85*(fp5.displayHeight*0.9);
+            }
+
+            if (2000 <= timesecs  && timesecs < 3000)
+            {
+                onboardingText = "Watch the distribution as time goes by.";
+                onboardingTextX = 0.10*(fp5.displayWidth);
+                onboardingTextY = 0.85*(fp5.displayHeight*0.9);
+            }
 
             fp5.text(onboardingText, onboardingTextX, onboardingTextY);
-            fp5.text(retweetSum + " retweets " + likeSum + " likes " + replySum  + " replies",  fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/2.5+ fp5.displayHeight*0.9/12)-upFactor );
+            fp5.text(selection_user.username + "\n\n🕊" + retweetSum + " rts " + likeSum + "  ♡s  " + replySum  + " 💬s",  fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/7) );
 
             fp5.textSize((fp5.displayHeight*0.9/60)/load_factor);
+            let yAxTop = fp5.int(fp5.map(3000,0,max_bar_height,histogram_y+histogram_height,histogram_y));
+
             
-            fp5.text("Direct followers of " + selection_user.name + " who engaged with tweet", (3/2)*(fp5.displayWidth/20)/load_factor, (1.6*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
-            fp5.text("2nd degree of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (2*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
-            fp5.text("3rd degree of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (2.4*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
-            fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.displayWidth/20)/load_factor, (2.8*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
-            fp5.text("Time", (3/2)*(fp5.displayWidth/20)/load_factor, (9.3*fp5.displayHeight*0.9/10)/load_factor);
+            fp5.text("Direct followers", 12*(fp5.displayWidth/20)/load_factor, yAxTop+0.75*fp5.displayHeight/40);
+            fp5.text("2nd degree of separation ", 12*(fp5.displayWidth/20)/load_factor, yAxTop+2*0.75*fp5.displayHeight/40);
+            fp5.text("3rd degree of separation " , 12*(fp5.displayWidth/20)/load_factor, yAxTop+3*0.75*fp5.displayHeight/40);
+            //fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.displayWidth/20)/load_factor, (3.2*fp5.displayHeight*0.9/10)/load_factor);
             
-            fp5.text("Number of Engagements", 1.3*(fp5.displayWidth/30)/load_factor, (6.4*fp5.displayHeight*0.9/10)/load_factor);
-            fp5.text(selection_user.username, fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/2.5+1.5*fp5.displayHeight*0.9/40)-upFactor);
+            fp5.text("Time", (7)*(fp5.displayWidth/20)/load_factor, (9.3*fp5.displayHeight*0.9/10)/load_factor);
+            
+            fp5.text("Number of Engagements", 1.3*(fp5.displayWidth/30)/load_factor, (7*fp5.displayHeight*0.9/10)/load_factor);
+            //fp5.text(selection_user.username, fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/2.5+1.5*fp5.displayHeight*0.9/40));
             fp5.fill(0,0,0,0);
             fp5.stroke(200,200,200);
-            fp5.rect(fp5.displayWidth/30, (fp5.displayHeight*0.9/2.5)-upFactor, (fp5.displayWidth/3.5), (fp5.displayHeight*0.9/8), 20);
-            img.resize((fp5.displayWidth/40),(fp5.displayHeight*0.9/24));
-            fp5.image(img, fp5.displayWidth/30+(fp5.displayWidth/60), (fp5.displayHeight*0.9/2.5+fp5.displayHeight*0.9/40)-upFactor)
+            fp5.rect(fp5.displayWidth/30, (fp5.displayHeight*0.9/8), (fp5.displayWidth/2), (fp5.displayHeight*0.9/16), 20);
+           // img.resize((fp5.displayWidth/40),(fp5.displayHeight*0.9/24));
+           // fp5.image(img, fp5.displayWidth/30+(fp5.displayWidth/60), (fp5.displayHeight*0.9/2.5+fp5.displayHeight*0.9/40))
 
 
         
@@ -243,9 +246,9 @@ function sketch(fp5) {
             for (let i=0; i < cur_bar; i++){
             let xpos = fp5.int(fp5.map(i,0,num_bars,histogram_x,histogram_x+histogram_width)) 
             let y1 = histogram_y+histogram_height;
-            let y2 = fp5.int(fp5.map(hist_heights_blue[i],0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y));
-            let y3 = fp5.int(fp5.map(hist_heights_pink[i],0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y));
-            let y4 = fp5.int(fp5.map(hist_heights_grey[i]+hist_heights_pink[i]+hist_heights_blue[i],0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y));
+            let y2 = fp5.int(fp5.map(hist_heights_blue[i],0,max_bar_height,histogram_y+histogram_height,histogram_y));
+            let y3 = fp5.int(fp5.map(hist_heights_pink[i],0,max_bar_height,histogram_y+histogram_height,histogram_y));
+            let y4 = fp5.int(fp5.map(hist_heights_grey[i]+hist_heights_pink[i]+hist_heights_blue[i],0,max_bar_height,histogram_y+histogram_height,histogram_y));
             //strokeWeight(10);
             
         
@@ -331,19 +334,20 @@ function sketch(fp5) {
     }
 
     function makeKey()
-    {
-        fp5.noStroke();
-        fp5.fill(50, 120, 242, 150);
-        fp5.rect((fp5.displayWidth/20)/load_factor, (3*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40);
-        fp5.fill(102, 0, 153, 150);
-        fp5.rect((fp5.displayWidth/20)/load_factor, (3.7*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40);
-        fp5.fill(153, 0, 102, 150);
-        fp5.rect((fp5.displayWidth/20)/load_factor, (4.4*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40);
-        fp5.fill(200,200,200, 150);
-        fp5.rect((fp5.displayWidth/20)/load_factor, (5.1*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40);
 
+    {
+        let yAxTop = fp5.int(fp5.map(3000,0,max_bar_height,histogram_y+histogram_height,histogram_y));
+
+        fp5.fill(50, 120, 242, 150);
+        fp5.rect(11*(fp5.displayWidth/20)/load_factor, yAxTop, 0.75*fp5.displayHeight/40);
+        fp5.fill(102, 0, 153, 150);
+        fp5.rect(11*(fp5.displayWidth/20)/load_factor, yAxTop+0.75*fp5.displayHeight/40, 0.75*fp5.displayHeight/40);
+        fp5.fill(153, 0, 102, 150);
+        fp5.rect(11*(fp5.displayWidth/20)/load_factor, yAxTop+1.5*fp5.displayHeight/40, 0.75*fp5.displayHeight/40);
+ /*       fp5.fill(200,200,200, 150);
+        fp5.rect((fp5.displayWidth/20)/load_factor, (6*fp5.displayHeight*0.9/20)/load_factor, 0.75*fp5.displayWidth/40);
+*/
         let yAxBot = histogram_y+histogram_height;
-        let yAxTop = fp5.int(fp5.map(yAxisMax,0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y));
 
         fp5.stroke(200,200,200,150);
         fp5.line(histogram_x, yAxBot, histogram_x, yAxTop);
@@ -352,7 +356,7 @@ function sketch(fp5) {
         //fp5.line(2.15*(fp5.displayWidth/20), histogram_y+histogram_height-10, 2.15*(fp5.displayWidth/20), histogram_y+histogram_height+10);
         fp5.text("12h", 2.1*(fp5.displayWidth/20), histogram_y+histogram_height+15);
         fp5.text("1d", 3.5*(fp5.displayWidth/20), histogram_y+histogram_height+15);
-        fp5.text(yAxisMax , histogram_x+10, yAxTop);
+        fp5.text("3000", histogram_x+10, yAxTop);
 
 
 
@@ -433,7 +437,7 @@ function sketch(fp5) {
             //maybe make it a function of the follower count
             if (this.connections[i].a.isSending)//(followerMap.get((this.connections[i].a.name)) >= 0.5*(followerMap.get(veryfirstguy)))
             {
-                if (fp5.random() < 0.18*kevinFactor)
+                if (fp5.random() < 0.18)
                 {
                 this.connections[i].deactivate();
                 }
@@ -464,6 +468,7 @@ function sketch(fp5) {
         this.isSending = false;
         this.isFirst = isFirst;
         this.opacity = 255;
+
         
         this.addConnection = function(c) {
             this.connections.push(c);
@@ -553,21 +558,12 @@ function sketch(fp5) {
         this.display = function() {
           
             //first check if final child is gone
-        if (nameMap.get(this.name) == "elonmusk")
-        {
-            return;
-        }
-
-        if (kevinFactor >1 && fp5.int(followerMap.get(this.name)) < 200)
-        {
-            return;
-        }
-        
           let checkFinalChild = fp5.log(fp5.int(parseFloat(finalTimeMap.get(this.name))))*120 - adjFrame;
           if ( checkFinalChild <= 0)
           {
               return;
           }
+
           //then brute force go away if too long
         /*  let timeSince = fp5.log(this.time)*120 - adjFrame;
           if (timeSince < -500 && this.isFirst != 'first')
@@ -593,7 +589,7 @@ function sketch(fp5) {
             {
                 fp5.fill(29, 161, 242, 100);
                // fp5.text(nameMap.get(this.name), 500,500)
-                scaler = 200/load_factor;
+                scaler = 100/load_factor;
 
             }
             if ( hopMap.get(this.name) ==1|| hopMap.get(this.name)==0)
@@ -617,6 +613,7 @@ function sketch(fp5) {
             
             fp5.ellipse(this.position.x, this.position.y, scaler*this.r, scaler*this.r);
             //console.log(this.r);
+            
             if (fp5.int(followerMap.get(this.name)) > 100000 && this.isFirst != 'first'){
                 let w = fp5.textWidth(categoryMap.get(this.name) + " by @"+nameMap.get(this.name));
                 let h = fp5.textAscent(categoryMap.get(this.name) + " by @"+nameMap.get(this.name));
@@ -627,7 +624,7 @@ function sketch(fp5) {
                 this.opacity = this.opacity-5;
 
             }
-            
+
 
             this.r = fp5.lerp(this.r, 0.7,0.1);
 
@@ -653,7 +650,7 @@ function sketch(fp5) {
         {
             console.log('restarting')
             fp5.scale(0.25);
-            let defaultradius = (fp5.displayHeight*0.9/20)/load_factor;
+            let defaultradius = (fp5.displayWidth*0.9/20)/load_factor;
             let timescale = 30;
             canvas_second = null
             canvas_second = fp5.createCanvas(fp5.displayWidth,fp5.displayHeight*0.9);
@@ -663,26 +660,16 @@ function sketch(fp5) {
             network = new Network(0, 0);
             let mainName = table.getString(0,1);
             let minTime = 10000000;
-            let mainX = 1.4*(fp5.displayWidth/2)/load_factor;
-            let mainY = (fp5.displayHeight*0.9/2)/load_factor;
+            let mainX = (fp5.displayWidth)/2*load_factor;
+            let mainY = (fp5.displayHeight/2.5)/load_factor;
             veryfirstguy = nodes_table.getString(0, 0);
-       
+            first_eng = fp5.int(parseFloat(info_table.getString(1,3)));
 
             newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius*4);
             map1.set(veryfirstguy, newNode);
             //console.log("FIRST ENGAGMENT" + first_eng);
     
-            followerMap.clear();
-            nameMap.clear();
-            finalTimeMap.clear();
-            hopMap.clear();
-            timeMap.clear();
-            parentMap.clear();
-            timeToNode.clear();
-            retweetSum = 0;
-            likeSum = 0;
-            replySum = 0;
-
+            
             for (let r = 0; r < info_table.getRowCount(); r++)
             {
                 followerMap.set(info_table.getString(r, 0), info_table.getString(r,1));
@@ -701,10 +688,8 @@ function sketch(fp5) {
             {
                 let id = nodes_table.getString(r,0);
                 let time = fp5.int(parseFloat(nodes_table.getString(r,1)));
-                if (time <  153442)
-                {
                 let angle = fp5.random(0, fp5.TWO_PI);
-                let distance = fp5.random(40,fp5.displayHeight*0.9/2)/load_factor;
+                let distance = fp5.random(40,fp5.displayWidth*0.9/2)/load_factor;
                 categoryMap.set(id, nodes_table.getString(r,2));
                 if (parentMap.get(id) == veryfirstguy)
                 {
@@ -715,11 +700,6 @@ function sketch(fp5) {
                 map1.set(id, new Neuron(mainX+fp5.cos(angle)*distance, mainY+fp5.sin(angle)*distance, id, true, defaultradius, time, "other"));
                 }
                 timeMap.set(nodes_table.getString(r, 0), nodes_table.getString(r,1));
-                if (fp5.int(parseFloat(nodes_table.getString(r,1))) < first_eng && fp5.int(parseFloat(nodes_table.getString(r,1)))  != 0 )
-                {
-                    first_eng = fp5.int(parseFloat(nodes_table.getString(r,1)));
-                    console.log(first_eng);
-                }
                 timeToNode.set(nodes_table.getString(r, 1), nodes_table.getString(r,0));
                 names.push(id);
 
@@ -727,7 +707,6 @@ function sketch(fp5) {
                 if (end_time < n_time){
                     end_time  = n_time
                 }
-               }
             }
             bar_times = fp5.int( end_time/num_bars )
             hist_times = Array.from({ length: num_bars}, (_, i) => bar_times + (i * bar_times))
@@ -749,10 +728,8 @@ function sketch(fp5) {
             adjFrame = -1;
             hist_heights_blue = new Array(num_bars).fill(0)
             hist_heights_pink = new Array(num_bars).fill(0)
-            hist_heights_grey = new Array(num_bars).fill(0)      
-
-            names = [];
-
+            hist_heights_grey = new Array(num_bars).fill(0)   
+            names = [];   
 
             console.log('finished restarting')  
     
@@ -770,22 +747,19 @@ function sketch(fp5) {
                         table=table_tb;
                         nodes_table=nodes_table_tb;
                         info_table=info_table_tb;
-                        kevinFactor = 1;
-                        yAxisMax = 3000;
+                        
                         break;
                     case "@6lack":
                         table=table_b;
                         nodes_table=nodes_table_b;
                         info_table=info_table_b;
-                        kevinFactor = 1;
-                        yAxisMax = 3000;
+                       
                         break;
                     case "@SpeakerMcCarthy":
                         table=table_mc;
                         nodes_table=nodes_table_mc;
                         info_table=info_table_mc;
-                        kevinFactor = 3;
-                        yAxisMax = 7000;
+                       
                         break;
                 }
 
@@ -827,23 +801,26 @@ function sketch(fp5) {
     };
     fp5.setup = () => {
 
+       
+
         table=table_tb;
         nodes_table=nodes_table_tb;
         info_table=info_table_tb;
 
 
 
-        histogram_x = (fp5.windowWidth/30)/load_factor;
-        histogram_y = (8*fp5.windowHeight/10)/load_factor;
-        histogram_width = (8*fp5.windowWidth/30)/load_factor;
-        histogram_height = (1*fp5.windowHeight/10)/load_factor;
+        histogram_x = (fp5.displayWidth/30)/load_factor;
+        histogram_y = (8*fp5.displayHeight*0.9/10)/load_factor;
+        histogram_width = (8*fp5.displayWidth/30)/load_factor;
+        histogram_height = (1*fp5.displayHeight*0.9/10)/load_factor;
 
         restartNetwork();
     }
 
 
 }
-export function NETWORK2({UserSelection, NetworkPause,UserDemotion, SetterNetworkPause, NetworkReset, SetterNetworkReset }){
+
+export function NETWORK2MOBILE({UserSelection, NetworkPause,UserDemotion, SetterNetworkPause, NetworkReset, SetterNetworkReset }){
 
     const [isVisible, setIsVisible] = useState(false);
     const { ref, inView } = useInView({amount:0});

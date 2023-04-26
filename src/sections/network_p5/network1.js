@@ -136,7 +136,7 @@ function sketch(fp5) {
             let timescale = 120;
             
             fp5.noStroke();
-            fp5.fill(150);
+            fp5.fill(100);
             fp5.textSize((fp5.displayHeight*0.9/40)/load_factor);
             timesecs = fp5.round(fp5.exp(adjFrame/timescale),1);
             fp5.text(formatTime(timesecs), (fp5.displayWidth/30)/load_factor, 1.5*(fp5.displayHeight*0.9/15)/load_factor);
@@ -145,7 +145,7 @@ function sketch(fp5) {
             let onboardingTextX = 0.66*(fp5.displayWidth);
             let onboardingTextY = 0.35*(fp5.displayHeight*0.9);
             let mainX = 1.4*(fp5.displayWidth/2);
-            if (1.5 < timesecs && timesecs < 2.7 )
+            if (1.5 < timesecs && timesecs < 2.5 )
             {
                 
                 onboardingText = "This is " + selection_user.name + ".";
@@ -154,7 +154,8 @@ function sketch(fp5) {
 
 
             }
-            if (2.7 <= timesecs  && timesecs < first_eng)
+        
+            if (2.5 <= timesecs  && timesecs < first_eng)
             {
                 onboardingText = "After " + first_eng + " seconds, the first account will engage with his tweet. ";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
@@ -163,6 +164,24 @@ function sketch(fp5) {
             if (first_eng <= timesecs  && timesecs < first_eng+4)
             {
                 onboardingText = "There they go!";
+                onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
+
+            }
+            if (first_eng+4 <= timesecs  && timesecs < first_eng+9)
+            {
+                onboardingText = "Notice that time is passing here logarithmicly.";
+                onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
+
+            }
+            if (first_eng+9 <= timesecs  && timesecs < first_eng+16)
+            {
+                onboardingText = "That means it will start off slow and then speed up!";
+                onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
+
+            }
+            if (first_eng+16 <= timesecs  && timesecs < first_eng+30)
+            {
+                onboardingText = "The size of the circles indicates how many followers the account has.";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
             }
@@ -203,7 +222,7 @@ function sketch(fp5) {
             fp5.text("Direct followers of " + selection_user.name + " who engaged with tweet", (3/2)*(fp5.displayWidth/20)/load_factor, (1.6*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("2nd degree of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (2*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("3rd degree of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (2.4*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
-            fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.displayWidth/20)/load_factor, (2.8*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
+            //fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.displayWidth/20)/load_factor, (2.8*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("Time", (3/2)*(fp5.displayWidth/20)/load_factor, (9.3*fp5.displayHeight*0.9/10)/load_factor);
             
             fp5.text("Number of Engagements", 1.3*(fp5.displayWidth/30)/load_factor, (6.4*fp5.displayHeight*0.9/10)/load_factor);
@@ -342,8 +361,8 @@ function sketch(fp5) {
         fp5.rect((fp5.displayWidth/20)/load_factor, (3.7*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40);
         fp5.fill(153, 0, 102, 150);
         fp5.rect((fp5.displayWidth/20)/load_factor, (4.4*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40);
-        fp5.fill(200,200,200, 150);
-        fp5.rect((fp5.displayWidth/20)/load_factor, (5.1*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40);
+      //  fp5.fill(200,200,200, 150);
+       // fp5.rect((fp5.displayWidth/20)/load_factor, (5.1*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40);
 
         let yAxBot = histogram_y+histogram_height;
         let yAxTop = fp5.int(fp5.map(yAxisMax,0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y));

@@ -180,7 +180,7 @@ export function ONBOARDING_BARS(){
                                 78% of "viral" tweets were authored by users with more than 100,000 followers. 
                             </motion.div>
                             <motion.div className='text_scroller' style={styles_with_css({opacity: text4_opacity,y: text4_y})}>
-                                They also came from a number of different categories. Here's a few we enjoyed:
+                                They also came from a number of different categories.
                             </motion.div>
                         </div>
                     </div>

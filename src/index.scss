@@ -153,6 +153,7 @@ body{
     // .sections_wrapper{
     height: 100vh;
     overflow-x: hidden;
+    width: 100vw;
     overflow-y: auto;
   
 
@@ -168,7 +169,7 @@ body{
       padding: 2%;
       display: inline-block;
       border:1px solid rgb(233, 233, 233);
-      color:rgb(108, 108, 108)
+      color:rgb(78, 78, 78)
 
     }
     & * > .tweet-header {
@@ -267,6 +268,7 @@ body{
     //INTRO SECTION CSS
     .intro_section{
     scroll-snap-align: start;
+    
     position: relative;
     height: 140vh;
     background-color: #1DA1F2;
@@ -483,16 +485,26 @@ body{
         align-items: center;
         justify-content: center;
       .padding_text{
-        color: rgb(108, 108, 108);
+        color: rgb(78, 78, 78);
       }
     }
   
     //TIMELINE SECTION CSS
     .timeline_sec{
     .timeline_wrap{
-        height: 390vh;           
+        height: 245vh;           
         width: 100vw;
         background-color: white;
+        .timeline_scale{
+          position: absolute;
+
+          margin-top: -0%;
+          margin-left: 45%;
+          z-index: 21;
+          img{
+            max-width: 5vw;
+          }
+        }
         .timeline_intro{
             z-index: 0;
             display: flex;
@@ -503,7 +515,7 @@ body{
             width: 100vw;
         }
         .parallax_wrap{
-            height: 390vh;
+            height: 245vh;
             width: 100vw;
             position: relative;
             .timeline_line{
@@ -534,12 +546,12 @@ body{
                     position: relative;
                     display: block;
                     width: 100vw;
-                    height: 55.5vh;
+                    height: 35vh;
                     .timeline_text{
                         position: absolute;
                         display:inline-block;
                         z-index: 2;
-                        color: rgb(108, 108, 108);
+                        color: rgb(78, 78, 78);
                         background-color:rgba(255, 255, 255, 0.8);
                         padding: 5px;
                         font-size: 0.7vw;
@@ -562,7 +574,7 @@ body{
                     .timeline_text{
                       left:50.3%;
                       text-align: left;
-                      margin-left: -0.8vw;
+                      margin-left: -0vw;
                     }
                   }
                   .timeline_block:nth-child(even){
@@ -575,8 +587,34 @@ body{
                     .timeline_text{
                       text-align: right;
                       right: 50.3%;
-                      margin-right: -0.8vw;
+                      margin-right: -0vw;
                       
+                    }
+                  }
+
+                  .timeline_block:nth-child(2){
+                    .timeline_text{
+                      top: 35%;
+                    }
+                  }
+                  .timeline_block:nth-child(4){
+                    .timeline_text{
+                      top: -8%;
+                    }
+                  }
+                  .timeline_block:nth-child(5){
+                    .timeline_text{
+                      top: 28%;
+                    }
+                  }
+                  .timeline_block:nth-child(6){
+                    .timeline_text{
+                      top: 36%;
+                    }
+                  }
+                  .timeline_block:nth-child(7){
+                    .timeline_text{
+                      top: 43%;
                     }
                   }
                 
@@ -590,6 +628,7 @@ body{
     }
     
     .network_section{
+      
       height: 100vh;
       width: 100vw;
       display: flex;
@@ -624,6 +663,7 @@ body{
     }
 
     .github_section{
+      
       height: 160vh;
       width: 100vw;
       display: flex;
@@ -703,6 +743,7 @@ body{
     }
 
     .bargraph_section{
+      
       height: 300vh;
       width: 100vw;
       position: relative;
@@ -832,10 +873,11 @@ body{
     }
    
     .onboarding_section{
+      
       height: 500vh;
       width: 100vw;
       background-color: white;
-      color: rgb(108, 108, 108);
+      color: rgb(78, 78, 78);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -937,6 +979,7 @@ body{
     }
 
     .demotion_intro_section{
+      
       background-color: #1DA1F2;
       color: white;
 
@@ -953,7 +996,7 @@ body{
         justify-content: center;
         inset: 0;
         background-color: white;
-        color: rgb(108, 108, 108);
+        color: rgb(78, 78, 78);
         .amplification_text{
           margin-left: 20%;
           margin-right: 20%;
@@ -1031,7 +1074,7 @@ body{
           justify-content: center;
           inset: 0;
           background-color: white;
-          color: rgb(108, 108, 108);
+          color: rgb(78, 78, 78);
           .demotion_text_div_sticky{
             height: 70%;
             width: 80%;     
@@ -1044,10 +1087,11 @@ body{
       }
     }
     .demotion_section{
+      
       height: 140vh;
       width: 100vw;
       background-color: white;
-      color: rgb(108, 108, 108);
+      color: rgb(78, 78, 78);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1104,7 +1148,7 @@ body{
               width: 77%;
               height: 10%;
               position: absolute;
-              background-color: rgb(108, 108, 108);
+              background-color: rgb(78, 78, 78);
               border-radius: 25px;
             }
             .demotion_slider_bar{
@@ -1159,6 +1203,7 @@ body{
     }
 
     .counter_section{
+      
       height: 60vh;
         width: 100vw;
         display: flex;
@@ -1166,7 +1211,7 @@ body{
         justify-content: center;
         inset: 0;
         background-color: white;
-        color: rgb(108, 108, 108);
+        color: rgb(78, 78, 78);
         .counter_text{
           margin-left: 10%;
           margin-right: 10%;
@@ -1185,6 +1230,7 @@ body{
         }
     }
     .algorithm_section {
+      
       height: 100vh;
       width: 100vw;
 
@@ -1211,9 +1257,10 @@ body{
     
     .outro_section{
       height: 100vh;
+      
       width: 100vw;
       background-color: white;
-      color: rgb(108, 108, 108);
+      color: rgb(78, 78, 78);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1288,6 +1335,7 @@ body{
 
 
     .menu_section{
+      
       height: 100vh;
       width: 100vw;
       background-color: #1DA1F2;

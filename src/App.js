@@ -23,6 +23,8 @@ import {SELECTION_SECTION} from './sections/selection_section';
 import { SELECTION_LEADUP } from './sections/selection_leadup';
 import { AppearingText } from './sections/appearingtext';
 
+import timeline_pic from './assets/timeline_scale.png'
+
 import timeline_profile1 from './assets/timeline_profile1.jpg'
 import timeline_profile2 from './assets/timeline_profile2.jpg'
 import timeline_profile3 from './assets/timeline_profile3.jpg'
@@ -157,11 +159,15 @@ function App() {
         <ONBOARDING_BARS />
 
         <div className='timeline_padding'>
-          <div className='padding_text'><h6>Some <font color="#1DA1F2">"viral"</font> tweets that caught our eye:</h6></div>
+          <div className='padding_text'><h6><font color="#1DA1F2">"Viral"</font> tweet counts in January 2023:</h6></div>
           
         </div>
         <div className='timeline_sec'>
           <div className='timeline_wrap'>
+            <div className='timeline_scale'>
+            
+            <img src={timeline_pic}></img>
+            </div>
             
 
             <div className='parallax_wrap'>

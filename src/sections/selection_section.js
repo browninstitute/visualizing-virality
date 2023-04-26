@@ -165,9 +165,9 @@ export function SELECTION_SECTION(){
             <div className='scroll_to_algorithm' ref={scrollRef}>
                 <ALGORITHM UserSelection={selection} />
             </div>
-            {!isMobile() &&
+            
             <NETWORK1 UserSelection={selection} NetworkPause={pauseN1} SetterNetworkPause={updatePauseN1} NetworkReset={resetN1} SetterNetworkReset={updateResetN1} />
-            }
+           
 
             
 
@@ -176,9 +176,9 @@ export function SELECTION_SECTION(){
             <DEMOTION_INTRO UserSelection={selection}/>
             <DEMOTION UserSelection={selection} UserDemotion={demotion} SetterUserDemotion={setDemotion}  />
            
-            {!isMobile() &&
+            
             <NETWORK2 UserSelection={selection} UserDemotion={demotion} NetworkPause={pauseN2} SetterNetworkPause={updatePauseN2} NetworkReset={resetN2} SetterNetworkReset={updateResetN2}/> 
-            }
+           
             
             <OUTRO UserSelection={selection} SetterUserSelection={updateSelection} ScrollToSelection={executeScroll} />
         </>

@@ -861,7 +861,7 @@ export function NETWORK2({UserSelection, NetworkPause,UserDemotion, SetterNetwor
       }, [inView]);
 
   return(
-    <>
+
     <div className="network_section" id="network_demotion" >
     <div className="container play_pause_con">
     <div className="row demotionText">
@@ -883,6 +883,6 @@ export function NETWORK2({UserSelection, NetworkPause,UserDemotion, SetterNetwor
         <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection} user_demotion={UserDemotion} network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset} network_visible={isVisible} ></ReactP5Wrapper>
     </div>
     </div>
-    </>
+
   )
   }

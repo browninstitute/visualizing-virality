@@ -196,15 +196,18 @@ function sketch(fp5) {
             fp5.text(retweetSum + " retweets " + likeSum + " likes " + replySum  + " replies",  fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/2.5+ fp5.displayHeight*0.9/12)-upFactor );
             let rectWidth = fp5.textWidth(retweetSum + " retweets " + likeSum + " likes " + replySum  + " replies");
 
-            fp5.textSize((fp5.displayHeight*0.9/60)/load_factor);
+             fp5.textSize((fp5.displayHeight*0.9/60)/load_factor);
             
             fp5.text("Direct followers of " + selection_user.name + " who engaged with tweet", (3/2)*(fp5.displayWidth/20)/load_factor, (1.6*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("2nd degree of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (2*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("3rd degree of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (2.4*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.displayWidth/20)/load_factor, (2.8*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
-            fp5.text("Time", (3/2)*(fp5.displayWidth/20)/load_factor, (9.3*fp5.displayHeight*0.9/10)/load_factor);
+            let yAxTop = fp5.int(fp5.map(yAxisMax,0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y));
+            let yAxBot = histogram_y+histogram_height;
+
+            fp5.text("Time", (3/2)*(fp5.displayWidth/20)/load_factor, yAxBot+25);
             
-            fp5.text("Number of Engagements", 1.3*(fp5.displayWidth/30)/load_factor, (6.4*fp5.displayHeight*0.9/10)/load_factor);
+            fp5.text("Number of Engagements", 1.3*(fp5.displayWidth/30)/load_factor, yAxTop+25);
             fp5.text(selection_user.username, fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/2.5+1.5*fp5.displayHeight*0.9/40)-upFactor);
             fp5.fill(0,0,0,0);
             fp5.stroke(200,200,200);

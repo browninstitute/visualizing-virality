@@ -878,7 +878,7 @@ export function NETWORK1({UserSelection, NetworkPause, SetterNetworkPause, Netwo
       }, [inView]);
   return(
     <>
-    <div className="network_section" id="network_demotion" 
+    <div className="network_section" id="network_nondemotion" 
 >
     <div className="play_pause_con container">
     <div className="row demotionText">   

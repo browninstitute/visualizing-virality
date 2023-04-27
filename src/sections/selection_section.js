@@ -35,19 +35,17 @@ export function SELECTION_SECTION() {
     loaded: null,
   });
 
-  const [cachedData, setCachedData] = useState({
-    "@TomBrady": {},
-    "@6lack": {},
-    "@SpeakerMcCarthy": {},
-  });
+  const [maps, setMaps] = useState({});
 
-  const [loading, setLoading] = useState(false);
+  const [cachedData, setCachedData] = useState({});
+
+  const [loading, setLoading] = useState(true);
 
   const loadCSV = async (url, streamSize) => {
     try {
       const response = await fetch(url);
       const csvText = await response.text();
-      Papa.LocalChunkSize = 5000000;
+      Papa.LocalChunkSize = 10000;
       const parsedCSV = Papa.parse(csvText, { header: true });
       return parsedCSV.data;
     } catch (error) {
@@ -55,10 +53,78 @@ export function SELECTION_SECTION() {
     }
   };
 
+  const processData = (data, dataset) => {
+    const end_time = 0;
+    let { info_table, nodes_table, table } = data;
+    let names = [];
+    let timeMap = new Map();
+    let timeToNode = new Map();
+    let nameMap = new Map();
+    let followerMap = new Map();
+    let parentMap = new Map();
+    let hopMap = new Map();
+    let finalTimeMap = new Map();
+    let categoryMap = new Map();
+
+    for (let r = 0; r < info_table.length; r++) {
+      let id = info_table[r].id;
+      let followers = info_table[r].followers;
+      let username = info_table[r].username;
+      let last_time = info_table[r].last_time;
+      let Hop = parseInt(info_table[r].Hop);
+      followerMap.set(id, followers);
+      nameMap.set(id, username);
+      finalTimeMap.set(id, last_time);
+      hopMap.set(id, Hop);
+    }
+
+    for (let r = 0; r < table.length; r++) {
+      let id = table[5].id;
+      let parent = table[r].Target;
+      parentMap.set(id, parent);
+    }
+
+    for (let r = 0; r < nodes_table.length; r++) {
+      let type = nodes_table[r].type;
+      let id = nodes_table[r].id;
+      let time = parseInt(nodes_table[r].time);
+      if (time < 153442) {
+        categoryMap.set(id, type);
+        timeMap.set(id, time);
+        timeToNode.set(time, id);
+        names.push(id);
+      }
+    }
+    const num_bars = 150;
+    let bar_times = parseInt(end_time / num_bars);
+    let hist_times = Array.from(
+      { length: num_bars },
+      (_, i) => bar_times + i * bar_times
+    );
+    let maps_all = {
+      timeMap: timeMap,
+      timeToNode: timeToNode,
+      nameMap: nameMap,
+      followerMap: followerMap,
+      parentMap: parentMap,
+      hopMap: hopMap,
+      finalTimeMap: finalTimeMap,
+      categoryMap: categoryMap,
+      names: names,
+      hist_times: hist_times,
+      bar_times: bar_times,
+    };
+    return maps_all;
+  };
+
   const loadCSVs = async (dataset) => {
     setLoading(true);
-    if (isMobile && cachedData[dataset].loaded) {
-      setData(cachedData[dataset]);
+    console.log(cachedData[dataset], cachedData);
+    if (!isMobile() && cachedData[dataset]) {
+      //   console.log("Loading from Cache"); // doesn't actually work you'd have to do this
+      //   setData(cachedData[dataset]);
+      //   setMaps(cachedData[dataset].maps);
+      //   setLoading(false);
     } else {
       let streamSize = 5000000;
       let table;
@@ -82,25 +148,33 @@ export function SELECTION_SECTION() {
         info_table = await loadCSV(m3, streamSize * 2);
       }
       console.log("LOADED SELECTION");
-      setData({
+      let new_data = {
         table: table,
         nodes_table: nodes_table,
         info_table: info_table,
-        loaded: dataset,
-      });
-      if (!isMobile) {
-        setCachedData({
-          ...cachedData,
-          [dataset]: {
-            table: table,
-            nodes_table: nodes_table,
-            info_table: info_table,
-            loaded: dataset,
-          },
-        });
+        name: dataset,
+        loaded: true,
+      };
+      let data_maps = processData(new_data, dataset);
+      new_data.maps = data_maps;
+      setData(new_data);
+      if (!isMobile()) {
+        setCachedData((prev) => ({
+          ...prev,
+          [dataset]: new_data,
+        }));
       }
     }
-    setLoading(false);
+    if (!newRender) setLoading(false);
+  };
+
+  const preloadEverything = async () => {
+    setLoading(true);
+    await loadCSVs("@TomBrady").then(() => {
+      setLoading(false);
+      setNewRender(false);
+    });
+    console.log(cachedData);
   };
 
   const getkeyvals = (uname) => {
@@ -189,15 +263,12 @@ export function SELECTION_SECTION() {
     new_selection["t_link"] = n_keyvals.t_link;
     new_selection["default"] = true;
     setSelection(new_selection); // update selection
-    // then load the data
     loadCSVs(n_keyvals.username);
-    console.log(n_keyvals.username);
   };
 
   useEffect(() => {
     if (newRender) {
-      loadCSVs("@TomBrady");
-      setNewRender(false);
+      preloadEverything();
     }
   }, []);
 
@@ -267,6 +338,7 @@ export function SELECTION_SECTION() {
           table={data.table}
           nodes_table={data.nodes_table}
           info_table={data.info_table}
+          maps={data.maps}
         />
       )}
 
@@ -289,14 +361,15 @@ export function SELECTION_SECTION() {
           SetterNetworkPause={updatePauseN2}
           NetworkReset={resetN2}
           SetterNetworkReset={updateResetN2}
+          maps={data.maps}
         />
       )}
-
+      {/* 
       <OUTRO
         UserSelection={selection}
         SetterUserSelection={updateSelection}
         ScrollToSelection={executeScroll}
-      />
+      /> */}
     </>
   );
 }

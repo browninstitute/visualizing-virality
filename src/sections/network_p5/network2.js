@@ -36,16 +36,15 @@ function sketch(fp5) {
   };
   let canvas_second;
   let network;
-  const map1 = new Map();
-  const timeMap = new Map();
-  const timeToNode = new Map();
-  const nameMap = new Map();
-  const followerMap = new Map();
-  const parentMap = new Map();
-  const hopMap = new Map();
-  const finalTimeMap = new Map();
-  const categoryMap = new Map();
-  const infoToLoadMap = new Map();
+  var map1 = new Map();
+  let timeMap;
+  let timeToNode;
+  let nameMap;
+  let followerMap;
+  let parentMap;
+  let hopMap;
+  let finalTimeMap;
+  let categoryMap;
   let kevinFactor = 1;
   let upFactor = displayHeight / 4;
   let names = [];
@@ -668,32 +667,17 @@ function sketch(fp5) {
     let timescale = 30;
 
     // check if canvas exists
-    canvas_second = fp5.select("#network_demotion_canvas");
-    if (canvas_second) {
-      canvas_second.remove();
-      // document.getElementById("network_demotion_canvas").height(0);
-      // document.getElementById("network_demotion_canvas").width(0);
-      // document.getElementById("network_demotion_canvas").remove();
-      canvas_second = null;
+    if (!canvas_second) {
+      canvas_second = fp5.createCanvas(displayWidth, displayHeight * 0.9);
+      canvas_second.id("network_demotion_canvas");
     }
-
-    canvas_second = fp5.createCanvas(displayWidth, displayHeight * 0.9);
-    canvas_second.id("network_demotion_canvas");
-    console.log("here");
 
     if (!table.length) {
       return;
     }
+    map1 = null;
+    map1 = new Map();
 
-    map1.clear();
-    if (network) {
-      for (let i = 0; i < network.neurons.length; i++) {
-        network.neurons[i] = null;
-      }
-      network.neurons = null;
-      network.connections = null;
-      network = null;
-    }
     network = new Network(0, 0);
 
     let mainX = (1.4 * (displayWidth / 2)) / load_factor;
@@ -703,35 +687,9 @@ function sketch(fp5) {
     newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius * 4);
     map1.set(veryfirstguy, newNode);
 
-    followerMap.clear();
-    nameMap.clear();
-    finalTimeMap.clear();
-    hopMap.clear();
-    timeMap.clear();
-    parentMap.clear();
-    timeToNode.clear();
-
     retweetSum = 0;
     likeSum = 0;
     replySum = 0;
-
-    for (let r = 0; r < info_table.length; r++) {
-      let id = info_table[r].id;
-      let followers = info_table[r].followers;
-      let username = info_table[r].username;
-      let last_time = info_table[r].last_time;
-      let Hop = parseInt(info_table[r].Hop);
-      followerMap.set(id, followers);
-      nameMap.set(id, username);
-      finalTimeMap.set(id, last_time);
-      hopMap.set(id, Hop);
-    }
-
-    for (let r = 0; r < table.length; r++) {
-      let id = table[5].id;
-      let parent = table[r].Target;
-      parentMap.set(id, parent);
-    }
 
     end_time = 0;
     for (let r = 0; r < nodes_table.length; r++) {
@@ -741,7 +699,6 @@ function sketch(fp5) {
       if (time < 153442) {
         let angle = fp5.random(0, fp5.TWO_PI);
         let distance = fp5.random(40, (displayHeight * 0.9) / 2) / load_factor;
-        categoryMap.set(id, type);
         if (parentMap.get(id) === veryfirstguy) {
           map1.set(
             id,
@@ -769,15 +726,13 @@ function sketch(fp5) {
             )
           );
         }
-        timeMap.set(id, time);
+
         if (
           parseInt(parseFloat(time)) < first_eng &&
           parseInt(parseFloat(type)) !== 0
         ) {
           first_eng = parseInt(parseFloat(time));
         }
-        timeToNode.set(time, id);
-        names.push(id);
 
         let n_time = parseInt(parseFloat(time));
         if (end_time < n_time) {
@@ -785,11 +740,6 @@ function sketch(fp5) {
         }
       }
     }
-    bar_times = fp5.int(end_time / num_bars);
-    hist_times = Array.from(
-      { length: num_bars },
-      (_, i) => bar_times + i * bar_times
-    );
 
     map1.set(
       veryfirstguy,
@@ -818,8 +768,6 @@ function sketch(fp5) {
     hist_heights_pink = new Array(num_bars).fill(0);
     hist_heights_grey = new Array(num_bars).fill(0);
 
-    names = [];
-
     console.log("Finished: Demotion");
   }
 
@@ -828,6 +776,19 @@ function sketch(fp5) {
       table = props.table;
       info_table = props.info_table;
       nodes_table = props.nodes_table;
+      ({
+        timeMap,
+        names,
+        timeToNode,
+        parentMap,
+        followerMap,
+        nameMap,
+        finalTimeMap,
+        hopMap,
+        categoryMap,
+        hist_times,
+        bar_times,
+      } = props.maps);
     } else if (
       props.selection_user &&
       props.selection_user.username !== selection_user.username &&
@@ -837,6 +798,19 @@ function sketch(fp5) {
       table = props.table;
       info_table = props.info_table;
       nodes_table = props.nodes_table;
+      ({
+        timeMap,
+        names,
+        timeToNode,
+        parentMap,
+        followerMap,
+        nameMap,
+        finalTimeMap,
+        hopMap,
+        categoryMap,
+        hist_times,
+        bar_times,
+      } = props.maps);
 
       selection_user = props.selection_user;
       let username = props.selection_user.username;
@@ -913,9 +887,12 @@ export function NETWORK2({
   table,
   nodes_table,
   info_table,
+  maps,
 }) {
   const [isVisible, setIsVisible] = useState(true);
   const { ref, inView } = useInView({ amount: 0 });
+  const [localReset, setLocalReset] = useState(false);
+  const [localPause, setLocalPause] = useState(false);
 
   useEffect(() => {
     if (inView) {
@@ -927,12 +904,13 @@ export function NETWORK2({
   }, [inView]);
 
   useEffect(() => {
+    // some browsers hold onto discarded canvases for a bit
     return () => {
-      // select canvas
-      if (document.getElementById("network_demotion_canvas")) {
-        document.getElementById("network_demotion_canvas").width = 1;
-        document.getElementById("network_demotion_canvas").height = 1;
-        document.getElementById("network_demotion_canvas").remove();
+      const canvas = document.getElementById("network_demotion_canvas");
+      if (canvas) {
+        canvas.width = 1;
+        canvas.height = 1;
+        canvas.remove();
       }
     };
   }, []);
@@ -947,7 +925,7 @@ export function NETWORK2({
                 className="play_but"
                 style={{ backgroundColor: "#a7dbfa" }}
                 onClick={() => {
-                  SetterNetworkPause(!NetworkPause);
+                  setLocalPause(!localPause);
                 }}
               >
                 Pause/Play
@@ -958,7 +936,7 @@ export function NETWORK2({
                 className="play_but"
                 style={{ backgroundColor: "#44b8fc" }}
                 onClick={() => {
-                  SetterNetworkReset(true);
+                  setLocalReset(true);
                 }}
               >
                 Reset
@@ -972,14 +950,15 @@ export function NETWORK2({
             sketch={sketch}
             selection_user={UserSelection}
             user_demotion={UserDemotion}
-            network_pause={NetworkPause}
-            network_pause_set={SetterNetworkPause}
-            network_reset={NetworkReset}
-            network_reset_set={SetterNetworkReset}
+            network_pause={localPause}
+            network_pause_set={setLocalPause}
+            network_reset={localReset}
+            network_reset_set={setLocalReset}
             network_visible={isVisible}
             table={table}
             nodes_table={nodes_table}
             info_table={info_table}
+            maps={maps}
           ></ReactP5Wrapper>
         </div>
       </div>

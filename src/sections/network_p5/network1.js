@@ -36,16 +36,15 @@ function sketch(fp5) {
   // select canvas
   let canvas_second;
   let network;
-  const map1 = new Map();
-  const timeMap = new Map();
-  const timeToNode = new Map();
-  const nameMap = new Map();
-  const followerMap = new Map();
-  const parentMap = new Map();
-  const hopMap = new Map();
-  const finalTimeMap = new Map();
-  const categoryMap = new Map();
-  const infoToLoadMap = new Map();
+  var map1 = new Map();
+  let timeMap;
+  let timeToNode;
+  let nameMap;
+  let followerMap;
+  let parentMap;
+  let hopMap;
+  let finalTimeMap;
+  let categoryMap;
   let kevinFactor = 1;
   let upFactor = displayHeight / 4;
   let names = [];
@@ -86,6 +85,7 @@ function sketch(fp5) {
   let info_table = 0;
   let first_eng = 20;
   let onboardingTextData = [];
+  let defaultradius = (displayHeight * 0.9) / 20 / load_factor;
 
   let user_on_network = false;
   let cur_bar = 0;
@@ -270,7 +270,6 @@ function sketch(fp5) {
       }
     }
   };
-
   function Connection(from, to, w) {
     this.a = from;
     this.b = to;
@@ -632,17 +631,13 @@ function sketch(fp5) {
 
   function restartNetwork() {
     console.log("Restarting: Initial");
-    fp5.scale(0.25);
-    let defaultradius = (displayHeight * 0.9) / 20 / load_factor;
-    canvas_second = fp5.select("#network_initial_canvas");
-    if (canvas_second) {
-      canvas_second.remove();
-      canvas_second = null;
-    }
-    canvas_second = fp5.createCanvas(displayWidth, displayHeight * 0.9);
-    canvas_second.id("network_initial_canvas");
 
-    if (!table.length) {
+    if (!canvas_second) {
+      canvas_second = fp5.createCanvas(displayWidth, displayHeight * 0.9);
+      canvas_second.id("network_initial_canvas");
+    }
+
+    if (!nodes_table.length) {
       return;
     }
 
@@ -684,25 +679,16 @@ function sketch(fp5) {
           upFactor,
       },
     ];
-
-    map1.clear();
-    network = null;
+    map1 = null;
+    map1 = new Map();
     network = new Network(0, 0);
+
     let mainX = (1.4 * (displayWidth / 2)) / load_factor;
     let mainY = (displayHeight * 0.9) / 2 / load_factor;
     veryfirstguy = nodes_table[0].id;
 
     newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius * 4);
     map1.set(veryfirstguy, newNode);
-
-    followerMap.clear();
-    nameMap.clear();
-    finalTimeMap.clear();
-    hopMap.clear();
-    timeMap.clear();
-    parentMap.clear();
-    timeToNode.clear();
-    categoryMap.clear();
 
     retweetSum = 0;
     likeSum = 0;
@@ -713,24 +699,6 @@ function sketch(fp5) {
     hist_heights_pink.fill(0);
     hist_heights_grey.fill(0);
 
-    for (let r = 0; r < info_table.length; r++) {
-      let id = info_table[r].id;
-      let followers = info_table[r].followers;
-      let username = info_table[r].username;
-      let last_time = info_table[r].last_time;
-      let Hop = parseInt(info_table[r].Hop);
-      followerMap.set(id, followers);
-      nameMap.set(id, username);
-      finalTimeMap.set(id, last_time);
-      hopMap.set(id, Hop);
-    }
-
-    for (let r = 0; r < table.length; r++) {
-      let id = table[5].id;
-      let parent = table[r].Target;
-      parentMap.set(id, parent);
-    }
-
     end_time = 0;
     for (let r = 0; r < nodes_table.length; r++) {
       let type = nodes_table[r].type;
@@ -739,7 +707,6 @@ function sketch(fp5) {
       if (time < 153442) {
         let angle = fp5.random(0, fp5.TWO_PI);
         let distance = fp5.random(40, (displayHeight * 0.9) / 2) / load_factor;
-        categoryMap.set(id, type);
         if (parentMap.get(id) === veryfirstguy) {
           map1.set(
             id,
@@ -767,27 +734,17 @@ function sketch(fp5) {
             )
           );
         }
-        timeMap.set(id, time);
-        if (
-          parseInt(parseFloat(time)) < first_eng &&
-          parseInt(parseFloat(type)) !== 0
-        ) {
-          first_eng = parseInt(parseFloat(time));
-        }
-        timeToNode.set(time, id);
-        names.push(id);
 
-        let n_time = parseInt(parseFloat(time));
+        if (parseInt(time) < first_eng && parseInt(type) !== 0) {
+          first_eng = parseInt(time);
+        }
+
+        let n_time = parseInt(time);
         if (end_time < n_time) {
           end_time = n_time;
         }
       }
     }
-    bar_times = fp5.int(end_time / num_bars);
-    hist_times = Array.from(
-      { length: num_bars },
-      (_, i) => bar_times + i * bar_times
-    );
 
     map1.set(
       veryfirstguy,
@@ -801,6 +758,7 @@ function sketch(fp5) {
         "first"
       )
     );
+
     for (let r = table.length - 1; r >= 0; r--) {
       network.connect(map1.get(table[r].Source), map1.get(table[r].Target), 2);
     }
@@ -812,15 +770,27 @@ function sketch(fp5) {
     adjFrame = -1;
     network.display();
 
-    names = [];
     console.log("Finished: Initial");
   }
 
   fp5.updateWithProps = (props) => {
     if (!table && props.table.length) {
       table = props.table;
-      info_table = props.info_table;
+      //   info_table = props.info_table;
       nodes_table = props.nodes_table;
+      ({
+        timeMap,
+        names,
+        timeToNode,
+        parentMap,
+        followerMap,
+        nameMap,
+        finalTimeMap,
+        hopMap,
+        categoryMap,
+        hist_times,
+        bar_times,
+      } = props.maps);
     } else if (
       props.selection_user &&
       props.selection_user.username !== selection_user.username &&
@@ -830,6 +800,18 @@ function sketch(fp5) {
         table = props.table;
         info_table = props.info_table;
         nodes_table = props.nodes_table;
+        ({
+          timeMap,
+          timeToNode,
+          parentMap,
+          followerMap,
+          nameMap,
+          finalTimeMap,
+          hopMap,
+          categoryMap,
+          hist_times,
+          bar_times,
+        } = props.maps);
 
         selection_user = props.selection_user;
         let username = props.selection_user.username;
@@ -875,8 +857,10 @@ function sketch(fp5) {
       user_on_network = props.network_visible;
     }
   };
+
   fp5.setup = () => {
     console.log("Setting up: Initial");
+    fp5.scale(0.25);
     histogram_x = displayWidth / 30 / load_factor;
     histogram_y = (8 * displayHeight * 0.9) / 10 / load_factor;
     histogram_width = (8 * displayWidth) / 30 / load_factor;
@@ -894,9 +878,12 @@ export function NETWORK1({
   table,
   nodes_table,
   info_table,
+  maps,
 }) {
   const [isVisible, setIsVisible] = useState(true);
   const { ref, inView } = useInView({ amount: 0 });
+  const [localReset, setLocalReset] = useState(false);
+  const [localPause, setLocalPause] = useState(false);
 
   useEffect(() => {
     if (inView) {
@@ -908,37 +895,41 @@ export function NETWORK1({
   }, [inView]);
 
   useEffect(() => {
-    return () => {
-      // select canvas
-      if (document.getElementById("network_initial_canvas")) {
-        document.getElementById("network_initial_canvas").width = 1;
-        document.getElementById("network_initial_canvas").height = 1;
-        document.getElementById("network_initial_canvas").remove();
-      }
-    };
+    console.log("Setting up: Initial");
   }, []);
+  //   useEffect(() => {
+  //     // some browsers hold onto discarded canvases for a bit
+  //     return () => {
+  //       const canvas = document.getElementById("network_initial_canvas");
+  //       if (canvas) {
+  //         canvas.width = 1;
+  //         canvas.height = 1;
+  //         canvas.remove();
+  //       }
+  //     };
+  //   }, []);
   return (
     <>
-      <div className="network_section" id="network_initial">
+      <div className="network_section" id="network_demotion">
         <div className="play_pause_con container">
           <div className="row demotionText">
-            <div className="col-1 demo_but_sec">
+            <div className="col-2 demo_but_sec">
               <button
                 className="play_but"
                 style={{ backgroundColor: "#a7dbfa" }}
                 onClick={() => {
-                  SetterNetworkPause(!NetworkPause);
+                  setLocalPause(!localPause);
                 }}
               >
                 Play/Pause
               </button>
             </div>
-            <div className="col-1 demo_but_sec">
+            <div className="col-3 demo_but_sec">
               <button
                 className="play_but"
                 style={{ backgroundColor: "#44b8fc" }}
                 onClick={() => {
-                  SetterNetworkReset(true);
+                  setLocalReset(true);
                 }}
               >
                 Reset
@@ -951,14 +942,14 @@ export function NETWORK1({
           <ReactP5Wrapper
             sketch={sketch}
             selection_user={UserSelection}
-            network_pause={NetworkPause}
-            network_pause_set={SetterNetworkPause}
-            network_reset={NetworkReset}
-            network_reset_set={SetterNetworkReset}
+            network_pause={localPause}
+            network_pause_set={setLocalPause}
+            network_reset={localReset}
+            network_reset_set={setLocalReset}
             network_visible={isVisible}
             table={table}
             nodes_table={nodes_table}
-            info_table={info_table}
+            maps={maps}
           ></ReactP5Wrapper>
         </div>
       </div>

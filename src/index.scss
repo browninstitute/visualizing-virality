@@ -83,7 +83,7 @@ canvas {
   padding-top: 2%;
   padding-bottom: 2%;
   border-radius: 20px;
-  font-size: 2vmin;
+  font-size: 1.4vmin;
   border-width: 0px;
   color: white;
 }
@@ -94,7 +94,7 @@ canvas {
   padding-top: 2%;
   padding-bottom: 2%;
   border-radius: 20px;
-  font-size: medium;
+  font-size: 1.5vmin;
   border-width: 0px;
   color: white;
 }
@@ -276,6 +276,10 @@ body{
         z-index: 99;
         left: 48.2%;
         top: 64.28%;
+        @media only screen and (max-width: 600px) {
+          top: 58%;
+          left: 39.8%;
+        }
         
         .scroll_div{
           background-color: #0b5684;
@@ -284,6 +288,12 @@ body{
           padding-left: 0.5vw;
           padding-right: 0.5vw;
           border-radius: 0.4vw;
+          @media only screen and (max-width: 600px) {
+            font-size: 1.1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            border-radius: 5px;
+          }
   
         }
       }
@@ -498,18 +508,21 @@ body{
     }
     //ONBOARDING SECTION CSS
     .timeline_padding{
-      height: 25vh;
+      height: 35vh;
       width: 100vw;
       display: flex;
-        align-items: center;
+        align-items: end;
         justify-content: center;
 
       .padding_text{
+
+        margin-left: 25%;
+        margin-right: 25%;
         @media only screen and (max-width: 600px) {
-          font-size: 5vmin;
+          font-size: 2.5vmin;
+          margin-left: 10%;
+          margin-right: 10%;
         }
-        margin-left: 15%;
-        margin-right: 15%;
         
         color: rgb(78, 78, 78);
         font-size: 2.2vmin;
@@ -1053,6 +1066,7 @@ body{
       position: relative;
       @media only screen and (max-width: 600px) {
         flex-direction: column;
+        height: 300vh;
         justify-content: start;
       }
       @media only screen and (min-width: 600px) {
@@ -1066,7 +1080,7 @@ body{
         width: 50%;
         font-size: 3vmin;
         @media only screen and (max-width: 600px) {
-          height: 400vh;
+          height: 200vh;
           width: 100vw;
           order: 2;
           top:50%;
@@ -1101,17 +1115,26 @@ body{
         }
         .text1{
           height: 100vh;
+          @media only screen and (max-width: 600px) {
+            height: 50vh;
+          }
         }
         .text2{
           height: 140vh;
+          @media only screen and (max-width: 600px) {
+            height: 70vh;
+          }
         }
         .text3{
           height: 130vh;
+          @media only screen and (max-width: 600px) {
+            height: 65vh;
+          }
         }
         .text4{
           height: 130vh;
           @media only screen and (max-width: 600px) {
-            height: 80vh;
+            height: 65vh;
           }
         }
        
@@ -1143,13 +1166,14 @@ body{
             align-items: center;
             justify-content: center;
             inset: 0;
+            @media only screen and (max-width: 600px) {
+              width: 100%;
+            }
             .onboarding_tweet_bg{
               height: 98%;
               width: 100%;
               background-color: #1DA1F2;
-              @media only screen and (max-width: 600px) {
-                height: 100%;
-              }
+
               display: flex;
               align-items: center;
               justify-content: center;
@@ -1692,9 +1716,7 @@ body{
               height: 20%;
               
               width: 60%;
-              @media only screen and (max-width: 600px) {
-                width: 80%;
-              }
+
               margin-top: 10%;
               margin-bottom: 10%;
               margin-left: 5%;
@@ -1702,6 +1724,10 @@ body{
               display: flex;
               justify-content: center;
               align-items: start;
+              @media only screen and (max-width: 600px) {
+                width: 80%;
+
+              }
               img{
                 position: absolute;
                 border-radius:100px;
@@ -1713,6 +1739,13 @@ body{
                 height: 100%;
                 width: 100%;
                 border-radius: 20px;
+                @media only screen and (max-width: 600px) {
+                  display: flex;
+                  justify-content: center;
+                  text-align: center;
+  
+                }
+
                 
                 z-index: 3;
               .menu_button{
@@ -1724,16 +1757,19 @@ body{
                 aspect-ratio: 2.5/1;
 
                 border-radius: 20px;
+
                 color: white;
                 z-index: 3;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 font-size: 2.2vmin;
-                text-decoration: none;
                 @media only screen and (max-width: 600px) {
-                  font-size: 2vmin;
+                  border-radius: 5px;
+                  font-size: 1.5vmin;
                 }
+                text-decoration: none;
+
                 
               }
             }

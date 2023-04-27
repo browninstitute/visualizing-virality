@@ -22,7 +22,7 @@ export function ONBOARDING_BARS(){
         scroll_points.bar_resize3+0.05,
         scroll_points.bar_resize4,
         scroll_points.bar_resize4+0.05,
-      ],["100%","59%","59%","33%","33%","67%"])
+      ],["100%","69%","69%","33%","33%","67%"])
       const bar2_height = useTransform(scrollYProgress,[
         scroll_points.bar_resize2,
         scroll_points.bar_resize2+0.05,
@@ -30,7 +30,7 @@ export function ONBOARDING_BARS(){
         scroll_points.bar_resize3+0.05,
         scroll_points.bar_resize4,
         scroll_points.bar_resize4+0.05, 
-      ],["0%","41%","41%","38%","38%","19%"])
+      ],["0%","31%","31%","38%","38%","19%"])
       const bar3_height = useTransform(scrollYProgress,[
         scroll_points.bar_resize2,
         scroll_points.bar_resize2+0.05,
@@ -171,13 +171,13 @@ export function ONBOARDING_BARS(){
                     <div className='text_container_background'>
                         <div className='text_container'>
                             <motion.div className='text_scroller' style={styles_with_css({opacity: text1_opacity,y: text1_y})}>
-                                Out of the 23 billion tweets from January 2023, only 4933 had more than 100000 likes. That's 0.000015%.
+                                Out of the 23 billion tweets from January 2023, only 4,933 had more than 100,000 likes. That's 0.000015%.
                             </motion.div>
                             <motion.div className='text_scroller' style={styles_with_css({opacity: text2_opacity,y: text2_y})}>
-                                From the 4933 total tweets, 3402 fit our definition of "viral".
+                                From the 4,933 total tweets, 3,402 fit our definition of "viral".
                             </motion.div>
                             <motion.div className='text_scroller' style={styles_with_css({opacity: text3_opacity,y: text3_y})}>
-                                71% of "viral" tweets were authored by users with more than 100,000 followers. 
+                                Around 1/3 of "viral" tweets were authored by users with more than 1,000,000 followers. 
                             </motion.div>
                             <motion.div className='text_scroller' style={styles_with_css({opacity: text4_opacity,y: text4_y})}>
                                 They also came from a number of different categories.

@@ -170,10 +170,13 @@ function App() {
 
         <div className='timeline_padding'>
           <div className='padding_text'> 
-          Here is the distribution of our 3402 <font color="#1DA1F2">"viral"</font> tweets from January 2023 across each day. 
-          Each day's segment is colored according to the number of tweets that fit our definition on the scale: <img className='timeline_scale_inline' src={timeline_pic}/>. 
-          January 18th had the smallest number of tweets <font color="#1DA1F2">(37)</font> tweets, while January 1st had the largest <font color="#1DA1F2">(166)</font>. We also selected a few to highlight!
+          Here is the distribution of our 3,402 <font color="#1DA1F2">"viral"</font> tweets from around the world during January 2023. 
+          Each day's segment is colored according to the number of tweets on scale: <img className='timeline_scale_inline' src={timeline_pic}/>. 
+          January 18th had the smallest number of tweets (<font color="#1DA1F2">37</font>) tweets, while January 1st had the largest (<font color="#660099">166</font>). We also selected a few to spotlight!
+          <br/>
+          <br/>
           </div>
+          
           
         </div>
         <div className='timeline_sec'>

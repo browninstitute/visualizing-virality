@@ -4,24 +4,22 @@ import {
   SketchProps,
 } from "react-p5-wrapper";
 // import sketch from './sketchv2.js';
-import t1 from "./links_tb.csv";
-import t2 from "./nodes_tb.csv";
-import t3 from "./users_tb.csv";
-import b1 from "./links_black.csv";
-import b2 from "./nodes_black.csv";
-import b3 from "./users_black.csv";
-import m1 from "./links_mccarthy.csv";
-import m2 from "./nodes_mccarthy.csv";
-import m3 from "./users_mccarthy.csv";
+// import t1 from "./links_tb.csv";
+// import t2 from "./nodes_tb.csv";
+// import t3 from "./users_tb.csv";
+// import b1 from "./links_black.csv";
+// import b2 from "./nodes_black.csv";
+// import b3 from "./users_black.csv";
+// import m1 from "./links_mccarthy.csv";
+// import m2 from "./nodes_mccarthy.csv";
+// import m3 from "./users_mccarthy.csv";
 import brady_p from "../../assets/brady_profile.jpg";
 import { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import Papa from "papaparse";
-import { AnimatePresence, motion } from "framer-motion";
 
 function sketch(fp5) {
-  const displayHeight = 900;
-  const displayWidth = 1100;
+  const displayHeight = 800;
+  const displayWidth = 1000;
   let selection_user = {
     name: "Tom Brady",
     username: "@TomBrady",
@@ -35,6 +33,7 @@ function sketch(fp5) {
     t_image: null,
     t_vid: null,
   };
+  // select canvas
   let canvas_second;
   let network;
   const map1 = new Map();
@@ -82,64 +81,17 @@ function sketch(fp5) {
   let hist_heights_pink = new Array(num_bars).fill(0);
   let hist_heights_grey = new Array(num_bars).fill(0);
 
-  var table = 0;
-  var nodes_table = 0;
-  var info_table = 0;
+  let table = 0;
+  let nodes_table = 0;
+  let info_table = 0;
   let first_eng = 20;
-  let table_tb = 0;
-  let nodes_table_tb = 0;
-  let info_table_tb = 0;
-  let table_b = 0;
-  let nodes_table_b = 0;
-  let info_table_b = 0;
-  let table_mc = 0;
-  let nodes_table_mc = 0;
-  let info_table_mc = 0;
+  let onboardingTextData = [];
 
-  var user_on_network = false;
+  let user_on_network = false;
   let cur_bar = 0;
 
-  let onboardingTextData = [
-    {
-      text:
-        "Direct followers of " +
-        selection_user.name +
-        " who engaged with tweet",
-      x: ((3 / 2) * (displayWidth / 20)) / load_factor,
-      y: (1.6 * displayHeight * 0.9) / 10 / load_factor + upFactor / 2,
-    },
-    {
-      text: "2nd degree of separation from " + selection_user.name,
-      x: ((3 / 2) * (displayWidth / 20)) / load_factor,
-      y: (2 * displayHeight * 0.9) / 10 / load_factor + upFactor / 2,
-    },
-    {
-      text: "3rd degree of separation from " + selection_user.name,
-      x: ((3 / 2) * (displayWidth / 20)) / load_factor,
-      y: (2.4 * displayHeight * 0.9) / 10 / load_factor + upFactor / 2,
-    },
-    {
-      text: "Time",
-      x: ((3 / 2) * (displayWidth / 20)) / load_factor,
-      y: (9.3 * displayHeight * 0.9) / 10 / load_factor,
-    },
-    {
-      text: "Number of Engagements",
-      x: (1.3 * (displayWidth / 30)) / load_factor,
-      y: (6.4 * displayHeight * 0.9) / 10 / load_factor,
-    },
-    {
-      text: selection_user.username,
-      x: displayWidth / 30 + displayWidth / 60 + displayWidth / 30,
-      y:
-        (displayHeight * 0.9) / 2.5 +
-        (1.5 * displayHeight * 0.9) / 40 -
-        upFactor,
-    },
-  ];
-
   fp5.preload = () => {
-    console.log("PRELOAD");
+    console.log("PRELOAD: Initial");
 
     img = fp5.loadImage(
       "https://upload.wikimedia.org/wikipedia/sco/thumb/9/9f/Twitter_bird_logo_2012.svg/1200px-Twitter_bird_logo_2012.svg.png"
@@ -318,6 +270,7 @@ function sketch(fp5) {
       }
     }
   };
+
   function Connection(from, to, w) {
     this.a = from;
     this.b = to;
@@ -605,12 +558,6 @@ function sketch(fp5) {
     if (checkFinalChild <= 0) {
       return;
     }
-    //then brute force go away if too long
-    /*  let timeSince = fp5.log(this.time)*120 - adjFrame;
-              if (timeSince < -500 && this.isFirst != 'first')
-              {
-                return;
-              }*/
 
     let scaler =
       (fp5.int(followerMap.get(this.name)) / 4000 + 10) / load_factor;
@@ -684,26 +631,59 @@ function sketch(fp5) {
   };
 
   function restartNetwork() {
-    if (!nodes_table) {
+    console.log("Restarting: Initial");
+    fp5.scale(0.25);
+    let defaultradius = (displayHeight * 0.9) / 20 / load_factor;
+    canvas_second = fp5.select("#network_initial_canvas");
+    if (canvas_second) {
+      canvas_second.remove();
+      canvas_second = null;
+    }
+    canvas_second = fp5.createCanvas(displayWidth, displayHeight * 0.9);
+    canvas_second.id("network_initial_canvas");
+
+    if (!table.length) {
       return;
     }
 
-    console.log("restarting");
-    console.log(nodes_table);
-    fp5.scale(0.25);
-    let defaultradius = (displayHeight * 0.9) / 20 / load_factor;
-    if (!canvas_second) {
-      canvas_second = fp5.createCanvas(displayWidth, displayHeight * 0.9);
-    }
-
-    if (network) {
-      for (let i = 0; i < network.neurons.length; i++) {
-        delete network.neurons[i];
-      }
-      delete network.neurons;
-      delete network.connections;
-      network = null;
-    }
+    onboardingTextData = [
+      {
+        text:
+          "Direct followers of " +
+          selection_user.name +
+          " who engaged with tweet",
+        x: ((3 / 2) * (displayWidth / 20)) / load_factor,
+        y: (1.6 * displayHeight * 0.9) / 10 / load_factor + upFactor / 2,
+      },
+      {
+        text: "2nd degree of separation from " + selection_user.name,
+        x: ((3 / 2) * (displayWidth / 20)) / load_factor,
+        y: (2 * displayHeight * 0.9) / 10 / load_factor + upFactor / 2,
+      },
+      {
+        text: "3rd degree of separation from " + selection_user.name,
+        x: ((3 / 2) * (displayWidth / 20)) / load_factor,
+        y: (2.4 * displayHeight * 0.9) / 10 / load_factor + upFactor / 2,
+      },
+      {
+        text: "Time",
+        x: ((3 / 2) * (displayWidth / 20)) / load_factor,
+        y: (9.3 * displayHeight * 0.9) / 10 / load_factor,
+      },
+      {
+        text: "Number of Engagements",
+        x: (1.3 * (displayWidth / 30)) / load_factor,
+        y: (6.4 * displayHeight * 0.9) / 10 / load_factor,
+      },
+      {
+        text: selection_user.username,
+        x: displayWidth / 30 + displayWidth / 60 + displayWidth / 30,
+        y:
+          (displayHeight * 0.9) / 2.5 +
+          (1.5 * displayHeight * 0.9) / 40 -
+          upFactor,
+      },
+    ];
 
     map1.clear();
     network = null;
@@ -714,7 +694,6 @@ function sketch(fp5) {
 
     newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius * 4);
     map1.set(veryfirstguy, newNode);
-    //console.log("FIRST ENGAGMENT" + first_eng);
 
     followerMap.clear();
     nameMap.clear();
@@ -729,7 +708,7 @@ function sketch(fp5) {
     likeSum = 0;
     replySum = 0;
     cur_bar = 0;
-    adjFrame = -1;
+
     hist_heights_blue.fill(0);
     hist_heights_pink.fill(0);
     hist_heights_grey.fill(0);
@@ -751,6 +730,7 @@ function sketch(fp5) {
       let parent = table[r].Target;
       parentMap.set(id, parent);
     }
+
     end_time = 0;
     for (let r = 0; r < nodes_table.length; r++) {
       let type = nodes_table[r].type;
@@ -793,7 +773,6 @@ function sketch(fp5) {
           parseInt(parseFloat(type)) !== 0
         ) {
           first_eng = parseInt(parseFloat(time));
-          console.log(first_eng);
         }
         timeToNode.set(time, id);
         names.push(id);
@@ -829,49 +808,52 @@ function sketch(fp5) {
       network.addNeuron(map1.get(names[i]));
     }
 
+    timesecs = 0;
+    adjFrame = -1;
     network.display();
 
     names = [];
-    console.log("finished restarting");
+    console.log("Finished: Initial");
   }
 
   fp5.updateWithProps = (props) => {
-    if (
+    if (!table && props.table.length) {
+      table = props.table;
+      info_table = props.info_table;
+      nodes_table = props.nodes_table;
+    } else if (
       props.selection_user &&
-      props.selection_user.username !== selection_user.username
+      props.selection_user.username !== selection_user.username &&
+      props.table.length
     ) {
       if (canvas_second) {
-        Object.assign(selection_user, props.selection_user);
-        switch (props.selection_user.username) {
+        table = props.table;
+        info_table = props.info_table;
+        nodes_table = props.nodes_table;
+
+        selection_user = props.selection_user;
+        let username = props.selection_user.username;
+
+        restartNetwork();
+        props.network_reset_set(false);
+        props.network_pause_set(false);
+        switch (username) {
           case "@TomBrady":
-            table = table_tb;
-            nodes_table = nodes_table_tb;
-            info_table = info_table_tb;
             kevinFactor = 1;
             yAxisMax = 3000;
 
             break;
           case "@6lack":
-            table = table_b;
-            nodes_table = nodes_table_b;
-            info_table = info_table_b;
             kevinFactor = 1;
             yAxisMax = 3000;
             break;
           case "@SpeakerMcCarthy":
-            table = table_mc;
-            nodes_table = nodes_table_mc;
-            info_table = info_table_mc;
             kevinFactor = 3;
             yAxisMax = 7000;
             break;
           default:
             break;
         }
-
-        restartNetwork();
-        props.network_reset_set(false);
-        props.network_pause_set(false);
       }
     }
 
@@ -894,62 +876,12 @@ function sketch(fp5) {
     }
   };
   fp5.setup = () => {
-    // table = table_tb;
-    // nodes_table = nodes_table_tb;
-    // info_table = info_table_tb;
-
-    // histogram_x = displayWidth / 30 / load_factor;
-    // histogram_y = (8 * displayHeight * 0.9) / 10 / load_factor;
-    // histogram_width = (8 * displayWidth) / 30 / load_factor;
-    // histogram_height = (1 * displayHeight * 0.9) / 10 / load_factor;
-
-    // restartNetwork();
-    const loadCSV = async (url) => {
-      try {
-        const response = await fetch(url);
-        const csvText = await response.text();
-        const parsedCSV = Papa.parse(csvText, { header: true });
-        return parsedCSV.data;
-      } catch (error) {
-        console.error(`Error loading CSV data: ${error}`);
-      }
-    };
-
-    const loadCSVs = async () => {
-      if (!canvas_second) {
-        table_tb = await loadCSV(t1);
-        nodes_table_tb = await loadCSV(t2);
-        info_table_tb = await loadCSV(t3);
-
-        table_b = await loadCSV(b1);
-        nodes_table_b = await loadCSV(b2);
-        info_table_b = await loadCSV(b3);
-
-        table_mc = await loadCSV(m1);
-        nodes_table_mc = await loadCSV(m2);
-        info_table_mc = await loadCSV(m3);
-      }
-    };
-
-    if (!canvas_second) {
-      loadCSVs().then(() => {
-        console.log("LOADED");
-        table = table_tb;
-        nodes_table = nodes_table_tb;
-        info_table = info_table_tb;
-
-        // get keys of all objects
-        console.log("TABLE", Object.keys(table[0]));
-        console.log("NODES", Object.keys(nodes_table[0]));
-        console.log("INFO", Object.keys(info_table[0]));
-
-        histogram_x = displayWidth / 30 / load_factor;
-        histogram_y = (8 * displayHeight * 0.9) / 10 / load_factor;
-        histogram_width = (8 * displayWidth) / 30 / load_factor;
-        histogram_height = (1 * displayHeight * 0.9) / 10 / load_factor;
-        restartNetwork();
-      });
-    }
+    console.log("Setting up: Initial");
+    histogram_x = displayWidth / 30 / load_factor;
+    histogram_y = (8 * displayHeight * 0.9) / 10 / load_factor;
+    histogram_width = (8 * displayWidth) / 30 / load_factor;
+    histogram_height = (1 * displayHeight * 0.9) / 10 / load_factor;
+    restartNetwork();
   };
 }
 
@@ -959,21 +891,35 @@ export function NETWORK1({
   SetterNetworkPause,
   NetworkReset,
   SetterNetworkReset,
+  table,
+  nodes_table,
+  info_table,
 }) {
   const [isVisible, setIsVisible] = useState(true);
   const { ref, inView } = useInView({ amount: 0 });
 
-  //   useEffect(() => {
-  //     if (inView) {
-  //       setIsVisible(true);
-  //     }
-  //     if (!inView) {
-  //       setIsVisible(false);
-  //     }
-  //   }, [inView]);
+  useEffect(() => {
+    if (inView) {
+      setIsVisible(true);
+    }
+    if (!inView) {
+      setIsVisible(false);
+    }
+  }, [inView]);
+
+  useEffect(() => {
+    return () => {
+      // select canvas
+      if (document.getElementById("network_initial_canvas")) {
+        document.getElementById("network_initial_canvas").width = 1;
+        document.getElementById("network_initial_canvas").height = 1;
+        document.getElementById("network_initial_canvas").remove();
+      }
+    };
+  }, []);
   return (
     <>
-      <div className="network_section" id="network_demotion">
+      <div className="network_section" id="network_initial">
         <div className="play_pause_con container">
           <div className="row demotionText">
             <div className="col-1 demo_but_sec">
@@ -1001,7 +947,7 @@ export function NETWORK1({
             <div className="col-10"></div>
           </div>
         </div>
-        <div className="sketch_sec">
+        <div className="sketch_sec" ref={ref}>
           <ReactP5Wrapper
             sketch={sketch}
             selection_user={UserSelection}
@@ -1010,6 +956,9 @@ export function NETWORK1({
             network_reset={NetworkReset}
             network_reset_set={SetterNetworkReset}
             network_visible={isVisible}
+            table={table}
+            nodes_table={nodes_table}
+            info_table={info_table}
           ></ReactP5Wrapper>
         </div>
       </div>

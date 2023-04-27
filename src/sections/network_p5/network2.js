@@ -28,7 +28,7 @@ function sketch(fp5) {
         t_image: null,
         t_vid: null,
     };
-    let canvas_second;
+    let canvas_second2;
     var network;
     const map1 = new Map();
     const timeMap = new Map();
@@ -655,8 +655,8 @@ function sketch(fp5) {
             fp5.scale(0.25);
             let defaultradius = (fp5.displayHeight*0.9/20)/load_factor;
             let timescale = 30;
-            canvas_second = null
-            canvas_second = fp5.createCanvas(fp5.displayWidth,fp5.displayHeight*0.9);
+            canvas_second2 = null
+            canvas_second2 = fp5.createCanvas(fp5.displayWidth,fp5.displayHeight*0.9);
 
     
             let lastName = table.getString(1,0);
@@ -762,7 +762,7 @@ function sketch(fp5) {
         console.log(props)
         console.log(selection_user)
         if (props.selection_user && props.selection_user.username != selection_user.username) {
-            if (canvas_second){
+            if (canvas_second2){
                 Object.assign(selection_user, props.selection_user);
                 console.log(selection_user)
                 switch (props.selection_user.username){
@@ -795,7 +795,7 @@ function sketch(fp5) {
         }
 
         if (props.network_reset) {
-            if (canvas_second){
+            if (canvas_second2){
                 restartNetwork();
                 props.network_reset_set(false);
                 props.network_pause_set(false);
@@ -803,13 +803,13 @@ function sketch(fp5) {
         }
 
         if (props.network_pause != pause) {
-            if (canvas_second){
+            if (canvas_second2){
                 pause = props.network_pause;                
             }
         }
 
         if (props.user_demotion != demotionVal){
-            if (canvas_second){
+            if (canvas_second2){
                 demotionVal = props.user_demotion;     
                 restartNetwork();    
                 props.network_pause_set(false);       
@@ -817,7 +817,7 @@ function sketch(fp5) {
         }
 
     
-        if (canvas_second){
+        if (canvas_second2){
 
                 user_on_network = props.network_visible;
                 

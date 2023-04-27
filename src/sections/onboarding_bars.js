@@ -143,12 +143,12 @@ export function ONBOARDING_BARS(){
                     <div className='bars_container'>
                     <motion.div className="bar1" style={styles_with_css({height: bar1_height})}>
                     <motion.div className="bar_text" style={styles_with_css({opacity: percents1_opacity})}>&lt; 100,000 likes</motion.div> 
-                    <motion.div className="bar_text" style={styles_with_css({opacity: percents2_opacity})}>59% Viral</motion.div> 
+                    <motion.div className="bar_text" style={styles_with_css({opacity: percents2_opacity})}>69% Viral</motion.div> 
                     <motion.div className="bar_text" style={styles_with_css({opacity: percents3_opacity})}>33% &gt; 1,000,000</motion.div>
                     <motion.div className="bar_text" style={styles_with_css({opacity: percents4_opacity})}>67% Entertainment</motion.div>
                     </motion.div>
                     <motion.div className="bar2" style={styles_with_css({height: bar2_height})}>
-                    <motion.div className="bar_text" style={styles_with_css({opacity: percents2_opacity})}>41% Non-Viral</motion.div> 
+                    <motion.div className="bar_text" style={styles_with_css({opacity: percents2_opacity})}>31% Non-Viral</motion.div> 
                     <motion.div className="bar_text" style={styles_with_css({opacity: percents3_opacity})}>38% &lt; 1,000,000</motion.div>
                     <motion.div className="bar_text" style={styles_with_css({opacity: percents4_opacity})}>19% Sports</motion.div>
                     </motion.div>

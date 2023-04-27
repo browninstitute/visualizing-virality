@@ -169,7 +169,7 @@ function sketch(fp5) {
             }
             if (first_eng+4 <= timesecs  && timesecs < first_eng+9)
             {
-                onboardingText = "Notice that time is passing here logarithmicly.";
+                onboardingText = "Notice that time is passing here logarithmically.";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
             }
@@ -216,7 +216,7 @@ function sketch(fp5) {
 
             fp5.text(onboardingText, onboardingTextX, onboardingTextY);
             fp5.text(retweetSum + " retweets " + likeSum + " likes " + replySum  + " replies",  fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/2.5+ fp5.displayHeight*0.9/12)-upFactor );
-
+            let rectWidth = fp5.textWidth(retweetSum + " retweets " + likeSum + " likes " + replySum  + " replies");
             fp5.textSize((fp5.displayHeight*0.9/60)/load_factor);
             
             fp5.text("Direct followers of " + selection_user.name + " who engaged with tweet", (3/2)*(fp5.displayWidth/20)/load_factor, (1.6*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
@@ -229,7 +229,7 @@ function sketch(fp5) {
             fp5.text(selection_user.username, fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/2.5+1.5*fp5.displayHeight*0.9/40)-upFactor);
             fp5.fill(0,0,0,0);
             fp5.stroke(200,200,200);
-            fp5.rect(fp5.displayWidth/30, (fp5.displayHeight*0.9/2.5)-upFactor, (fp5.displayWidth/3.5), (fp5.displayHeight*0.9/8), 20);
+            fp5.rect(fp5.displayWidth/30, (fp5.displayHeight*0.9/2.5)-upFactor, rectWidth*1.4, (fp5.displayHeight*0.9/8), 20);
             img.resize((fp5.displayWidth/40),(fp5.displayHeight*0.9/24));
             fp5.image(img, fp5.displayWidth/30+(fp5.displayWidth/60), (fp5.displayHeight*0.9/2.5+fp5.displayHeight*0.9/40)-upFactor)
 
@@ -646,7 +646,7 @@ function sketch(fp5) {
                 fp5.rect(this.position.x-10, this.position.y-h, w+20, h+5, 10);
                 fp5.fill(0, 0, 0, this.opacity);
                 fp5.text(categoryMap.get(this.name) + " by @"+nameMap.get(this.name), this.position.x, this.position.y);//fp5.displayWidth/5, 0.39*fp5.displayHeight);
-                this.opacity = this.opacity-5;
+                this.opacity = this.opacity-7.5;
 
             }
             
@@ -747,7 +747,6 @@ function sketch(fp5) {
                 if (fp5.int(parseFloat(nodes_table.getString(r,1))) < first_eng && fp5.int(parseFloat(nodes_table.getString(r,1)))  != 0 )
                 {
                     first_eng = fp5.int(parseFloat(nodes_table.getString(r,1)));
-                    console.log(first_eng);
                 }
                 timeToNode.set(nodes_table.getString(r, 1), nodes_table.getString(r,0));
                 names.push(id);
@@ -853,7 +852,107 @@ function sketch(fp5) {
         histogram_width = (8*fp5.displayWidth/30)/load_factor;
         histogram_height = (1*fp5.displayHeight*0.9/10)/load_factor;
 
-        restartNetwork();
+        console.log('restarting')
+        fp5.scale(0.25);
+        let defaultradius = (fp5.displayHeight*0.9/20)/load_factor;
+        let timescale = 30;
+        canvas_second = fp5.createCanvas(fp5.displayWidth,fp5.displayHeight*0.9);
+
+
+        let lastName = table.getString(1,0);
+        network = new Network(0, 0);
+        let mainName = table.getString(0,1);
+        let minTime = 10000000;
+        let mainX = 1.4*(fp5.displayWidth/2)/load_factor;
+        let mainY = (fp5.displayHeight*0.9/2)/load_factor;
+        veryfirstguy = nodes_table.getString(0, 0);
+    
+
+        newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius*4);
+        map1.set(veryfirstguy, newNode);
+        //console.log("FIRST ENGAGMENT" + first_eng);
+
+        followerMap.clear();
+        nameMap.clear();
+        finalTimeMap.clear();
+        hopMap.clear();
+        timeMap.clear();
+        parentMap.clear();
+        timeToNode.clear();
+        categoryMap.clear();
+        retweetSum = 0;
+        likeSum = 0;
+        replySum = 0;
+        cur_bar = 0;
+        adjFrame = -1;
+        hist_heights_blue.fill(0);
+        hist_heights_pink.fill(0);
+        hist_heights_grey.fill(0);    
+
+
+        for (let r = 0; r < info_table.getRowCount(); r++)
+        {
+            followerMap.set(info_table.getString(r, 0), info_table.getString(r,1));
+            nameMap.set(info_table.getString(r, 0), info_table.getString(r,2));
+            finalTimeMap.set(info_table.getString(r,0), info_table.getString(r,4));
+            hopMap.set(info_table.getString(r,0), fp5.int(info_table.getString(r,5)));
+        }
+        for (let r = 0; r < table.getRowCount(); r++)
+        {
+            let id = table.getString(r,0);
+            let parent = table.getString(r,1);
+            parentMap.set(id, parent);
+        }
+        end_time = 0;
+        for (let r = 0; r < nodes_table.getRowCount(); r++)
+        {
+            let id = nodes_table.getString(r,0);
+            let time = fp5.int(parseFloat(nodes_table.getString(r,1)));
+            if (time <  153442)
+            {
+            let angle = fp5.random(0, fp5.TWO_PI);
+            let distance = fp5.random(40,fp5.displayHeight*0.9/2)/load_factor;
+            categoryMap.set(id, nodes_table.getString(r,2));
+            if (parentMap.get(id) == veryfirstguy)
+            {
+            map1.set(id, new Neuron(mainX+fp5.cos(angle)*distance, mainY+fp5.sin(angle)*distance, id, true, defaultradius, time, "second"));
+            }
+            else if (parentMap.get(id)!=veryfirstguy)
+            {
+            map1.set(id, new Neuron(mainX+fp5.cos(angle)*distance, mainY+fp5.sin(angle)*distance, id, true, defaultradius, time, "other"));
+            }
+            timeMap.set(nodes_table.getString(r, 0), nodes_table.getString(r,1));
+            if (fp5.int(parseFloat(nodes_table.getString(r,1))) < first_eng && fp5.int(parseFloat(nodes_table.getString(r,1)))  != 0 )
+            {
+                first_eng = fp5.int(parseFloat(nodes_table.getString(r,1)));
+            }
+            timeToNode.set(nodes_table.getString(r, 1), nodes_table.getString(r,0));
+            names.push(id);
+
+            let n_time = fp5.int(parseFloat(nodes_table.getString(r,1)))
+            if (end_time < n_time){
+                end_time  = n_time
+            }
+            }
+        }
+        bar_times = fp5.int( end_time/num_bars )
+        hist_times = Array.from({ length: num_bars}, (_, i) => bar_times + (i * bar_times))
+
+        map1.set(veryfirstguy, new Neuron(mainX, mainY, veryfirstguy, true, defaultradius, timeMap.get(veryfirstguy), "first"));
+        for (let r = table.getRowCount()-1; r >=0; r--)
+        {
+        network.connect(map1.get(table.getString(r,1)), map1.get(table.getString(r,0)), 2);
+        }
+        for (let i = 0; i < names.length; i++)
+        {
+            network.addNeuron(map1.get(names[i]));
+        }
+
+        //network.displayConnections();
+        network.display();
+
+        names = [];
+        console.log('finished restarting')  
     }
 
 
@@ -877,7 +976,7 @@ export function NETWORK1({UserSelection, NetworkPause, SetterNetworkPause, Netwo
         
       }, [inView]);
   return(
-
+    <>
     <div className="network_section" id="network_nondemotion" 
 >
     <div className="play_pause_con container">
@@ -899,6 +998,6 @@ export function NETWORK1({UserSelection, NetworkPause, SetterNetworkPause, Netwo
         <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}  network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset}  network_visible={isVisible} ></ReactP5Wrapper>
     </div>
     </div>
-
+    </>
   )
   }

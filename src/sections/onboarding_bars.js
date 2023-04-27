@@ -177,7 +177,7 @@ export function ONBOARDING_BARS(){
                                 From the 4933 total tweets, 3402 fit our definition of "viral".
                             </motion.div>
                             <motion.div className='text_scroller' style={styles_with_css({opacity: text3_opacity,y: text3_y})}>
-                                78% of "viral" tweets were authored by users with more than 100,000 followers. 
+                                71% of "viral" tweets were authored by users with more than 100,000 followers. 
                             </motion.div>
                             <motion.div className='text_scroller' style={styles_with_css({opacity: text4_opacity,y: text4_y})}>
                                 They also came from a number of different categories.

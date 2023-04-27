@@ -140,34 +140,41 @@ function sketch(fp5) {
             fp5.text(formatTime(timesecs), (fp5.displayWidth/30)/load_factor, 1.5*(fp5.displayHeight*0.9/15)/load_factor);
             
             onboardingText = "";
+            let mainX = 0.5*fp5.displayWidth;
             let onboardingTextX = 0.38*(fp5.displayWidth);
             let onboardingTextY = 0.35*(fp5.displayHeight*0.9);
-            if (1.5 < timesecs && timesecs < 3 )
+            if (1.5 < timesecs && timesecs < 2.3)
             {
                 
-                onboardingText = "This is " + selection_user.name + ".";
+                onboardingText = "This is " + selection_user.name + ", again.";
                 //onboardingTextX = 0.65*(fp5.displayWidth);
             // onboardingTextY = 0.35*(fp5.displayHeight*0.9);
 
 
             }
-            if (3 <= timesecs  && timesecs < first_eng)
+            if (2.3 <= timesecs  && timesecs < 2.7)
             {
-                onboardingText = "        After " + first_eng + " seconds, the first \naccount will engage with his tweet. ";
-                onboardingTextX = 0.25*(fp5.displayWidth);
+                onboardingText = "Last time, it took " + first_eng + " seconds for someone to see the tweet.";
 
             }
-            if (7 <= timesecs  && timesecs < 11)
+            if (2.7 <= timesecs  && timesecs < 5)
             {
-                onboardingTextX = 0.41*(fp5.displayWidth);
 
-                onboardingText = "There they go!";
+                onboardingText = "This time, some accounts may not see his tweet because of demotion.";
             }
+            if (5 <= timesecs  && timesecs < 10)
+            {
+
+                onboardingText = "These accounts will be shown in gray";
+            }
+
+            onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;
+
+
 
             if (250 <= timesecs  && timesecs < 630)
             {
                 onboardingText = "At around 18 minutes, this histogram will show\nhow many engagements happened over time.";
-                onboardingTextX = 0.10*(fp5.displayWidth);
                 onboardingTextY = 0.85*(fp5.displayHeight*0.9);
             }
 
@@ -621,7 +628,7 @@ function sketch(fp5) {
                 fp5.rect(this.position.x-10, this.position.y-h, w+20, h+5, 10);
                 fp5.fill(0, 0, 0, this.opacity);
                 fp5.text(categoryMap.get(this.name) + " by @"+nameMap.get(this.name), this.position.x, this.position.y);//fp5.displayWidth/5, 0.39*fp5.displayHeight);
-                this.opacity = this.opacity-5;
+                this.opacity = this.opacity-7.5;
 
             }
 

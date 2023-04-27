@@ -498,7 +498,7 @@ body{
     }
     //ONBOARDING SECTION CSS
     .timeline_padding{
-      height: 20vh;
+      height: 25vh;
       width: 100vw;
       display: flex;
         align-items: center;
@@ -508,7 +508,22 @@ body{
         @media only screen and (max-width: 600px) {
           font-size: 5vmin;
         }
+        margin-left: 15%;
+        margin-right: 15%;
+        
         color: rgb(78, 78, 78);
+        font-size: 2.2vmin;
+        line-height: 3.4vmin;
+        z-index: 10;
+        .timeline_scale_inline{
+          display: inline;
+          height: 4vmin;
+        }
+        .scale_left{
+          display: inline-flex;
+          font-size: 1.5vmin;
+          z-index: 21;
+        }
       }
     }
   
@@ -563,7 +578,7 @@ body{
             .timeline_line{
                 position: absolute;
                 z-index: 0;
-                left: 0;
+                left: 0%;
                 top:0;
                 width: 100%;
                 height: 100%;
@@ -573,7 +588,25 @@ body{
                     display: inline-block;
                     height: 100%;
                 }
+
             }
+            .timeline_line2{
+              position: absolute;
+              z-index: 0;
+              
+              width: 100%;
+              right:  1px;
+              top:0;
+              height: 100%;
+              text-align: center;
+              overflow: hidden;
+
+              
+              svg.line_svg2{
+                display: inline-block;
+                height: 100%;
+            }
+          }
     
             .timeline_blocks{
                 position: absolute;
@@ -596,9 +629,9 @@ body{
                         color: rgb(78, 78, 78);
                         background-color:rgba(255, 255, 255, 0.8);
                         padding: 5px;
-                        font-size: 0.7vw;
+                        font-size: 1.7vmin;
                         .timeline_date{
-                          font-size: 1.2vw;
+                          font-size: 2.1vmin;
                         }
                         
                     }
@@ -614,7 +647,7 @@ body{
 
                     }
                     .timeline_text{
-                      left:50.3%;
+                      left:51%;
                       text-align: left;
                       margin-left: -0vw;
                     }
@@ -628,7 +661,7 @@ body{
                     }
                     .timeline_text{
                       text-align: right;
-                      right: 50.3%;
+                      right: 51%;
                       margin-right: -0vw;
                       
                     }
@@ -646,17 +679,17 @@ body{
                   }
                   .timeline_block:nth-child(5){
                     .timeline_text{
-                      top: 28%;
+                      top: 26%;
                     }
                   }
                   .timeline_block:nth-child(6){
                     .timeline_text{
-                      top: 36%;
+                      top: 39%;
                     }
                   }
                   .timeline_block:nth-child(7){
                     .timeline_text{
-                      top: 43%;
+                      top: 51%;
                     }
                   }
                 
@@ -1482,6 +1515,7 @@ body{
       flex-direction: column;
       background-color: #1DA1F2;
       .algorithm_tweet_container{
+        width: 30vw;
         margin: 5%
       }
       .algorithm_text{

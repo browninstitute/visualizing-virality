@@ -24,8 +24,10 @@ import {SELECTION_SECTION_M} from './sections/selection_section_mobile';
 import { SELECTION_LEADUP } from './sections/selection_leadup';
 import { AppearingText } from './sections/appearingtext';
 import { ONBOARDING_COUNTER } from './sections/onboarding_counter';
+import {TIMELINE_LINE_DASHES} from './sections/timeline_line_dashes'
 
-import timeline_pic from './assets/timeline_scale.png'
+
+import timeline_pic from './assets/timeline_scale_inline.png'
 
 import timeline_profile1 from './assets/timeline_profile1.jpg'
 import timeline_profile2 from './assets/timeline_profile2.jpg'
@@ -167,37 +169,23 @@ function App() {
         <ONBOARDING_BARS />
 
         <div className='timeline_padding'>
-          <div className='padding_text'><font color="#1DA1F2">"Viral"</font> tweet counts in January 2023:</div>
+          <div className='padding_text'> 
+          Here is the distribution of our 3402 <font color="#1DA1F2">"viral"</font> tweets from January 2023 across each day. 
+          Each day's segment is colored according to the number of tweets that fit our definition on the scale: <img className='timeline_scale_inline' src={timeline_pic}/>. 
+          January 18th had the smallest number of tweets <font color="#1DA1F2">(37)</font> tweets, while January 1st had the largest <font color="#1DA1F2">(166)</font>. We also selected a few to highlight!
+          </div>
           
         </div>
         <div className='timeline_sec'>
           <div className='timeline_wrap'>
-            <div className='timeline_scale'>
-            
-            <img src={timeline_pic}></img>
-            </div>
+
             
 
 
 
 
             <div className='parallax_wrap'>
-              <div className='timeline_dashes'>
-                <svg  viewBox="0 0 10 1000" fill="none" >
-                  <line y1="0.725" x2="3" y2="0.725" stroke="#4E4E4E"/>
-                  <line  y1="3.95" x2="3" y2="3.95" stroke="#4E4E4E"/>
-                  <line  y1="7.175" x2="3" y2="7.175" stroke="#4E4E4E"/>
-                  <line  y1="10.4" x2="3" y2="10.4" stroke="#4E4E4E"/>
-                  <line y1="14.725" x2="3" y2="14.725" stroke="#4E4E4E"/>
-                  <line  y1="18.95" x2="3" y2="18.95" stroke="#4E4E4E"/>
-                  <line  y1="21.175" x2="3" y2="21.175" stroke="#4E4E4E"/>
-                  <line  y1="33.4" x2="3" y2="33.4" stroke="#4E4E4E"/>
-                  <line y1="45.725" x2="3" y2="45.725" stroke="#4E4E4E"/>
-                  <line  y1="58.95" x2="3" y2="58.95" stroke="#4E4E4E"/>
-                  <line  y1="61.175" x2="3" y2="61.175" stroke="#4E4E4E"/>
-                  <line  y1="73.4" x2="3" y2="73.4" stroke="#4E4E4E"/>
-                </svg>
-              </div>
+              {/* <TIMELINE_LINE_DASHES /> */}
               <TIMELINE_LINE />
 
               <div className='timeline_blocks'>

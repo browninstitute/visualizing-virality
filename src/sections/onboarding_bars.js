@@ -22,7 +22,7 @@ export function ONBOARDING_BARS(){
         scroll_points.bar_resize3+0.05,
         scroll_points.bar_resize4,
         scroll_points.bar_resize4+0.05,
-      ],["100%","59%","59%","32%","32%","67%"])
+      ],["100%","59%","59%","33%","33%","67%"])
       const bar2_height = useTransform(scrollYProgress,[
         scroll_points.bar_resize2,
         scroll_points.bar_resize2+0.05,
@@ -30,7 +30,7 @@ export function ONBOARDING_BARS(){
         scroll_points.bar_resize3+0.05,
         scroll_points.bar_resize4,
         scroll_points.bar_resize4+0.05, 
-      ],["0%","41%","41%","45%","45%","19%"])
+      ],["0%","41%","41%","38%","38%","19%"])
       const bar3_height = useTransform(scrollYProgress,[
         scroll_points.bar_resize2,
         scroll_points.bar_resize2+0.05,
@@ -38,7 +38,7 @@ export function ONBOARDING_BARS(){
         scroll_points.bar_resize3+0.05,
         scroll_points.bar_resize4,
         scroll_points.bar_resize4+0.05,
-      ],["0%","0%","0%","14%","14%","14%"])
+      ],["0%","0%","0%","21%","21%","14%"])
       const bar4_height = useTransform(scrollYProgress,[
         scroll_points.bar_resize2,
         scroll_points.bar_resize2+0.05,
@@ -143,18 +143,18 @@ export function ONBOARDING_BARS(){
                     <div className='bars_container'>
                     <motion.div className="bar1" style={styles_with_css({height: bar1_height})}>
                     <motion.div className="bar_text" style={styles_with_css({opacity: percents1_opacity})}>&lt; 100,000 likes</motion.div> 
-                    <motion.div className="bar_text" style={styles_with_css({opacity: percents2_opacity})}>59% Non-Viral</motion.div> 
-                    <motion.div className="bar_text" style={styles_with_css({opacity: percents3_opacity})}>32% &gt; 1,000,000</motion.div>
+                    <motion.div className="bar_text" style={styles_with_css({opacity: percents2_opacity})}>59% Viral</motion.div> 
+                    <motion.div className="bar_text" style={styles_with_css({opacity: percents3_opacity})}>33% &gt; 1,000,000</motion.div>
                     <motion.div className="bar_text" style={styles_with_css({opacity: percents4_opacity})}>67% Entertainment</motion.div>
                     </motion.div>
                     <motion.div className="bar2" style={styles_with_css({height: bar2_height})}>
                     <motion.div className="bar_text" style={styles_with_css({opacity: percents2_opacity})}>41% Non-Viral</motion.div> 
-                    <motion.div className="bar_text" style={styles_with_css({opacity: percents3_opacity})}>45% &lt; 1,000,000</motion.div>
+                    <motion.div className="bar_text" style={styles_with_css({opacity: percents3_opacity})}>38% &lt; 1,000,000</motion.div>
                     <motion.div className="bar_text" style={styles_with_css({opacity: percents4_opacity})}>19% Sports</motion.div>
                     </motion.div>
                     <motion.div className="bar3" style={styles_with_css({height: bar3_height})}>
                     <motion.div className="bar_text" style={styles_with_css({opacity: percents2_opacity})}></motion.div> 
-                    <motion.div className="bar_text" style={styles_with_css({opacity: percents3_opacity})}>14% &lt; 100,000</motion.div>
+                    <motion.div className="bar_text" style={styles_with_css({opacity: percents3_opacity})}>21% &lt; 100,000</motion.div>
                     <motion.div className="bar_text" style={styles_with_css({opacity: percents4_opacity})}>14% News</motion.div>
                     </motion.div>
                     <motion.div className="bar4" style={styles_with_css({height: bar4_height})}>  

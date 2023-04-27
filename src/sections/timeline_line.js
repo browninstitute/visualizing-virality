@@ -20,10 +20,13 @@ export function TIMELINE_LINE(){
           <defs>
             <linearGradient id="byDayColor" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor="#660099" stopOpacity="100%" />
-              <stop offset="3.225%" stopColor="#660099" stopOpacity="100%" />
+              <stop offset="3%" stopColor="#660099" stopOpacity="100%" />
+              <stop offset="3.2%" stopColor="#00000" stopOpacity="100%" />
+              <stop offset="3.225%" stopColor="#00000" stopOpacity="100%" />
 
               <stop offset="3.225%" stopColor="#7F69D4" stopOpacity="100%" />
-              <stop offset="6.45%" stopColor="#7F69D4" stopOpacity="100%" />
+              <stop offset="6.195%" stopColor="#7F69D4" stopOpacity="100%" />
+              <stop offset="6.45%" stopColor="#00000" stopOpacity="100%" />
 
               <stop offset="6.45%" stopColor="#660099" stopOpacity="100%" />
               <stop offset="9.675%" stopColor="#660099" stopOpacity="100%" />

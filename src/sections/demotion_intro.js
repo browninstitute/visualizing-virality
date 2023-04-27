@@ -142,7 +142,7 @@ export function DEMOTION_INTRO({UserSelection}){
 
                     <div className="demotion_text_div_sticky">
                         
-                            What would happen if Tom's tweet were <span style={styles_with_css({fontSize:amplify_scale,color:"#1DA1F2"})}>demoted</span>?
+                            What would happen if {UserSelection.username}'s tweet were <span style={styles_with_css({fontSize:amplify_scale,color:"#1DA1F2"})}>demoted</span>?
                             <br/>
                             <br/>
                             <br/>

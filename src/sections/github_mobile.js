@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import {TWEET_SVG_NONAPPEAR} from './tweet_svg_nonappearing';
 import {styles_with_css} from'./motion.ts'
 
-export function GITHUB({UserSelection}){
+export function GITHUB_M({UserSelection}){
 
     const sec_ref = useRef(null);
     const {scrollYProgress} = useScroll({
@@ -169,13 +169,13 @@ export function GITHUB({UserSelection}){
                             
                             <div className="tweet-header-info">
                             <span>{UserSelection.username}</span><span>{UserSelection.date}</span>
-                            
+                            {!isMobile() &&
                             <div className='svg_wrap_name'>
                             <svg viewBox="0 0 112 15" fill="none" >
                                 <motion.path pathLength={svg0_p1} d="M1.59857 12.8735C5.74366 11.63 7.16003 3.89801 11.364 3.14731C14.137 2.65212 16.8527 10.6773 20.9725 10.6773C23.9524 10.6773 26.6798 5.05354 28.6594 3.30418C31.638 0.671874 32.0565 3.96358 34.6206 6.91229C36.7718 9.38617 38.5441 12.1556 41.1701 8.87321C43.4314 6.04659 45.0551 0.502333 48.8961 4.20621C50.2313 5.49371 52.2049 11.6041 54.622 9.18696C56.2467 7.56227 58.4885 0.954408 60.9362 4.16699C62.086 5.67609 63.8919 9.74912 66.3091 9.18696C68.2655 8.732 72.741 3.02762 74.3097 3.85324C78.5912 6.10666 80.6911 13.8574 85.6047 7.579C91.134 0.513789 91.8436 15.932 96.8996 9.89289C99.4556 6.83984 100.819 3.92249 104.116 7.06916C105.826 8.70181 107.89 10.7557 110.312 10.7557" stroke="#0B5684" strokeWidth="3"/>
                             </svg>
                             </div>
-                            
+                            }
                             
 
                             <p>{UserSelection.text}</p>  
@@ -201,40 +201,43 @@ export function GITHUB({UserSelection}){
                             <div className="comments">
                             <svg className="feather feather-message-circle sc-dnqmqq jxshSx" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                             <div className="comment-count">{UserSelection.replies}</div>
-                            <motion.div className='svg_wrap' >
+
+                            {/* {!isMobile() && 
+                            <div className='svg_wrap' >
                             <svg viewBox="0 0 111 31" fill="none" >
-                            <motion.path pathLength={svg1_p1} d="M7.51125 4.01587C14.6997 1.00137 25.0231 2.68458 30.8473 7.81913C36.3915 12.7067 37.3054 25.024 29.6031 28.2441C24.3484 30.4408 17.854 29.0068 12.864 26.8237C9.18708 25.2151 3.05567 22.2817 2.53414 17.656C1.5855 9.24188 10.5767 4.13145 17.2307 1.69165" stroke="#0B5684" strokeWidth="3"/>
+                            <motion.path pathLength={svg1_p1} d="M7.51125 4.01587C14.6997 1.00137 25.0231 2.68458 30.8473 7.81913C36.3915 12.7067 37.3054 25.024 29.6031 28.2441C24.3484 30.4408 17.854 29.0068 12.864 26.8237C9.18708 25.2151 3.05567 22.2817 2.53414 17.656C1.5855 9.24188 10.5767 4.13145 17.2307 1.69165" stroke="#0B5684" strokeWidth="3" />
                             <motion.path pathLength={svg1_p1} d="M46.3891 27.6806C52.3382 27.8327 58.3786 28.1734 64.3254 27.7511C70.14 27.3381 75.9413 26.6973 81.7688 26.4598C90.657 26.0977 99.7586 26.05 108.509 24.3" stroke="#0B5684" strokeWidth="3" />
                             </svg>
-                            </motion.div>
                             </div>
-
-
+                            } */}
+                            
+                            
+                            </div>
                             <div className="retweets">
                             <svg className="feather feather-repeat sc-dnqmqq jxshSx" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
                             <div className="retweet-count">{UserSelection.rts}</div>
-                             
-                            <motion.div className='svg_wrap' >
+                            {/* {!isMobile() && 
+                            <motion.div className='svg_ wrap' >
                             <svg viewBox="0 0 111 31" fill="none" >
                             <motion.path pathLength={svg1_p2} d="M7.51125 4.01587C14.6997 1.00137 25.0231 2.68458 30.8473 7.81913C36.3915 12.7067 37.3054 25.024 29.6031 28.2441C24.3484 30.4408 17.854 29.0068 12.864 26.8237C9.18708 25.2151 3.05567 22.2817 2.53414 17.656C1.5855 9.24188 10.5767 4.13145 17.2307 1.69165" stroke="#0B5684" strokeWidth="3"/>
-                            <motion.path pathLength={svg1_p2} d="M46.3891 27.6806C52.3382 27.8327 58.3786 28.1734 64.3254 27.7511C70.14 27.3381 75.9413 26.6973 81.7688 26.4598C90.657 26.0977 99.7586 26.05 108.509 24.3" stroke="#0B5684" strokeWidth="3" />
+                            <motion.path pathLength={svg1_p2} d="M46.3891 27.6806C52.3382 27.8327 58.3786 28.1734 64.3254 27.7511C70.14 27.3381 75.9413 26.6973 81.7688 26.4598C90.657 26.0977 99.7586 26.05 108.509 24.3" stroke="#0B5684" stroke-width="3" />
                             </svg>
                             </motion.div>
-                            
+                            } */}
                             
                             </div>
 
                             <div className="likes">
                             <svg className="feather feather-heart sc-dnqmqq jxshSx" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                             <div className="likes-count">{UserSelection.likes}</div>
-                            
+                            {/* {!isMobile() &&
                             <motion.div className='svg_wrap' >
                             <svg viewBox="0 0 111 31" fill="none" >
                             <motion.path pathLength={svg1_p3} d="M7.51125 4.01587C14.6997 1.00137 25.0231 2.68458 30.8473 7.81913C36.3915 12.7067 37.3054 25.024 29.6031 28.2441C24.3484 30.4408 17.854 29.0068 12.864 26.8237C9.18708 25.2151 3.05567 22.2817 2.53414 17.656C1.5855 9.24188 10.5767 4.13145 17.2307 1.69165" stroke="#0B5684" strokeWidth="3"/>
                             <motion.path pathLength={svg1_p3} d="M46.3891 27.6806C52.3382 27.8327 58.3786 28.1734 64.3254 27.7511C70.14 27.3381 75.9413 26.6973 81.7688 26.4598C90.657 26.0977 99.7586 26.05 108.509 24.3" stroke="#0B5684" strokeWidth="3" />
                             </svg>
                             </motion.div>
-                           
+                            } */}
                             
                             </div>
                             <div className="message">

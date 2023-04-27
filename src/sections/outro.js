@@ -6,7 +6,7 @@ import black_i from '../assets/black_tweet_pic2.jpg'
 import mccarthy_v from '../assets/mccarthy_tweet_vid.mp4'
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
-
+import {styles_with_css} from'./motion.ts'
 export function OUTRO({UserSelection,SetterUserSelection,ScrollToSelection}){
 
     return (
@@ -53,7 +53,13 @@ export function OUTRO({UserSelection,SetterUserSelection,ScrollToSelection}){
 
             </div>
 
-            
+            <div className="outro_text2"> 
+            Also check out the accompanying
+            <a href='https://knightcolumbia.org/content/understanding-social-media-recommendation-algorithms'>
+            <span style={styles_with_css({color:"#1DA1F2"})}> essay </span> 
+            </a>
+            on the subject.
+            </div>
         </div>
     );
 }

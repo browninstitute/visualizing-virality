@@ -9,7 +9,7 @@ import {styles_with_css} from'./motion.ts'
 import {NETWORK1} from './network_p5/network1';
 import {NETWORK2} from './network_p5/network2';
 import {ALGORITHM} from './algorithm';
-import {GITHUB} from './github';
+import {GITHUB_M} from './github_mobile';
 import {DEMOTION} from './demotion';
 import {DEMOTION_INTRO} from './demotion_intro';
 import {SELECTION_MENU} from './selection_menu';
@@ -24,7 +24,7 @@ import mccarthy_v from '../assets/mccarthy_tweet_vid.mp4'
 import { NETWORK1MOBILE } from './network_p5/network1-mobile';
 
 
-export function SELECTION_SECTION(){
+export function SELECTION_SECTION_M(){
 
     // function preload_data(p5){
         
@@ -163,12 +163,10 @@ export function SELECTION_SECTION(){
             </div>
             
 
-            <NETWORK1 UserSelection={selection} NetworkPause={pauseN1} SetterNetworkPause={updatePauseN1} NetworkReset={resetN1} SetterNetworkReset={updateResetN1} />
-            <GITHUB UserSelection={selection}/>
+            <GITHUB_M UserSelection={selection}/>
             <DEMOTION_INTRO UserSelection={selection}/>
             <DEMOTION UserSelection={selection} UserDemotion={demotion} SetterUserDemotion={setDemotion}  />
-            <NETWORK2 UserSelection={selection} UserDemotion={demotion} NetworkPause={pauseN2} SetterNetworkPause={updatePauseN2} NetworkReset={resetN2} SetterNetworkReset={updateResetN2}/> 
-            <OUTRO UserSelection={selection} SetterUserSelection={updateSelection} ScrollToSelection={executeScroll} />
+             <OUTRO UserSelection={selection} SetterUserSelection={updateSelection} ScrollToSelection={executeScroll} />
         </>
     );
 }

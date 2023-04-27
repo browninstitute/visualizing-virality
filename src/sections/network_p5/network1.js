@@ -169,7 +169,7 @@ function sketch(fp5) {
             }
             if (first_eng+4 <= timesecs  && timesecs < first_eng+9)
             {
-                onboardingText = "Notice that time is passing here logarithmicly.";
+                onboardingText = "Notice that time is passing here logarithmically.";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
             }
@@ -216,7 +216,7 @@ function sketch(fp5) {
 
             fp5.text(onboardingText, onboardingTextX, onboardingTextY);
             fp5.text(retweetSum + " retweets " + likeSum + " likes " + replySum  + " replies",  fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/2.5+ fp5.displayHeight*0.9/12)-upFactor );
-
+            let rectWidth = fp5.textWidth(retweetSum + " retweets " + likeSum + " likes " + replySum  + " replies");
             fp5.textSize((fp5.displayHeight*0.9/60)/load_factor);
             
             fp5.text("Direct followers of " + selection_user.name + " who engaged with tweet", (3/2)*(fp5.displayWidth/20)/load_factor, (1.6*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
@@ -229,7 +229,7 @@ function sketch(fp5) {
             fp5.text(selection_user.username, fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/2.5+1.5*fp5.displayHeight*0.9/40)-upFactor);
             fp5.fill(0,0,0,0);
             fp5.stroke(200,200,200);
-            fp5.rect(fp5.displayWidth/30, (fp5.displayHeight*0.9/2.5)-upFactor, (fp5.displayWidth/3.5), (fp5.displayHeight*0.9/8), 20);
+            fp5.rect(fp5.displayWidth/30, (fp5.displayHeight*0.9/2.5)-upFactor, rectWidth*1.4, (fp5.displayHeight*0.9/8), 20);
             img.resize((fp5.displayWidth/40),(fp5.displayHeight*0.9/24));
             fp5.image(img, fp5.displayWidth/30+(fp5.displayWidth/60), (fp5.displayHeight*0.9/2.5+fp5.displayHeight*0.9/40)-upFactor)
 
@@ -646,7 +646,7 @@ function sketch(fp5) {
                 fp5.rect(this.position.x-10, this.position.y-h, w+20, h+5, 10);
                 fp5.fill(0, 0, 0, this.opacity);
                 fp5.text(categoryMap.get(this.name) + " by @"+nameMap.get(this.name), this.position.x, this.position.y);//fp5.displayWidth/5, 0.39*fp5.displayHeight);
-                this.opacity = this.opacity-5;
+                this.opacity = this.opacity-7.5;
 
             }
             
@@ -747,7 +747,6 @@ function sketch(fp5) {
                 if (fp5.int(parseFloat(nodes_table.getString(r,1))) < first_eng && fp5.int(parseFloat(nodes_table.getString(r,1)))  != 0 )
                 {
                     first_eng = fp5.int(parseFloat(nodes_table.getString(r,1)));
-                    console.log(first_eng);
                 }
                 timeToNode.set(nodes_table.getString(r, 1), nodes_table.getString(r,0));
                 names.push(id);

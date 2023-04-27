@@ -86,7 +86,7 @@ function sketch(fp5) {
     let nodes_table = 0;
     let info_table = 0;
     let key_accounts = 0;
-    let first_eng = 0;
+    let first_eng = 20;
     let table_tb = 0;
     let nodes_table_tb = 0;
     let info_table_tb = 0;
@@ -147,6 +147,7 @@ function sketch(fp5) {
             
             onboardingText = "";
             let onboardingTextX = 0.38*(fp5.displayWidth);
+            let mainX = 0.5*(fp5.displayWidth);
             let onboardingTextY = 0.35*(fp5.displayHeight*0.9);
             if (1.5 < timesecs && timesecs < 3 )
             {
@@ -157,18 +158,36 @@ function sketch(fp5) {
 
 
             }
-            if (3 <= timesecs  && timesecs < first_eng)
+            if (2.5 <= timesecs  && timesecs < first_eng)
             {
-                onboardingText = "        After " + first_eng + " seconds, the first \naccount will engage with his tweet. ";
-                onboardingTextX = 0.25*(fp5.displayWidth);
+                onboardingText = "After " + first_eng + " seconds, the first account will engage with his tweet. ";
 
             }
-            if (7 <= timesecs  && timesecs < 11)
+            if (first_eng <= timesecs  && timesecs < first_eng+4)
             {
-                onboardingTextX = 0.41*(fp5.displayWidth);
 
                 onboardingText = "There they go!";
             }
+
+            
+        if (first_eng+4 <= timesecs  && timesecs < first_eng+9)
+        {
+            onboardingText = "Notice that time is passing here logarithmically.";
+
+        }
+        if (first_eng+9 <= timesecs  && timesecs < first_eng+16)
+        {
+            onboardingText = "That means it will start off slow and then speed up!";
+
+        }
+        if (first_eng+16 <= timesecs  && timesecs < first_eng+30)
+        {
+            onboardingText = "The size of the circles indicates how many followers the account has.";
+
+        }
+        onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
+
+            
 
             if (250 <= timesecs  && timesecs < 630)
             {
@@ -627,7 +646,7 @@ function sketch(fp5) {
                 fp5.rect(this.position.x-10, this.position.y-h, w+20, h+5, 10);
                 fp5.fill(0, 0, 0, this.opacity);
                 fp5.text(categoryMap.get(this.name) + " by @"+nameMap.get(this.name), this.position.x, this.position.y);//fp5.displayWidth/5, 0.39*fp5.displayHeight);
-                this.opacity = this.opacity-5;
+                this.opacity = this.opacity-7.5;
 
             }
 
@@ -706,6 +725,10 @@ function sketch(fp5) {
                 map1.set(id, new Neuron(mainX+fp5.cos(angle)*distance, mainY+fp5.sin(angle)*distance, id, true, defaultradius, time, "other"));
                 }
                 timeMap.set(nodes_table.getString(r, 0), nodes_table.getString(r,1));
+                if (fp5.int(parseFloat(nodes_table.getString(r,1))) < first_eng && fp5.int(parseFloat(nodes_table.getString(r,1)))  != 0 )
+                {
+                    first_eng = fp5.int(parseFloat(nodes_table.getString(r,1)));
+                }
                 timeToNode.set(nodes_table.getString(r, 1), nodes_table.getString(r,0));
                 names.push(id);
 

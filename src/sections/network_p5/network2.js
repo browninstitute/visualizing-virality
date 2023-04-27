@@ -655,7 +655,6 @@ function sketch(fp5) {
             fp5.scale(0.25);
             let defaultradius = (fp5.displayHeight*0.9/20)/load_factor;
             let timescale = 30;
-            canvas_second2 = null
             canvas_second2 = fp5.createCanvas(fp5.displayWidth,fp5.displayHeight*0.9);
 
     

@@ -7,24 +7,17 @@ import { motion, useScroll, useSpring, useTransform, useMotionValue, useAnimatio
 import {cosmos_config, cosmos_links, cosmos_nodes} from './sections/cosmos';
 // import bg_vid from './assets/networkbg1.mp4';
 import {useInView} from 'react-intersection-observer';
-import {selection_network} from './sections/selection';
 import {styles_with_css} from'./sections/motion.ts';
 import {ONBOARDING_INTRO} from './sections/onboarding_bootstrap';
 import {ONBOARDING_BARS} from './sections/onboarding_bars'
-import { ONBOARDING_METHODOLOGY } from './sections/onboard_methodology';
-import {TWEET_SVG} from './sections/tweet_svg';
 import { TIMELINE_BLOCK } from './sections/timeline_block';
 import { TIMELINE_LINE } from './sections/timeline_line';
 import brown_logo from './assets/Brown_logo_FULL.png';
 import kfai_logo from './assets/kfai-full_lockup-rgb-updated.png';
-import {NETWORK1} from './sections/network/network1';
-import {PHONE1} from './sections/phone1';
 import {SELECTION_SECTION} from './sections/selection_section';
 import {SELECTION_SECTION_M} from './sections/selection_section_mobile';
-import { SELECTION_LEADUP } from './sections/selection_leadup';
 import { AppearingText } from './sections/appearingtext';
 import { ONBOARDING_COUNTER } from './sections/onboarding_counter';
-import {TIMELINE_LINE_DASHES} from './sections/timeline_line_dashes'
 
 
 import timeline_pic from './assets/timeline_scale_inline.png'

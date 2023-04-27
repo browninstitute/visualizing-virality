@@ -1,18 +1,7 @@
 import { P5CanvasInstance, ReactP5Wrapper, SketchProps} from 'react-p5-wrapper';
-// import sketch from './sketchv2.js';
-import t1 from './links_tb.csv';
-import t2 from './nodes_tb.csv';
-import t3 from './users_tb.csv';
-import b1 from './links_black.csv';
-import b2 from './nodes_black.csv';
-import b3 from './users_black.csv';
-import m1 from './links_mccarthy.csv';
-import m2 from './nodes_mccarthy.csv';
-import m3 from './users_mccarthy.csv';
 import brady_p from '../../assets/brady_profile.jpg';
 import { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { AnimatePresence, motion } from "framer-motion";
 
 function sketch(fp5) {
     let selection_user = {
@@ -28,33 +17,30 @@ function sketch(fp5) {
         t_image: null,
         t_vid: null,
     };
+
     let canvas_second;
-    var network;
-    const map1 = new Map();
-    const timeMap = new Map();
-    const timeToNode = new Map();
-    const nameMap = new Map();
-    const followerMap = new Map();
-    const parentMap = new Map();
-    const hopMap = new Map();
-    const finalTimeMap = new Map();
-    const categoryMap = new Map();
-    const infoToLoadMap = new Map();
+    let network;
+    var map1 = new Map();
+    let timeMap;
+    let timeToNode;
+    let nameMap;
+    let followerMap;
+    let parentMap;
+    let hopMap;
+    let finalTimeMap;
+    let categoryMap;
     let kevinFactor = 1;
-    let upFactor = fp5.displayHeight/4;
-    var names = [];
+    let upFactor = fp5.displayHeight / 4;
+    let names = [];
     let img = "";
-    var startpoint = 0;
-    var newNode;
+    let startpoint = 0;
+    let newNode;
     //pause value
     let pause = true;
     let adjFrame = -1;
-    let onboardingText="";
+    let onboardingText = "";
     let timesecs = 0;
-    let popsound;
-    let firstClick = true;
     //tweetset input values
-    let tweetSet = 'BRADY';
     let demotionVal = 0;
     let demotionDen = 10;
     let yAxisMax = 3000;
@@ -65,12 +51,11 @@ function sketch(fp5) {
     const max_bar_height = 1000;
     const load_factor = 1;
 
-
     let retweetSum = 0;
     let replySum = 0;
     let likeSum = 0;
 
-    let veryfirstguy ="";
+    let veryfirstguy = "";
     let end_time = 0;
     let bar_times = 0;
     const num_bars = 150;
@@ -82,40 +67,13 @@ function sketch(fp5) {
     let table = 0;
     let nodes_table = 0;
     let info_table = 0;
-    let key_accounts = 0;
     let first_eng = 20;
-    let table_tb = 0;
-    let nodes_table_tb = 0;
-    let info_table_tb = 0;
-    let key_accounts_tb = 0; //this is defined manually here
-    let table_b = 0;
-    let nodes_table_b = 0;
-    let info_table_b = 0;
-    let key_accounts_b = 0; //this is defined manually here
-    let table_mc = 0;
-    let nodes_table_mc = 0;
-    let info_table_mc = 0;
-    let key_accounts_mc = 0; //this is defined manually here
-    let heart="";
-    let quote="";
-    let retweet="";
-    
+    let onboardingTextData = [];
+    let defaultradius = (fp5.displayHeight * 0.9) / 20 / load_factor;
 
     let user_on_network = false;
-
-    let cur_bar = 0
+    let cur_bar = 0;
     fp5.preload = () => {
-        table_tb = fp5.loadTable(t1, 'csv', 'header');
-        nodes_table_tb = fp5.loadTable(t2, 'csv', 'header');
-        info_table_tb = fp5.loadTable(t3, 'csv', 'header');
-
-        table_b = fp5.loadTable(b1, 'csv', 'header');
-        nodes_table_b = fp5.loadTable(b2, 'csv', 'header');
-        info_table_b = fp5.loadTable(b3, 'csv', 'header');
-
-        table_mc = fp5.loadTable(m1, 'csv', 'header');
-        nodes_table_mc = fp5.loadTable(m2, 'csv', 'header');
-        info_table_mc = fp5.loadTable(m3, 'csv', 'header');  
         
         img = fp5.loadImage("https://upload.wikimedia.org/wikipedia/sco/thumb/9/9f/Twitter_bird_logo_2012.svg/1200px-Twitter_bird_logo_2012.svg.png");
 
@@ -235,9 +193,9 @@ function sketch(fp5) {
 
 
         
-            //text("Adjust Demotion", (displayWidth/30)/load_factor, (2*displayHeight*0.9/10)/load_factor);
+            //text("Adjust Demotion", (fp5.displayWidth/30)/load_factor, (2*fp5.displayHeight*0.9/10)/load_factor);
         
-            // text("Reset [SPACE]", (displayWidth/30)/load_factor, (3*displayHeight*0.9/10)/load_factor);
+            // text("Reset [SPACE]", (fp5.displayWidth/30)/load_factor, (3*fp5.displayHeight*0.9/10)/load_factor);
         
             makeKey();
         
@@ -673,292 +631,260 @@ function sketch(fp5) {
 
     function restartNetwork()
         {
-            console.log('restarting')
-            fp5.scale(0.25);
-            let defaultradius = (fp5.displayHeight*0.9/20)/load_factor;
-            let timescale = 30;
-            canvas_second = null
-            canvas_second = fp5.createCanvas(fp5.displayWidth,fp5.displayHeight*0.9);
+            console.log("Restarting: Initial");
 
-    
-            let lastName = table.getString(1,0);
+            if (!canvas_second) {
+            canvas_second = fp5.createCanvas(fp5.displayWidth, fp5.displayHeight * 0.9);
+            canvas_second.id("network_initial_canvas");
+            }
+
+            if (!nodes_table.length) {
+            return;
+            }
+
+            onboardingTextData = [
+            {
+                text:
+                "Direct followers of " +
+                selection_user.name +
+                " who engaged with tweet",
+                x: ((3 / 2) * (fp5.displayWidth / 20)) / load_factor,
+                y: (1.6 * fp5.displayHeight * 0.9) / 10 / load_factor + upFactor / 2,
+            },
+            {
+                text: "2nd degree of separation from " + selection_user.name,
+                x: ((3 / 2) * (fp5.displayWidth / 20)) / load_factor,
+                y: (2 * fp5.displayHeight * 0.9) / 10 / load_factor + upFactor / 2,
+            },
+            {
+                text: "3rd degree of separation from " + selection_user.name,
+                x: ((3 / 2) * (fp5.displayWidth / 20)) / load_factor,
+                y: (2.4 * fp5.displayHeight * 0.9) / 10 / load_factor + upFactor / 2,
+            },
+            {
+                text: "Time",
+                x: ((3 / 2) * (fp5.displayWidth / 20)) / load_factor,
+                y: (9.3 * fp5.displayHeight * 0.9) / 10 / load_factor,
+            },
+            {
+                text: "Number of Engagements",
+                x: (1.3 * (fp5.displayWidth / 30)) / load_factor,
+                y: (6.4 * fp5.displayHeight * 0.9) / 10 / load_factor,
+            },
+            {
+                text: selection_user.username,
+                x: fp5.displayWidth / 30 + fp5.displayWidth / 60 + fp5.displayWidth / 30,
+                y:
+                (fp5.displayHeight * 0.9) / 2.5 +
+                (1.5 * fp5.displayHeight * 0.9) / 40 -
+                upFactor,
+            },
+            ];
+            map1 = null;
+            map1 = new Map();
             network = new Network(0, 0);
-            let mainName = table.getString(0,1);
-            let minTime = 10000000;
-            let mainX = 1.4*(fp5.displayWidth/2)/load_factor;
-            let mainY = (fp5.displayHeight*0.9/2)/load_factor;
-            veryfirstguy = nodes_table.getString(0, 0);
-       
 
-            newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius*4);
+            let mainX = (1.4 * (fp5.displayWidth / 2)) / load_factor;
+            let mainY = (fp5.displayHeight * 0.9) / 2 / load_factor;
+            veryfirstguy = nodes_table[0].id;
+
+            newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius * 4);
             map1.set(veryfirstguy, newNode);
-            //console.log("FIRST ENGAGMENT" + first_eng);
-    
-            followerMap.clear();
-            nameMap.clear();
-            finalTimeMap.clear();
-            hopMap.clear();
-            timeMap.clear();
-            parentMap.clear();
-            timeToNode.clear();
-            categoryMap.clear();
+
             retweetSum = 0;
             likeSum = 0;
             replySum = 0;
             cur_bar = 0;
-            adjFrame = -1;
+
             hist_heights_blue.fill(0);
             hist_heights_pink.fill(0);
-            hist_heights_grey.fill(0);    
+            hist_heights_grey.fill(0);
 
-
-            for (let r = 0; r < info_table.getRowCount(); r++)
-            {
-                followerMap.set(info_table.getString(r, 0), info_table.getString(r,1));
-                nameMap.set(info_table.getString(r, 0), info_table.getString(r,2));
-                finalTimeMap.set(info_table.getString(r,0), info_table.getString(r,4));
-                hopMap.set(info_table.getString(r,0), fp5.int(info_table.getString(r,5)));
-            }
-            for (let r = 0; r < table.getRowCount(); r++)
-            {
-                let id = table.getString(r,0);
-                let parent = table.getString(r,1);
-                parentMap.set(id, parent);
-            }
             end_time = 0;
-            for (let r = 0; r < nodes_table.getRowCount(); r++)
-            {
-                let id = nodes_table.getString(r,0);
-                let time = fp5.int(parseFloat(nodes_table.getString(r,1)));
-                if (time <  153442)
-                {
+            for (let r = 0; r < nodes_table.length; r++) {
+            let type = nodes_table[r].type;
+            let id = nodes_table[r].id;
+            let time = fp5.int(parseFloat(nodes_table[r].time));
+            if (time < 153442) {
                 let angle = fp5.random(0, fp5.TWO_PI);
-                let distance = fp5.random(40,fp5.displayHeight*0.9/2)/load_factor;
-                categoryMap.set(id, nodes_table.getString(r,2));
-                if (parentMap.get(id) == veryfirstguy)
-                {
-                map1.set(id, new Neuron(mainX+fp5.cos(angle)*distance, mainY+fp5.sin(angle)*distance, id, true, defaultradius, time, "second"));
+                let distance = fp5.random(40, (fp5.displayHeight * 0.9) / 2) / load_factor;
+                if (parentMap.get(id) === veryfirstguy) {
+                map1.set(
+                    id,
+                    new Neuron(
+                    mainX + Math.cos(angle) * distance,
+                    mainY + Math.sin(angle) * distance,
+                    id,
+                    true,
+                    defaultradius,
+                    time,
+                    "second"
+                    )
+                );
+                } else if (parentMap.get(id) !== veryfirstguy) {
+                map1.set(
+                    id,
+                    new Neuron(
+                    mainX + Math.cos(angle) * distance,
+                    mainY + Math.sin(angle) * distance,
+                    id,
+                    true,
+                    defaultradius,
+                    time,
+                    "other"
+                    )
+                );
                 }
-                else if (parentMap.get(id)!=veryfirstguy)
-                {
-                map1.set(id, new Neuron(mainX+fp5.cos(angle)*distance, mainY+fp5.sin(angle)*distance, id, true, defaultradius, time, "other"));
-                }
-                timeMap.set(nodes_table.getString(r, 0), nodes_table.getString(r,1));
-                if (fp5.int(parseFloat(nodes_table.getString(r,1))) < first_eng && fp5.int(parseFloat(nodes_table.getString(r,1)))  != 0 )
-                {
-                    first_eng = fp5.int(parseFloat(nodes_table.getString(r,1)));
-                }
-                timeToNode.set(nodes_table.getString(r, 1), nodes_table.getString(r,0));
-                names.push(id);
 
-                let n_time = fp5.int(parseFloat(nodes_table.getString(r,1)))
-                if (end_time < n_time){
-                    end_time  = n_time
+                if (parseInt(time) < first_eng && parseInt(type) !== 0) {
+                first_eng = parseInt(time);
                 }
-               }
+
+                let n_time = parseInt(time);
+                if (end_time < n_time) {
+                end_time = n_time;
+                }
             }
-            bar_times = fp5.int( end_time/num_bars )
-            hist_times = Array.from({ length: num_bars}, (_, i) => bar_times + (i * bar_times))
-    
-            map1.set(veryfirstguy, new Neuron(mainX, mainY, veryfirstguy, true, defaultradius, timeMap.get(veryfirstguy), "first"));
-            for (let r = table.getRowCount()-1; r >=0; r--)
-            {
-            network.connect(map1.get(table.getString(r,1)), map1.get(table.getString(r,0)), 2);
             }
-            for (let i = 0; i < names.length; i++)
-            {
-                network.addNeuron(map1.get(names[i]));
+
+            map1.set(
+            veryfirstguy,
+            new Neuron(
+                mainX,
+                mainY,
+                veryfirstguy,
+                true,
+                defaultradius,
+                timeMap.get(veryfirstguy),
+                "first"
+            )
+            );
+
+            for (let r = table.length - 1; r >= 0; r--) {
+            network.connect(map1.get(table[r].Source), map1.get(table[r].Target), 2);
             }
-    
-            //network.displayConnections();
+            for (let i = 0; i < names.length; i++) {
+            network.addNeuron(map1.get(names[i]));
+            }
+
+            timesecs = 0;
+            adjFrame = -1;
             network.display();
-    
-            names = [];
-            console.log('finished restarting')  
+
+            console.log("Finished: Initial");
     
     }
 
     fp5.updateWithProps = props => {
-        console.log(props)
-        console.log(selection_user)
-        if (props.selection_user && props.selection_user.username != selection_user.username) {
-            if (canvas_second){
-                Object.assign(selection_user, props.selection_user);
-                console.log(selection_user)
-                switch (props.selection_user.username){
-                    case "@TomBrady":
-                        table=table_tb;
-                        nodes_table=nodes_table_tb;
-                        info_table=info_table_tb;
-                        kevinFactor = 1;
-                        yAxisMax = 3000;
-                        break;
-                    case "@6lack":
-                        table=table_b;
-                        nodes_table=nodes_table_b;
-                        info_table=info_table_b;
-                        kevinFactor = 1;
-                        yAxisMax = 3000;
-                        break;
-                    case "@SpeakerMcCarthy":
-                        table=table_mc;
-                        nodes_table=nodes_table_mc;
-                        info_table=info_table_mc;
-                        kevinFactor = 3;
-                        yAxisMax = 7000;
-                        break;
-                }
-
-                restartNetwork();
-                props.network_reset_set(false);
-                props.network_pause_set(false);
+        if (!table && props.table.length) {
+            table = props.table;
+            //   info_table = props.info_table;
+            nodes_table = props.nodes_table;
+            ({
+              timeMap,
+              names,
+              timeToNode,
+              parentMap,
+              followerMap,
+              nameMap,
+              finalTimeMap,
+              hopMap,
+              categoryMap,
+              hist_times,
+              bar_times,
+            } = props.maps);
+          } else if (
+            props.selection_user &&
+            props.selection_user.username !== selection_user.username &&
+            props.table.length
+          ) {
+            if (canvas_second) {
+              table = props.table;
+              info_table = props.info_table;
+              nodes_table = props.nodes_table;
+              ({
+                timeMap,
+                timeToNode,
+                parentMap,
+                followerMap,
+                nameMap,
+                finalTimeMap,
+                hopMap,
+                categoryMap,
+                hist_times,
+                bar_times,
+              } = props.maps);
+      
+              selection_user = props.selection_user;
+              let username = props.selection_user.username;
+      
+              restartNetwork();
+              props.network_reset_set(false);
+              props.network_pause_set(false);
+              switch (username) {
+                case "@TomBrady":
+                  kevinFactor = 1;
+                  yAxisMax = 3000;
+      
+                  break;
+                case "@6lack":
+                  kevinFactor = 1;
+                  yAxisMax = 3000;
+                  break;
+                case "@SpeakerMcCarthy":
+                  kevinFactor = 3;
+                  yAxisMax = 7000;
+                  break;
+                default:
+                  break;
+              }
             }
-        }
-
-        if (props.network_reset) {
-            if (canvas_second){
-                restartNetwork();
-                props.network_reset_set(false);
-                props.network_pause_set(false);
+          }
+      
+          if (props.network_reset) {
+            if (canvas_second) {
+              restartNetwork();
+              props.network_reset_set(false);
+              props.network_pause_set(false);
             }
-        }
-
-        if (props.network_pause != pause) {
-            if (canvas_second){
-                pause = props.network_pause;                
+          }
+      
+          if (props.network_pause !== pause) {
+            if (canvas_second) {
+              pause = props.network_pause;
             }
-        }
-
-    
-        if (canvas_second){
-
-                user_on_network = props.network_visible;
-               
-                
-            }         
-
+          }
+      
+          if (canvas_second) {
+            user_on_network = props.network_visible;
+          }
         
     };
     fp5.setup = () => {
-
-        table=table_tb;
-        nodes_table=nodes_table_tb;
-        info_table=info_table_tb;
-
-
-
-        histogram_x = (fp5.displayWidth/30)/load_factor;
-        histogram_y = (8*fp5.displayHeight*0.9/10)/load_factor;
-        histogram_width = (8*fp5.displayWidth/30)/load_factor;
-        histogram_height = (1*fp5.displayHeight*0.9/10)/load_factor;
-
-        console.log('restarting')
+        console.log("Setting up: Initial");
         fp5.scale(0.25);
-        let defaultradius = (fp5.displayHeight*0.9/20)/load_factor;
-        let timescale = 30;
-        canvas_second = fp5.createCanvas(fp5.displayWidth,fp5.displayHeight*0.9);
-
-
-        let lastName = table.getString(1,0);
-        network = new Network(0, 0);
-        let mainName = table.getString(0,1);
-        let minTime = 10000000;
-        let mainX = 1.4*(fp5.displayWidth/2)/load_factor;
-        let mainY = (fp5.displayHeight*0.9/2)/load_factor;
-        veryfirstguy = nodes_table.getString(0, 0);
+        histogram_x = fp5.displayWidth / 30 / load_factor;
+        histogram_y = (8 * fp5.displayHeight * 0.9) / 10 / load_factor;
+        histogram_width = (8 * fp5.displayWidth) / 30 / load_factor;
+        histogram_height = (1 * fp5.displayHeight * 0.9) / 10 / load_factor;
+        restartNetwork();
+    };
     
-
-        newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius*4);
-        map1.set(veryfirstguy, newNode);
-        //console.log("FIRST ENGAGMENT" + first_eng);
-
-        followerMap.clear();
-        nameMap.clear();
-        finalTimeMap.clear();
-        hopMap.clear();
-        timeMap.clear();
-        parentMap.clear();
-        timeToNode.clear();
-        categoryMap.clear();
-        retweetSum = 0;
-        likeSum = 0;
-        replySum = 0;
-        cur_bar = 0;
-        adjFrame = -1;
-        hist_heights_blue.fill(0);
-        hist_heights_pink.fill(0);
-        hist_heights_grey.fill(0);    
-
-
-        for (let r = 0; r < info_table.getRowCount(); r++)
-        {
-            followerMap.set(info_table.getString(r, 0), info_table.getString(r,1));
-            nameMap.set(info_table.getString(r, 0), info_table.getString(r,2));
-            finalTimeMap.set(info_table.getString(r,0), info_table.getString(r,4));
-            hopMap.set(info_table.getString(r,0), fp5.int(info_table.getString(r,5)));
-        }
-        for (let r = 0; r < table.getRowCount(); r++)
-        {
-            let id = table.getString(r,0);
-            let parent = table.getString(r,1);
-            parentMap.set(id, parent);
-        }
-        end_time = 0;
-        for (let r = 0; r < nodes_table.getRowCount(); r++)
-        {
-            let id = nodes_table.getString(r,0);
-            let time = fp5.int(parseFloat(nodes_table.getString(r,1)));
-            if (time <  153442)
-            {
-            let angle = fp5.random(0, fp5.TWO_PI);
-            let distance = fp5.random(40,fp5.displayHeight*0.9/2)/load_factor;
-            categoryMap.set(id, nodes_table.getString(r,2));
-            if (parentMap.get(id) == veryfirstguy)
-            {
-            map1.set(id, new Neuron(mainX+fp5.cos(angle)*distance, mainY+fp5.sin(angle)*distance, id, true, defaultradius, time, "second"));
-            }
-            else if (parentMap.get(id)!=veryfirstguy)
-            {
-            map1.set(id, new Neuron(mainX+fp5.cos(angle)*distance, mainY+fp5.sin(angle)*distance, id, true, defaultradius, time, "other"));
-            }
-            timeMap.set(nodes_table.getString(r, 0), nodes_table.getString(r,1));
-            if (fp5.int(parseFloat(nodes_table.getString(r,1))) < first_eng && fp5.int(parseFloat(nodes_table.getString(r,1)))  != 0 )
-            {
-                first_eng = fp5.int(parseFloat(nodes_table.getString(r,1)));
-            }
-            timeToNode.set(nodes_table.getString(r, 1), nodes_table.getString(r,0));
-            names.push(id);
-
-            let n_time = fp5.int(parseFloat(nodes_table.getString(r,1)))
-            if (end_time < n_time){
-                end_time  = n_time
-            }
-            }
-        }
-        bar_times = fp5.int( end_time/num_bars )
-        hist_times = Array.from({ length: num_bars}, (_, i) => bar_times + (i * bar_times))
-
-        map1.set(veryfirstguy, new Neuron(mainX, mainY, veryfirstguy, true, defaultradius, timeMap.get(veryfirstguy), "first"));
-        for (let r = table.getRowCount()-1; r >=0; r--)
-        {
-        network.connect(map1.get(table.getString(r,1)), map1.get(table.getString(r,0)), 2);
-        }
-        for (let i = 0; i < names.length; i++)
-        {
-            network.addNeuron(map1.get(names[i]));
-        }
-
-        //network.displayConnections();
-        network.display();
-
-        names = [];
-        console.log('finished restarting')  
-    }
 
 
 }
 
-export function NETWORK1({UserSelection, NetworkPause, SetterNetworkPause, NetworkReset, SetterNetworkReset }){
+export function NETWORK1({
+    UserSelection,
+    NetworkPause,
+    SetterNetworkPause,
+    NetworkReset,
+    SetterNetworkReset,
+    table,
+    nodes_table,
+    info_table,
+    maps,
+    }){
 
     const [isVisible, setIsVisible] = useState(false);
     const { ref, inView } = useInView({amount:0});
@@ -975,9 +901,11 @@ export function NETWORK1({UserSelection, NetworkPause, SetterNetworkPause, Netwo
 
         
       }, [inView]);
+
+
   return(
     <>
-    <div className="network_section" id="network_demotion" 
+    <div className="network_section" id="network_nondemotion" 
 >
     <div className="play_pause_con container">
     <div className="row demotionText">   
@@ -995,7 +923,9 @@ export function NETWORK1({UserSelection, NetworkPause, SetterNetworkPause, Netwo
     </div>
     </div>
       <div className='sketch_sec' ref={ref}>
-        <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}  network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset}  network_visible={isVisible} ></ReactP5Wrapper>
+        <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}  network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset}  network_visible={isVisible} table={table}
+            nodes_table={nodes_table}
+            maps={maps} ></ReactP5Wrapper>
     </div>
     </div>
     </>

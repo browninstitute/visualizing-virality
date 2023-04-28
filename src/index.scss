@@ -585,6 +585,7 @@ body{
     .timeline_wrap{
         height: 245vh;           
         width: 100vw;
+        overflow-x: hidden;
         .timeline_scale{
           position: absolute;
 
@@ -1278,6 +1279,7 @@ body{
       inset: 0;
       height: 250vh;
       width: 100vw;
+      overflow-x: hidden;
       position: relative;
       @media only screen and (max-width: 961px) {
         height: 250vh;

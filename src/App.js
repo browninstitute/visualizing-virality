@@ -202,12 +202,8 @@ function App() {
           
         </div>
      
-        {!isMobile() &&
         <SELECTION_SECTION />
-        }
-        {isMobile() &&
-        <SELECTION_SECTION_M />
-        }
+        
         
 
 

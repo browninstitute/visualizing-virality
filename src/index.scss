@@ -780,12 +780,19 @@ body{
       justify-content: center;
       inset: 0;
       position: relative;
+      .network_bg{
+        height: 1%;
+        width: 1%;
+      }
       .play_pause_con{
-        position: absolute;
+        z-index: 122;
+
+
       }
       .sketch_sec{
-        height: 100%;
-        width: 100%;
+        height: 100vh;
+        width: 100vw;
+        position: absolute;
         .react-p5-wrapper{
           width: 100%;
           height: 100%;
@@ -797,8 +804,6 @@ body{
             object-fit: contain;
             max-height: 100%;
             max-width: 100%;
-            width: 1920px;
-            height: 1080px;
 
           }
         }
@@ -1279,7 +1284,6 @@ body{
       inset: 0;
       height: 250vh;
       width: 100vw;
-      overflow-x: hidden;
       position: relative;
       @media only screen and (max-width: 961px) {
         height: 250vh;
@@ -1425,7 +1429,7 @@ body{
     }
     .demotion_section{
       
-      height: 140vh;
+      height: 100vh;
       width: 100vw;
       position: relative;
       @media only screen and (max-width: 961px) {
@@ -1683,6 +1687,7 @@ body{
         display: flex;
         align-items: center;
         justify-content: center;
+        overflow-y: hidden;
         .carousel-root{
           width: 100%;
           height: 100%;

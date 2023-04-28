@@ -13,6 +13,7 @@ export function TWEET_SVG_NONAPPEAR({username,text,image,date,likes,rts,replies,
     const isInView = useInView(ref, { once: false });
     image = image? image: "https://pbs.twimg.com/profile_images/1609416420076535808/4BwbURyI_400x400.jpg";
     return(
+      
       <a  href={t_link}>
       <motion.div className="tweet-wrap" ref={ref} >
           <div className="tweet-header">

@@ -63,14 +63,14 @@ function sketch(fp5) {
     let hist_heights_blue = new Array(num_bars).fill(0);
     let hist_heights_pink = new Array(num_bars).fill(0);
     let hist_heights_grey = new Array(num_bars).fill(0);
-
+    let setter_initial = false;
     let table = 0;
     let nodes_table = 0;
     let info_table = 0;
     let first_eng = 20;
     let onboardingTextData = [];
     let defaultradius = (fp5.displayHeight * 0.9) / 20 / load_factor;
-
+    let following_reset = false;
     let user_on_network = false;
     let cur_bar = 0;
     fp5.preload = () => {
@@ -87,9 +87,12 @@ function sketch(fp5) {
 
     
     fp5.draw = () => {
-        if (user_on_network){
-           // console.log(user_on_network)
+
+        console.log(user_on_network)
+        if (user_on_network ){
             fp5.background(255);
+            fp5.fill(255);
+            fp5.rect(0,0, fp5.displayWidth, fp5.displayHeight);
         
             let timescale = 120;
             
@@ -177,7 +180,7 @@ function sketch(fp5) {
             let rectWidth = fp5.textWidth(retweetSum + " retweets " + likeSum + " likes " + replySum  + " replies");
             fp5.textSize((fp5.displayHeight*0.9/60)/load_factor);
             
-            fp5.text("Direct followers of " + selection_user.name + " who engaged with tweet", (3/2)*(fp5.displayWidth/20)/load_factor, (1.6*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
+            fp5.text("Direct followers of " + selection_user.name + " who engaged with the tweet", (3/2)*(fp5.displayWidth/20)/load_factor, (1.6*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("2nd degree of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (2*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("3rd degree of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (2.4*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             //fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.displayWidth/20)/load_factor, (2.8*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
@@ -193,9 +196,9 @@ function sketch(fp5) {
 
 
         
-            //text("Adjust Demotion", (fp5.displayWidth/30)/load_factor, (2*fp5.displayHeight*0.9/10)/load_factor);
+            //text("Adjust Demotion", (displayWidth/30)/load_factor, (2*displayHeight*0.9/10)/load_factor);
         
-            // text("Reset [SPACE]", (fp5.displayWidth/30)/load_factor, (3*fp5.displayHeight*0.9/10)/load_factor);
+            // text("Reset [SPACE]", (displayWidth/30)/load_factor, (3*displayHeight*0.9/10)/load_factor);
         
             makeKey();
         
@@ -645,9 +648,7 @@ function sketch(fp5) {
             onboardingTextData = [
             {
                 text:
-                "Direct followers of " +
-                selection_user.name +
-                " who engaged with tweet",
+                "Direct followers of " + selection_user.name + " and unknown distance engagers",
                 x: ((3 / 2) * (fp5.displayWidth / 20)) / load_factor,
                 y: (1.6 * fp5.displayHeight * 0.9) / 10 / load_factor + upFactor / 2,
             },
@@ -776,6 +777,10 @@ function sketch(fp5) {
     }
 
     fp5.updateWithProps = props => {
+        if (!setter_initial && props.visible_reset){
+            setter_initial = props.visible_reset
+        }
+
         if (!table && props.table.length) {
             table = props.table;
             //   info_table = props.info_table;
@@ -793,11 +798,15 @@ function sketch(fp5) {
               hist_times,
               bar_times,
             } = props.maps);
+            selection_user = props.selection_user;
+            props.setter_initial(false)
           } else if (
             props.selection_user &&
-            props.selection_user.username !== selection_user.username &&
+            props.selection_user.username != selection_user.username &&
             props.table.length
           ) {
+            console.log(selection_user)
+            console.log(props.selection_user)
             if (canvas_second) {
               table = props.table;
               info_table = props.info_table;
@@ -817,7 +826,7 @@ function sketch(fp5) {
       
               selection_user = props.selection_user;
               let username = props.selection_user.username;
-      
+              props.setter_initial(true)
               restartNetwork();
               props.network_reset_set(false);
               props.network_pause_set(false);
@@ -842,7 +851,9 @@ function sketch(fp5) {
           }
       
           if (props.network_reset) {
+            
             if (canvas_second) {
+              props.setter_initial(true)
               restartNetwork();
               props.network_reset_set(false);
               props.network_pause_set(false);
@@ -857,6 +868,7 @@ function sketch(fp5) {
       
           if (canvas_second) {
             user_on_network = props.network_visible;
+
           }
         
     };
@@ -867,6 +879,9 @@ function sketch(fp5) {
         histogram_y = (8 * fp5.displayHeight * 0.9) / 10 / load_factor;
         histogram_width = (8 * fp5.displayWidth) / 30 / load_factor;
         histogram_height = (1 * fp5.displayHeight * 0.9) / 10 / load_factor;
+        if (setter_initial){
+            setter_initial(true);
+        }
         restartNetwork();
     };
     
@@ -884,10 +899,17 @@ export function NETWORK1({
     nodes_table,
     info_table,
     maps,
+    loading_currently,
+    onNetwork1,
+    setOnNetwork1
     }){
 
     const [isVisible, setIsVisible] = useState(false);
+    const [initial, setInitial] = useState(true);
     const { ref, inView } = useInView({amount:0});
+    const visible_reset = (val) => {
+        setIsVisible(val)
+    }
 
     useEffect(() => {
         if (inView) {
@@ -905,8 +927,8 @@ export function NETWORK1({
 
   return(
     <>
-    <div className="network_section" id="network_nondemotion" 
->
+    <div className="network_section" id="network_nondemotion" ref={ref}>
+
     <div className="play_pause_con container">
     <div className="row demotionText">   
         <div className="col-1 demo_but_sec">
@@ -922,10 +944,14 @@ export function NETWORK1({
         <div className="col-10"></div>
     </div>
     </div>
-      <div className='sketch_sec' ref={ref}>
+      <div className='sketch_sec' >
+
+      
         <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}  network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset}  network_visible={isVisible} table={table}
             nodes_table={nodes_table}
-            maps={maps} ></ReactP5Wrapper>
+            maps={maps} loading={loading_currently} setter_initial={visible_reset} ></ReactP5Wrapper>
+      
+        
     </div>
     </div>
     </>

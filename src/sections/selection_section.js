@@ -15,7 +15,8 @@ import {DEMOTION_INTRO} from './demotion_intro';
 import {SELECTION_MENU} from './selection_menu';
 import {OUTRO} from './outro';
 import {ReactP5Wrapper} from 'react-p5-wrapper';
-
+import { NETWORK1_M } from './network_p5/network1_newMobile';
+import { NETWORK2_M } from './network_p5/network2_newMobile';
 import brady_p from '../assets/brady_profile.jpg'
 import black_p from '../assets/black_profile.jpg'
 import mccarthy_p from '../assets/mccarthy_profile.jpg'
@@ -25,15 +26,15 @@ import Papa from "papaparse";
 
 export function SELECTION_SECTION(){
 
-    const t1 = "./links_tb.csv";
-    const t2 = "./nodes_tb.csv";
-    const t3 = "./users_tb.csv";
-    const b1 = "./links_black.csv";
-    const b2 = "./nodes_black.csv";
-    const b3 = "./users_black.csv";
-    const m1 = "./links_mccarthy.csv";
-    const m2 = "./nodes_mccarthy.csv";
-    const m3 = "./users_mccarthy.csv";
+    const t1 = "data/links_tb.csv";
+    const t2 = "data/nodes_tb.csv";
+    const t3 = "data/users_tb.csv";
+    const b1 = "data/links_black.csv";
+    const b2 = "data/nodes_black.csv";
+    const b3 = "data/users_black.csv";
+    const m1 = "data/links_mccarthy.csv";
+    const m2 = "data/nodes_mccarthy.csv";
+    const m3 = "data/users_mccarthy.csv";
   
     const [data, setData] = useState({
       table: [],
@@ -129,14 +130,14 @@ export function SELECTION_SECTION(){
     };
   
     const loadCSVs = async (dataset) => {
-      setLoading(true);
-      console.log(cachedData[dataset], cachedData);
-      if (cachedData[dataset]) {
-        //   console.log("Loading from Cache"); // doesn't actually work you'd have to do this
-        //   setData(cachedData[dataset]);
-        //   setMaps(cachedData[dataset].maps);
-        //   setLoading(false);
-      } else {
+    //   setLoading(true);
+    //   console.log(cachedData[dataset], cachedData);
+    //   if (cachedData[dataset]) {
+    //     //   console.log("Loading from Cache"); // doesn't actually work you'd have to do this
+    //     //   setData(cachedData[dataset]);
+    //     //   setMaps(cachedData[dataset].maps);
+    //     //   setLoading(false);
+    //   } else {
         let streamSize = 5000000;
         let table;
         let nodes_table;
@@ -169,13 +170,14 @@ export function SELECTION_SECTION(){
         let data_maps = processData(new_data, dataset);
         new_data.maps = data_maps;
         setData(new_data);
-        if (!isMobile()) {
-          setCachedData((prev) => ({
-            ...prev,
-            [dataset]: new_data,
-          }));
-        }
-      }
+        console.log("set data now")
+    //     if (!isMobile()) {
+    //       setCachedData((prev) => ({
+    //         ...prev,
+    //         [dataset]: new_data,
+    //       }));
+    //     }
+    // }
       if (!newRender) setLoading(false);
     };
   
@@ -280,7 +282,8 @@ export function SELECTION_SECTION(){
         new_selection["t_image"] = n_keyvals.t_image
         new_selection["t_vid"] = n_keyvals.t_vid
         new_selection['t_link'] = n_keyvals.t_link
-        setSelection(new_selection)
+        setSelection(new_selection);
+        loadCSVs(n_keyvals.username);
     };
 
     const [demotion, setDemotion] = useState(3);
@@ -327,7 +330,7 @@ export function SELECTION_SECTION(){
             
 
             {/* <NETWORK1 UserSelection={selection} NetworkPause={pauseN1} SetterNetworkPause={updatePauseN1} NetworkReset={resetN1} SetterNetworkReset={updateResetN1} /> */}
-            {!loading && (
+            {(!loading && !isMobile() ) &&
             <NETWORK1
                 UserSelection={selection}
                 NetworkPause={pauseN1}
@@ -338,15 +341,30 @@ export function SELECTION_SECTION(){
                 nodes_table={data.nodes_table}
                 info_table={data.info_table}
                 maps={data.maps}
-                />
-            )}
+                loading_currently={loading}
+            />}
+            {(!loading && isMobile() ) &&
+            <NETWORK1_M
+                UserSelection={selection}
+                NetworkPause={pauseN1}
+                SetterNetworkPause={updatePauseN1}
+                NetworkReset={resetN1}
+                SetterNetworkReset={updateResetN1}
+                table={data.table}
+                nodes_table={data.nodes_table}
+                info_table={data.info_table}
+                maps={data.maps}
+                loading_currently={loading}
+            />}
+            
+            
             
             <GITHUB UserSelection={selection}/>
             <DEMOTION_INTRO UserSelection={selection}/>
             <DEMOTION UserSelection={selection} UserDemotion={demotion} SetterUserDemotion={setDemotion}  />
             {/* <NETWORK2 UserSelection={selection} UserDemotion={demotion} NetworkPause={pauseN2} SetterNetworkPause={updatePauseN2} NetworkReset={resetN2} SetterNetworkReset={updateResetN2}/>  */}
             
-            {!loading && !isMobile() && (
+            { (!loading && !isMobile()) &&
                 <NETWORK2
                 table={data.table}
                 nodes_table={data.nodes_table}
@@ -359,7 +377,21 @@ export function SELECTION_SECTION(){
                 SetterNetworkReset={updateResetN2}
                 maps={data.maps}
                 />
-            )}
+            }
+            
+            {(!loading && isMobile() ) &&
+                <NETWORK2_M
+                table={data.table}
+                nodes_table={data.nodes_table}
+                info_table={data.info_table}
+                UserSelection={selection}
+                UserDemotion={demotion}
+                NetworkPause={pauseN2}
+                SetterNetworkPause={updatePauseN2}
+                NetworkReset={resetN2}
+                SetterNetworkReset={updateResetN2}
+                maps={data.maps}
+            />}
             
             <OUTRO UserSelection={selection} SetterUserSelection={updateSelection} ScrollToSelection={executeScroll} />
         </>

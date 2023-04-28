@@ -1,18 +1,7 @@
 import { P5CanvasInstance, ReactP5Wrapper, SketchProps} from 'react-p5-wrapper';
-// import sketch from './sketchv2.js';
-import t1 from './links_tb.csv';
-import t2 from './nodes_tb.csv';
-import t3 from './users_tb.csv';
-import b1 from './links_black.csv';
-import b2 from './nodes_black.csv';
-import b3 from './users_black.csv';
-import m1 from './links_mccarthy.csv';
-import m2 from './nodes_mccarthy.csv';
-import m3 from './users_mccarthy.csv';
 import brady_p from '../../assets/brady_profile.jpg';
 import { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { AnimatePresence, motion } from "framer-motion";
 
 function sketch(fp5) {
     let selection_user = {
@@ -28,6 +17,8 @@ function sketch(fp5) {
         t_image: null,
         t_vid: null,
     };
+    let displayHeight = 1080;
+    let displayWidth = 1920;
     let canvas_second;
     let network;
     var map1 = new Map();
@@ -50,10 +41,7 @@ function sketch(fp5) {
     let adjFrame = -1;
     let onboardingText = "";
     let timesecs = 0;
-    let popsound;
-    let firstClick = true;
     //tweetset input values
-    let tweetSet = "BRADY";
     let demotionVal = 0;
     let demotionDen = 10;
     let yAxisMax = 3000;
@@ -76,36 +64,22 @@ function sketch(fp5) {
     let hist_heights_blue = new Array(num_bars).fill(0);
     let hist_heights_pink = new Array(num_bars).fill(0);
     let hist_heights_grey = new Array(num_bars).fill(0);
-
+    let setter_initial = false;
     let table = 0;
     let nodes_table = 0;
     let info_table = 0;
-    let key_accounts = 0;
     let first_eng = 20;
-    let table_tb = 0;
-    let nodes_table_tb = 0;
-    let info_table_tb = 0;
-    let key_accounts_tb = 0; //this is defined manually here
-    let table_b = 0;
-    let nodes_table_b = 0;
-    let info_table_b = 0;
-    let key_accounts_b = 0; //this is defined manually here
-    let table_mc = 0;
-    let nodes_table_mc = 0;
-    let info_table_mc = 0;
-    let key_accounts_mc = 0; //this is defined manually here
-    let heart = "";
-    let quote = "";
-    let retweet = "";
-
-    let user_on_network = true;
-
+    let onboardingTextData = [];
+    let defaultradius = (fp5.displayHeight * 0.9) / 20 / load_factor;
+    let following_reset = false;
+    let user_on_network = false;
     let cur_bar = 0;
     fp5.preload = () => {
-        console.log("PRELOAD: Demotion");
-        img = fp5.loadImage(
-          "https://upload.wikimedia.org/wikipedia/sco/thumb/9/9f/Twitter_bird_logo_2012.svg/1200px-Twitter_bird_logo_2012.svg.png"
-        );    
+        
+        img = fp5.loadImage("https://upload.wikimedia.org/wikipedia/sco/thumb/9/9f/Twitter_bird_logo_2012.svg/1200px-Twitter_bird_logo_2012.svg.png");
+
+
+    
     }
 
 
@@ -114,8 +88,9 @@ function sketch(fp5) {
 
     
     fp5.draw = () => {
-        if (user_on_network  && table.length){
-           // console.log(user_on_network)
+
+        console.log(user_on_network)
+        if (user_on_network ){
             fp5.background(255);
         
             let timescale = 120;
@@ -202,9 +177,9 @@ function sketch(fp5) {
 
 
         
-            //text("Adjust Demotion", (displayWidth/30)/load_factor, (2*fp5.displayHeight*0.9/10)/load_factor);
+            //text("Adjust Demotion", (fp5.displayWidth/30)/load_factor, (2*fp5.displayHeight*0.9/10)/load_factor);
         
-            // text("Reset [SPACE]", (displayWidth/30)/load_factor, (3*fp5.displayHeight*0.9/10)/load_factor);
+            // text("Reset [SPACE]", (fp5.displayWidth/30)/load_factor, (3*fp5.displayHeight*0.9/10)/load_factor);
         
             makeKey();
         
@@ -413,26 +388,29 @@ function sketch(fp5) {
 
         }
         
-        
-    }
-    Network.prototype.display = function () {
-        fp5.push();
-        fp5.translate(this.position.x, this.position.y);
-        fp5.fill(0);
-        for (let i = 0; i < this.connections.length; i++) {
-          if (this.connections[i].a.isSending) {
-            if (fp5.random() < 0.18 * kevinFactor) {
-              this.connections[i].deactivate();
+        this.display = function() {
+            fp5.push();
+            fp5.translate(this.position.x, this.position.y);
+            fp5.fill(0);
+            //strokeWeight(1);
+            for (var i = 0; i < this.connections.length; i++) {
+            //maybe make it a function of the follower count
+            if (this.connections[i].a.isSending)//(followerMap.get((this.connections[i].a.name)) >= 0.5*(followerMap.get(veryfirstguy)))
+            {
+                if (fp5.random() < 0.18*kevinFactor)
+                {
+                this.connections[i].deactivate();
+                }
             }
-          }
-          this.connections[i].display();
+            this.connections[i].display();
+            }
+
+            for (var i = 0; i < this.neurons.length; i++) {
+            this.neurons[i].display();
+            }
+            fp5.pop();
         }
-    
-        for (let i = 0; i < this.neurons.length; i++) {
-          this.neurons[i].display();
-        }
-        fp5.pop();
-    };
+    }
 
 
 
@@ -536,178 +514,224 @@ function sketch(fp5) {
             }
         }
         
+        this.display = function() {
+          
+            //first check if final child is gone
+        if (nameMap.get(this.name) == "elonmusk")
+        {
+            return;
+        }
+
+        if (kevinFactor >1 && fp5.int(followerMap.get(this.name)) < 200)
+        {
+            return;
+        }
         
-    }
-    Neuron.prototype.display = function () {
-        //first check if final child is gone
-        if (nameMap.get(this.name) === "elonmusk") {
-          return;
-        }
-    
-        if (kevinFactor > 1 && fp5.int(followerMap.get(this.name)) < 200) {
-          return;
-        }
-    
-        let checkFinalChild =
-          fp5.log(fp5.int(parseFloat(finalTimeMap.get(this.name)))) * 120 -
-          adjFrame;
-        if (checkFinalChild <= 0) {
-          return;
-        }
-        let scaler =
-          (fp5.int(followerMap.get(this.name)) / 4000 + 10) / load_factor;
-        if (this.active) {
-          fp5.noStroke();
-          if (this.isSending) {
-            if (this.isFirst == "first") {
-              fp5.fill(29, 161, 242, 100);
-              scaler = 200 / load_factor;
-            }
-            if (hopMap.get(this.name) === 1 || hopMap.get(this.name) === 0) {
-              fp5.fill(50, 120, 242, 150);
-            }
-            if (hopMap.get(this.name) === 2) {
-              fp5.fill(102, 0, 153, 150);
-            }
-    
-            if (hopMap.get(this.name) === 3) {
-              fp5.fill(153, 0, 102, 150);
-            }
-    
-            fp5.ellipse(
-              this.position.x,
-              this.position.y,
-              scaler * this.r,
-              scaler * this.r
-            );
-            if (
-              fp5.int(followerMap.get(this.name)) > 100000 &&
-              this.isFirst !== "first"
-            ) {
-              let w = fp5.textWidth(
-                categoryMap.get(this.name) + " by @" + nameMap.get(this.name)
-              );
-              let h = fp5.textAscent(
-                categoryMap.get(this.name) + " by @" + nameMap.get(this.name)
-              );
-              fp5.fill(255, 255, 255, this.opacity);
-              fp5.rect(
-                this.position.x - 10,
-                this.position.y - h,
-                w + 20,
-                h + 5,
-                10
-              );
-              fp5.fill(0, 0, 0, this.opacity);
-              fp5.text(
-                categoryMap.get(this.name) + " by @" + nameMap.get(this.name),
-                this.position.x,
-                this.position.y
-              );
-              this.opacity = this.opacity - 5;
-            }
-    
-            this.r = fp5.lerp(this.r, 0.7, 0.1);
+          let checkFinalChild = fp5.log(fp5.int(parseFloat(finalTimeMap.get(this.name))))*120 - adjFrame;
+          if ( checkFinalChild <= 0)
+          {
+              return;
           }
+          //then brute force go away if too long
+        /*  let timeSince = fp5.log(this.time)*120 - adjFrame;
+          if (timeSince < -500 && this.isFirst != 'first')
+          {
+            return;
+          }*/
+        
+            let scaler = (fp5.int(followerMap.get(this.name))/4000+10)/load_factor;
+        
+        // console.log(scaler);
+            //console.log(this.isTouched);
+            if (this.active)
+            {
+
+        /*   if (this.isTouched)
+            {
+                fill(29, 161, 242);
+            }*/
+            fp5.noStroke();
+            if (this.isSending)
+            {
+            if (this.isFirst =='first')
+            {
+                fp5.fill(29, 161, 242, 100);
+               // fp5.text(nameMap.get(this.name), 500,500)
+                scaler = 200/load_factor;
+
+            }
+            if ( hopMap.get(this.name) ==1|| hopMap.get(this.name)==0)
+            {
+                fp5.fill(50, 120, 242, 150);
+
+            }
+            if ( hopMap.get(this.name) == 2)
+            {
+                fp5.fill(102, 0, 153, 150);
+
+            }
+
+            if ( hopMap.get(this.name) == 3)
+
+            {
+                fp5.fill(153, 0, 102, 150);
+
+            }
+
+            
+            fp5.ellipse(this.position.x, this.position.y, scaler*this.r, scaler*this.r);
+            //console.log(this.r);
+            if (fp5.int(followerMap.get(this.name)) > 100000 && this.isFirst != 'first'){
+                let w = fp5.textWidth(categoryMap.get(this.name) + " by @"+nameMap.get(this.name));
+                let h = fp5.textAscent(categoryMap.get(this.name) + " by @"+nameMap.get(this.name));
+                fp5.fill(255,255,255, this.opacity);
+                fp5.rect(this.position.x-10, this.position.y-h, w+20, h+5, 10);
+                fp5.fill(0, 0, 0, this.opacity);
+                fp5.text(categoryMap.get(this.name) + " by @"+nameMap.get(this.name), this.position.x, this.position.y);//fp5.displayWidth/5, 0.39*fp5.displayHeight);
+                this.opacity = this.opacity-7.5;
+
+            }
+            
+
+            this.r = fp5.lerp(this.r, 0.7,0.1);
+
+
+            }
+
+            }
+
+            //state without demotion
+            if (this.seen)
+            {
+            fp5.fill(220,220,220, 50);
+            fp5.ellipse(this.position.x, this.position.y, scaler*this.r, scaler*this.r);
+
+            }
+        
+        
+        
         }
-    
-        //state without demotion
-        if (this.seen) {
-          fp5.fill(220, 220, 220, 50);
-          fp5.ellipse(
-            this.position.x,
-            this.position.y,
-            scaler * this.r,
-            scaler * this.r
-          );
         }
-      };
 
     function restartNetwork()
         {
-            console.log("Restarting: Demotion");
-            fp5.scale(0.25);
-            let defaultradius = (fp5.displayHeight * 0.9) / 20 / load_factor;
-            let timescale = 30;
-        
-            // check if canvas exists
+            console.log("Restarting: Initial");
+
             if (!canvas_second) {
-              canvas_second = fp5.createCanvas(fp5.displayWidth, fp5.displayHeight * 0.9);
-              canvas_second.id("network_demotion_canvas");
+            canvas_second = fp5.createCanvas(fp5.displayWidth, fp5.displayHeight * 0.9);
+            canvas_second.id("network_demotion_canvas");
             }
-        
-            if (!table.length) {
-              return;
+
+            if (!nodes_table.length) {
+            return;
             }
+
+            onboardingTextData = [
+            {
+                text:
+                "Direct followers of " + selection_user.name + " and unknown distance engagers",
+                x: ((3 / 2) * (fp5.displayWidth / 20)) / load_factor,
+                y: (1.6 * fp5.displayHeight * 0.9) / 10 / load_factor + upFactor / 2,
+            },
+            {
+                text: "2nd degree of separation from " + selection_user.name,
+                x: ((3 / 2) * (fp5.displayWidth / 20)) / load_factor,
+                y: (2 * fp5.displayHeight * 0.9) / 10 / load_factor + upFactor / 2,
+            },
+            {
+                text: "3rd degree of separation from " + selection_user.name,
+                x: ((3 / 2) * (fp5.displayWidth / 20)) / load_factor,
+                y: (2.4 * fp5.displayHeight * 0.9) / 10 / load_factor + upFactor / 2,
+            },
+            {
+                text: "Time",
+                x: ((3 / 2) * (fp5.displayWidth / 20)) / load_factor,
+                y: (9.3 * fp5.displayHeight * 0.9) / 10 / load_factor,
+            },
+            {
+                text: "Number of Engagements",
+                x: (1.3 * (fp5.displayWidth / 30)) / load_factor,
+                y: (6.4 * fp5.displayHeight * 0.9) / 10 / load_factor,
+            },
+            {
+                text: selection_user.username,
+                x: fp5.displayWidth / 30 + fp5.displayWidth / 60 + fp5.displayWidth / 30,
+                y:
+                (fp5.displayHeight * 0.9) / 2.5 +
+                (1.5 * fp5.displayHeight * 0.9) / 40 -
+                upFactor,
+            },
+            ];
             map1 = null;
             map1 = new Map();
-        
             network = new Network(0, 0);
-        
+
             let mainX = (1.4 * (fp5.displayWidth / 2)) / load_factor;
             let mainY = (fp5.displayHeight * 0.9) / 2 / load_factor;
             veryfirstguy = nodes_table[0].id;
-        
+
             newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius * 4);
             map1.set(veryfirstguy, newNode);
-        
+
             retweetSum = 0;
             likeSum = 0;
             replySum = 0;
-        
+            cur_bar = 0;
+
+            hist_heights_blue.fill(0);
+            hist_heights_pink.fill(0);
+            hist_heights_grey.fill(0);
+
             end_time = 0;
             for (let r = 0; r < nodes_table.length; r++) {
-              let type = nodes_table[r].type;
-              let id = nodes_table[r].id;
-              let time = fp5.int(parseFloat(nodes_table[r].time));
-              if (time < 153442) {
+            let type = nodes_table[r].type;
+            let id = nodes_table[r].id;
+            let time = fp5.int(parseFloat(nodes_table[r].time));
+            if (time < 153442) {
                 let angle = fp5.random(0, fp5.TWO_PI);
                 let distance = fp5.random(40, (fp5.displayHeight * 0.9) / 2) / load_factor;
                 if (parentMap.get(id) === veryfirstguy) {
-                  map1.set(
+                map1.set(
                     id,
                     new Neuron(
-                      mainX + Math.cos(angle) * distance,
-                      mainY + Math.sin(angle) * distance,
-                      id,
-                      true,
-                      defaultradius,
-                      time,
-                      "second"
+                    mainX + Math.cos(angle) * distance,
+                    mainY + Math.sin(angle) * distance,
+                    id,
+                    true,
+                    defaultradius,
+                    time,
+                    "second"
                     )
-                  );
+                );
                 } else if (parentMap.get(id) !== veryfirstguy) {
-                  map1.set(
+                map1.set(
                     id,
                     new Neuron(
-                      mainX + Math.cos(angle) * distance,
-                      mainY + Math.sin(angle) * distance,
-                      id,
-                      true,
-                      defaultradius,
-                      time,
-                      "other"
+                    mainX + Math.cos(angle) * distance,
+                    mainY + Math.sin(angle) * distance,
+                    id,
+                    true,
+                    defaultradius,
+                    time,
+                    "other"
                     )
-                  );
+                );
                 }
-        
-                if (
-                  parseInt(parseFloat(time)) < first_eng &&
-                  parseInt(parseFloat(type)) !== 0
-                ) {
-                  first_eng = parseInt(parseFloat(time));
+
+                if (parseInt(time) < first_eng && parseInt(type) !== 0) {
+                first_eng = parseInt(time);
                 }
-        
-                let n_time = parseInt(parseFloat(time));
+
+                let n_time = parseInt(time);
                 if (end_time < n_time) {
-                  end_time = n_time;
+                end_time = n_time;
                 }
-              }
             }
-        
+            }
+
             map1.set(
-              veryfirstguy,
-              new Neuron(
+            veryfirstguy,
+            new Neuron(
                 mainX,
                 mainY,
                 veryfirstguy,
@@ -715,31 +739,32 @@ function sketch(fp5) {
                 defaultradius,
                 timeMap.get(veryfirstguy),
                 "first"
-              )
+            )
             );
+
             for (let r = table.length - 1; r >= 0; r--) {
-              network.connect(map1.get(table[r].Source), map1.get(table[r].Target), 2);
+            network.connect(map1.get(table[r].Source), map1.get(table[r].Target), 2);
             }
             for (let i = 0; i < names.length; i++) {
-              network.addNeuron(map1.get(names[i]));
+            network.addNeuron(map1.get(names[i]));
             }
-        
-            network.display();
-        
-            cur_bar = 0;
+
+            timesecs = 0;
             adjFrame = -1;
-            hist_heights_blue = new Array(num_bars).fill(0);
-            hist_heights_pink = new Array(num_bars).fill(0);
-            hist_heights_grey = new Array(num_bars).fill(0);
-        
-            console.log("Finished: Demotion");
+            network.display();
+
+            console.log("Finished: Initial");
     
     }
 
     fp5.updateWithProps = props => {
+        if (!setter_initial && props.visible_reset){
+            setter_initial = props.visible_reset
+        }
+
         if (!table && props.table.length) {
             table = props.table;
-            info_table = props.info_table;
+            //   info_table = props.info_table;
             nodes_table = props.nodes_table;
             ({
               timeMap,
@@ -754,131 +779,151 @@ function sketch(fp5) {
               hist_times,
               bar_times,
             } = props.maps);
+            selection_user = props.selection_user;
+            props.setter_initial(false)
           } else if (
             props.selection_user &&
-            props.selection_user.username !== selection_user.username &&
-            props.table.length &&
-            canvas_second
+            props.selection_user.username != selection_user.username &&
+            props.table.length
           ) {
-            table = props.table;
-            info_table = props.info_table;
-            nodes_table = props.nodes_table;
-            ({
-              timeMap,
-              names,
-              timeToNode,
-              parentMap,
-              followerMap,
-              nameMap,
-              finalTimeMap,
-              hopMap,
-              categoryMap,
-              hist_times,
-              bar_times,
-            } = props.maps);
-      
-            selection_user = props.selection_user;
-            let username = props.selection_user.username;
-      
-            restartNetwork();
-            props.network_reset_set(false);
-            props.network_pause_set(false);
-            switch (username) {
-              case "@TomBrady":
-                kevinFactor = 1;
-                yAxisMax = 3000;
-      
-                break;
-              case "@6lack":
-                kevinFactor = 1;
-                yAxisMax = 3000;
-                break;
-              case "@SpeakerMcCarthy":
-                kevinFactor = 3;
-                yAxisMax = 7000;
-                break;
-              default:
-                break;
-            }
-          }
-      
-          console.log(props.network_reset);
-      
-          if (props.network_reset) {
-            console.log("here");
+            console.log(selection_user)
+            console.log(props.selection_user)
             if (canvas_second) {
+              table = props.table;
+              info_table = props.info_table;
+              nodes_table = props.nodes_table;
+              ({
+                timeMap,
+                timeToNode,
+                parentMap,
+                followerMap,
+                nameMap,
+                finalTimeMap,
+                hopMap,
+                categoryMap,
+                hist_times,
+                bar_times,
+              } = props.maps);
+      
+              selection_user = props.selection_user;
+              let username = props.selection_user.username;
+              props.setter_initial(true)
               restartNetwork();
               props.network_reset_set(false);
-              pause = false;
+              props.network_pause_set(false);
+              switch (username) {
+                case "@TomBrady":
+                  kevinFactor = 1;
+                  yAxisMax = 3000;
+      
+                  break;
+                case "@6lack":
+                  kevinFactor = 1;
+                  yAxisMax = 3000;
+                  break;
+                case "@SpeakerMcCarthy":
+                  kevinFactor = 3;
+                  yAxisMax = 7000;
+                  break;
+                default:
+                  break;
+              }
             }
           }
       
-          if (props.network_pause !== pause && canvas_second) {
-            pause = props.network_pause;
-            console.log("pause", pause);
-          }
-      
-          if (props.user_demotion !== demotionVal) {
+          if (props.network_reset) {
+            
             if (canvas_second) {
-              demotionVal = props.user_demotion;
+              props.setter_initial(true)
               restartNetwork();
+              props.network_reset_set(false);
               props.network_pause_set(false);
             }
           }
       
+          if (props.network_pause !== pause) {
+            if (canvas_second) {
+              pause = props.network_pause;
+            }
+          }
+      
+          if (props.user_demotion != demotionVal){
+            if (canvas_second){
+                demotionVal = props.user_demotion;     
+                restartNetwork();    
+                props.network_pause_set(false);       
+            }
+            }
           if (canvas_second) {
             user_on_network = props.network_visible;
+
           }
         
     };
     fp5.setup = () => {
-
-        table=table_tb;
-        nodes_table=nodes_table_tb;
-        info_table=info_table_tb;
-
-
-
-        histogram_x = (fp5.windowWidth/30)/load_factor;
-        histogram_y = (8*fp5.windowHeight/10)/load_factor;
-        histogram_width = (8*fp5.windowWidth/30)/load_factor;
-        histogram_height = (1*fp5.windowHeight/10)/load_factor;
-
+        console.log("Setting up: Initial");
+        fp5.scale(0.25);
+        histogram_x = fp5.displayWidth / 30 / load_factor;
+        histogram_y = (8 * fp5.displayHeight * 0.9) / 10 / load_factor;
+        histogram_width = (8 * fp5.displayWidth) / 30 / load_factor;
+        histogram_height = (1 * fp5.displayHeight * 0.9) / 10 / load_factor;
+        if (setter_initial){
+            setter_initial(true);
+        }
         restartNetwork();
-    }
+    };
+    
 
 
 }
-export function NETWORK2({UserSelection, NetworkPause,UserDemotion, SetterNetworkPause, NetworkReset, SetterNetworkReset,  table,
+
+export function NETWORK2({
+    UserSelection,
+    UserDemotion,
+    NetworkPause,
+    SetterNetworkPause,
+    NetworkReset,
+    SetterNetworkReset,
+    table,
     nodes_table,
     info_table,
-    maps, }){
+    maps,
+    loading_currently,
+    onNetwork1,
+    setOnNetwork1
+    }){
 
     const [isVisible, setIsVisible] = useState(false);
+    const [initial, setInitial] = useState(true);
     const { ref, inView } = useInView({amount:0});
+    const visible_reset = (val) => {
+        setIsVisible(val)
+    }
 
     useEffect(() => {
         if (inView) {
-            setIsVisible(true);
-            
+          setIsVisible(true);
+        
+        }
+        if (!inView) {
+            setIsVisible(false);
           
           }
-          if (!inView) {
-              setIsVisible(false);
-            
-            }
-  
+
+        
       }, [inView]);
+
 
   return(
     <>
-    <div className="network_section" id="network_demotion" >
-    <div className="container play_pause_con">
-    <div className="row demotionText">
+    <div className="network_section" id="network_demotion" ref={ref}>
+
+    <div className="play_pause_con container">
+    <div className="row demotionText">   
         <div className="col-1 demo_but_sec">
         <button className="play_but" style={{backgroundColor:"#a7dbfa"}} onClick={() => {
             SetterNetworkPause(!NetworkPause)
-        }}>Pause/Play</button>
+        }}>Play/Pause</button>
         </div>
         <div className="col-1 demo_but_sec">
         <button className="play_but" style={{backgroundColor:"#44b8fc"}} onClick={() => {
@@ -886,14 +931,16 @@ export function NETWORK2({UserSelection, NetworkPause,UserDemotion, SetterNetwor
         }}>Reset</button>
         </div>
         <div className="col-10"></div>
+    </div>
+    </div>
+      <div className='sketch_sec' >
 
-    </div>
-    </div>
-      <div className='sketch_sec' ref={ref}>
-        <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection} user_demotion={UserDemotion} network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset} network_visible={isVisible} table={table}
+      
+        <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}  network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset}  network_visible={isVisible} table={table}
             nodes_table={nodes_table}
-            info_table={info_table}
-            maps={maps} ></ReactP5Wrapper>
+            maps={maps} loading={loading_currently} setter_initial={visible_reset} user_demotion={UserDemotion} ></ReactP5Wrapper>
+      
+        
     </div>
     </div>
     </>

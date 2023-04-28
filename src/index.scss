@@ -770,41 +770,51 @@ body{
 
     }
     }
-    
-    .network_section{
-      
+    .network_visible_container{
       height: 100vh;
       width: 100vw;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      inset: 0;
       position: relative;
-      .network_bg{
-        height: 1%;
-        width: 1%;
+      .showloading{
+        position: absolute;
+        z-index: 9;
+        top: 20%;
+        left: 20%;
       }
-      .play_pause_con{
-        z-index: 122;
-
-
-      }
-      .sketch_sec{
+      .network_section{
+        z-index: 10;
         height: 100vh;
         width: 100vw;
-        position: absolute;
-        .react-p5-wrapper{
-          width: 100%;
-          height: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          inset: 0;
-          canvas{
-            object-fit: contain;
-            max-height: 100%;
-            max-width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        inset: 0;
+        position: relative;
+        .network_bg{
+          height: 1%;
+          width: 1%;
+        }
+        .play_pause_con{
+          z-index: 122;
 
+
+        }
+        .sketch_sec{
+          height: 100vh;
+          width: 100vw;
+          position: absolute;
+          .react-p5-wrapper{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            inset: 0;
+            canvas{
+              object-fit: contain;
+              max-height: 100%;
+              max-width: 100%;
+
+            }
           }
         }
       }

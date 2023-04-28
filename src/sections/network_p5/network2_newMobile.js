@@ -48,7 +48,7 @@ function sketch(fp5) {
     let histogram_y = 0;
     let histogram_width = 0;
     let histogram_height = 0;
-    const max_bar_height = 1000;
+    const max_bar_height = 2000;
     const load_factor = 1;
 
     let retweetSum = 0;
@@ -536,7 +536,7 @@ function sketch(fp5) {
               return;
             }*/
           
-              let scaler = (fp5.int(followerMap.get(this.name))/4000+10)/load_factor;
+              let scaler = (fp5.int(followerMap.get(this.name))/8000+10)/load_factor;
           
           // console.log(scaler);
               //console.log(this.isTouched);
@@ -663,9 +663,9 @@ function sketch(fp5) {
             map1 = null;
             map1 = new Map();
             network = new Network(0, 0);
-
-            let mainX = (1.4 * (fp5.displayWidth / 2)) / load_factor;
-            let mainY = (fp5.displayHeight * 0.9) / 2 / load_factor;
+            
+            let mainX = (fp5.displayWidth)/2*load_factor;
+            let mainY = (fp5.displayHeight/2.5)/load_factor;
             veryfirstguy = nodes_table[0].id;
 
             newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius * 4);
@@ -687,7 +687,7 @@ function sketch(fp5) {
             let time = fp5.int(parseFloat(nodes_table[r].time));
             if (time < 153442) {
                 let angle = fp5.random(0, fp5.TWO_PI);
-                let distance = fp5.random(40, (fp5.displayHeight * 0.9) / 2) / load_factor;
+                let distance = fp5.random(40, (fp5.displayWidth * 0.9) / 2) / load_factor;
                 if (parentMap.get(id) === veryfirstguy) {
                 map1.set(
                     id,
@@ -888,7 +888,9 @@ export function NETWORK2_M({
     maps,
     loading_currently,
     onNetwork1,
-    setOnNetwork1
+    setOnNetwork1,
+    
+    isinView
     }){
 
     const [isVisible, setIsVisible] = useState(false);
@@ -934,7 +936,7 @@ export function NETWORK2_M({
       <div className='sketch_sec' >
 
       
-        <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}  network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset}  network_visible={isVisible} table={table}
+        <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}  network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset}  network_visible={isinView} table={table}
             nodes_table={nodes_table}
             maps={maps} loading={loading_currently} setter_initial={visible_reset} user_demotion={UserDemotion} ></ReactP5Wrapper>
       

@@ -89,7 +89,6 @@ function sketch(fp5) {
     
     fp5.draw = () => {
 
-        console.log(user_on_network)
         if (user_on_network ){
             fp5.background(255);
         
@@ -890,7 +889,8 @@ export function NETWORK2({
     maps,
     loading_currently,
     onNetwork1,
-    setOnNetwork1
+    setOnNetwork1,
+    isinView
     }){
 
     const [isVisible, setIsVisible] = useState(false);
@@ -936,7 +936,7 @@ export function NETWORK2({
       <div className='sketch_sec' >
 
       
-        <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}  network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset}  network_visible={isVisible} table={table}
+        <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}  network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset}  network_visible={isinView} table={table}
             nodes_table={nodes_table}
             maps={maps} loading={loading_currently} setter_initial={visible_reset} user_demotion={UserDemotion} ></ReactP5Wrapper>
       

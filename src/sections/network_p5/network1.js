@@ -63,7 +63,6 @@ function sketch(fp5) {
     let hist_heights_blue = new Array(num_bars).fill(0);
     let hist_heights_pink = new Array(num_bars).fill(0);
     let hist_heights_grey = new Array(num_bars).fill(0);
-    let setter_initial = false;
     let table = 0;
     let nodes_table = 0;
     let info_table = 0;
@@ -771,16 +770,16 @@ function sketch(fp5) {
             timesecs = 0;
             adjFrame = -1;
             network.display();
-
+            user_on_network=true;
             console.log("Finished: Initial");
     
     }
 
     fp5.updateWithProps = props => {
-        if (!setter_initial && props.visible_reset){
-            setter_initial = props.visible_reset
-        }
 
+        if (!props.loading_currently){
+           let i = 0;
+        }
         if (!table && props.table.length) {
             table = props.table;
             //   info_table = props.info_table;
@@ -799,7 +798,6 @@ function sketch(fp5) {
               bar_times,
             } = props.maps);
             selection_user = props.selection_user;
-            props.setter_initial(false)
           } else if (
             props.selection_user &&
             props.selection_user.username != selection_user.username &&
@@ -826,7 +824,6 @@ function sketch(fp5) {
       
               selection_user = props.selection_user;
               let username = props.selection_user.username;
-              props.setter_initial(true)
               restartNetwork();
               props.network_reset_set(false);
               props.network_pause_set(false);
@@ -853,7 +850,6 @@ function sketch(fp5) {
           if (props.network_reset) {
             
             if (canvas_second) {
-              props.setter_initial(true)
               restartNetwork();
               props.network_reset_set(false);
               props.network_pause_set(false);
@@ -879,9 +875,7 @@ function sketch(fp5) {
         histogram_y = (8 * fp5.displayHeight * 0.9) / 10 / load_factor;
         histogram_width = (8 * fp5.displayWidth) / 30 / load_factor;
         histogram_height = (1 * fp5.displayHeight * 0.9) / 10 / load_factor;
-        if (setter_initial){
-            setter_initial(true);
-        }
+
         restartNetwork();
     };
     
@@ -901,7 +895,8 @@ export function NETWORK1({
     maps,
     loading_currently,
     onNetwork1,
-    setOnNetwork1
+    setOnNetwork1,
+    isinView
     }){
 
     const [isVisible, setIsVisible] = useState(false);
@@ -947,9 +942,9 @@ export function NETWORK1({
       <div className='sketch_sec' >
 
       
-        <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}  network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset}  network_visible={isVisible} table={table}
+        <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}  network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset}  network_visible={isinView} table={table}
             nodes_table={nodes_table}
-            maps={maps} loading={loading_currently} setter_initial={visible_reset} ></ReactP5Wrapper>
+            maps={maps} loading={loading_currently} ></ReactP5Wrapper>
       
         
     </div>

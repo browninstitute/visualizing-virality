@@ -66,7 +66,7 @@ export function SELECTION_SECTION(){
     };
   
     const processData = (data, dataset) => {
-      const end_time = 0;
+      const end_time = 153442;
       let { info_table, nodes_table, table } = data;
       let names = [];
       let timeMap = new Map();
@@ -105,6 +105,7 @@ export function SELECTION_SECTION(){
           timeMap.set(id, time);
           timeToNode.set(time, id);
           names.push(id);
+
         }
       }
       const num_bars = 150;
@@ -284,11 +285,13 @@ export function SELECTION_SECTION(){
         new_selection['t_link'] = n_keyvals.t_link
         setSelection(new_selection);
         loadCSVs(n_keyvals.username);
+        setIsVisibleN1(true); 
     };
 
     const [demotion, setDemotion] = useState(3);
     const updateDemotion = (t_demotion) => {
         console.log('changing demotion to: ' + t_demotion)
+        setIsVisibleN2(true);  
         setDemotion(t_demotion)
     };
 
@@ -304,7 +307,7 @@ export function SELECTION_SECTION(){
 
 
     const [resetN1, setResetN1] = useState(false);
-    const updateResetN1 = (reset) => {
+    const updateResetN1 = (reset) => { 
         setResetN1(reset)
     };
     const [resetN2, setResetN2] = useState(false);
@@ -320,6 +323,35 @@ export function SELECTION_SECTION(){
           preloadEverything();
         }
       }, []);
+
+    
+    const [ ref, inView ] = useInView({amount:0});
+    const [isVisibleN1, setIsVisibleN1] = useState(false);
+    useEffect(() => {
+        if (inView) {
+            console.log('looking at 1')
+            setIsVisibleN1(true)       
+        }
+        if (!inView) {
+            console.log('not looking at 1')
+            setIsVisibleN1(false);        
+        }
+    }, [inView]);
+
+
+    const [ refVN2, inViewN2 ] = useInView({amount:0});
+    const [isVisibleN2, setIsVisibleN2] = useState(false);
+    useEffect(() => {
+        if (inViewN2) {
+            console.log('looking at 2')
+            setIsVisibleN2(true);        
+        }
+        if (!inViewN2) {
+            console.log('not looking at 2')
+            setIsVisibleN2(false);        
+        }
+    }, [inViewN2]);
+    
       
     return (
         <>
@@ -330,32 +362,38 @@ export function SELECTION_SECTION(){
             
 
             {/* <NETWORK1 UserSelection={selection} NetworkPause={pauseN1} SetterNetworkPause={updatePauseN1} NetworkReset={resetN1} SetterNetworkReset={updateResetN1} /> */}
-            {(!loading && !isMobile() ) &&
-            <NETWORK1
-                UserSelection={selection}
-                NetworkPause={pauseN1}
-                SetterNetworkPause={updatePauseN1}
-                NetworkReset={resetN1}
-                SetterNetworkReset={updateResetN1}
-                table={data.table}
-                nodes_table={data.nodes_table}
-                info_table={data.info_table}
-                maps={data.maps}
-                loading_currently={loading}
-            />}
-            {(!loading && isMobile() ) &&
-            <NETWORK1_M
-                UserSelection={selection}
-                NetworkPause={pauseN1}
-                SetterNetworkPause={updatePauseN1}
-                NetworkReset={resetN1}
-                SetterNetworkReset={updateResetN1}
-                table={data.table}
-                nodes_table={data.nodes_table}
-                info_table={data.info_table}
-                maps={data.maps}
-                loading_currently={loading}
-            />}
+            <div className='network_visible_container' ref={ref}>
+                <div className='showloading'>Loading</div>
+                {(!loading && !isMobile() ) &&
+                <NETWORK1
+                    UserSelection={selection}
+                    NetworkPause={pauseN1}
+                    SetterNetworkPause={updatePauseN1}
+                    NetworkReset={resetN1}
+                    SetterNetworkReset={updateResetN1}
+                    table={data.table}
+                    nodes_table={data.nodes_table}
+                    info_table={data.info_table}
+                    maps={data.maps}
+                    loading_currently={loading}
+                    isinView={isVisibleN1}
+                />}
+                {(!loading && isMobile() ) &&
+                <NETWORK1_M
+                    UserSelection={selection}
+                    NetworkPause={pauseN1}
+                    SetterNetworkPause={updatePauseN1}
+                    NetworkReset={resetN1}
+                    SetterNetworkReset={updateResetN1}
+                    table={data.table}
+                    nodes_table={data.nodes_table}
+                    info_table={data.info_table}
+                    maps={data.maps}
+                    loading_currently={loading}
+                    isinView={isVisibleN1}
+                />}
+            </div>
+            
             
             
             
@@ -364,6 +402,8 @@ export function SELECTION_SECTION(){
             <DEMOTION UserSelection={selection} UserDemotion={demotion} SetterUserDemotion={setDemotion}  />
             {/* <NETWORK2 UserSelection={selection} UserDemotion={demotion} NetworkPause={pauseN2} SetterNetworkPause={updatePauseN2} NetworkReset={resetN2} SetterNetworkReset={updateResetN2}/>  */}
             
+            <div className='network_visible_container' ref={refVN2}>
+            <div className='showloading'>Loading</div>
             { (!loading && !isMobile()) &&
                 <NETWORK2
                 table={data.table}
@@ -376,6 +416,8 @@ export function SELECTION_SECTION(){
                 NetworkReset={resetN2}
                 SetterNetworkReset={updateResetN2}
                 maps={data.maps}
+                loading_currently={loading}
+                isinView={isVisibleN2}
                 />
             }
             
@@ -391,7 +433,10 @@ export function SELECTION_SECTION(){
                 NetworkReset={resetN2}
                 SetterNetworkReset={updateResetN2}
                 maps={data.maps}
+                loading_currently={loading}
+                isinView={isVisibleN2}
             />}
+            </div>
             
             <OUTRO UserSelection={selection} SetterUserSelection={updateSelection} ScrollToSelection={executeScroll} />
         </>

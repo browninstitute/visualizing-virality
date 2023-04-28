@@ -48,7 +48,7 @@ function sketch(fp5) {
     let histogram_y = 0;
     let histogram_width = 0;
     let histogram_height = 0;
-    const max_bar_height = 1000;
+    const max_bar_height = 2000;
     const load_factor = 1;
 
     let retweetSum = 0;
@@ -316,18 +316,18 @@ function sketch(fp5) {
 
     function makeKey()
     {
-        fp5.noStroke();
-        fp5.fill(50, 120, 242, 150);
-        fp5.rect((fp5.displayWidth/20)/load_factor, (3*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40);
-        fp5.fill(102, 0, 153, 150);
-        fp5.rect((fp5.displayWidth/20)/load_factor, (3.7*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40);
-        fp5.fill(153, 0, 102, 150);
-        fp5.rect((fp5.displayWidth/20)/load_factor, (4.4*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40);
-      //  fp5.fill(200,200,200, 150);
-       // fp5.rect((fp5.displayWidth/20)/load_factor, (5.1*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40);
+        let yAxTop = fp5.int(fp5.map(3000,0,max_bar_height,histogram_y+histogram_height,histogram_y));
 
+        fp5.fill(50, 120, 242, 150);
+        fp5.rect(11*(fp5.displayWidth/20)/load_factor, yAxTop, 0.75*fp5.displayHeight/40);
+        fp5.fill(102, 0, 153, 150);
+        fp5.rect(11*(fp5.displayWidth/20)/load_factor, yAxTop+0.75*fp5.displayHeight/40, 0.75*fp5.displayHeight/40);
+        fp5.fill(153, 0, 102, 150);
+        fp5.rect(11*(fp5.displayWidth/20)/load_factor, yAxTop+1.5*fp5.displayHeight/40, 0.75*fp5.displayHeight/40);
+ /*       fp5.fill(200,200,200, 150);
+        fp5.rect((fp5.displayWidth/20)/load_factor, (6*fp5.displayHeight*0.9/20)/load_factor, 0.75*fp5.displayWidth/40);
+*/
         let yAxBot = histogram_y+histogram_height;
-        let yAxTop = fp5.int(fp5.map(yAxisMax,0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y));
 
         fp5.stroke(200,200,200,150);
         fp5.line(histogram_x, yAxBot, histogram_x, yAxTop);
@@ -336,7 +336,9 @@ function sketch(fp5) {
         //fp5.line(2.15*(fp5.displayWidth/20), histogram_y+histogram_height-10, 2.15*(fp5.displayWidth/20), histogram_y+histogram_height+10);
         fp5.text("12h", 2.1*(fp5.displayWidth/20), histogram_y+histogram_height+15);
         fp5.text("1d", 3.5*(fp5.displayWidth/20), histogram_y+histogram_height+15);
-        fp5.text(yAxisMax , histogram_x+10, yAxTop);
+        fp5.text("3000", histogram_x+10, yAxTop);
+
+
 
 
 
@@ -559,7 +561,7 @@ function sketch(fp5) {
             return;
           }*/
         
-            let scaler = (fp5.int(followerMap.get(this.name))/4000+10)/load_factor;
+          let scaler = (fp5.int(followerMap.get(this.name))/8000+10)/load_factor;
         
         // console.log(scaler);
             //console.log(this.isTouched);
@@ -577,7 +579,7 @@ function sketch(fp5) {
             {
                 fp5.fill(29, 161, 242, 100);
                // fp5.text(nameMap.get(this.name), 500,500)
-                scaler = 200/load_factor;
+                scaler = 100/load_factor;
 
             }
             if ( hopMap.get(this.name) ==1|| hopMap.get(this.name)==0)
@@ -686,8 +688,8 @@ function sketch(fp5) {
             map1 = new Map();
             network = new Network(0, 0);
 
-            let mainX = (1.4 * (fp5.displayWidth / 2)) / load_factor;
-            let mainY = (fp5.displayHeight * 0.9) / 2 / load_factor;
+            let mainX = (fp5.displayWidth)/2*load_factor;
+            let mainY = (fp5.displayHeight/2.5)/load_factor;
             veryfirstguy = nodes_table[0].id;
 
             newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius * 4);
@@ -709,7 +711,7 @@ function sketch(fp5) {
             let time = fp5.int(parseFloat(nodes_table[r].time));
             if (time < 153442) {
                 let angle = fp5.random(0, fp5.TWO_PI);
-                let distance = fp5.random(40, (fp5.displayHeight * 0.9) / 2) / load_factor;
+                let distance = fp5.random(40, (fp5.displayWidth * 0.9) / 2) / load_factor;
                 if (parentMap.get(id) === veryfirstguy) {
                 map1.set(
                     id,

@@ -123,7 +123,7 @@ function sketch(fp5) {
             }
             if (first_eng <= timesecs  && timesecs < first_eng+4)
             {
-                onboardingText = "There they go!";
+                onboardingText = "Set Restart!";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
             }

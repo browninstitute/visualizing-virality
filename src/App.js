@@ -83,7 +83,7 @@ function App() {
   }, [inView]);
 
   const { scrollY,scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0,0.04], ["0%","70%"]);
+  const y = useTransform(scrollYProgress, [0,0.04], ["0%","40%"]);
   
   const opacity = useTransform(scrollYProgress, [0.05,0.06], [1,0]);
   

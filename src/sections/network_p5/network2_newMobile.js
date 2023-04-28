@@ -104,7 +104,7 @@ function sketch(fp5) {
             let mainX = 0.5*fp5.displayWidth;
             let onboardingTextX = 0.38*(fp5.displayWidth);
             let onboardingTextY = 0.35*(fp5.displayHeight*0.9);
-            if (0 <= timesecs  && timesecs < 1)
+            if (0 <= timesecs  && timesecs < 0.1)
             {
                 onboardingText = "Set Restart!";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;

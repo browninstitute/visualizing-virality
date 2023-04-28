@@ -90,7 +90,9 @@ function sketch(fp5) {
     fp5.draw = () => {
 
         if (user_on_network ){
-            fp5.background(255);
+            fp5.background(255);            
+            fp5.fill(255);
+            fp5.rect(0,0, fp5.displayWidth, fp5.displayHeight);
         
             let timescale = 120;
             
@@ -104,12 +106,13 @@ function sketch(fp5) {
             let onboardingTextX = 0.66*(fp5.displayWidth);
             let onboardingTextY = 0.35*(fp5.displayHeight*0.9);
             let mainX = 1.4*(fp5.displayWidth/2);
-            if (0 <= timesecs  && timesecs < 1)
+            if (0 <= timesecs  && timesecs < 0.1)
             {
                 onboardingText = "Set Restart!";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
             }
+
             if (1.5 < timesecs && timesecs < 2.3 )
             {
                 

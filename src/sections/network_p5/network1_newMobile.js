@@ -119,10 +119,17 @@ function sketch(fp5) {
                 onboardingText = "After " + first_eng + " seconds, the first account will engage with his tweet. ";
 
             }
+            if (first_eng+1 <= timesecs  && timesecs < first_eng+1.1)
+            {
+                onboardingText = "Set Restart";
+                onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
+
+            }
             if (first_eng <= timesecs  && timesecs < first_eng+4)
             {
+                onboardingText = "There they go";
+                onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
-                onboardingText = "Set Restart!";
             }
 
             

@@ -142,7 +142,7 @@ export function ONBOARDING_BARS(){
                 
                     <div className='bars_container'>
                     <motion.div className="bar1" style={styles_with_css({height: bar1_height})}>
-                    <motion.div className="bar_text" style={styles_with_css({opacity: percents1_opacity})}>&lt; 100,000 likes</motion.div> 
+                    <motion.div className="bar_text" style={styles_with_css({opacity: percents1_opacity})}>100% &lt; 100,000 likes</motion.div> 
                     <motion.div className="bar_text" style={styles_with_css({opacity: percents2_opacity})}>69% Viral</motion.div> 
                     <motion.div className="bar_text" style={styles_with_css({opacity: percents3_opacity})}>33% &gt; 1,000,000</motion.div>
                     <motion.div className="bar_text" style={styles_with_css({opacity: percents4_opacity})}>67% Entertainment</motion.div>
@@ -171,7 +171,7 @@ export function ONBOARDING_BARS(){
                     <div className='text_container_background'>
                         <div className='text_container'>
                             <motion.div className='text_scroller' style={styles_with_css({opacity: text1_opacity,y: text1_y})}>
-                                Out of the 23 billion tweets from January 2023, only 4,933 had more than 100,000 likes. That's 0.000015%.
+                                Out of the 23 billion tweets from January 2023, only 4,933 had more than 100,000 likes. That's 0.000021%.
                             </motion.div>
                             <motion.div className='text_scroller' style={styles_with_css({opacity: text2_opacity,y: text2_y})}>
                                 From the 4,933 total tweets, 3,402 fit our definition of "viral".

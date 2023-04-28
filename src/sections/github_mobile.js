@@ -202,14 +202,14 @@ export function GITHUB_M({UserSelection}){
                             <svg className="feather feather-message-circle sc-dnqmqq jxshSx" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                             <div className="comment-count">{UserSelection.replies}</div>
 
-                            {/* {!isMobile() && 
-                            <div className='svg_wrap' >
+                            
+                            {/* <div className='svg_wrap' >
                             <svg viewBox="0 0 111 31" fill="none" >
                             <motion.path pathLength={svg1_p1} d="M7.51125 4.01587C14.6997 1.00137 25.0231 2.68458 30.8473 7.81913C36.3915 12.7067 37.3054 25.024 29.6031 28.2441C24.3484 30.4408 17.854 29.0068 12.864 26.8237C9.18708 25.2151 3.05567 22.2817 2.53414 17.656C1.5855 9.24188 10.5767 4.13145 17.2307 1.69165" stroke="#0B5684" strokeWidth="3" />
                             <motion.path pathLength={svg1_p1} d="M46.3891 27.6806C52.3382 27.8327 58.3786 28.1734 64.3254 27.7511C70.14 27.3381 75.9413 26.6973 81.7688 26.4598C90.657 26.0977 99.7586 26.05 108.509 24.3" stroke="#0B5684" strokeWidth="3" />
                             </svg>
-                            </div>
-                            } */}
+                            </div> */}
+                            
                             
                             
                             </div>

@@ -770,7 +770,7 @@ function sketch(fp5) {
             timesecs = 0;
             adjFrame = -1;
             network.display();
-            user_on_network=true;
+            user_on_network = true;
             console.log("Finished: Initial");
     
     }
@@ -844,7 +844,9 @@ function sketch(fp5) {
                 default:
                   break;
               }
+              user_on_network = true;
             }
+
           }
       
           if (props.network_reset) {
@@ -857,6 +859,7 @@ function sketch(fp5) {
           }
       
           if (props.network_pause !== pause) {
+            user_on_network = true;
             if (canvas_second) {
               pause = props.network_pause;
             }

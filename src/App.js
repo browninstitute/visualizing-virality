@@ -5,7 +5,7 @@ import React, { useState, useEffect ,  useRef} from "react";
 //import { Graph } from '@cosmograph/cosmos';
 import { motion, useScroll, useSpring, useTransform, useMotionValue, useAnimation } from "framer-motion";
 import {cosmos_config, cosmos_links, cosmos_nodes} from './sections/cosmos';
-// import bg_vid from './assets/networkbg1.mp4';
+import bg_vid from './assets/network_bg.mp4';
 import {useInView} from 'react-intersection-observer';
 import {styles_with_css} from'./sections/motion.ts';
 import {ONBOARDING_INTRO} from './sections/onboarding_bootstrap';
@@ -117,9 +117,9 @@ function App() {
             </div> 
                <div className='photos_people'></div>*/}
 
-            {/* <div className='video_wrapper'>
+            <div className='video_wrapper'>
               <video id="background_vid" src={bg_vid} type='video/mp4' loop={true} muted={true} autoPlay={'autoplay'} playsInline={true}  />            
-            </div> */}
+            </div>
           </motion.div>
           
           <div className='parallax_layer front_intro' >

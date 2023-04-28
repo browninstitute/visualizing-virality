@@ -152,7 +152,7 @@ body{
     z-index: 0;
     font-size: 2em;
     color: darkgray;
-    background-color:  white ;
+    background-color:  #1DA1F2 ;
     // .sections_wrapper{
     height: 100vh;
     overflow-x: hidden;
@@ -301,7 +301,6 @@ body{
 
     //INTRO SECTION CSS
     .intro_section{
-      
       overflow-x: hidden;
       .scroll_div_show{
         position: absolute;
@@ -336,8 +335,8 @@ body{
     
     position: relative;
     height: 140vh;
+    z-index: 0;
     background-color: #1DA1F2;
-    
       .parallax_layer{
           position: absolute;
           inset: 0;
@@ -345,16 +344,16 @@ body{
                       
       }
       .back_intro{
-          z-index: -10;
+          z-index: 1;
           position: relative;
-
           .video_wrapper{
+              background-color: #1DA1F2;
               video {
+                z-index: 16;
                 object-fit: cover;
                 width: 100vw;
                 top: 0;
                 height: 100vh;
-                min-width: 100%;
               }
             }
 
@@ -375,7 +374,7 @@ body{
           
       }
       .front_intro{
-          z-index: 0;
+          z-index: 2;
           height: 140vh;
           width: 100vw;
           .main_text{

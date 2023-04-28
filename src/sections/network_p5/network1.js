@@ -135,7 +135,7 @@ function sketch(fp5) {
         onboardingTextX = mainX - fp5.textWidth(onboardingText) / 2;
       }
       if (first_eng + 4 <= timesecs && timesecs < first_eng + 9) {
-        onboardingText = "Notice that time is passing here logarithmicly.";
+        onboardingText = "Notice that time is passing here logarithmically.";
         onboardingTextX = mainX - fp5.textWidth(onboardingText) / 2;
       }
       if (first_eng + 9 <= timesecs && timesecs < first_eng + 16) {

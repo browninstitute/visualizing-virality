@@ -400,8 +400,8 @@ body{
               span.author_txt{
                 color: white;
                 text-align: right;
-                font-size:0.6rem;
-                letter-spacing: 1.5px;
+                font-size:0.7rem;
+                letter-spacing: 0px;
               }
             }
             
@@ -1719,7 +1719,7 @@ body{
         margin-bottom: 2.5%;
         ul li{
           text-align: left;
-          font-size: 0.4vmin;
+          font-size: 1vmin;
           @media only screen and (max-width: 961px) {
             font-size: min(1.2vmin,1.2rem);
           

@@ -181,9 +181,9 @@
             let yAxTop = fp5.int(fp5.map(3000,0,max_bar_height,histogram_y+histogram_height,histogram_y));
 
             
-            fp5.text("Direct followers and unknown distance", 12*(fp5.displayWidth/20)/load_factor, yAxTop+0.75*fp5.displayHeight/40);
-            fp5.text("2 degrees of separation ", 12*(fp5.displayWidth/20)/load_factor, yAxTop+2*0.75*fp5.displayHeight/40);
-            fp5.text("3 or more degrees of separation " , 12*(fp5.displayWidth/20)/load_factor, yAxTop+3*0.75*fp5.displayHeight/40);
+            fp5.text("Direct followers and unknown", 12*(fp5.displayWidth/23)/load_factor, yAxTop+0.75*fp5.displayHeight/40);
+            fp5.text("2 degrees of separation ", 12*(fp5.displayWidth/23)/load_factor, yAxTop+2*0.75*fp5.displayHeight/40);
+            fp5.text("3 or more degrees of separation " , 12*(fp5.displayWidth/23)/load_factor, yAxTop+3*0.75*fp5.displayHeight/40);
             //fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.displayWidth/20)/load_factor, (3.2*fp5.displayHeight*0.9/10)/load_factor);
             
             fp5.text("Time", (7)*(fp5.displayWidth/20)/load_factor, (9.3*fp5.displayHeight*0.9/10)/load_factor);
@@ -321,11 +321,11 @@
         let yAxTop = fp5.int(fp5.map(3000,0,max_bar_height,histogram_y+histogram_height,histogram_y));
 
         fp5.fill(50, 120, 242, 150);
-        fp5.rect(11*(fp5.displayWidth/20)/load_factor, yAxTop, 0.75*fp5.displayHeight/40);
+        fp5.rect(11*(fp5.displayWidth/23.5)/load_factor, yAxTop, 0.75*fp5.displayHeight/40);
         fp5.fill(102, 0, 153, 150);
-        fp5.rect(11*(fp5.displayWidth/20)/load_factor, yAxTop+0.75*fp5.displayHeight/40, 0.75*fp5.displayHeight/40);
+        fp5.rect(11*(fp5.displayWidth/23.5)/load_factor, yAxTop+0.75*fp5.displayHeight/40, 0.75*fp5.displayHeight/40);
         fp5.fill(153, 0, 102, 150);
-        fp5.rect(11*(fp5.displayWidth/20)/load_factor, yAxTop+1.5*fp5.displayHeight/40, 0.75*fp5.displayHeight/40);
+        fp5.rect(11*(fp5.displayWidth/23.5)/load_factor, yAxTop+1.5*fp5.displayHeight/40, 0.75*fp5.displayHeight/40);
  /*       fp5.fill(200,200,200, 150);
         fp5.rect((fp5.displayWidth/20)/load_factor, (6*fp5.displayHeight*0.9/20)/load_factor, 0.75*fp5.displayWidth/40);
 */

@@ -383,10 +383,12 @@ body{
             display: flex;
             justify-content: center;
             align-items: center;
+            text-align: right;
             height:70vh;
             width: 100vw;
             position: relative;
             span.banner_txt{
+              
               color: white;
               padding-top: 1.1rem;
               padding-bottom: 1.1rem;
@@ -394,7 +396,15 @@ body{
               padding-right: 3rem;
               font-size:3.5rem;
               letter-spacing: 4px;
+
+              span.author_txt{
+                color: white;
+                text-align: right;
+                font-size:0.6rem;
+                letter-spacing: 1.5px;
+              }
             }
+            
           }
           
           .logos{
@@ -582,7 +592,7 @@ body{
     }
   
     //TIMELINE SECTION CSS
-    .timeline_sec{
+    .timeline_section{
     .timeline_wrap{
         height: 245vh;           
         width: 100vw;
@@ -778,8 +788,8 @@ body{
       .showloading{
         position: absolute;
         z-index: 9;
-        top: 20%;
-        left: 20%;
+        top: 10%;
+        left: 10%;
       }
       .network_section{
         z-index: 10;
@@ -794,9 +804,37 @@ body{
           height: 1%;
           width: 1%;
         }
-        .play_pause_con{
-          z-index: 122;
+        .play_pause_container{
+          position: absolute;
+          height: 5vh;
+          width: 5vw;
+          z-index: 22;
+          top: 1%;
+          left: 1%;
 
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+
+          .network_button_container{
+            height: 100%;
+            width: 50%;
+            
+
+            .network_button{
+              padding-left: 20%;
+              padding-right: 20%;
+              padding-top: 2%;
+              padding-bottom: 2%;
+              border-radius: 20px;
+              margin-bottom: 5%;
+              font-size: 2vmin;
+              border-width: 0px;
+              color: white;
+            }
+
+          }
 
         }
         .sketch_sec{
@@ -1642,11 +1680,58 @@ body{
     }
     
     
-    
+    .citations_section{
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: rgb(78, 78, 78);
+      .cit_text{
+        width: 100vw;
+        font-size: 2vmin;
+
+
+        margin: 2.5%;
+        margin-top: 5%;
+        @media only screen and (max-width: 961px) {
+          font-size: min(3.5vmin,2rem);
+          margin-top: 10%;
+        }
+        text-align: center;
+        a{
+          text-decoration:none;
+        }
+      }
+      .cit_list{
+        font-size: 1.5vmin;
+        @media only screen and (max-width: 961px) {
+            font-size: min(2vmin,1rem);
+        }
+        a{
+          text-decoration:none;
+        }
+        text-align: left;
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 2.5%;
+        margin-bottom: 2.5%;
+        ul li{
+          text-align: left;
+          font-size: 0.4vmin;
+          @media only screen and (max-width: 961px) {
+            font-size: min(1.2vmin,1.2rem);
+          
+        }
+        
+        }
+      }
+    }
     
     
     .outro_section{
-      height: 100vh;
+      height: 70vh;
       overflow-x: hidden;
       width: 100vw;
       color: rgb(78, 78, 78);
@@ -1655,9 +1740,12 @@ body{
       justify-content: center;
       flex-direction: column;
       @media only screen and (max-width: 961px) {
+        height: 70vh;      
+      }
+      @media only screen and (max-width: 600px) {
+        
         height: 60vh;
-      
-    }
+      }
       .outro_text{
         width: 100vw;
         
@@ -1695,6 +1783,7 @@ body{
         @media only screen and (max-width: 961px) {
           width: 60vw;
         }
+
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1712,10 +1801,15 @@ body{
         .outro_menu_block{
           height: 45vh;
           width: 30vw;
+
           @media only screen and (max-width: 961px) {
             width: 60vw;
+            width: 35vh;
+          }
+          @media only screen and (max-width: 600px) {
             height: 25vh;
           }
+
           color: #1d84c3; /* blue colors for links too */
           
           display: flex;
@@ -1780,8 +1874,13 @@ body{
       height: 100vh;
       width: 100vw;
       @media only screen and (max-width: 961px) {
+        height: 60vh;
+      }
+      @media only screen and (max-width: 600px) {
         height: 40vh;
       }
+
+
       
       background-color: #1DA1F2;
       color: white;
@@ -1811,10 +1910,8 @@ body{
             justify-content: center;
             flex-direction: column;
             .menu_button_block{
-              height: 20%;
-              
+              height: 20%;              
               width: 60%;
-
               margin-top: 10%;
               margin-bottom: 10%;
               margin-left: 5%;
@@ -1822,10 +1919,7 @@ body{
               display: flex;
               justify-content: center;
               align-items: start;
-              @media only screen and (max-width: 961px) {
-                width: 80%;
 
-              }
               img{
                 position: absolute;
                 border-radius:100px;

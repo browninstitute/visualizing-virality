@@ -285,7 +285,8 @@ export function SELECTION_SECTION(){
         new_selection['t_link'] = n_keyvals.t_link
         setSelection(new_selection);
         loadCSVs(n_keyvals.username);
-        setIsVisibleN1(true); 
+        setPauseN1(false);
+        setPauseN2(false);
     };
 
     const [demotion, setDemotion] = useState(3);
@@ -308,12 +309,13 @@ export function SELECTION_SECTION(){
 
     const [resetN1, setResetN1] = useState(false);
     const updateResetN1 = (reset) => { 
-        setResetN1(reset)
+        setResetN1(reset);
+
     };
     const [resetN2, setResetN2] = useState(false);
     const updateResetN2 = (reset) => {
         setResetN2(reset)
-    };
+      };
 
     const scrollRef = useRef(null);
     const executeScroll = () => {console.log(scrollRef);scrollRef.current.scrollIntoView();}
@@ -329,11 +331,11 @@ export function SELECTION_SECTION(){
     const [isVisibleN1, setIsVisibleN1] = useState(false);
     useEffect(() => {
         if (inView) {
-            console.log('looking at 1')
+            
             setIsVisibleN1(true)       
         }
         if (!inView) {
-            console.log('not looking at 1')
+            
             setIsVisibleN1(false);        
         }
     }, [inView]);
@@ -343,11 +345,11 @@ export function SELECTION_SECTION(){
     const [isVisibleN2, setIsVisibleN2] = useState(false);
     useEffect(() => {
         if (inViewN2) {
-            console.log('looking at 2')
+            
             setIsVisibleN2(true);        
         }
         if (!inViewN2) {
-            console.log('not looking at 2')
+            
             setIsVisibleN2(false);        
         }
     }, [inViewN2]);
@@ -361,9 +363,10 @@ export function SELECTION_SECTION(){
             </div>
             
 
-            {/* <NETWORK1 UserSelection={selection} NetworkPause={pauseN1} SetterNetworkPause={updatePauseN1} NetworkReset={resetN1} SetterNetworkReset={updateResetN1} /> */}
             <div className='network_visible_container' ref={ref}>
-                <div className='showloading'>Loading</div>
+                {loading &&
+                  <div className='showloading'>Loading</div>
+                }
                 {(!loading && !isMobile() ) &&
                 <NETWORK1
                     UserSelection={selection}
@@ -400,11 +403,13 @@ export function SELECTION_SECTION(){
             <GITHUB UserSelection={selection}/>
             <DEMOTION_INTRO UserSelection={selection}/>
             <DEMOTION UserSelection={selection} UserDemotion={demotion} SetterUserDemotion={setDemotion}  />
-            {/* <NETWORK2 UserSelection={selection} UserDemotion={demotion} NetworkPause={pauseN2} SetterNetworkPause={updatePauseN2} NetworkReset={resetN2} SetterNetworkReset={updateResetN2}/>  */}
-            
+           
             <div className='network_visible_container' ref={refVN2}>
-            <div className='showloading'>Loading</div>
-            { (!loading && !isMobile()) &&
+            
+              {/* {loading &&
+                <div className='showloading'>Loading</div>
+              }
+              { (!loading && !isMobile()) &&
                 <NETWORK2
                 table={data.table}
                 nodes_table={data.nodes_table}
@@ -419,7 +424,7 @@ export function SELECTION_SECTION(){
                 loading_currently={loading}
                 isinView={isVisibleN2}
                 />
-            }
+              }
             
             {(!loading && isMobile() ) &&
                 <NETWORK2_M
@@ -435,7 +440,7 @@ export function SELECTION_SECTION(){
                 maps={data.maps}
                 loading_currently={loading}
                 isinView={isVisibleN2}
-            />}
+            />} */}
             </div>
             
             <OUTRO UserSelection={selection} SetterUserSelection={updateSelection} ScrollToSelection={executeScroll} />

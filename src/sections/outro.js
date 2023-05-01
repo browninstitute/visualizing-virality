@@ -11,11 +11,11 @@ export function OUTRO({UserSelection,SetterUserSelection,ScrollToSelection}){
 
     return (
         <div className="outro_section">
-            <div className="outro_text">Check out tweets from the other categories!</div>
+            <div className="outro_text">Click below to check out tweets from the other categories!</div>
 
             <div className="outro_menu">
             
-            <Carousel autoPlay infiniteLoop renderIndicator={() => (<div/>)} interval={3000} showStatus={false}   >
+            <Carousel autoPlay infiniteLoop renderIndicator={() => (<div/>)} interval={3000} showStatus={false} showThumbs={false}  >
                 <div>
                     <a  href="#0">
                     <div className="outro_menu_block" onClick={() => {SetterUserSelection("@TomBrady");ScrollToSelection();}}>
@@ -53,13 +53,7 @@ export function OUTRO({UserSelection,SetterUserSelection,ScrollToSelection}){
 
             </div>
 
-            <div className="outro_text2"> 
-            Also check out the accompanying
-            <a href='https://knightcolumbia.org/content/understanding-social-media-recommendation-algorithms'>
-            <span style={styles_with_css({color:"#1DA1F2"})}> essay </span> 
-            </a>
-            on the subject.
-            </div>
+            
         </div>
     );
 }

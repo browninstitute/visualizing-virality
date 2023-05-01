@@ -120,7 +120,7 @@ function sketch(fp5) {
 
             if (first_eng+2 <= timesecs  && timesecs < first_eng+4)
             {
-                onboardingText = "The accounts will soon begin to engage with the tweet";
+                onboardingText = "Accounts will soon begin to engage with his tweet";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
             }
@@ -159,7 +159,7 @@ function sketch(fp5) {
 
             if (1260 <= timesecs  && timesecs < 2000)
             {
-                onboardingText = "The lighter blue bar are direct followers of " + selection_user.name + "\nthe darker is everyone else.";
+                onboardingText = "The lighter blue bar are direct followers of " + selection_user.name + "\nand the darker is everyone else.";
                 onboardingTextX = 0.10*(fp5.displayWidth);
                 onboardingTextY = 0.75*(fp5.displayHeight*0.9);
             }

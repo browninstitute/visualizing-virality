@@ -91,8 +91,8 @@ export function SELECTION_SECTION(){
       }
   
       for (let r = 0; r < table.length; r++) {
-        let id = table[5].id;
-        let parent = table[r].Target;
+        let id = table[r].Target;
+        let parent = table[r].Source;
         parentMap.set(id, parent);
       }
   
@@ -139,6 +139,12 @@ export function SELECTION_SECTION(){
     //     //   setMaps(cachedData[dataset].maps);
     //     //   setLoading(false);
     //   } else {
+        setData({
+          table: [],
+          nodes_table: [],
+          info_table: [],
+          loaded: null,
+        });
         let streamSize = 5000000;
         let table;
         let nodes_table;
@@ -292,7 +298,6 @@ export function SELECTION_SECTION(){
     const [demotion, setDemotion] = useState(3);
     const updateDemotion = (t_demotion) => {
         console.log('changing demotion to: ' + t_demotion)
-        setIsVisibleN2(true);  
         setDemotion(t_demotion)
     };
 
@@ -301,7 +306,7 @@ export function SELECTION_SECTION(){
     const updatePauseN1 = (pause) => {
         setPauseN1(pause)
     };
-    const [pauseN2, setPauseN2] = useState(true);
+    const [pauseN2, setPauseN2] = useState(false);
     const updatePauseN2 = (pause) => {
         setPauseN2(pause)
     };
@@ -406,7 +411,7 @@ export function SELECTION_SECTION(){
            
             <div className='network_visible_container' ref={refVN2}>
             
-              {/* {loading &&
+              {loading &&
                 <div className='showloading'>Loading</div>
               }
               { (!loading && !isMobile()) &&
@@ -440,7 +445,7 @@ export function SELECTION_SECTION(){
                 maps={data.maps}
                 loading_currently={loading}
                 isinView={isVisibleN2}
-            />} */}
+            />}
             </div>
             
             <OUTRO UserSelection={selection} SetterUserSelection={updateSelection} ScrollToSelection={executeScroll} />

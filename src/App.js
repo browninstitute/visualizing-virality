@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect ,  useRef} from "react";
 import { motion, useScroll, useSpring, useTransform, useMotionValue, useAnimation } from "framer-motion";
-import bg_vid from './assets/intro_bg_webm.webm';
 import bg_vid_mp4 from './assets/intro_bg_mp4.mp4';
 import {ONBOARDING_INTRO} from './sections/onboarding_bootstrap';
 import {ONBOARDING_BARS} from './sections/onboarding_bars'
@@ -79,7 +78,7 @@ function App() {
                <div className='photos_people'></div>*/}
             <div className='video_wrapper'>
               <video id="background_vid" loop={true} muted={true} autoPlay={'autoplay'} playsInline={true} >
-                <source src={bg_vid} type="video/wemb"/>
+                {/* <source src={bg_vid} type="video/wemb"/> */}
                 <source src={bg_vid_mp4} type="video/mp4"/>
               </video>             
             

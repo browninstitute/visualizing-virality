@@ -126,56 +126,39 @@ function sketch(fp5) {
 
             if (first_eng+2 <= timesecs  && timesecs < first_eng+4)
             {
-                onboardingText = "The accounts will soon begin to engage with the tweet";
+                onboardingText = "Now the account is experiencing demotion.";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
             }
             if (first_eng+4 <= timesecs  && timesecs < first_eng+9)
             {
-                onboardingText = "Notice that time is passing here logarithmically.";
+                onboardingText = "That means some accounts won't see the tweet this time.";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
             }
             if (first_eng+9 <= timesecs  && timesecs < first_eng+16)
             {
-                onboardingText = "That means it will start off slow and then speed up!";
+                onboardingText = "They will be shown in gray.";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
             }
-            if (first_eng+16 <= timesecs  && timesecs < first_eng+30)
-            {
-                onboardingText = "The size of the circles indicates how many followers the account has until a limit.";
-                onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
-
-            }
+          
 
             if (250 <= timesecs  && timesecs < 630)
             {
-                onboardingText = "At around 18 minutes, this histogram will show\nhow many engagements happened over time.";
+                onboardingText = "Now there's a gray section in the histogram too.";
                 onboardingTextX = 0.10*(fp5.displayWidth);
                 onboardingTextY = 0.75*(fp5.displayHeight*0.9);
             }
 
             if (630 <= timesecs  && timesecs < 1260)
             {
-                onboardingText = "It goes by pretty fast.";
+                onboardingText = "It shows the proportion of people who didn't get to see the tweet this time.";;
                 onboardingTextX = 0.10*(fp5.displayWidth);
                 onboardingTextY = 0.75*(fp5.displayHeight*0.9);
             }
 
-            if (1260 <= timesecs  && timesecs < 2000)
-            {
-                onboardingText = "The lighter blue bar are direct followers of " + selection_user.name + "\nthe darker is everyone else.";
-                onboardingTextX = 0.10*(fp5.displayWidth);
-                onboardingTextY = 0.75*(fp5.displayHeight*0.9);
-            }
-
-            if (2000 <= timesecs  && timesecs < 3000)
-            {
-                onboardingText = "Watch the distribution as time goes by.";
-                onboardingTextX = 0.10*(fp5.displayWidth);
-                onboardingTextY = 0.75*(fp5.displayHeight*0.9);
-            }
+      
 
             fp5.text(onboardingText, onboardingTextX, onboardingTextY);
             fp5.text(retweetSum + " retweets " + likeSum + " likes " + replySum  + " replies",  fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/2.5+ fp5.displayHeight*0.9/12)-upFactor );

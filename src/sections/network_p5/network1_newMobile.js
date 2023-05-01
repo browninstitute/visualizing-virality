@@ -186,9 +186,13 @@
             fp5.text("3 or more degrees of separation " , 12*(fp5.displayWidth/23)/load_factor, yAxTop+3*0.75*fp5.displayHeight/40);
             //fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.displayWidth/20)/load_factor, (3.2*fp5.displayHeight*0.9/10)/load_factor);
             
-            fp5.text("Time", (7)*(fp5.displayWidth/20)/load_factor, (9.3*fp5.displayHeight*0.9/10)/load_factor);
+            // fp5.text("Time", (7)*(fp5.displayWidth/20)/load_factor, (9.3*fp5.displayHeight*0.9/10)/load_factor);
             
-            fp5.text("Number of Engagements", 1.3*(fp5.displayWidth/30)/load_factor, (7*fp5.displayHeight*0.9/10)/load_factor);
+            // fp5.text("Number of Engagements", 1.3*(fp5.displayWidth/30)/load_factor, (7*fp5.displayHeight*0.9/10)/load_factor);
+            fp5.text("Time", (((4)*(fp5.displayWidth/25)))/load_factor, (9.45*fp5.displayHeight*0.9/10)/load_factor);
+            
+            fp5.text("Number of Engagements", (1.3*(fp5.displayWidth/12)-35)/load_factor,  ((6.4*fp5.displayHeight*0.9/9))/load_factor );
+            
             //fp5.text(selection_user.username, fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/2.5+1.5*fp5.displayHeight*0.9/40));
             fp5.fill(0,0,0,0);
             fp5.stroke(200,200,200);
@@ -226,7 +230,7 @@
         
             //histogram
             for (let i=0; i < cur_bar; i++){
-            let xpos = fp5.int(fp5.map(i,0,num_bars,histogram_x,histogram_x+histogram_width)) 
+            let xpos = fp5.int(fp5.map(i,0,num_bars,histogram_x+1.75,histogram_x+histogram_width)) 
             let y1 = histogram_y+histogram_height;
             let y2 = fp5.int(fp5.map(hist_heights_blue[i],0,max_bar_height,histogram_y+histogram_height,histogram_y));
             let y3 = fp5.int(fp5.map(hist_heights_pink[i],0,max_bar_height,histogram_y+histogram_height,histogram_y));
@@ -331,14 +335,15 @@
 */
         let yAxBot = histogram_y+histogram_height;
 
-        fp5.stroke(200,200,200,150);
+        fp5.stroke(10,10,10,150);
         fp5.line(histogram_x, yAxBot, histogram_x, yAxTop);
         fp5.line(histogram_x, histogram_y+histogram_height, histogram_x+histogram_width, histogram_y+histogram_height);
+        fp5.stroke(150,150,150,150);
        // fp5.line(3.5*(fp5.displayWidth/20), histogram_y+histogram_height-10, 3.5*(fp5.displayWidth/20), histogram_y+histogram_height+10);
         //fp5.line(2.15*(fp5.displayWidth/20), histogram_y+histogram_height-10, 2.15*(fp5.displayWidth/20), histogram_y+histogram_height+10);
         fp5.text("12h", 2.1*(fp5.displayWidth/20), histogram_y+histogram_height+15);
         fp5.text("1d", 3.5*(fp5.displayWidth/20), histogram_y+histogram_height+15);
-        fp5.text("3000", histogram_x+10, yAxTop);
+        fp5.text("3000", histogram_x-13, yAxTop-5);
       }
   
       function Network(x, y) {

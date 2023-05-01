@@ -165,13 +165,13 @@ function sketch(fp5) {
             let rectWidth = fp5.textWidth(retweetSum + " retweets " + likeSum + " likes " + replySum  + " replies");
             fp5.textSize((fp5.displayHeight*0.9/60)/load_factor);
             
-            fp5.text("Direct followers and unknown distance users that engaged with the tweet", (3/2)*(fp5.displayWidth/20)/load_factor, (1.6*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
+            fp5.text("Direct followers and unknown distance accounts that engaged with the tweet", (3/2)*(fp5.displayWidth/20)/load_factor, (1.6*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("2 degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (2*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("3 or more degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (2.4*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.displayWidth/20)/load_factor, (2.8*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
-            fp5.text("Time", (3/2)*(fp5.displayWidth/20)/load_factor, (9.3*fp5.displayHeight*0.9/10)/load_factor);
+            fp5.text("Time", (3/2)*(fp5.displayWidth/11)/load_factor, (9.3*fp5.displayHeight*0.9/10)/load_factor);
             
-            fp5.text("Number of Engagements", 1.3*(fp5.displayWidth/30)/load_factor, (6.4*fp5.displayHeight*0.9/10)/load_factor);
+            fp5.text("Number of Engagements", 1.3*(fp5.displayWidth/12)/load_factor,  ((6.4*fp5.displayHeight*0.9/10)-60)/load_factor );
             fp5.text(selection_user.username, fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/2.5+1.5*fp5.displayHeight*0.9/40)-upFactor);
             fp5.fill(0,0,0,0);
             fp5.stroke(200,200,200);
@@ -208,7 +208,7 @@ function sketch(fp5) {
         
             //histogram
             for (let i=0; i < cur_bar; i++){
-            let xpos = fp5.int(fp5.map(i,0,num_bars,histogram_x,histogram_x+histogram_width)) 
+            let xpos = fp5.int(fp5.map(i,0,num_bars,histogram_x+3,histogram_x+histogram_width)) 
             let y1 = histogram_y+histogram_height;
             let y2 = fp5.int(fp5.map(hist_heights_blue[i],0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y));
             let y3 = fp5.int(fp5.map(hist_heights_pink[i],0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y));
@@ -313,14 +313,15 @@ function sketch(fp5) {
         let yAxBot = histogram_y+histogram_height;
         let yAxTop = fp5.int(fp5.map(yAxisMax,0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y));
 
-        fp5.stroke(200,200,200,150);
+        fp5.stroke(10,10,10,150);
         fp5.line(histogram_x, yAxBot, histogram_x, yAxTop);
         fp5.line(histogram_x, histogram_y+histogram_height, histogram_x+histogram_width, histogram_y+histogram_height);
+        fp5.stroke(150,150,150,150);
        // fp5.line(3.5*(fp5.displayWidth/20), histogram_y+histogram_height-10, 3.5*(fp5.displayWidth/20), histogram_y+histogram_height+10);
         //fp5.line(2.15*(fp5.displayWidth/20), histogram_y+histogram_height-10, 2.15*(fp5.displayWidth/20), histogram_y+histogram_height+10);
         fp5.text("12h", 2.1*(fp5.displayWidth/20), histogram_y+histogram_height+15);
         fp5.text("1d", 3.5*(fp5.displayWidth/20), histogram_y+histogram_height+15);
-        fp5.text(yAxisMax , histogram_x+10, yAxTop);
+        fp5.text(yAxisMax , histogram_x-35, yAxTop+8);
     }
 
     function Network(x, y) {

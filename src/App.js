@@ -42,6 +42,21 @@ const headFunc = {
 };
 
 function App() {
+  const vidRef = useRef(null);
+  useEffect(() => {
+    vidRef.current
+    .play()
+    .then(() => {
+    })
+    .catch((error) => {
+      vidRef.current.remove();
+    });
+  
+  }, [vidRef]);
+  
+
+
+
   useEffect(() => {
     window.history.scrollRestoration = 'manual'
   }, []);
@@ -77,7 +92,7 @@ function App() {
             </div> 
                <div className='photos_people'></div>*/}
             <div className='video_wrapper'>
-              <video id="background_vid" loop={true} muted={true} autoPlay={'autoplay'} playsInline={true} >
+              <video ref={vidRef} id="background_vid" loop={true} muted={true} autoPlay={'autoplay'}  playsInline={true} >
                 {/* <source src={bg_vid} type="video/wemb"/> */}
                 <source src={bg_vid_mp4} type="video/mp4"/>
               </video>             
@@ -88,7 +103,7 @@ function App() {
             <div className='main_text'> 
               <span className='banner_txt floating'>Visualizing Virality
               <br/>
-              <span className="author_txt floating">-Sahil Patel &amp; Samia Menon</span>   </span>
+              <span className="author_txt floating">Sahil Patel &amp; Samia Menon</span>   </span>
                        
             </div>
             <AppearingText>

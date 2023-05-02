@@ -313,8 +313,8 @@ body{
         left: 48.2%;
         top: 95.28%;
         @media only screen and (max-width: 961px) {
-          top: 58%;
-          left: 39.8%;
+          top: 83%;
+          left: 43%;
         }
         
         .scroll_div{
@@ -325,7 +325,7 @@ body{
           padding-right: 0.5vw;
           border-radius: 0.4vw;
           @media only screen and (max-width: 961px) {
-            font-size: min(1.1rem,5vmin);
+            font-size: min(1.5rem,2.5vmin);
             padding-left: 1rem;
             padding-right: 1rem;
             border-radius: 5px;
@@ -356,6 +356,11 @@ body{
                 width: 100vw;
                 top: 0;
                 height: 100vh;
+                pointer-events: none;
+
+              }
+              video::-webkit-media-controls {
+                display: none;
               }
             }
 
@@ -386,6 +391,9 @@ body{
             text-align: right;
             height:70vh;
             width: 100vw;
+            @media only screen and (max-width: 961px) {
+              height:60vh;
+            }
             position: relative;
             span.banner_txt{
               
@@ -570,11 +578,11 @@ body{
 
         
         color: rgb(78, 78, 78);
-        font-size: 2.2vmin;
+        font-size: 2.1vmin;
         line-height: 3.4vmin;
         z-index: 10;
         @media only screen and (max-width: 961px) {
-          font-size:  min(2rem,2.4vmin); 
+          font-size:  min(2.0rem,2.7vmin); 
           height: 20vh;
           margin-left: 10%;
           margin-right: 10%;
@@ -597,22 +605,7 @@ body{
         height: 245vh;           
         width: 100vw;
         overflow-x: hidden;
-        .timeline_scale{
-          position: absolute;
-
-          margin-top: -0%;
-          margin-left: 45%;
-          @media only screen and (max-width: 961px) {
-            margin-left: 35%;
-          }
-          z-index: 21;
-          img{
-            max-width: 5vw;
-            @media only screen and (max-width: 961px) {
-              max-width: 14vw;
-            }
-          }
-        }
+        
         .timeline_intro{
             z-index: 0;
             display: flex;
@@ -626,27 +619,14 @@ body{
             height: 245vh;
             width: 100vw;
             position: relative;
-            .timeline_dashes{
-                position: absolute;
-                z-index: 0;
-                left: 7.01px;
-                top:3px;
-                width: 100%;
-                height: 100%;
-                text-align: center;
-                overflow: hidden;
-                svg{
-                  display: inline-block;
-                  height: 100%;
-              }
-            }
+
             .timeline_line{
                 position: absolute;
                 z-index: 0;
                 left: 0%;
                 top:0;
                 width: 100%;
-                height: 100%;
+                height:  245vh;
                 text-align: center;
                 overflow: hidden;
                 svg.line_svg{
@@ -655,23 +635,7 @@ body{
                 }
 
             }
-            .timeline_line2{
-              position: absolute;
-              z-index: 0;
-              
-              width: 100%;
-              right:  1px;
-              top:0;
-              height: 100%;
-              text-align: center;
-              overflow: hidden;
-
-              
-              svg.line_svg2{
-                display: inline-block;
-                height: 100%;
-            }
-          }
+            
     
             .timeline_blocks{
                 position: absolute;
@@ -746,16 +710,40 @@ body{
                       
                     }
                   }
+                  .timeline_block:nth-child(1){
+                    .tweet-wrap{
+                    @media only screen and (max-width: 961px) {
+                      margin-top: 13%;
+                    }
+                    }
+                  }
 
                   .timeline_block:nth-child(2){
                     .timeline_text{
                       top: 35%;
                     }
+                    .tweet-wrap{
+                      @media only screen and (max-width: 961px) {
+                        margin-top: 5%;
+                      }
+                      }
+                  }
+                  .timeline_block:nth-child(3){
+                    .tweet-wrap{
+                      @media only screen and (max-width: 961px) {
+                        margin-top: 20%;
+                      }
+                      }
                   }
                   .timeline_block:nth-child(4){
                     .timeline_text{
                       top: -8%;
                     }
+                    .tweet-wrap{
+                      @media only screen and (max-width: 961px) {
+                        margin-top: 12%;
+                      }
+                      }
                   }
                   .timeline_block:nth-child(5){
                     .timeline_text{
@@ -766,6 +754,11 @@ body{
                     .timeline_text{
                       top: 39%;
                     }
+                    .tweet-wrap{
+                      @media only screen and (max-width: 961px) {
+                        margin-top: -5%;
+                      }
+                      }
                   }
                   .timeline_block:nth-child(7){
                     .timeline_text{
@@ -1690,11 +1683,10 @@ body{
       color: rgb(78, 78, 78);
       .cit_text{
         width: 100vw;
-        font-size: 2vmin;
+        font-size: 2.2vmin;
 
 
-        margin: 2.5%;
-        margin-top: 5%;
+        margin-top: 2%;
         @media only screen and (max-width: 961px) {
           font-size: min(3.5vmin,2rem);
           margin-top: 10%;
@@ -1705,9 +1697,9 @@ body{
         }
       }
       .cit_list{
-        font-size: 1.5vmin;
+        font-size: 2vmin;
         @media only screen and (max-width: 961px) {
-            font-size: min(2vmin,1rem);
+          font-size: min(3.5vmin,2rem);
         }
         a{
           text-decoration:none;
@@ -1716,12 +1708,13 @@ body{
         margin-left: 5%;
         margin-right: 5%;
         margin-top: 2.5%;
-        margin-bottom: 2.5%;
         ul li{
+          list-style-position: inside;
+          padding-left: 0;
           text-align: left;
-          font-size: 1vmin;
+          font-size: 1.6vmin;
           @media only screen and (max-width: 961px) {
-            font-size: min(1.2vmin,1.2rem);
+            font-size:min(2.5vmin,1.7rem);
           
         }
         

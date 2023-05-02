@@ -166,7 +166,6 @@ export function SELECTION_SECTION(){
           nodes_table = await loadCSV(m2, streamSize * 2);
           info_table = await loadCSV(m3, streamSize * 2);
         }
-        console.log("LOADED SELECTION");
         let new_data = {
           table: table,
           nodes_table: nodes_table,
@@ -177,7 +176,6 @@ export function SELECTION_SECTION(){
         let data_maps = processData(new_data, dataset);
         new_data.maps = data_maps;
         setData(new_data);
-        console.log("set data now")
     //     if (!isMobile()) {
     //       setCachedData((prev) => ({
     //         ...prev,
@@ -194,7 +192,6 @@ export function SELECTION_SECTION(){
         setLoading(false);
         setNewRender(false);
       });
-      console.log(cachedData);
     };
 
 
@@ -272,7 +269,6 @@ export function SELECTION_SECTION(){
     const [selection, setSelection] = useState(getkeyvals("default"));
     const updateSelection = (t_uname) => {
         setLoading(true);
-        console.log('changing to: ' + t_uname);
         let new_selection = Object.create(null);
 
         // let n_keyvals = getkeyvals(t_uname);
@@ -297,7 +293,6 @@ export function SELECTION_SECTION(){
 
     const [demotion, setDemotion] = useState(3);
     const updateDemotion = (t_demotion) => {
-        console.log('changing demotion to: ' + t_demotion)
         setDemotion(t_demotion)
     };
 
@@ -323,7 +318,7 @@ export function SELECTION_SECTION(){
       };
 
     const scrollRef = useRef(null);
-    const executeScroll = () => {console.log(scrollRef);scrollRef.current.scrollIntoView();}
+    const executeScroll = () => {scrollRef.current.scrollIntoView();}
 
     useEffect(() => {
         if (newRender) {

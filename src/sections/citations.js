@@ -4,11 +4,11 @@ export function CITATIONS(){
     return(
         <div className="citations_section">
             <div className="cit_text"> 
-                Citations
+                References
             </div>
             
             <div className="cit_list">
-            Data (<a href="https://drive.google.com/drive/folders/1tgWZxnVQ1RGiyXAETDDItSwnJa0qDlnv?usp=share_link"><span style={styles_with_css({color:"#1DA1F2"})}>Data</span></a> Link)      
+            Data     
             <br/>
             <ul>
                 <li>Viral Tweets
@@ -42,7 +42,6 @@ export function CITATIONS(){
                             <ul>
                                 <li>Twitter Official API v2</li>
                                 <li>Twitter Unofficial APIs</li>
-                                <li>Amazon MTurk</li>
                             </ul>
                         </li>
                     </ul>
@@ -55,7 +54,7 @@ export function CITATIONS(){
                 </li>
             </ul>
             <br/>
-            Website (<a href="https://github.com/browninstitute/visualizing-virality/"><span style={styles_with_css({color:"#1DA1F2"})}>Github</span></a> Link)
+            Website
             <br/>
             <ul>
                 <li>Main Visual

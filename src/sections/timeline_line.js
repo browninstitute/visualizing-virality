@@ -176,7 +176,7 @@ export function TIMELINE_LINE(){
           <motion.path d="M3 0V4116.28V4212" stroke="url(#byDayColor)"strokeWidth="5" pathLength={pathLength_timeline}/>
         </svg> */}
 
-        <svg className='line_svg' viewBox="0 0 10 4212" fill="none" preserveAspectRatio='xMidYMax meet' style={{ pointerEvents: "all" }}>
+        <svg className='line_svg' viewBox="0 0 10 4212" fill="none" preserveAspectRatio='none' style={{ pointerEvents: "all" }}>
           <defs>
             <linearGradient id="byDayColor" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#660099" stopOpacity="100%" />

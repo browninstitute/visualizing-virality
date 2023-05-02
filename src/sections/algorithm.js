@@ -16,7 +16,6 @@ export function ALGORITHM({UserSelection, SetterUserSelection}){
     
   // }, [inView]);
 
-  console.log(UserSelection)
 
   return(
     <>      

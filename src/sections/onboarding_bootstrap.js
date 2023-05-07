@@ -211,7 +211,7 @@ export function ONBOARDING_INTRO(){
                                       </g>
                                     </svg>
                                   </div>
-                                  {!isMobile() &&
+                                  
                                   <div className="svg_wrap" id="second_svg" > 
                                   <svg viewBox="-100 -100 500 300" fill="none" className="highlight" >
                                     { <motion.path 
@@ -222,7 +222,7 @@ export function ONBOARDING_INTRO(){
                                     />}
                                   </svg>
                                   </div>
-                                  }
+                                  
                                   
                                 </div>
                         

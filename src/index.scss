@@ -9,6 +9,9 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Asap", sans-serif;
+
+
+
 }
 
 html {
@@ -161,7 +164,7 @@ body{
   
 
     & * > .tweet-wrap {
-                  
+
       width: 30vw;
       // aspect-ratio: 352.08/96.01;
       // max-height: 15vh;
@@ -179,6 +182,7 @@ body{
 
     }
     & * > .tweet-header {
+
       display: flex;
       align-items:flex-start;
       font-size:  min(0.9vw, 1.5vh);
@@ -196,10 +200,12 @@ body{
       .avator{
         border-radius: max(4vw, 8vh);
         margin-right: max(1vw, 2vh);
+
         max-height: 8vh;
         max-width: 3.5vw;
         width: auto;
         height: auto;
+        
         @media only screen and (max-width: 961px) {
           max-height: 12vh;
           max-width: 6vw;
@@ -211,6 +217,7 @@ body{
     }
     
     & * > .tweet-header-info {
+     
       font-weight:bold;
       width: 81.48%;
       span {
@@ -229,7 +236,9 @@ body{
           align-items: center;
           width: 100%;
           margin-left:  min(-2vw, -3vh);
+
           .content_img{
+
             display: block;
             max-width:9vw;
             max-height:15vh;
@@ -242,6 +251,7 @@ body{
             }
           }
           .content_vid{
+            
             display: block;
             max-width:9vw;
             max-height:15vh;
@@ -265,6 +275,7 @@ body{
       margin-left: min(6vw, 8vh);
       margin-top: min(0.6vw, 1.5vh);
       font-size: min(0.9vw, 1.5vh);
+      
       @media only screen and (max-width: 961px) {
         margin-left: min(10vw, 14vh);
         margin-top: min(0.2vw, 0.2vh);

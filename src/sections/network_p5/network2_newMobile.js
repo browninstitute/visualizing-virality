@@ -20,66 +20,66 @@ function sketch(fp5) {
     };
 
     let canvas_second;
-    let network;
+  let network;
 
-    let network_initial = null;
-    let map1 = null;
-    let buildMap = true;
-    let timeMap;
-    let timeToNode;
-    let nameMap;
-    let followerMap;
-    let parentMap;
-    let hopMap;
-    let finalTimeMap;
-    let categoryMap;
-    let kevinFactor = 1;
-    let upFactor = fp5.displayHeight / 4;
-    let names = [];
-    let img = "";
-    let startpoint = 0;
-    let newNode;
-    //pause value
-    let pause = false;
-    let adjFrame = -1;
-    let onboardingText = "";
-    let timesecs = 0;
-    //tweetset input values
-    let demotionVal = 3;
-    let demotionDen = 10;
-    let yAxisMax = 3000;
-    let histogram_x = 0;
-    let histogram_y = 0;
-    let histogram_width = 0;
-    let histogram_height = 0;
-    const max_bar_height = 2000;
-    const load_factor = 1;
+  let network_initial = null;
+  let map1 = null;
+  let buildMap = true;
+  let timeMap;
+  let timeToNode;
+  let nameMap;
+  let followerMap;
+  let parentMap;
+  let hopMap;
+  let finalTimeMap;
+  let categoryMap;
+  let kevinFactor = 1;
+  let upFactor = fp5.displayHeight / 4;
+  let names = [];
+  let img = "";
+  let startpoint = 0;
+  let newNode;
+  //pause value
+  let pause = false;
+  let adjFrame = -1;
+  let onboardingText = "";
+  let timesecs = 0;
+  //tweetset input values
+  let demotionVal = 3;
+  let demotionDen = 10;
+  let yAxisMax = 3000;
+  let histogram_x = 0;
+  let histogram_y = 0;
+  let histogram_width = 0;
+  let histogram_height = 0;
+  const max_bar_height = 2000;
+  const load_factor = 1;
 
-    let retweetSum = 0;
-    let replySum = 0;
-    let likeSum = 0;
+  let retweetSum = 0;
+  let replySum = 0;
+  let likeSum = 0;
 
-    let veryfirstguy = "";
-    let end_time = 0;
-    let bar_times = 0;
-    const num_bars = 150;
-    let hist_times = new Array(num_bars).fill(0);
-    let hist_heights_blue = new Array(num_bars).fill(0);
-    let hist_heights_pink = new Array(num_bars).fill(0);
-    let hist_heights_grey = new Array(num_bars).fill(0);
-    let table = 0;
-    let nodes_table = 0;
-    let info_table = 0;
-    let first_eng = 20;
-    let onboardingTextData = [];
-    let defaultradius = (fp5.displayHeight * 0.9 / 20 )/ load_factor;
-    let following_reset = false;
-    let user_on_network = false;
-    let cur_bar = 0;
-    
-    fp5.preload = () => {
-        img = fp5.loadImage("https://upload.wikimedia.org/wikipedia/sco/thumb/9/9f/Twitter_bird_logo_2012.svg/1200px-Twitter_bird_logo_2012.svg.png");
-    }
+  let veryfirstguy = "";
+  let end_time = 0;
+  let bar_times = 0;
+  const num_bars = 150;
+  let hist_times = new Array(num_bars).fill(0);
+  let hist_heights_blue = new Array(num_bars).fill(0);
+  let hist_heights_pink = new Array(num_bars).fill(0);
+  let hist_heights_grey = new Array(num_bars).fill(0);
+  let table = 0;
+  let nodes_table = 0;
+  let info_table = 0;
+  let first_eng = 20;
+  let onboardingTextData = [];
+  let defaultradius = (fp5.displayHeight * 0.9) / 20 / load_factor;
+  let following_reset = false;
+  let user_on_network = false;
+  let cur_bar = 0;
+  
+  fp5.preload = () => {
+      img = fp5.loadImage("./twitter_bird.png");
+  }
 
 
 
@@ -118,10 +118,10 @@ function sketch(fp5) {
               onboardingText = "After " + first_eng + " seconds, the first account will engage with his tweet. ";
 
           }
-        
+
           if (first_eng <= timesecs  && timesecs < first_eng+4)
           {
-              onboardingText = "Now the tweet is experiencing demotion.";
+              onboardingText = "There they go!";
               onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
           }
@@ -129,17 +129,17 @@ function sketch(fp5) {
           
       if (first_eng+4 <= timesecs  && timesecs < first_eng+9)
       {
-          onboardingText = "Some accounts won't see the tweet this time.";
+          onboardingText = "Notice that time is passing here logarithmically.";
 
       }
       if (first_eng+9 <= timesecs  && timesecs < first_eng+16)
       {
-          onboardingText = "They will be shown in gray.";
+          onboardingText = "That means it will start off slow and then speed up!";
 
       }
       if (first_eng+16 <= timesecs  && timesecs < first_eng+30)
       {
-          onboardingText = "Check out how demotion affects the total number of accounts engaged!";
+          onboardingText = "The size of the circles indicates how many followers the account has.";
 
       }
       onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
@@ -148,36 +148,52 @@ function sketch(fp5) {
 
           if (250 <= timesecs  && timesecs < 630)
           {
-              onboardingText = "Now there's a gray section here too.";
+              onboardingText = "At around 18 minutes, this histogram will show\nhow many engagements happened over time.";
               onboardingTextX = 0.10*(fp5.displayWidth);
-              onboardingTextY = 0.87*(fp5.displayHeight*0.9);
+              onboardingTextY = 0.85*(fp5.displayHeight*0.9);
           }
 
           if (630 <= timesecs  && timesecs < 1260)
           {
-              onboardingText = "It shows the proportion of people who didn't get to see the tweet this time.";
+              onboardingText = "It goes by pretty fast.";
               onboardingTextX = 0.10*(fp5.displayWidth);
-              onboardingTextY = 0.87*(fp5.displayHeight*0.9);
+              onboardingTextY = 0.85*(fp5.displayHeight*0.9);
           }
 
-       
+          if (1260 <= timesecs  && timesecs < 2000)
+          {
+              onboardingText = "The lighter blue bar are direct followers of " + selection_user.name + "\nthe darker is everyone else.";
+              onboardingTextX = 0.10*(fp5.displayWidth);
+              onboardingTextY = 0.85*(fp5.displayHeight*0.9);
+          }
+
+          if (2000 <= timesecs  && timesecs < 3000)
+          {
+              onboardingText = "Watch the distribution as time goes by.";
+              onboardingTextX = 0.10*(fp5.displayWidth);
+              onboardingTextY = 0.85*(fp5.displayHeight*0.9);
+          }
 
           fp5.text(onboardingText, onboardingTextX, onboardingTextY);
-          fp5.text(selection_user.username + "\n\n🕊" + retweetSum + " rts " + likeSum + "  ♡s  " + replySum  + " 💬s",  fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/7) );
+          fp5.text(selection_user.username + "\n\n" + retweetSum + " RTs " + likeSum + "  ♡s  " + replySum  + " 💬s",  fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/7) );
 
           fp5.textSize((fp5.displayHeight*0.9/60)/load_factor);
           let yAxTop = fp5.int(fp5.map(3000,0,max_bar_height,histogram_y+histogram_height,histogram_y));
 
           
-          fp5.text("Direct followers and unknown", 12*(fp5.displayWidth/23)/load_factor, (yAxTop+0.75*fp5.displayHeight/40)-5 );
-          fp5.text("2 degrees of separation ", 12*(fp5.displayWidth/23)/load_factor, (yAxTop+2*0.75*fp5.displayHeight/40)-5);
-          fp5.text("3 or more degrees of separation " , 12*(fp5.displayWidth/23)/load_factor, (yAxTop+3*0.75*fp5.displayHeight/40)-5);
-          fp5.text("Accounts who wouldn't engage \n under demotion", 12*(fp5.displayWidth/23)/load_factor, (yAxTop+4*0.75*fp5.displayHeight/40)-5);
+          fp5.text("Direct followers and unknown", 12*(fp5.displayWidth/23)/load_factor, yAxTop+1*0.75*fp5.displayHeight/40);
+          fp5.text("2 degrees of separation ", 12*(fp5.displayWidth/23)/load_factor, yAxTop+2*0.75*fp5.displayHeight/40);
+          fp5.text("3 or more degrees of separation " , 12*(fp5.displayWidth/23)/load_factor, yAxTop+3*0.75*fp5.displayHeight/40);
+          fp5.text("Accounts who wouldn't engage, \n under demotion", 12*(fp5.displayWidth/23)/load_factor, yAxTop+4*0.75*fp5.displayHeight/40);
           
+          // fp5.text("Time", (7)*(fp5.displayWidth/20)/load_factor, (9.3*fp5.displayHeight*0.9/10)/load_factor);
+          
+          // fp5.text("Number of Engagements", 1.3*(fp5.displayWidth/30)/load_factor, (7*fp5.displayHeight*0.9/10)/load_factor);
           fp5.text("Time", (((4)*(fp5.displayWidth/25)))/load_factor, (9.45*fp5.displayHeight*0.9/10)/load_factor);
-            
+          
           fp5.text("Number of Engagements", (1.3*(fp5.displayWidth/12)-35)/load_factor,  ((6.4*fp5.displayHeight*0.9/9))/load_factor );
-            //fp5.text(selection_user.username, fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/2.5+1.5*fp5.displayHeight*0.9/40));
+          
+          //fp5.text(selection_user.username, fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/2.5+1.5*fp5.displayHeight*0.9/40));
           fp5.fill(0,0,0,0);
           fp5.stroke(200,200,200);
           fp5.rect(fp5.displayWidth/30, (fp5.displayHeight*0.9/8), (fp5.displayWidth/2), (fp5.displayHeight*0.9/16), 20);
@@ -239,15 +255,30 @@ function sketch(fp5) {
         }
     };
     function Connection(from, to,w) {
-        
-        this.a = from;
-        this.b = to;
-        this.weight = w;
-        this.sending = false;
-        this.sender = null;
-        this.output = 0;
-        this.activate = true;
-    }
+      
+      this.a = from;
+      this.b = to;
+      this.weight = w;
+      this.sending = false;
+      this.sender = null;
+      this.output = 0;
+      this.activate = true;
+      this.initial = {
+        a: from,
+        b: to,
+        w: w,
+      };
+  }
+
+  Connection.prototype.reset = function () {
+    this.a = this.initial.a;
+    this.b = this.initial.b;
+    this.weight = this.initial.w;
+    this.sending = false;
+    this.sender = null;
+    this.output = 0;
+    this.activate = true;
+  };
         
     Connection.prototype.feedforward = function(val) {
         this.output = val*this.weight;
@@ -309,14 +340,13 @@ function sketch(fp5) {
       let yAxTop = fp5.int(fp5.map(3000,0,max_bar_height,histogram_y+histogram_height,histogram_y));
 
       fp5.fill(50, 120, 242, 150);
-      fp5.rect(11*(fp5.displayWidth/23.5)/load_factor, yAxTop, 0.75*fp5.displayHeight/40);
+      fp5.rect(11*(fp5.displayWidth/23.5)/load_factor, yAxTop+3, 0.75*fp5.displayHeight/40);
       fp5.fill(102, 0, 153, 150);
-      fp5.rect(11*(fp5.displayWidth/23.5)/load_factor, yAxTop+0.75*fp5.displayHeight/40, 0.75*fp5.displayHeight/40);
+      fp5.rect(11*(fp5.displayWidth/23.5)/load_factor, yAxTop+3+0.75*fp5.displayHeight/40, 0.75*fp5.displayHeight/40);
       fp5.fill(153, 0, 102, 150);
-      fp5.rect(11*(fp5.displayWidth/23.5)/load_factor, yAxTop+1.5*fp5.displayHeight/40, 0.75*fp5.displayHeight/40);
+      fp5.rect(11*(fp5.displayWidth/23.5)/load_factor, yAxTop+3+1.5*fp5.displayHeight/40, 0.75*fp5.displayHeight/40);
       fp5.fill(200,200,200, 150);
-      fp5.rect(11*(fp5.displayWidth/23.5)/load_factor,  yAxTop+2.25*fp5.displayHeight/40, 0.75*fp5.displayHeight/40);
-
+      fp5.rect(11*(fp5.displayWidth/23.5)/load_factor,  yAxTop+3+2.25*fp5.displayHeight/40, 0.75*fp5.displayHeight/40);
       let yAxBot = histogram_y+histogram_height;
 
       fp5.stroke(10,10,10,150);
@@ -331,11 +361,20 @@ function sketch(fp5) {
     }
 
     function Network(x, y) {
-        
-        this.neurons = [];
-        this.connections = [];
-        this.position = fp5.createVector(x, y);
+      
+      this.neurons = [];
+      this.connections = [];
+      this.position = fp5.createVector(x, y);
     }
+
+    Network.prototype.reset = function () {
+      for (let i = 0; i < this.connections.length; i++) {
+        this.connections[i].reset();
+      }
+      for (let i = 0; i < this.neurons.length; i++) {
+        this.neurons[i].reset();
+      }
+    };
     Network.prototype.addNeuron = function(n) {
         this.neurons.push(n);
     }
@@ -423,20 +462,39 @@ function sketch(fp5) {
 
 
     function Neuron(x, y, name, active, radius, time, isFirst) {
-    
-        this.position = fp5.createVector(x, y);
-        this.connections = [];
-        this.sum = (isFirst == 'first'? 1: 0);
-        this.r = 1;
-        this.isTouched = false;
-        this.name = name;
-        this.active = active;
-        this.seen = false;
-        this.time = time;
-        this.isSending = false;
-        this.isFirst = isFirst;
-        this.opacity = 255;
+  
+      this.position = fp5.createVector(x, y);
+      this.connections = [];
+      this.sum = (isFirst == 'first'? 1: 0);
+      this.r = 1;
+      this.isTouched = false;
+      this.name = name;
+      this.active = active;
+      this.seen = false;
+      this.time = time;
+      this.isSending = false;
+      this.isFirst = isFirst;
+      this.opacity = 255;
+      this.initial = {
+        x: x,
+        y: y,
+        time: time,
+        sum: isFirst === "first" ? 1 : 0,
+        active: active,
+        name: name,
+      };
     }
+
+    Neuron.prototype.reset = function () {
+      this.position.x = this.initial.x;
+      this.position.y = this.initial.y;
+      this.time = this.initial.time;
+      this.sum = this.initial.sum;
+      this.active = this.initial.active;
+      this.name = this.initial.name;
+      this.isSending = false;
+      this.opacity = 255;
+    };
     Neuron.prototype.addConnection = function(c) {
         this.connections.push(c);
     }
@@ -543,7 +601,7 @@ function sketch(fp5) {
             return;
           }*/
         
-          let scaler = (fp5.min(fp5.int(followerMap.get(this.name))/8000+10,335))/load_factor;
+          let scaler = (fp5.min(fp5.int(followerMap.get(this.name))/15000+5,335))/load_factor;
         
         // console.log(scaler);
             //console.log(this.isTouched);
@@ -628,7 +686,7 @@ function sketch(fp5) {
                 fp5.displayWidth,
                 fp5.displayHeight * 0.9
               );
-              canvas_second.id("network_initial_canvas");
+              canvas_second.id("network_demotion_canvas");
             }
         
             if (!nodes_table.length) {
@@ -719,42 +777,23 @@ function sketch(fp5) {
                 }
               }
             }
-            if (!network_initial) {
+            if (!network) {
               network = new Network(0, 0);
-              for (let r = table.length - 1; r >= 0; r--) {
-                network.connect(
-                  map1.get(table[r].Source),
-                  map1.get(table[r].Target),
-                  2
-                );
+        
+              for (let entry of parentMap.entries()) {
+                let source = entry[0];
+                let target = entry[1];
+                network.connect(map1.get(target), map1.get(source), 2);
               }
+        
+              let names = Array.from(map1.keys());
+        
               for (let i = 0; i < names.length; i++) {
                 network.addNeuron(map1.get(names[i]));
               }
-              network_initial = Object.assign(new Network(0,0) , network);
             } else {
-
-
-              network = null;
-          
-              for (let i = 0; i < names.length; i++) {
-                network_initial.neurons[i].isTouched = false;
-                network_initial.neurons[i].seen = false;
-                network_initial.neurons[i].isSending = false;
-                network_initial.neurons[i].active = true;
-                network_initial.neurons[i].opacity = 255;
-                network_initial.neurons[i].sum = (network_initial.neurons[i].isFirst === 'first'? 1: 0);
-              }
-              for (let r = network_initial.connections.length - 1; r >= 0; r--){
-
-                network_initial.connections[r].sending = false;
-                network_initial.connections[r].activate = true;
- 
-              }
-              network = Object.assign(new Network(0,0), network_initial);
-
+              network.reset();
             }
-        
             retweetSum = 0;
             likeSum = 0;
             replySum = 0;
@@ -772,9 +811,7 @@ function sketch(fp5) {
       }
 
     fp5.updateWithProps = props => {
-        if (!props.loading_currently){
-           let i = 0;
-        }
+
         if (props.network_reset) {            
             if (canvas_second) {
               restartNetwork();
@@ -782,14 +819,6 @@ function sketch(fp5) {
               props.network_pause_set(false);
             }
           }
-        if (props.user_demotion != demotionVal){
-        if (canvas_second){
-            demotionVal = props.user_demotion;     
-            restartNetwork();    
-            props.network_pause_set(false);       
-        }
-        }
-
 
         if (props.network_pause !== pause) {
             if (canvas_second) {
@@ -802,14 +831,32 @@ function sketch(fp5) {
                 user_on_network = props.network_visible;
             }
         }
-        if (!table && props.table.length) {
-            table = props.table;
-            //   info_table = props.info_table;
-            nodes_table = props.nodes_table;
+        if (!nodes_table && props.maps) {
+          ({
+            timeMap,
+            names,
+            parentMap,
+            followerMap,
+            nameMap,
+            finalTimeMap,
+            hopMap,
+            categoryMap,
+            hist_times,
+            bar_times,
+            nodes_table,
+          } = props.maps);
+          selection_user = props.selection_user;
+          user_on_network = props.network_visible;
+          demotionVal = props.user_demotion;
+        } else if (
+          props.selection_user &&
+          props.selection_user.username !== selection_user.username
+        ) {
+          if (canvas_second) {
+            nodes_table = null;
+            network = null;
             ({
               timeMap,
-              names,
-              timeToNode,
               parentMap,
               followerMap,
               nameMap,
@@ -818,62 +865,33 @@ function sketch(fp5) {
               categoryMap,
               hist_times,
               bar_times,
+              nodes_table,
             } = props.maps);
-
+    
             selection_user = props.selection_user;
-            user_on_network= props.network_visible;
-            
-          } else if (
-            props.selection_user &&
-            props.selection_user.username != selection_user.username &&
-            props.table.length) {
-            
-            if (canvas_second) {
-              table = null;
-              info_table=null;
-              nodes_table=null;
-              network_initial=null;
-              table = props.table;
-              info_table = props.info_table;
-              nodes_table = props.nodes_table;
-              ({
-                timeMap,
-                timeToNode,
-                parentMap,
-                followerMap,
-                nameMap,
-                finalTimeMap,
-                hopMap,
-                categoryMap,
-                hist_times,
-                bar_times,
-              } = props.maps);
-      
-              selection_user = props.selection_user;
-              let username = props.selection_user.username;
-              switch (username) {
-                case "@TomBrady":
-                  kevinFactor = 1;
-                  yAxisMax = 3000;
-      
-                  break;
-                case "@6lack":
-                  kevinFactor = 1;
-                  yAxisMax = 3000;
-                  break;
-                case "@SpeakerMcCarthy":
-                  kevinFactor = 3;
-                  yAxisMax = 7000;
-                  break;
-                default:
-                  break;
-              }
-              restartNetwork();
-              props.network_reset_set(false);
-              props.network_pause_set(false);
-
+            let username = props.selection_user.username;
+            switch (username) {
+              case "@TomBrady":
+                kevinFactor = 1;
+                yAxisMax = 3000;
+    
+                break;
+              case "@6lack":
+                kevinFactor = 1;
+                yAxisMax = 3000;
+                break;
+              case "@SpeakerMcCarthy":
+                kevinFactor = 3;
+                yAxisMax = 7000;
+                break;
+              default:
+                break;
             }
+            restartNetwork();
+            props.network_reset_set(false);
+            props.network_pause_set(false);
           }
+        }
       
         
         
@@ -892,20 +910,14 @@ function sketch(fp5) {
 
 
 export function NETWORK2_M({
-    UserSelection,
-    NetworkPause,
-    SetterNetworkPause,
-    NetworkReset,
-    SetterNetworkReset,
-    table,
-    nodes_table,
-    info_table,
-    maps,
-    loading_currently,
-    onNetwork1,
-    setOnNetwork1,
-    isinView,  
-    UserDemotion,
+  UserDemotion,
+  UserSelection,
+  NetworkPause,
+  SetterNetworkPause,
+  NetworkReset,
+  SetterNetworkReset,
+  maps,
+  isinView,
     }){
 
 
@@ -932,10 +944,17 @@ export function NETWORK2_M({
       <div className='sketch_sec' >
 
       
-      <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}  network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset}  network_visible={isinView} table={table}
-            nodes_table={nodes_table}
-            maps={maps} user_demotion={UserDemotion} ></ReactP5Wrapper>
-        
+      <ReactP5Wrapper
+            sketch={sketch}
+            user_demotion={UserDemotion}
+            selection_user={UserSelection}
+            network_pause={NetworkPause}
+            network_pause_set={SetterNetworkPause}
+            network_reset={NetworkReset}
+            network_reset_set={SetterNetworkReset}
+            maps={maps}
+            network_visible={isinView}
+          ></ReactP5Wrapper>
     </div>
     </div>
     </>

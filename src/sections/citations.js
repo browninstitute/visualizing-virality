@@ -13,18 +13,12 @@ export function CITATIONS(){
             <ul>
                 <li>Viral Tweets
                     <ul>
+
                         <li>
-                            Counts
+                            Query + "Viral Confirmaiton"
                             <br/>
                             <ul>
                                 <li>Twitter Official API v2</li>
-                                <li>Twitter Advanced Search</li>
-                            </ul>
-                        </li>
-                        <li>
-                            "Viral" Confirmation
-                            <br/>
-                            <ul>
                                 <li>Twitter Advanced Search</li>
                             </ul>
                         </li>
@@ -41,7 +35,7 @@ export function CITATIONS(){
                             <br/>
                             <ul>
                                 <li>Twitter Official API v2</li>
-                                <li>Twitter Unofficial APIs</li>
+                                <li>Twitter Hidden APIs</li>
                             </ul>
                         </li>
                     </ul>

@@ -20,7 +20,7 @@ function sketch(fp5) {
 
     let canvas_second;
     let network;
-
+    let author;
     let network_initial = null;
     let map1 = null;
     let buildMap = true;
@@ -63,12 +63,15 @@ function sketch(fp5) {
     let bar_times = 0;
     const num_bars = 150;
     let hist_times = new Array(num_bars).fill(0);
+
     let hist_heights_blue = new Array(num_bars).fill(0);
-    let hist_heights_pink = new Array(num_bars).fill(0);
+
+    let hist_heights_pink = [...Array(5)].map(_=>Array(num_bars).fill(0))       
+
+
     let hist_heights_grey = new Array(num_bars).fill(0);
-    let table = 0;
-    let nodes_table = 0;
-    let info_table = 0;
+
+
     let first_eng = 20;
     let onboardingTextData = [];
     let defaultradius = (fp5.displayHeight * 0.9) / 20 / load_factor;
@@ -77,7 +80,7 @@ function sketch(fp5) {
     let cur_bar = 0;
     
     fp5.preload = () => {
-        img = fp5.loadImage("https://upload.wikimedia.org/wikipedia/sco/thumb/9/9f/Twitter_bird_logo_2012.svg/1200px-Twitter_bird_logo_2012.svg.png");
+        img = fp5.loadImage("./twitter_bird.png");
     }
 
 
@@ -118,10 +121,16 @@ function sketch(fp5) {
         
 
 
-            if (first_eng+2 <= timesecs  && timesecs < first_eng+4)
+            if (2.5 <= timesecs  && timesecs < first_eng)
             {
-                onboardingText = "Accounts will soon begin to engage with his tweet";
-                onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
+                onboardingText = "After " + first_eng + " seconds, the first account will engage with his tweet. ";
+                onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;
+            }
+  
+            if (first_eng <= timesecs  && timesecs < first_eng+4)
+            {
+                onboardingText = "There they go!";
+                onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;
 
             }
             if (first_eng+4 <= timesecs  && timesecs < first_eng+9)
@@ -138,7 +147,7 @@ function sketch(fp5) {
             }
             if (first_eng+16 <= timesecs  && timesecs < first_eng+30)
             {
-                onboardingText = "The size of the circles indicates how many followers the account has until a limit.";
+                onboardingText = "The size of the circles indicates how many followers.";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
             }
@@ -159,7 +168,7 @@ function sketch(fp5) {
 
             if (1260 <= timesecs  && timesecs < 2000)
             {
-                onboardingText = "The lighter blue bar are direct followers of " + selection_user.name + "\nand the darker is everyone else.";
+                onboardingText = "The lighter blue bars are direct followers of " + selection_user.name + "\nand the others are on a scale of purple to red depending on separation.";
                 onboardingTextX = 0.10*(fp5.displayWidth);
                 onboardingTextY = 0.75*(fp5.displayHeight*0.9);
             }
@@ -176,9 +185,11 @@ function sketch(fp5) {
             let rectWidth = fp5.textWidth(retweetSum + " retweets " + likeSum + " likes " + replySum  + " replies");
             fp5.textSize((fp5.displayHeight*0.9/60)/load_factor);
             
-            fp5.text("Direct followers and unknown distance accounts that engaged with the tweet", (3/2)*(fp5.displayWidth/20)/load_factor, (1.6*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
-            fp5.text("2 degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (2*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
-            fp5.text("3 or more degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (2.4*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
+            fp5.text("1 degree of separation from " +selection_user.name +" (including direct followers and unknown distance accounts)", (3/2)*(fp5.displayWidth/20)/load_factor, (1.632*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
+
+            // fp5.text("2 degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (1.78*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
+            fp5.text("3 degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (1.923*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
+            fp5.text("6 degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (2.33*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             //fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.displayWidth/20)/load_factor, (2.8*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("Time", (3/2)*(fp5.displayWidth/11)/load_factor, (9.3*fp5.displayHeight*0.9/10)/load_factor);
             
@@ -222,19 +233,48 @@ function sketch(fp5) {
             for (let i=0; i < cur_bar; i++){
             let xpos = fp5.int(fp5.map(i,0,num_bars,histogram_x+3,histogram_x+histogram_width)) 
             let y1 = histogram_y+histogram_height;
-            let y2 = fp5.int(fp5.map(hist_heights_blue[i],0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y));
-            let y3 = fp5.int(fp5.map(hist_heights_pink[i],0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y));
-            let y4 = fp5.int(fp5.map(hist_heights_grey[i]+hist_heights_pink[i]+hist_heights_blue[i],0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y));
-            //strokeWeight(10);
             
-        
+            //start drawing lines in reverse order:
+            //grey
+            let total_len = hist_heights_grey[i] + hist_heights_blue[i] + hist_heights_pink.map(function(value,index) { return value[i];}).reduce((psum, cv) => psum + cv, 0);;
             fp5.stroke(200,200,200);
-            fp5.line(xpos, y1, xpos, y4);
-            fp5.stroke(29, 161, 242);
-            fp5.line(xpos,y1,xpos,y2);
-            fp5.stroke(65, 105, 225);
-            var y5 = y2-(y1-y3);
-            fp5.line(xpos, y2, xpos, y5);
+            fp5.line(xpos, y1, xpos, fp5.int(fp5.map(total_len,0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y)));
+            
+            let prev_height = hist_heights_grey[i]
+            for (var j=4; j >= 0;j--){
+              
+              switch (j){
+                case 0:
+                  fp5.stroke(72,36,158);
+                  fp5.line(xpos, y1, xpos, fp5.int(fp5.map(total_len-prev_height,0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y)));
+                  break;
+                case 1:
+                  fp5.stroke(116,0,151);
+                  fp5.line(xpos, y1, xpos, fp5.int(fp5.map(total_len-prev_height,0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y)));
+                  break;
+                case 2:
+                  fp5.stroke(139,0,136);
+                  fp5.line(xpos, y1, xpos, fp5.int(fp5.map(total_len-prev_height,0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y)));
+                  break;
+                case 3:
+                  fp5.stroke(149,0,116);
+                  fp5.line(xpos, y1, xpos, fp5.int(fp5.map(total_len-prev_height,0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y)));
+                  break;
+                case 4:
+                  fp5.stroke(152,0,91);
+                  fp5.line(xpos, y1, xpos, fp5.int(fp5.map(total_len-prev_height,0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y)));
+                  break;
+                  
+              }
+              prev_height = prev_height + hist_heights_pink[j][i]
+            } 
+            
+            
+            fp5.stroke(50, 160, 242);
+            fp5.line(xpos, y1, xpos, fp5.int(fp5.map(total_len-prev_height,0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y)));
+                  
+
+            
         
         
             }
@@ -253,7 +293,22 @@ function sketch(fp5) {
         this.sender = null;
         this.output = 0;
         this.activate = true;
+        this.initial = {
+          a: from,
+          b: to,
+          w: w,
+        };
     }
+
+    Connection.prototype.reset = function () {
+      this.a = this.initial.a;
+      this.b = this.initial.b;
+      this.weight = this.initial.w;
+      this.sending = false;
+      this.sender = null;
+      this.output = 0;
+      this.activate = true;
+    };
         
     Connection.prototype.feedforward = function(val) {
         this.output = val*this.weight;
@@ -312,14 +367,24 @@ function sketch(fp5) {
 
     function makeKey()
     {
+
+
         fp5.noStroke();
         fp5.fill(50, 120, 242, 150);
-        fp5.rect((fp5.displayWidth/20)/load_factor, (3*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40);
-        fp5.fill(102, 0, 153, 150);
-        fp5.rect((fp5.displayWidth/20)/load_factor, (3.7*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40);
-        fp5.fill(153, 0, 102, 150);
-        fp5.rect((fp5.displayWidth/20)/load_factor, (4.4*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40);
-      //  fp5.fill(200,200,200, 150);
+        fp5.rect((fp5.displayWidth/20)/load_factor, (3*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40, 0.4*(0.75*fp5.displayWidth/40));
+        
+        fp5.fill(72,36,158,180);
+        fp5.rect((fp5.displayWidth/20)/load_factor, (3.28*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40, 0.4*(0.75*fp5.displayWidth/40));
+        fp5.fill(116,0,151,180);
+        fp5.rect((fp5.displayWidth/20)/load_factor, (3.56*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40, 0.4*(0.75*fp5.displayWidth/40));
+        fp5.fill(139,0,136,180);
+        fp5.rect((fp5.displayWidth/20)/load_factor, (3.84*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40, 0.4*(0.75*fp5.displayWidth/40));
+        fp5.fill(149,0,116,180);
+        fp5.rect((fp5.displayWidth/20)/load_factor, (4.12*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40, 0.4*(0.75*fp5.displayWidth/40));
+        fp5.fill(152,6,91,180);
+        fp5.rect((fp5.displayWidth/20)/load_factor, (4.4*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40, 0.4*(0.75*fp5.displayWidth/40));
+       
+       //  fp5.fill(200,200,200, 150);
        // fp5.rect((fp5.displayWidth/20)/load_factor, (5.1*fp5.displayHeight*0.9/20)/load_factor+upFactor/2, 0.75*fp5.displayWidth/40);
 
         let yAxBot = histogram_y+histogram_height;
@@ -329,6 +394,7 @@ function sketch(fp5) {
         fp5.line(histogram_x, yAxBot, histogram_x, yAxTop);
         fp5.line(histogram_x, histogram_y+histogram_height, histogram_x+histogram_width, histogram_y+histogram_height);
         fp5.stroke(150,150,150,150);
+        fp5.fill(150,150,150,150);
        // fp5.line(3.5*(fp5.displayWidth/20), histogram_y+histogram_height-10, 3.5*(fp5.displayWidth/20), histogram_y+histogram_height+10);
         //fp5.line(2.15*(fp5.displayWidth/20), histogram_y+histogram_height-10, 2.15*(fp5.displayWidth/20), histogram_y+histogram_height+10);
         fp5.text("12h", 2.1*(fp5.displayWidth/20), histogram_y+histogram_height+15);
@@ -342,6 +408,16 @@ function sketch(fp5) {
         this.connections = [];
         this.position = fp5.createVector(x, y);
     }
+
+    Network.prototype.reset = function () {
+      for (let i = 0; i < this.connections.length; i++) {
+        this.connections[i].reset();
+      }
+      for (let i = 0; i < this.neurons.length; i++) {
+        this.neurons[i].reset();
+      }
+    };
+
     Network.prototype.addNeuron = function(n) {
         this.neurons.push(n);
     }
@@ -408,18 +484,18 @@ function sketch(fp5) {
         //strokeWeight(1);
         for (var i = 0; i < this.connections.length; i++) {
         //maybe make it a function of the follower count
-        if (this.connections[i].a.isSending)//(followerMap.get((this.connections[i].a.name)) >= 0.5*(followerMap.get(veryfirstguy)))
-        {
-            if (fp5.random() < 0.18*kevinFactor)
-            {
-            this.connections[i].deactivate();
-            }
-        }
-        this.connections[i].display();
+          if (this.connections[i].a.isSending)//(followerMap.get((this.connections[i].a.name)) >= 0.5*(followerMap.get(veryfirstguy)))
+          {
+              if (fp5.random() < 0.18*kevinFactor)
+              {
+              this.connections[i].deactivate();
+              }
+          }
+          this.connections[i].display();
         }
 
         for (var i = 0; i < this.neurons.length; i++) {
-        this.neurons[i].display();
+          this.neurons[i].display();
         }
         fp5.pop();
     }
@@ -441,7 +517,30 @@ function sketch(fp5) {
         this.isSending = false;
         this.isFirst = isFirst;
         this.opacity = 255;
+        this.initial = {
+          x: x,
+          y: y,
+          time: time,
+          sum: isFirst === "first" ? 1 : 0,
+          active: active,
+          name: name,
+        };
     }
+
+    Neuron.prototype.reset = function () {
+      this.position.x = this.initial.x;
+      this.position.y = this.initial.y;
+      this.time = this.initial.time;
+      this.sum = this.initial.sum;
+      this.active = this.initial.active;
+      this.name = this.initial.name;
+      this.isSending = false;
+      this.seen = false;
+      this.isTouched = false;
+      this.opacity = 255;
+      this.r = 1;
+    };
+
     Neuron.prototype.addConnection = function(c) {
         this.connections.push(c);
     }
@@ -449,12 +548,6 @@ function sketch(fp5) {
     Neuron.prototype.feedforward = function(input) {
     
         this.sum += input;
-    
-    /*  if (this.sum > 0) {
-        //this.fire();
-        this.sum = 0;
-        this.isTouched = true;
-        }*/
     }
 
     Neuron.prototype.orient = function() {
@@ -501,14 +594,13 @@ function sketch(fp5) {
             {
                 likeSum++;
             }
-            if (this.isFirst == 'second')
-            {
-                hist_heights_pink[cur_bar]  = hist_heights_pink[cur_bar] + 1
-            }
-            if (this.isFirst == 'other')
+            if (this.isFirst === 1 || this.isFirst === 0 )
             {
                 hist_heights_blue[cur_bar]  = hist_heights_blue[cur_bar] + 1
-
+            }
+            if (this.isFirst >= 2)
+            { 
+              hist_heights_pink[this.isFirst-2][cur_bar] = hist_heights_pink[this.isFirst-2][cur_bar] + 1
             }
             for (var i = 0; i < this.connections.length; i++) {
                 let rand = fp5.random(demotionDen);
@@ -539,6 +631,7 @@ function sketch(fp5) {
         let checkFinalChild = fp5.log(fp5.int(parseFloat(finalTimeMap.get(this.name))))*120 - adjFrame;
         if ( checkFinalChild <= 0)
         {
+
             return;
         }
         //then brute force go away if too long
@@ -567,23 +660,34 @@ function sketch(fp5) {
             scaler = 200/load_factor;
 
         }
-        if ( hopMap.get(this.name) == 1 || hopMap.get(this.name)==0)
+        if ( this.isFirst === 1 || this.isFirstb === 0)
         {
-            fp5.fill(50, 120, 242, 150);
+            fp5.fill(50, 140, 242,150);
 
         }
-        if ( hopMap.get(this.name) == 2)
+        
+        if ( this.isFirst >= 2)
         {
-            fp5.fill(102, 0, 153, 150);
-
+          switch (this.isFirst-2){
+            case 0:
+              fp5.fill(72,36,158,180);
+              break;
+            case 1:
+              fp5.fill(116,0,151,180);
+              break;
+            case 2:
+              fp5.fill(139,0,136,180);
+              break;
+            case 3:
+              fp5.fill(149,0,116,180);
+              break;
+            case 4:
+              fp5.fill(152,6,91,180);
+              break;
+          }
         }
 
-        if ( hopMap.get(this.name) >= 3)
 
-        {
-            fp5.fill(153, 0, 102, 150);
-
-        }
 
         
         fp5.ellipse(this.position.x, this.position.y, scaler*this.r, scaler*this.r);
@@ -618,161 +722,118 @@ function sketch(fp5) {
     }
         
 
-    function restartNetwork()
-        {
+    function restartNetwork(){
             
 
-            if (!canvas_second) {
-              canvas_second = fp5.createCanvas(
-                fp5.displayWidth,
-                fp5.displayHeight * 0.9
-              );
-              canvas_second.id("network_initial_canvas");
-            }
-        
-            if (!nodes_table.length) {
-              return;
-            }
-        
-                    
-            if (buildMap) {
-              map1 = new Map();
-            }
-        
-            let mainX = (1.4 * (fp5.displayWidth / 2)) / load_factor;
-            let mainY = (fp5.displayHeight * 0.9) / 2 / load_factor;
-            veryfirstguy = nodes_table[0].id;
-        
-            if (buildMap) {
-              newNode = new Neuron(mainX, mainY, veryfirstguy, true, defaultradius * 4);
-              map1.set(veryfirstguy, newNode);
-        
-              for (let r = 0; r < nodes_table.length; r++) {
-                let id = nodes_table[r].id;
-                let time = fp5.int(parseFloat(nodes_table[r].time));
-                if (time < 153442) {
-                  let angle = fp5.random(0, fp5.TWO_PI);
-                  let distance =
-                    fp5.random(40, (fp5.displayHeight * 0.9) / 2) / load_factor;
-                    
+      if (!canvas_second) {
+        canvas_second = fp5.createCanvas(
+          fp5.displayWidth,
+          fp5.displayHeight * 0.9
+        );
+        canvas_second.id("network_initial_canvas");
+      }
+  
+      if (!timeMap.size) {
+        return;
+      }
+  
+      if (buildMap) {
+        map1 = new Map();
+      }
+  
+      let mainX = (1.4 * (fp5.displayWidth / 2)) / load_factor;
+      let mainY = (fp5.displayHeight * 0.9) / 2 / load_factor;
+      veryfirstguy = author;
+      
 
-                  if (parentMap.get(id) == veryfirstguy && buildMap) {
-                    map1.set(
-                      id,
-                      new Neuron(
-                        mainX + Math.cos(angle) * distance,
-                        mainY + Math.sin(angle) * distance,
-                        id,
-                        true,
-                        defaultradius,
-                        time,
-                        "second"
-                      )
-                    );
-                  } else if (parentMap.get(id) != veryfirstguy && buildMap) {
-                    map1.set(
-                      id,
-                      new Neuron(
-                        mainX + Math.cos(angle) * distance,
-                        mainY + Math.sin(angle) * distance,
-                        id,
-                        true,
-                        defaultradius,
-                        time,
-                        "other"
-                      )
-                    );
-                  }
-                }
-              }
+
+      if (buildMap) {
+  
+        for (let entry of timeMap.entries()) {
+          let id = entry[0];
+          let time = entry[1];
+          if (time < 153442) {
+            if (parseInt(time) < first_eng && parseInt(time) !== 0) {
+              first_eng = parseInt(time);
+            }
+            let angle = fp5.random(0, fp5.TWO_PI);
+            let distance =
+              fp5.random(40, (fp5.displayHeight * 0.9) / 2) / load_factor;
+  
               map1.set(
-                veryfirstguy,
-                new Neuron(
-                  mainX,
-                  mainY,
-                  veryfirstguy,
-                  true,
-                  defaultradius,
-                  timeMap.get(veryfirstguy),
-                  "first"
-                )
-              );
-              buildMap = false;
-            }
-        
+                    id,
+                    new Neuron(
+                      mainX + Math.cos(angle) * distance,
+                      mainY + Math.sin(angle) * distance,
+                      id,
+                      true,
+                      defaultradius,
+                      time,
+                      hopMap.get(id)
+                    )
+                  );
+          }
+        }
+        map1.set(
+          veryfirstguy,
+          new Neuron(
+            mainX,
+            mainY,
+            veryfirstguy,
+            true,
+            defaultradius,
+            timeMap.get(veryfirstguy),
+            "first"
+          )
+        );
+        buildMap = false;
+      }
+  
+      end_time = 153442;
+
+  
+      if (!network) {
+        network = new Network(0, 0);
+  
 
 
-            end_time = 0;
-            for (let r = 0; r < nodes_table.length; r++) {
-              let type = nodes_table[r].type;
-              let time = fp5.int(parseFloat(nodes_table[r].time));
-              if (time < 153442) {
-                if (parseInt(time) < first_eng && parseInt(type) !== 0) {
-                  first_eng = parseInt(time);
-                }
-        
-                let n_time = parseInt(time);
-                if (end_time < n_time) {
-                  end_time = n_time;
-                }
-              }
-            }
-            if (!network_initial) {
-              network = new Network(0, 0);
-              for (let r = table.length - 1; r >= 0; r--) {
-                network.connect(
-                  map1.get(table[r].Source),
-                  map1.get(table[r].Target),
-                  2
-                );
-              }
-              for (let i = 0; i < names.length; i++) {
-                network.addNeuron(map1.get(names[i]));
-              }
-              network_initial = Object.assign(new Network(0,0) , network);
-            } else {
-
-
-              network = null;
+        for (const entry of parentMap.entries()) {
+          let source = entry[0];
+          let targets = entry[1];
           
-              for (let i = 0; i < names.length; i++) {
-                network_initial.neurons[i].isTouched = false;
-                network_initial.neurons[i].seen = false;
-                network_initial.neurons[i].isSending = false;
-                network_initial.neurons[i].active = true;
-                network_initial.neurons[i].opacity = 255;
-                network_initial.neurons[i].sum = (network_initial.neurons[i].isFirst === 'first'? 1: 0);
-              }
-              for (let r = network_initial.connections.length - 1; r >= 0; r--){
+          var i = targets.length; 
+          while (i--) {
+            network.connect(map1.get(targets[i]), map1.get(source), 2);
+          }
+        }
+        let names = Array.from(map1.keys());
 
-                network_initial.connections[r].sending = false;
-                network_initial.connections[r].activate = true;
- 
-              }
-              network = Object.assign(new Network(0,0), network_initial);
+        for (let i = 0; i < names.length; i++) {
+          network.addNeuron(map1.get(names[i]));
+        }
 
-            }
-        
-            retweetSum = 0;
-            likeSum = 0;
-            replySum = 0;
-            cur_bar = 0;
-        
-            hist_heights_blue.fill(0);
-            hist_heights_pink.fill(0);
-            hist_heights_grey.fill(0);
-        
-            timesecs = 0;
-            adjFrame = -1;
-            network.display();
-            
-            
+
+      } else {
+        network.reset();
+      }
+  
+      retweetSum = 0;
+      likeSum = 0;
+      replySum = 0;
+      cur_bar = 0;
+  
+      hist_heights_blue.fill(0);
+      hist_heights_pink=null;
+      hist_heights_pink = [...Array(5)].map(_=>Array(num_bars).fill(0))   
+      hist_heights_grey.fill(0);
+  
+      timesecs = 0;
+      adjFrame = -1;
+      network.display();
     }
 
     fp5.updateWithProps = props => {
-        if (!props.loading_currently){
-           let i = 0;
-        }
+
         if (props.network_reset) {            
             if (canvas_second) {
               restartNetwork();
@@ -788,18 +849,56 @@ function sketch(fp5) {
         }
     
         if (canvas_second) {
-            if (user_on_network != props.network_visible){
+            if (user_on_network !== props.network_visible){
                 user_on_network = props.network_visible;
             }
         }
-        if (!table && props.table.length) {
-            table = props.table;
-            //   info_table = props.info_table;
-            nodes_table = props.nodes_table;
+
+        if (!parentMap && props.maps) {
+          ({
+            timeMap,
+            names,
+            parentMap,
+            followerMap,
+            nameMap,
+            finalTimeMap,
+            hopMap,
+            categoryMap,
+            hist_times,
+            bar_times,
+            author
+          } = props.maps);
+          selection_user = props.selection_user;
+          let username = props.selection_user.username;
+
+            switch (username) {
+              case "@TomBrady":
+                kevinFactor = 1.333;
+                yAxisMax = 4000;
+                break;
+              case "@6lack":
+                kevinFactor = 0.666;
+                yAxisMax = 2000;
+                break;
+              case "@SpeakerMcCarthy":
+                kevinFactor = 1.666;
+                yAxisMax = 5000;
+                break;
+              default:
+                break;
+            }
+          user_on_network = props.network_visible;
+
+
+
+        } else if (
+          props.selection_user &&
+          props.selection_user.username !== selection_user.username
+        ) {
+          if (canvas_second) {
+            network = null;
             ({
               timeMap,
-              names,
-              timeToNode,
               parentMap,
               followerMap,
               nameMap,
@@ -808,62 +907,33 @@ function sketch(fp5) {
               categoryMap,
               hist_times,
               bar_times,
+              author
             } = props.maps);
-
+    
             selection_user = props.selection_user;
-            user_on_network= props.network_visible;
-            
-          } else if (
-            props.selection_user &&
-            props.selection_user.username != selection_user.username &&
-            props.table.length) {
-            
-            if (canvas_second) {
-              table = null;
-              info_table=null;
-              nodes_table=null;
-              network_initial=null;
-              table = props.table;
-              info_table = props.info_table;
-              nodes_table = props.nodes_table;
-              ({
-                timeMap,
-                timeToNode,
-                parentMap,
-                followerMap,
-                nameMap,
-                finalTimeMap,
-                hopMap,
-                categoryMap,
-                hist_times,
-                bar_times,
-              } = props.maps);
-      
-              selection_user = props.selection_user;
-              let username = props.selection_user.username;
-              switch (username) {
-                case "@TomBrady":
-                  kevinFactor = 1;
-                  yAxisMax = 3000;
-      
-                  break;
-                case "@6lack":
-                  kevinFactor = 1;
-                  yAxisMax = 3000;
-                  break;
-                case "@SpeakerMcCarthy":
-                  kevinFactor = 3;
-                  yAxisMax = 7000;
-                  break;
-                default:
-                  break;
-              }
-              restartNetwork();
-              props.network_reset_set(false);
-              props.network_pause_set(false);
+            let username = props.selection_user.username;
 
+            switch (username) {
+              case "@TomBrady":
+                kevinFactor = 1.333;
+                yAxisMax = 4000;
+                break;
+              case "@6lack":
+                kevinFactor = 0.666;
+                yAxisMax = 2000;
+                break;
+              case "@SpeakerMcCarthy":
+                kevinFactor = 1.666;
+                yAxisMax = 5000;
+                break;
+              default:
+                break;
             }
+            restartNetwork();
+            props.network_reset_set(false);
+            props.network_pause_set(false);
           }
+        }
       
         
         
@@ -887,14 +957,8 @@ export function NETWORK1({
     SetterNetworkPause,
     NetworkReset,
     SetterNetworkReset,
-    table,
-    nodes_table,
-    info_table,
     maps,
-    loading_currently,
-    onNetwork1,
-    setOnNetwork1,
-    isinView
+    isinView,
     }){
 
 
@@ -921,9 +985,16 @@ export function NETWORK1({
       <div className='sketch_sec' >
 
       
-        <ReactP5Wrapper sketch={sketch}  selection_user={UserSelection}  network_pause={NetworkPause} network_pause_set={SetterNetworkPause} network_reset={NetworkReset} network_reset_set={SetterNetworkReset} table={table} nodes_table={nodes_table} maps={maps}
-             network_visible={isinView} ></ReactP5Wrapper>
-      
+          <ReactP5Wrapper
+            sketch={sketch}
+            selection_user={UserSelection}
+            network_pause={NetworkPause}
+            network_pause_set={SetterNetworkPause}
+            network_reset={NetworkReset}
+            network_reset_set={SetterNetworkReset}
+            maps={maps}
+            network_visible={isinView}
+          ></ReactP5Wrapper>
         
     </div>
     </div>

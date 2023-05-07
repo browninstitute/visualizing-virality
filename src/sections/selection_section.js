@@ -26,48 +26,154 @@ import Papa from "papaparse";
 
 export function SELECTION_SECTION(){
 
-    const t1 = "data/links_tb.csv";
-    const t2 = "data/nodes_tb.csv";
-    const t3 = "data/users_tb.csv";
-    const b1 = "data/links_black.csv";
-    const b2 = "data/nodes_black.csv";
-    const b3 = "data/users_black.csv";
-    const m1 = "data/links_mccarthy.csv";
-    const m2 = "data/nodes_mccarthy.csv";
-    const m3 = "data/users_mccarthy.csv";
+    const t1 = "data_c/links_tb.csv";
+    const t2 = "data_c/nodes_tb.csv";
+    const t3 = "data_c/users_tb.csv";
+    const b1 = "data_c/links_black.csv";
+    const b2 = "data_c/nodes_black.csv";
+    const b3 = "data_c/users_black.csv";
+    const m1 = "data_c/links_mccarthy.csv";
+    const m2 = "data_c/nodes_mccarthy.csv";
+    const m3 = "data_c/users_mccarthy.csv";
   
     const [data, setData] = useState({
-      table: [],
-      nodes_table: [],
-      info_table: [],
+      maps: null,
       loaded: null,
     });
     function isMobile() {
+        //author: Michael Zaporozhets
         let check = false;
         (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
         return check;
     }
-    const [maps, setMaps] = useState({});
-  
-    const [cachedData, setCachedData] = useState({});
+
   
     const [loading, setLoading] = useState(true);
   
-    const loadCSV = async (url, streamSize) => {
+    const loadCSV = async (url, type, maps, dataset) => {
       try {
         const response = await fetch(url);
         const csvText = await response.text();
-        Papa.LocalChunkSize = 10000;
-        const parsedCSV = Papa.parse(csvText, { header: true });
-        return parsedCSV.data;
+        if (type === "nodes") {
+          Papa.parse(csvText, {
+            header: true,
+            worker: true,
+            fastMode: true,
+            step: (results, parser) => stepNodes(results, parser, maps),
+            complete: function (results, file) {
+              
+              
+              
+              maps.loads.push("nodes");
+              if (maps.loads.length === 3) {
+                let new_data = {
+                  name: dataset,
+                  loaded: true,
+                };
+                new_data.maps = maps;
+                setData(new_data);
+                setLoading(false);
+              }
+            },
+          });
+        }
+        if (type === "links") {
+          Papa.parse(csvText, {
+            header: true,
+            worker: true,
+            fastMode: true,
+            step: (results, parser) => stepLinks(results, parser, maps),
+            complete: function (results, file) {
+              maps.loads.push("links");
+
+              if (maps.loads.length === 3) {
+                let new_data = {
+                  name: dataset,
+                  loaded: true,
+                };
+                new_data.maps = maps;
+                setData(new_data);
+                setLoading(false);
+              }
+            },
+          });
+        }
+        if (type === "info") {
+          Papa.parse(csvText, {
+            header: true,
+            worker: true,
+            fastMode: true,
+            step: (results, parser) => stepInfo(results, parser, maps),
+            complete: function (results, file) {
+              maps.loads.push("info");
+             
+              if (maps.loads.length === 3) {
+                let new_data = {
+                  name: dataset,
+                  loaded: true,
+                };
+                new_data.maps = maps;
+                setData(new_data);
+                setLoading(false);
+              }
+            },
+          });
+        }
       } catch (error) {
-        console.error(`Error loading CSV data: ${error}`);
+        console.error(`Error loading CSV data: ${error} ${url} ${type}`);
       }
     };
   
-    const processData = (data, dataset) => {
+    const stepNodes = function (results, parser, maps) {
+
+      let row = results.data;
+      if (!maps.author){
+        maps.author = row.id;
+      }
+      if (!row) return;
+      let type = row.type;
+      let id = row.id;
+      let time = parseInt(row.time);
+      if (time < 153442) {
+        maps.categoryMap.set(id, type);
+        maps.timeMap.set(id, time);
+        maps.timeToNode.set(time, id);
+
+      }
+    };
+  
+    const stepLinks = function (results, parser, maps) {
+      let row = results.data;
+      if (row) {
+        let id = row.Target;
+        let parent = row.Source;
+
+        let parent_arr = maps.parentMap.get(id) || [];
+        parent_arr.push(parent);
+        maps.parentMap.set(id,parent_arr)
+      }
+      
+    };
+  
+    const stepInfo = function (results, parser, maps) {
+      let row = results.data;
+      if (row) {
+        let id = row.id;
+        let followers = row.followers;
+        let username = row.username;
+        let last_time = row.last_time;
+        let Hop = parseInt(row.Hop);
+
+        maps.followerMap.set(id, followers);
+        maps.nameMap.set(id, username);
+        maps.finalTimeMap.set(id, last_time);
+        maps.hopMap.set(id, Hop);
+      }
+    };
+  
+    const buildMaps = (d) => {
+      let loads = [];
       const end_time = 153442;
-      let { info_table, nodes_table, table } = data;
       let names = [];
       let timeMap = new Map();
       let timeToNode = new Map();
@@ -77,37 +183,8 @@ export function SELECTION_SECTION(){
       let hopMap = new Map();
       let finalTimeMap = new Map();
       let categoryMap = new Map();
+      let author = null;
   
-      for (let r = 0; r < info_table.length; r++) {
-        let id = info_table[r].id;
-        let followers = info_table[r].followers;
-        let username = info_table[r].username;
-        let last_time = info_table[r].last_time;
-        let Hop = parseInt(info_table[r].Hop);
-        followerMap.set(id, followers);
-        nameMap.set(id, username);
-        finalTimeMap.set(id, last_time);
-        hopMap.set(id, Hop);
-      }
-  
-      for (let r = 0; r < table.length; r++) {
-        let id = table[r].Target;
-        let parent = table[r].Source;
-        parentMap.set(id, parent);
-      }
-  
-      for (let r = 0; r < nodes_table.length; r++) {
-        let type = nodes_table[r].type;
-        let id = nodes_table[r].id;
-        let time = parseInt(nodes_table[r].time);
-        if (time < 153442) {
-          categoryMap.set(id, type);
-          timeMap.set(id, time);
-          timeToNode.set(time, id);
-          names.push(id);
-
-        }
-      }
       const num_bars = 150;
       let bar_times = parseInt(end_time / num_bars);
       let hist_times = Array.from(
@@ -115,6 +192,7 @@ export function SELECTION_SECTION(){
         (_, i) => bar_times + i * bar_times
       );
       let maps_all = {
+        loads: loads,
         timeMap: timeMap,
         timeToNode: timeToNode,
         nameMap: nameMap,
@@ -126,74 +204,41 @@ export function SELECTION_SECTION(){
         names: names,
         hist_times: hist_times,
         bar_times: bar_times,
+        author: author,
       };
       return maps_all;
     };
   
     const loadCSVs = async (dataset) => {
-    //   setLoading(true);
-    //   console.log(cachedData[dataset], cachedData);
-    //   if (cachedData[dataset]) {
-    //     //   console.log("Loading from Cache"); // doesn't actually work you'd have to do this
-    //     //   setData(cachedData[dataset]);
-    //     //   setMaps(cachedData[dataset].maps);
-    //     //   setLoading(false);
-    //   } else {
-        setData({
-          table: [],
-          nodes_table: [],
-          info_table: [],
-          loaded: null,
-        });
-        let streamSize = 5000000;
-        let table;
-        let nodes_table;
-        let info_table;
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // so animation can finish
-        if (dataset === "@TomBrady") {
-          streamSize = 5000000;
-          table = await loadCSV(t1, streamSize);
-          nodes_table = await loadCSV(t2, streamSize);
-          info_table = await loadCSV(t3, streamSize);
-        }
-        if (dataset === "@6lack") {
-          table = await loadCSV(b1, streamSize);
-          nodes_table = await loadCSV(b2, streamSize);
-          info_table = await loadCSV(b3, streamSize);
-        }
-        if (dataset === "@SpeakerMcCarthy") {
-          table = await loadCSV(m1, streamSize * 2);
-          nodes_table = await loadCSV(m2, streamSize * 2);
-          info_table = await loadCSV(m3, streamSize * 2);
-        }
-        let new_data = {
-          table: table,
-          nodes_table: nodes_table,
-          info_table: info_table,
-          name: dataset,
-          loaded: true,
-        };
-        let data_maps = processData(new_data, dataset);
-        new_data.maps = data_maps;
-        setData(new_data);
-    //     if (!isMobile()) {
-    //       setCachedData((prev) => ({
-    //         ...prev,
-    //         [dataset]: new_data,
-    //       }));
-    //     }
-    // }
-      if (!newRender) setLoading(false);
+      setData({
+        loaded: null,
+        maps: null,
+      });
+      let maps = buildMaps(dataset);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      if (dataset === "@TomBrady") {
+        await loadCSV(t1, "links", maps, dataset);
+        await loadCSV(t2, "nodes", maps, dataset);
+        await loadCSV(t3, "info", maps, dataset);
+      }
+      if (dataset === "@6lack") {
+        await loadCSV(b1, "links", maps, dataset);
+        await loadCSV(b2, "nodes", maps, dataset);
+        await loadCSV(b3, "info", maps, dataset);
+      }
+      if (dataset === "@SpeakerMcCarthy") {
+        await loadCSV(m1, "links", maps, dataset);
+        await loadCSV(m2, "nodes", maps, dataset);
+        await loadCSV(m3, "info", maps, dataset);
+      }
     };
   
     const preloadEverything = async () => {
       setLoading(true);
       await loadCSVs("@TomBrady").then(() => {
-        setLoading(false);
         setNewRender(false);
       });
     };
-
 
     const getkeyvals = (uname) => {
         switch (uname) {
@@ -267,7 +312,7 @@ export function SELECTION_SECTION(){
 
     const [newRender, setNewRender] = useState(true);
     const [selection, setSelection] = useState(getkeyvals("default"));
-    const updateSelection = (t_uname) => {
+    const updateSelection = async (t_uname) => {
         setLoading(true);
         let new_selection = Object.create(null);
 
@@ -286,9 +331,11 @@ export function SELECTION_SECTION(){
         new_selection["t_vid"] = n_keyvals.t_vid
         new_selection['t_link'] = n_keyvals.t_link
         setSelection(new_selection);
-        loadCSVs(n_keyvals.username);
-        setPauseN1(false);
-        setPauseN2(false);
+        await loadCSVs(n_keyvals.username).then(() => {
+          setNewRender(false);
+          setPauseN1(false);
+          setPauseN2(false);
+        });
     };
 
     const [demotion, setDemotion] = useState(3);
@@ -327,18 +374,18 @@ export function SELECTION_SECTION(){
       }, []);
 
     
-    const [ ref, inView ] = useInView({amount:0});
+    const [ refVN1, inViewN1 ] = useInView({amount:0});
     const [isVisibleN1, setIsVisibleN1] = useState(false);
     useEffect(() => {
-        if (inView) {
+        if (inViewN1) {
             
             setIsVisibleN1(true)       
         }
-        if (!inView) {
+        if (!inViewN1) {
             
             setIsVisibleN1(false);        
         }
-    }, [inView]);
+    }, [inViewN1]);
 
 
     const [ refVN2, inViewN2 ] = useInView({amount:0});
@@ -363,37 +410,31 @@ export function SELECTION_SECTION(){
             </div>
             
 
-            <div className='network_visible_container' ref={ref}>
+            <div className='network_visible_container' ref={refVN1}>
                 {loading &&
                   <div className='showloading'>Loading</div>
                 }
                 {(!loading && !isMobile() ) &&
                 <NETWORK1
-                    UserSelection={selection}
-                    NetworkPause={pauseN1}
-                    SetterNetworkPause={updatePauseN1}
-                    NetworkReset={resetN1}
-                    SetterNetworkReset={updateResetN1}
-                    table={data.table}
-                    nodes_table={data.nodes_table}
-                    info_table={data.info_table}
-                    maps={data.maps}
-                    loading_currently={loading}
-                    isinView={isVisibleN1}
+                  UserSelection={selection}
+                  NetworkPause={pauseN1}
+                  SetterNetworkPause={updatePauseN1}
+                  NetworkReset={resetN1}
+                  SetterNetworkReset={updateResetN1}
+                  maps={data.maps}
+                  loading_currently={loading}
+                  isinView={isVisibleN1}
                 />}
                 {(!loading && isMobile() ) &&
                 <NETWORK1_M
-                    UserSelection={selection}
-                    NetworkPause={pauseN1}
-                    SetterNetworkPause={updatePauseN1}
-                    NetworkReset={resetN1}
-                    SetterNetworkReset={updateResetN1}
-                    table={data.table}
-                    nodes_table={data.nodes_table}
-                    info_table={data.info_table}
-                    maps={data.maps}
-                    loading_currently={loading}
-                    isinView={isVisibleN1}
+                  UserSelection={selection}
+                  NetworkPause={pauseN1}
+                  SetterNetworkPause={updatePauseN1}
+                  NetworkReset={resetN1}
+                  SetterNetworkReset={updateResetN1}
+                  maps={data.maps}
+                  loading_currently={loading}
+                  isinView={isVisibleN1}
                 />}
             </div>
             
@@ -411,9 +452,6 @@ export function SELECTION_SECTION(){
               }
               { (!loading && !isMobile()) &&
                 <NETWORK2
-                table={data.table}
-                nodes_table={data.nodes_table}
-                info_table={data.info_table}
                 UserSelection={selection}
                 UserDemotion={demotion}
                 NetworkPause={pauseN2}
@@ -421,16 +459,12 @@ export function SELECTION_SECTION(){
                 NetworkReset={resetN2}
                 SetterNetworkReset={updateResetN2}
                 maps={data.maps}
-                loading_currently={loading}
                 isinView={isVisibleN2}
                 />
               }
             
             {(!loading && isMobile() ) &&
                 <NETWORK2_M
-                table={data.table}
-                nodes_table={data.nodes_table}
-                info_table={data.info_table}
                 UserSelection={selection}
                 UserDemotion={demotion}
                 NetworkPause={pauseN2}
@@ -438,7 +472,6 @@ export function SELECTION_SECTION(){
                 NetworkReset={resetN2}
                 SetterNetworkReset={updateResetN2}
                 maps={data.maps}
-                loading_currently={loading}
                 isinView={isVisibleN2}
             />}
             </div>

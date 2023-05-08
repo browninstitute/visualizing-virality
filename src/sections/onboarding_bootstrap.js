@@ -104,7 +104,7 @@ export function ONBOARDING_INTRO(){
                 opacity: isInViewt2 ? 1 : 0.2,
                 transition: "all 0.25s cubic-bezier(0.17, 0.55, 0.55, 1) 0.25s"
               }}>
-                Often it has tweets that can be considered <span style={styles_with_css({color:"#1DA1F2"})}>"viral"</span>.
+                Often it has tweets that can be considered <span style={styles_with_css({color:"#1DA1F2"})}>"viral."</span>
               </div>
             </div>
             </div>

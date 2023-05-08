@@ -28,7 +28,7 @@ export function ALGORITHM({UserSelection, SetterUserSelection}){
       { (("unselected" in UserSelection)) && 
         <span>Since you did not select a category, we selected {UserSelection.category} category for you. </span>
       }
-       Within this category, {UserSelection.username} tweeted this tweet:
+       Within this category, {UserSelection.username} tweeted this:
       </div>
       <div className="algorithm_tweet_container">
       <TWEET_SVG_NONAPPEAR username={UserSelection.username} text={UserSelection.text} date={UserSelection.date} likes={UserSelection.likes} rts={UserSelection.rts} replies={UserSelection.replies} image={UserSelection.image} t_image={UserSelection.t_image} t_vid={UserSelection.t_vid} t_link={UserSelection.t_link}  />    

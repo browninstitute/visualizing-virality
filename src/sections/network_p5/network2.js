@@ -115,7 +115,7 @@ function sketch(fp5) {
             if (1.5 < timesecs && timesecs < 2.5 )
             {
                 
-                onboardingText = "This is " + selection_user.name + ".";
+                onboardingText = "Heres " + selection_user.name + " again.";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;
             // onboardingTextY = 0.35*(fp5.displayHeight*0.9);
 
@@ -124,19 +124,19 @@ function sketch(fp5) {
         
 
 
-            if (first_eng+2 <= timesecs  && timesecs < first_eng+4)
+            if (2.5 <= timesecs  && timesecs < 4)
             {
-                onboardingText = "Now the account is experiencing demotion.";
+                onboardingText = "Now the tweet is experiencing demotion.";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
             }
-            if (first_eng+4 <= timesecs  && timesecs < first_eng+9)
+            if (4 <= timesecs  && timesecs < 9)
             {
                 onboardingText = "That means some accounts won't see the tweet this time.";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
             }
-            if (first_eng+9 <= timesecs  && timesecs < first_eng+16)
+            if (9 <= timesecs  && timesecs < 16)
             {
                 onboardingText = "They will be shown in gray.";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
@@ -153,7 +153,7 @@ function sketch(fp5) {
 
             if (630 <= timesecs  && timesecs < 1260)
             {
-                onboardingText = "It shows the proportion of people who didn't get to see the tweet this time.";;
+                onboardingText = "It shows the proportion of people who didn't get to see the tweet this time.";
                 onboardingTextX = 0.10*(fp5.displayWidth);
                 onboardingTextY = 0.75*(fp5.displayHeight*0.9);
             }
@@ -165,10 +165,10 @@ function sketch(fp5) {
             let rectWidth = fp5.textWidth(retweetSum + " retweets " + likeSum + " likes " + replySum  + " replies");
             fp5.textSize((fp5.displayHeight*0.9/60)/load_factor);
             
-            fp5.text("1 degree of separation from " +selection_user.name +" (including direct followers and unknown distance accounts)", (3/2)*(fp5.displayWidth/20)/load_factor, (1.632*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
+            fp5.text("1 degree of separation from " +selection_user.name +" (including direct followers)", (3/2)*(fp5.displayWidth/20)/load_factor, (1.632*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
 
             // fp5.text("2 degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (1.78*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
-            fp5.text("3 degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (1.923*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
+            // fp5.text("3 degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (1.923*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("6 degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (2.33*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.displayWidth/20)/load_factor, (2.7*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("Time", (3/2)*(fp5.displayWidth/11)/load_factor, (9.3*fp5.displayHeight*0.9/10)/load_factor);
@@ -734,9 +734,7 @@ function sketch(fp5) {
               let id = entry[0];
               let time = entry[1];
               if (time < 153442) {
-                if (parseInt(time) < first_eng && parseInt(time) !== 0) {
-                  first_eng = parseInt(time);
-                }
+
                 let angle = fp5.random(0, fp5.TWO_PI);
                 let distance =
                   fp5.random(40, (fp5.displayHeight * 0.9) / 2) / load_factor;
@@ -854,12 +852,13 @@ function sketch(fp5) {
             author
           } = props.maps);
           selection_user = props.selection_user;
+          demotionVal = props.user_demotion; 
           let username = props.selection_user.username;
 
             switch (username) {
               case "@TomBrady":
-                kevinFactor = 1.333;
-                yAxisMax = 4000;
+                kevinFactor = 2;
+                yAxisMax = 6000;
                 break;
               case "@6lack":
                 kevinFactor = 0.666;
@@ -894,14 +893,14 @@ function sketch(fp5) {
               bar_times,
               author
             } = props.maps);
-    
+            demotionVal = props.user_demotion; 
             selection_user = props.selection_user;
             let username = props.selection_user.username;
 
             switch (username) {
               case "@TomBrady":
-                kevinFactor = 1.333;
-                yAxisMax = 4000;
+                kevinFactor = 2;
+                yAxisMax = 6000;
                 break;
               case "@6lack":
                 kevinFactor = 0.666;
@@ -957,7 +956,7 @@ export function NETWORK2({
     <div className="play_pause_container">
          
         <div className="network_button_container">
-            <button className="network_button" style={{backgroundColor:"#a7dbfa"}} onClick={() => {
+            <button className="network_button" style={{backgroundColor:"#44b8fc"}} onClick={() => {
                 SetterNetworkPause(!NetworkPause)
             }}>Play/Pause</button>
         </div>

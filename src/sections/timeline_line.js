@@ -1,6 +1,6 @@
 
-import { motion, useScroll, useSpring, useTransform, useMotionValue, useAnimation } from "framer-motion";
-import React, { useState, useEffect ,  useRef} from "react";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import React, {  useRef} from "react";
 export function TIMELINE_LINE(){
     const ref = useRef(null);
     const {scrollYProgress} = useScroll({

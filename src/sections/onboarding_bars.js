@@ -174,7 +174,7 @@ export function ONBOARDING_BARS(){
                                 Out of the billions of tweets from January 2023, only 4,933 had more than 100,000 likes. That's almost none!
                             </motion.div>
                             <motion.div className='text_scroller' style={styles_with_css({opacity: text2_opacity,y: text2_y})}>
-                                From the 4,933 total tweets, 3,402 fit our definition of "viral".
+                                From the 4,933 total tweets, 3,402 fit our definition of "viral."
                             </motion.div>
                             <motion.div className='text_scroller' style={styles_with_css({opacity: text3_opacity,y: text3_y})}>
                                 Around 1/3 of "viral" tweets were authored by users with more than 1,000,000 followers. 

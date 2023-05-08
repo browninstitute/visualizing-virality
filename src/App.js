@@ -1,7 +1,7 @@
 
 
-import React, { useState, useEffect ,  useRef} from "react";
-import { motion, useScroll, useSpring, useTransform, useMotionValue, useAnimation } from "framer-motion";
+import React, { useEffect ,  useRef} from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import bg_vid_mp4 from './assets/intro_bg_mp4.mp4';
 import {ONBOARDING_INTRO} from './sections/onboarding_bootstrap';
 import {ONBOARDING_BARS} from './sections/onboarding_bars'
@@ -15,7 +15,7 @@ import { ONBOARDING_COUNTER } from './sections/onboarding_counter';
 import { useInView } from "react-intersection-observer";
 import {CITATIONS} from "./sections/citations.js"
 
-
+import scroll_ind from './assets/scroll_indicator.gif'
 import timeline_pic from './assets/timeline_scale_inline.png'
 import timeline_profile1 from './assets/timeline_profile1.jpg'
 import timeline_profile2 from './assets/timeline_profile2.jpg'
@@ -30,16 +30,7 @@ import timeline_pic5 from './assets/timeline_pic_tweet5.jpg'
 import timeline_vid4 from './assets/timeline_vid_tweet4.mp4'
 import timeline_vid6 from './assets/timeline_vid_tweet6.mp4'
 
-const headFunc = {
-  title: 'Visualizing Virality',
-  description: 'Brown Insititute and KFAI collaboration aimed at illustrating the algorithms that define what you see on social media platforms.',
-  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0',
-  meta: {
-      charset: 'utf-8',
-      title: 'Visualizing Virality',
-      description: 'Brown Insititute and KFAI collaboration aimed at illustrating the algorithms that define what you see on social media platforms.'
-  }
-};
+
 
 function App() {
   const vidRef = useRef(null);
@@ -77,31 +68,27 @@ function App() {
   return (
     <>
         <div className='intro_section' id='intro' ref={ref}>
-          <div className='scroll_div_show'>
-            <motion.div className='scroll_div floating' 
-            >
-              Scroll
-            </motion.div>
-          </div>
+          
           <motion.div className='parallax_layer back_intro' style={{y,opacity}}>   
-           {/*} <div className='cosmos_graph'>
-              <canvas className='cosmos_canvas' ref={cosmos_ref} />
-            </div> 
-               <div className='photos_people'></div>*/}
             <div className='video_wrapper'>
               <video ref={vidRef} id="background_vid" loop={true} muted={true} autoPlay={'autoplay'}  playsInline={true} >
-                {/* <source src={bg_vid} type="video/wemb"/> */}
+
                 <source src={bg_vid_mp4} type="video/mp4"/>
               </video>             
             
             </div>
           </motion.div>
           <div className='parallax_layer front_intro' >
-            <div className='main_text'> 
-              <span className='banner_txt floating'>Visualizing Virality
+            <div className='main_text floating'> 
+              <span className='banner_txt'>Visualizing Virality
               <br/>
-              <span className="author_txt floating">Sahil Patel &amp; Samia Menon</span>   </span>
-                       
+              <span className="author_txt">-Sahil Patel &amp; Samia Menon</span>   </span>
+
+              <div className='scroll_div_show ' >
+                <img src={scroll_ind}>
+                  
+                </img>
+              </div>   
             </div>
             <AppearingText>
             <div className='logos'>
@@ -119,15 +106,12 @@ function App() {
               </ul>                
             </div>
             </AppearingText>
-            {/* <span className='logos floating'>
-            <img src='https://brown.columbia.edu/wp-content/uploads/2017/08/brown_full_logo.png'></img>
-            </span> */}
+            
             
           </div>
         </div>
 
         <ONBOARDING_INTRO />
-        {/* <ONBOARDING_METHODOLOGY></ONBOARDING_METHODOLOGY> */}
         <ONBOARDING_COUNTER />
         <ONBOARDING_BARS />
 
@@ -144,7 +128,6 @@ function App() {
         <div className='timeline_section'>
           <div className='timeline_wrap'>
             <div className='parallax_wrap'>
-              {/* <TIMELINE_LINE_DASHES /> */}
               <TIMELINE_LINE />
               <div className='timeline_blocks'>
                 <TIMELINE_BLOCK name="Collin Rugg" username="@CollinRugg" text="BREAKING: Elon Musk announces that the Fauci Files will be released later this week." date="01/01/2023" likes="197.2k" rts="16.2" replies="643" image={timeline_profile1} t_link={"https://twitter.com/CollinRugg/status/1609678161268338689"} />

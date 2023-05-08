@@ -3,6 +3,7 @@ import {styles_with_css} from'./motion.ts'
 export function CITATIONS(){
     return(
         <div className="citations_section">
+            <hr className='line_end'></hr>
             <div className="cit_text"> 
                 References
             </div>
@@ -15,7 +16,7 @@ export function CITATIONS(){
                     <ul>
 
                         <li>
-                            Query + "Viral Confirmaiton"
+                            Query + "Viral" Confirmation
                             <br/>
                             <ul>
                                 <li>Twitter Official API v2</li>

@@ -123,7 +123,7 @@ function sketch(fp5) {
 
             if (2.5 <= timesecs  && timesecs < first_eng)
             {
-                onboardingText = "After " + first_eng + " seconds, the first account will engage with his tweet. ";
+                onboardingText = "Accounts will now engage and spread the tweet.";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;
             }
   
@@ -133,21 +133,21 @@ function sketch(fp5) {
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;
 
             }
-            if (first_eng+4 <= timesecs  && timesecs < first_eng+9)
+            if (4 <= timesecs  && timesecs < 7)
             {
                 onboardingText = "Notice that time is passing here logarithmically.";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
             }
-            if (first_eng+9 <= timesecs  && timesecs < first_eng+16)
+            if (7 <= timesecs  && timesecs < 16)
             {
                 onboardingText = "That means it will start off slow and then speed up!";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
             }
-            if (first_eng+16 <= timesecs  && timesecs < first_eng+30)
+            if (16 <= timesecs  && timesecs < 30)
             {
-                onboardingText = "The size of the circles indicates how many followers.";
+                onboardingText = "The size of the circles indicates number of followers.";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
             }
@@ -168,7 +168,7 @@ function sketch(fp5) {
 
             if (1260 <= timesecs  && timesecs < 2000)
             {
-                onboardingText = "The lighter blue bars are direct followers of " + selection_user.name + "\nand the others are on a scale of purple to red depending on separation.";
+                onboardingText = "The lighter blue bars recieved the tweet directly from " + selection_user.name + "\nand the others are on a scale of purple to red depending on separation.";
                 onboardingTextX = 0.10*(fp5.displayWidth);
                 onboardingTextY = 0.75*(fp5.displayHeight*0.9);
             }
@@ -185,10 +185,10 @@ function sketch(fp5) {
             let rectWidth = fp5.textWidth(retweetSum + " retweets " + likeSum + " likes " + replySum  + " replies");
             fp5.textSize((fp5.displayHeight*0.9/60)/load_factor);
             
-            fp5.text("1 degree of separation from " +selection_user.name +" (including direct followers and unknown distance accounts)", (3/2)*(fp5.displayWidth/20)/load_factor, (1.632*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
+            fp5.text("1 degree of separation from " +selection_user.name +" (including direct followers)", (3/2)*(fp5.displayWidth/20)/load_factor, (1.632*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
 
             // fp5.text("2 degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (1.78*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
-            fp5.text("3 degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (1.923*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
+            // fp5.text("3 degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (1.923*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("6 degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (2.33*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             //fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.displayWidth/20)/load_factor, (2.8*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("Time", (3/2)*(fp5.displayWidth/11)/load_factor, (9.3*fp5.displayHeight*0.9/10)/load_factor);
@@ -660,7 +660,7 @@ function sketch(fp5) {
             scaler = 200/load_factor;
 
         }
-        if ( this.isFirst === 1 || this.isFirstb === 0)
+        if ( this.isFirst === 1 || this.isFirst === 0)
         {
             fp5.fill(50, 140, 242,150);
 
@@ -748,10 +748,9 @@ function sketch(fp5) {
 
 
       if (buildMap) {
-  
         for (let entry of timeMap.entries()) {
           let id = entry[0];
-          let time = entry[1];
+          let time = fp5.int(entry[1]);
           if (time < 153442) {
             if (parseInt(time) < first_eng && parseInt(time) !== 0) {
               first_eng = parseInt(time);
@@ -759,7 +758,8 @@ function sketch(fp5) {
             let angle = fp5.random(0, fp5.TWO_PI);
             let distance =
               fp5.random(40, (fp5.displayHeight * 0.9) / 2) / load_factor;
-  
+
+
               map1.set(
                     id,
                     new Neuron(
@@ -796,7 +796,7 @@ function sketch(fp5) {
         network = new Network(0, 0);
   
 
-
+        let total_connec = 0
         for (const entry of parentMap.entries()) {
           let source = entry[0];
           let targets = entry[1];
@@ -804,9 +804,11 @@ function sketch(fp5) {
           var i = targets.length; 
           while (i--) {
             network.connect(map1.get(targets[i]), map1.get(source), 2);
+            total_connec = total_connec + 1
           }
         }
-        let names = Array.from(map1.keys());
+
+        let names = Array.from(timeMap.keys());
 
         for (let i = 0; i < names.length; i++) {
           network.addNeuron(map1.get(names[i]));
@@ -873,8 +875,8 @@ function sketch(fp5) {
 
             switch (username) {
               case "@TomBrady":
-                kevinFactor = 1.333;
-                yAxisMax = 4000;
+                kevinFactor = 2;
+                yAxisMax = 6000;
                 break;
               case "@6lack":
                 kevinFactor = 0.666;
@@ -915,8 +917,8 @@ function sketch(fp5) {
 
             switch (username) {
               case "@TomBrady":
-                kevinFactor = 1.333;
-                yAxisMax = 4000;
+                kevinFactor = 2;
+                yAxisMax = 6000;
                 break;
               case "@6lack":
                 kevinFactor = 0.666;
@@ -971,7 +973,7 @@ export function NETWORK1({
     <div className="play_pause_container">
          
         <div className="network_button_container">
-            <button className="network_button" style={{backgroundColor:"#a7dbfa"}} onClick={() => {
+            <button className="network_button" style={{backgroundColor:"#44b8fc"}} onClick={() => {
                 SetterNetworkPause(!NetworkPause)
             }}>Play/Pause</button>
         </div>

@@ -4,16 +4,27 @@ A combined effort from Brown Institute and Knight First Amendment Institute to v
 
 
 Main Dependencies:
+
 -P5
+
 -Papa Parse
+
 -React JS
+
 -React Intersection Observer
+
 -React Use Measure
+
 -React Responsive Carousel
+
 -Framer Motion
 
 
 Check out the data: 
+
+https://github.com/sjp2232/Visualizing-Virality-Data
+
+
 
 
 -Sahil Patel and Samia Menon

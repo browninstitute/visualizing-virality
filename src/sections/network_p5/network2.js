@@ -99,7 +99,7 @@ function sketch(fp5) {
             if (1.5 < timesecs && timesecs < 2.5 )
             {
                 
-              onboardingText = "Heres " + selection_user.name + " again.";
+              onboardingText = "Here's " + selection_user.name + " again.";
               onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;
           
             }
@@ -108,7 +108,7 @@ function sketch(fp5) {
 
             if (2.5 <= timesecs  && timesecs < 4)
             {
-                onboardingText = "Now the tweet is experiencing demotion.";
+                onboardingText = "Now, the tweet is experiencing demotion.";
                 onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;;
 
             }

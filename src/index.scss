@@ -364,11 +364,11 @@ body{
             }
             
             li {
-              height: 12vh;
-              width: 12vw;
+              height: 15vh;
+              width: 15vw;
               @media only screen and (max-width: 961px) and (orientation: portrait) {
-                height: 25vh;
-                width: 25vw;
+                height: 30vh;
+                width: 30vw;
               }
               flex-grow: 1;
               display: flex;
@@ -476,11 +476,11 @@ body{
 
         
         color: rgb(78, 78, 78);
-        font-size: 2.3vmin;
+        font-size: 2.7vmin;
         line-height: 3.4vmin;
         z-index: 10;
         @media only screen and (max-width: 961px) and (orientation: portrait) {
-          font-size:  min(2.0rem,2.7vmin); 
+          font-size:  min(2.3rem,3.0vmin); 
           height: 20vh;
           margin-left: 10%;
           margin-right: 10%;
@@ -1662,7 +1662,7 @@ body{
     
     .citations_section{
       width: 100vw;
-      height: 100vh;
+      height: 120vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1670,12 +1670,23 @@ body{
       color: rgb(78, 78, 78);
       .cit_text{
         width: 100vw;
-        font-size: 2.2vmin;
+        font-size: 2.5vmin;
 
+        .cit_author_intro{
+          font-size: 1.7vmin;
+          @media only screen and (max-width: 961px) and (orientation: portrait) {
+            font-size: 2.2vmin;
+          }
+        }
+        .cit_author_name{          
+          font-size: 2.7vmin;
+          color: #1DA1F2;
+          
+        }
 
         margin-top: 2%;
         @media only screen and (max-width: 961px) and (orientation: portrait) {
-          font-size: min(2.5vmin,1.2rem);
+          font-size: min(2.7vmin,1.5rem);
           margin-top: 10%;
         }
         text-align: center;
@@ -1699,7 +1710,7 @@ body{
           list-style-position: inside;
           padding-left: 0;
           text-align: left;
-          font-size: 1.6vmin;
+          font-size: 1.9vmin;
           @media only screen and (max-width: 961px) and (orientation: portrait) {
             font-size:min(2.5vmin,1.7rem);
           
@@ -1728,7 +1739,7 @@ body{
       }
       @media only screen and (max-width: 600px)  and (orientation: portrait) {
         
-        height: 70vh;
+        height: 40vh;
       }
       .outro_text{
         width: 100vw;
@@ -1798,7 +1809,7 @@ body{
             width: 35vh;
           }
 
-          color: #1d84c3; /* blue colors for links too */
+          color: rgb(78, 78, 78); /* blue colors for links too */
           
           display: flex;
           flex-direction: column;

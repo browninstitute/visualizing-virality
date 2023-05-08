@@ -5,8 +5,8 @@ export function CITATIONS(){
         <div className="citations_section">
             
             <div className='cit_text'>
-                Thank You! <br/>
-                -Sahil Patel &amp; Samia Menon
+                <span className='cit_author_intro'>Built by</span><br/>
+                <a href="https://knightcolumbia.org/bios/view/sahil-patel"><span className='cit_author_name' style={styles_with_css({color:"#1DA1F2"})}>Sahil Patel </span></a>&amp; <a href="https://knightcolumbia.org/bios/view/samia-menon"><span className='cit_author_name' style={styles_with_css({color:"#1DA1F2"})}> Samia Menon</span></a>
             </div>
             <hr className='line_end'></hr>
             <div className="cit_text"> 
@@ -14,7 +14,7 @@ export function CITATIONS(){
             </div>
             
             <div className="cit_list">
-            Data (<a href="https://github.com/sjp2232/Visualizing-Virality-Data"><span style={styles_with_css({color:"#1DA1F2"})}>Data</span></a> Link)      
+            Data (<a href="https://github.com/sjp2232/Visualizing-Virality-Data"><span style={styles_with_css({color:"#1DA1F2"})}>Data Link</span></a>)      
             <br/>
             <ul>
                 <li>Viral Tweets
@@ -54,7 +54,7 @@ export function CITATIONS(){
                 </li>
             </ul>
             <br/>
-            Website (<a href="https://github.com/browninstitute/visualizing-virality/"><span style={styles_with_css({color:"#1DA1F2"})}>Github</span></a> Link)
+            Website (<a href="https://github.com/browninstitute/visualizing-virality/"><span style={styles_with_css({color:"#1DA1F2"})}>Github Link</span></a>)
             <br/>
             <ul>
                 <li>Main Visual

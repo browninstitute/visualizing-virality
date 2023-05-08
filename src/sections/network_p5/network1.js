@@ -181,7 +181,7 @@ function sketch(fp5) {
             let rectWidth = fp5.textWidth(retweetSum + " retweets " + likeSum + " likes " + replySum  + " replies");
             fp5.textSize((fp5.displayHeight*0.9/60)/load_factor);
             
-            fp5.text("1 degree of separation from " +selection_user.name +" (including direct followers)", (3/2)*(fp5.displayWidth/20)/load_factor, (1.632*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
+            fp5.text("1 degree of separation from " +selection_user.name , (3/2)*(fp5.displayWidth/20)/load_factor, (1.632*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
 
             fp5.text("6 degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (2.33*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("Time", (3/2)*(fp5.displayWidth/11)/load_factor, (9.3*fp5.displayHeight*0.9/10)/load_factor);

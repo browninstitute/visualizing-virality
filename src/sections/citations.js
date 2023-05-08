@@ -9,7 +9,7 @@ export function CITATIONS(){
             </div>
             
             <div className="cit_list">
-            Data     
+            Data (<a href="https://github.com/sjp2232/Visualizing-Virality-Data"><span style={styles_with_css({color:"#1DA1F2"})}>Data</span></a> Link)      
             <br/>
             <ul>
                 <li>Viral Tweets
@@ -49,7 +49,7 @@ export function CITATIONS(){
                 </li>
             </ul>
             <br/>
-            Website
+            Website (<a href="https://github.com/browninstitute/visualizing-virality/"><span style={styles_with_css({color:"#1DA1F2"})}>Github</span></a> Link)
             <br/>
             <ul>
                 <li>Main Visual

@@ -1,10 +1,7 @@
-import {selection_network} from './selection';
-import {TWEET_SVG} from './tweet_svg';
+
 import {useRef} from 'react';
 import {useInView} from 'react-intersection-observer';
-import {motion, useScroll, useTransform} from 'framer-motion';
 import React, { useEffect, useState } from 'react';
-import {styles_with_css} from'./motion.ts'
 
 import {NETWORK1} from './network_p5/network1';
 import {NETWORK2} from './network_p5/network2';
@@ -14,7 +11,6 @@ import {DEMOTION} from './demotion';
 import {DEMOTION_INTRO} from './demotion_intro';
 import {SELECTION_MENU} from './selection_menu';
 import {OUTRO} from './outro';
-import {ReactP5Wrapper} from 'react-p5-wrapper';
 import { NETWORK1_M } from './network_p5/network1_newMobile';
 import { NETWORK2_M } from './network_p5/network2_newMobile';
 import brady_p from '../assets/brady_profile.jpg'
@@ -316,7 +312,7 @@ export function SELECTION_SECTION(){
         setLoading(true);
         let new_selection = Object.create(null);
 
-        // let n_keyvals = getkeyvals(t_uname);
+        
         let n_keyvals = getkeyvals(t_uname);
         new_selection["name"] = n_keyvals.name 
         new_selection["username"] = n_keyvals.username

@@ -1,12 +1,9 @@
 import { AppearingText } from "./appearingtext"
-import { BUTTON_WRAP } from "./button_wrapper"
-import {styles_with_css} from'./motion.ts'
-import { motion, useScroll, useSpring, useTransform, useMotionValue, useAnimation,  useAnimationControls } from "framer-motion";
-import React, { useState, useEffect ,  useRef} from "react";
+import { motion, useAnimationControls } from "framer-motion";
+import React, { useState, useEffect } from "react";
 import brady_p from '../assets/brady_profile.jpg'
 import black_p from '../assets/black_profile.jpg'
 import mccarthy_p from '../assets/mccarthy_profile.jpg'
-import App from "../App";
 
 export function SELECTION_MENU( {UserSelection, SetterUserSelection,ScrollToSelection}){
     const [hoverB1, setHoverB1] = useState(false);

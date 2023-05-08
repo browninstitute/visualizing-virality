@@ -8,7 +8,6 @@ export function AppearingText({ children }) {
   return (
     <section ref={ref}>
       <div
-        //class = {isInView? "reveal": "none"}
         style={{
           transform: isInView ?  "translateY(-50px)" : "none" ,
           opacity: isInView ? 1 : 0,

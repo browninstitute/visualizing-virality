@@ -1,21 +1,8 @@
-import { motion, useScroll, useSpring, useTransform, useMotionValue, useAnimation } from "framer-motion";
-import React, { useState, useEffect ,  useRef} from "react";
-import {useInView} from 'react-intersection-observer';
+
+import React from "react";
 import {TWEET_SVG_NONAPPEAR} from './tweet_svg_nonappearing'
 
 export function ALGORITHM({UserSelection, SetterUserSelection}){
-  // const {ref, inView} = useInView({threshold:0.2, triggerOnce:true});
-
-  // useEffect(() => {
-  //   if(inView){
-  //     if (!("unchecked" in UserSelection)){
-  //       SetterUserSelection("@TomBrady2")
-  //     }
-  //   }
-
-    
-  // }, [inView]);
-
 
   return(
     <>      

@@ -1,7 +1,6 @@
 import {AnimatePresence, motion, useScroll, useTransform, useSpring} from 'framer-motion';
 import {TWEET_SVG_NONAPPEAR} from './tweet_svg_nonappearing'
 import React, { useState, useEffect ,  useRef} from "react";
-import {AppearingText} from './appearingtext.js'
 import {styles_with_css} from'./motion.ts'
 
 import profile1 from "../assets/onboarding_profile1.jpg"
@@ -108,9 +107,7 @@ export function DEMOTION_INTRO({UserSelection}){
                                 transition={{staggerChildren:0.2}}>
                                     
                                 <motion.div className="important_tweets"  id='main' style={styles_with_css({y:move_tweet_down,x:move_tweet_right})} >
-                                    {/* animate={{height: bounds.height > 0 ? bounds.height: null}}
-                                        transition={{type:"spring", bounce: 0.2, duration: 0.4}}
-                                    */}
+                                    
                                         <motion.div className='tweets_animate' ref={refM}  variants={t_variants} >
                                             <TWEET_SVG_NONAPPEAR username={UserSelection.username} text={UserSelection.text} date={UserSelection.date} likes={UserSelection.likes} rts={UserSelection.rts} replies={UserSelection.replies} image={UserSelection.image} t_image={UserSelection.t_image} t_vid={UserSelection.t_vid} t_link={UserSelection.t_link}/>    
                                 

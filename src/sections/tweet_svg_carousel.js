@@ -1,20 +1,15 @@
-import React, {  useRef} from "react";
-import { useScroll} from "framer-motion";
-import { useInView, motion } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 
 
 export function TWEET_SVG_CAROUSEL({username,text,image,date,likes,rts,replies,t_image,t_vid,t_link}){
 
-    const ref = useRef(null);
-    const {scrollYProgress} = useScroll({
-      target:ref,
-      offset:["start end", "end start"]
-    });
-    const isInView = useInView(ref, { once: false });
+
+    
     image = image? image: "https://pbs.twimg.com/profile_images/1609416420076535808/4BwbURyI_400x400.jpg";
     return(
 
-      <motion.div className="tweet-wrap" ref={ref} >
+      <motion.div className="tweet-wrap"  >
           <div className="tweet-header">
             <img src={image} alt="" className="avator"/>
             

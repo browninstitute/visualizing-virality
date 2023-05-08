@@ -1,7 +1,6 @@
 import React, {  useRef} from "react";
 import { useScroll, useInView, motion, useTransform } from "framer-motion";
-import { AppearingTweet } from "./appearingtweet";
-import { AppearingText } from "./appearingtext";
+
 
 
 export function TIMELINE_TWEET_SVG({username,profile,text,image,date,likes,rts,replies,t_image,t_vid,t_link}){

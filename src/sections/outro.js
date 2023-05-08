@@ -4,7 +4,7 @@ import black_p from '../assets/black_profile.jpg'
 import mccarthy_p from '../assets/mccarthy_profile.jpg'
 import black_i from '../assets/black_tweet_pic2.jpg'
 import mccarthy_v from '../assets/mccarthy_tweet_vid.mp4'
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "react-responsive-carousel/lib/styles/carousel.min.css"; 
 import { Carousel } from 'react-responsive-carousel';
 export function OUTRO({UserSelection,SetterUserSelection,ScrollToSelection}){
 

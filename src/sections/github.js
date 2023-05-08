@@ -1,6 +1,5 @@
 import {motion, useScroll, useTransform} from 'framer-motion';
-import React, { useEffect, useState, useRef } from 'react';
-import {TWEET_SVG_NONAPPEAR} from './tweet_svg_nonappearing';
+import React, {  useRef } from 'react';
 import {styles_with_css} from'./motion.ts'
 
 export function GITHUB({UserSelection}){
@@ -148,19 +147,12 @@ export function GITHUB({UserSelection}){
                                 &nbsp;Obviously, this tweet was highly ranked for many of the users across the platform.
                             </motion.li>
                         </motion.ul>
-                        {/* <motion.div className='highlight_sentence'>We showed you all the engagement sources for the tweet.</motion.div>
-                        <motion.div className='highlight_sentence'>But not all engagements are treated by Twitter in the same manner. </motion.div>
-                        <motion.div className='highlight_sentence'>Of all the complex, interrelated aspects of a given tweet used in thier 
-                        recommendation algorithm, tweets are given a numeric rank where: </motion.div>
-                        <motion.div className='highlight_sentence'>replies are weighted by a factor of 1, </motion.div> <motion.div className='highlight_sentence'>retweets are weighted by a factor or 20 </motion.div> 
-                        <motion.div className='highlight_sentence'>and likes are weighted by a factor of 30. </motion.div>  */}
                         
                     </div>
                 </div>
             </div>
 
             <div className='highlight_tweet_div'>
-                {/* <TWEET_SVG_NONAPPEAR username={UserSelection.username} text={UserSelection.text} date={UserSelection.date} likes={UserSelection.likes} rts={UserSelection.rts} replies={UserSelection.replies} image={UserSelection.image} t_image={UserSelection.t_image} t_vid={UserSelection.t_vid} t_link={UserSelection.t_link} />     */}
                 
                 <a  href={UserSelection.t_link}>
                     <motion.div className="tweet-wrap" >

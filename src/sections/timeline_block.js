@@ -1,7 +1,6 @@
-import { motion, useScroll, useSpring, useTransform, useMotionValue, useAnimation,  useAnimationControls } from "framer-motion";
-import React, { useState, useEffect ,  useRef} from "react";
+import { motion,  useAnimation } from "framer-motion";
+import React, { useEffect } from "react";
 import {useInView} from 'react-intersection-observer';
-import {TWEET_SVG} from './tweet_svg'
 import { TIMELINE_TWEET_SVG } from "./timeline_tweet_svg";
 
 export function TIMELINE_BLOCK({username,name,profile,text,image,date,likes,rts,replies,t_image,t_vid,t_link}){

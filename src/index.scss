@@ -629,6 +629,7 @@ body{
       height: 100vh;
       width: 100vw;
       position: relative;
+      
       .showloading{
         position: absolute;
         z-index: 9;
@@ -636,6 +637,7 @@ body{
         left: 10%;
       }
       .network_section{
+        
         z-index: 10;
         height: 100vh;
         width: 100vw;
@@ -1379,6 +1381,8 @@ body{
         justify-content: center;
         font-size: 3vmin;
         line-height: 9vmin;
+        margin-left: 10%;
+        margin-right: 10%;
         @media only screen and (max-width: 961px) and (orientation: portrait) {
           font-size: min(3.5vmin,2rem);
           line-height: 5vmin;
@@ -1495,7 +1499,6 @@ body{
     }
 
     .counter_section{
-      
         height: 60vh;
         width: 100vw;
         display: flex;
@@ -1540,7 +1543,6 @@ body{
         }
     }
     .algorithm_section {
-      
       height: 50vh;
       width: 100vw;
       @media only screen and (max-width: 961px) and (orientation: portrait) {
@@ -1768,7 +1770,6 @@ body{
 
 
     .menu_section{
-      
       overflow-x: hidden;
       height: 100vh;
       width: 100vw;

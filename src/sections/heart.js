@@ -6,7 +6,7 @@ export const Heart = () => {
   const [isVisible, setIsVisible] = useState(false);
   const { ref, inView } = useInView({ threshold: 0 });
 
-  // Update state when component is in view
+
   useEffect(() => {
     if (inView) {
       setIsVisible(true);
@@ -23,7 +23,7 @@ export const Heart = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          {/* Your component content here */}
+
         </motion.div>
         </div>
      

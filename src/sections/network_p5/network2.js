@@ -1,13 +1,6 @@
-
-
-
-
-
-
 import { P5CanvasInstance, ReactP5Wrapper, SketchProps} from 'react-p5-wrapper';
 import brady_p from '../../assets/brady_profile.jpg';
-import { useState, useEffect } from "react";
-import { useInView } from "react-intersection-observer";
+
 
 function sketch(fp5) {
     let selection_user = {
@@ -28,11 +21,9 @@ function sketch(fp5) {
     let network;
     let author;
 
-    let network_initial = null;
     let map1 = null;
     let buildMap = true;
     let timeMap;
-    let timeToNode;
     let nameMap;
     let followerMap;
     let parentMap;
@@ -43,14 +34,11 @@ function sketch(fp5) {
     let upFactor = fp5.displayHeight / 4;
     let names = [];
     let img = "";
-    let startpoint = 0;
-    let newNode;
-    //pause value
+
     let pause = false;
     let adjFrame = -1;
     let onboardingText = "";
     let timesecs = 0;
-    //tweetset input values
     let demotionVal = 3;
     let demotionDen = 10;
     let yAxisMax = 3000;
@@ -73,13 +61,9 @@ function sketch(fp5) {
     let hist_heights_blue = new Array(num_bars).fill(0);
     let hist_heights_pink = [...Array(5)].map(_=>Array(num_bars).fill(0))
     let hist_heights_grey = new Array(num_bars).fill(0);
-    let table = 0;
-    let nodes_table = 0;
-    let info_table = 0;
-    let first_eng = 20;
-    let onboardingTextData = [];
+
     let defaultradius = (fp5.displayHeight * 0.9) / 20 / load_factor;
-    let following_reset = false;
+
     let user_on_network = false;
     let cur_bar = 0;
     
@@ -115,11 +99,9 @@ function sketch(fp5) {
             if (1.5 < timesecs && timesecs < 2.5 )
             {
                 
-                onboardingText = "Heres " + selection_user.name + " again.";
-                onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;
-            // onboardingTextY = 0.35*(fp5.displayHeight*0.9);
-
-
+              onboardingText = "Heres " + selection_user.name + " again.";
+              onboardingTextX = mainX - fp5.textWidth(onboardingText)/2;
+          
             }
         
 
@@ -167,8 +149,6 @@ function sketch(fp5) {
             
             fp5.text("1 degree of separation from " +selection_user.name +" (including direct followers)", (3/2)*(fp5.displayWidth/20)/load_factor, (1.632*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
 
-            // fp5.text("2 degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (1.78*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
-            // fp5.text("3 degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (1.923*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("6 degrees of separation from " + selection_user.name, (3/2)*(fp5.displayWidth/20)/load_factor, (2.33*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("Accounts who originally engaged with tweet, \n but would not under this level of demotion", (3/2)*(fp5.displayWidth/20)/load_factor, (2.7*fp5.displayHeight*0.9/10)/load_factor+upFactor/2);
             fp5.text("Time", (3/2)*(fp5.displayWidth/11)/load_factor, (9.3*fp5.displayHeight*0.9/10)/load_factor);
@@ -183,10 +163,7 @@ function sketch(fp5) {
 
 
         
-            //text("Adjust Demotion", (displayWidth/30)/load_factor, (2*displayHeight*0.9/10)/load_factor);
-        
-            // text("Reset [SPACE]", (displayWidth/30)/load_factor, (3*displayHeight*0.9/10)/load_factor);
-        
+                    
             makeKey();
         
             if (timesecs < 144000)
@@ -203,18 +180,11 @@ function sketch(fp5) {
             {
                 network.display();
             }
-            //network.displayConnections();
-            //selection_user.demotion = slider.value();
-        
-        
-        
-            //histogram
+            
             for (let i=0; i < cur_bar; i++){
               let xpos = fp5.int(fp5.map(i,0,num_bars,histogram_x+3,histogram_x+histogram_width)) 
               let y1 = histogram_y+histogram_height;
               
-              //start drawing lines in reverse order:
-              //grey
               let total_len = hist_heights_grey[i] + hist_heights_blue[i] + hist_heights_pink.map(function(value,index) { return value[i];}).reduce((psum, cv) => psum + cv, 0);;
               fp5.stroke(200,200,200);
               fp5.line(xpos, y1, xpos, fp5.int(fp5.map(total_len,0,max_bar_height*kevinFactor,histogram_y+histogram_height,histogram_y)));
@@ -297,8 +267,7 @@ function sketch(fp5) {
     
     }
 
-    //make a note of when DOJA retweeted it and the big boom
-    
+        
     Connection.prototype.update = function() {
         if (this.sending) {
         this.sender.x = fp5.lerp(this.sender.x, this.b.position.x, 0.1);
@@ -372,8 +341,6 @@ function sketch(fp5) {
         fp5.line(histogram_x, histogram_y+histogram_height, histogram_x+histogram_width, histogram_y+histogram_height);
         fp5.fill(150,150,150,150);
         fp5.stroke(150,150,150,150);
-       // fp5.line(3.5*(fp5.displayWidth/20), histogram_y+histogram_height-10, 3.5*(fp5.displayWidth/20), histogram_y+histogram_height+10);
-        //fp5.line(2.15*(fp5.displayWidth/20), histogram_y+histogram_height-10, 2.15*(fp5.displayWidth/20), histogram_y+histogram_height+10);
         fp5.text("12h", 2.1*(fp5.displayWidth/20), histogram_y+histogram_height+15);
         fp5.text("1d", 3.5*(fp5.displayWidth/20), histogram_y+histogram_height+15);
         fp5.text(yAxisMax , histogram_x-35, yAxTop+8);
@@ -457,10 +424,8 @@ function sketch(fp5) {
         fp5.push();
         fp5.translate(this.position.x, this.position.y);
         fp5.fill(0);
-        //strokeWeight(1);
         for (var i = 0; i < this.connections.length; i++) {
-        //maybe make it a function of the follower count
-        if (this.connections[i].a.isSending)//(followerMap.get((this.connections[i].a.name)) >= 0.5*(followerMap.get(veryfirstguy)))
+        if (this.connections[i].a.isSending)
         {
             if (fp5.random() < 0.18*kevinFactor)
             {
@@ -521,14 +486,8 @@ function sketch(fp5) {
     }
     
     Neuron.prototype.feedforward = function(input) {
-    //  console.log(input);
-        this.sum += input;
     
-    /*  if (this.sum > 0) {
-        //this.fire();
-        this.sum = 0;
-        this.isTouched = true;
-        }*/
+        this.sum += input;
     }
 
     Neuron.prototype.orient = function() {
@@ -559,9 +518,7 @@ function sketch(fp5) {
 
         if (!this.isSending && this.sum > 0)
         {
-            //popsound.play();
             
-            //this.r = 64;
             this.isSending = true;
             let type = categoryMap.get(this.name);
             if (type=="retweet")
@@ -602,9 +559,6 @@ function sketch(fp5) {
     }
     
     Neuron.prototype.display = function() {
-        
-        //first check if final child is gone
-
 
         if (kevinFactor >1 && fp5.int(followerMap.get(this.name)) < 200)
         {
@@ -616,40 +570,29 @@ function sketch(fp5) {
         {
             return;
         }
-        //then brute force go away if too long
-        /*  let timeSince = fp5.log(this.time)*120 - adjFrame;
-        if (timeSince < -500 && this.isFirst != 'first')
-        {
-        return;
-        }*/
-    
         let scaler = ( fp5.min( fp5.int(followerMap.get(this.name)) / 4000 + 10,660)) / load_factor;
     
 
         if (this.active)
         {
 
-        /*   if (this.isTouched)
-        {
-            fill(29, 161, 242);
-        }*/
+       
         fp5.noStroke();
         if (this.isSending)
         {
           if (this.isFirst ==='first')
           {
               fp5.fill(29, 161, 242, 100);
-              // fp5.text(nameMap.get(this.name), 500,500)
               scaler = 200/load_factor;
   
           }
-          if ( this.isFirst === 1 || this.isFirstb === 0)
+          if ( this.isFirst === 1 || this.isFirst === 0)
           {
               fp5.fill(50, 140, 242,150);
   
           }
           
-          if ( this.isFirst >= 2)
+          else if ( this.isFirst >= 2)
           {
             switch (this.isFirst-2){
               case 0:
@@ -692,7 +635,6 @@ function sketch(fp5) {
 
         }
 
-        //state without demotion
         if (this.seen)
         {
         fp5.fill(220,220,220, 50);

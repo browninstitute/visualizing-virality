@@ -1,6 +1,6 @@
-import { AppearingText } from "./appearingtext"
-import { motion, useScroll, useSpring, useTransform, useMotionValue, useAnimation,  useAnimationControls } from "framer-motion";
-import React, { useState, useEffect ,  useRef} from "react";
+
+import { motion,  useAnimationControls } from "framer-motion";
+import React, { useEffect } from "react";
 
 export function DEMOTION({UserSelection, UserDemotion, SetterUserDemotion}){
     const controlsB1 = useAnimationControls();

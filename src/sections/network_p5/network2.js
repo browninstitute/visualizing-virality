@@ -678,13 +678,7 @@ function sketch(fp5) {
               if (time < 153442) {
 
                 let angle = fp5.random(0, fp5.TWO_PI);
-                let distance = 0;
-                if (fp5.displayHeight < fp5.displayWidth){
-                  distance=fp5.random(40, (fp5.displayHeight * 0.9) / 2) / load_factor;
-                }
-                else{
-                  distance=fp5.random(40, (fp5.displayWidth * 0.9) / 2) / load_factor;
-                }
+                let distance = fp5.random(40, (fp5.displayHeight * 0.9) / 2) / load_factor;
                   map1.set(
                         id,
                         new Neuron(

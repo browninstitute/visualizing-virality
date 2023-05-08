@@ -7,6 +7,7 @@ export function ALGORITHM({UserSelection, SetterUserSelection}){
   return(
     <>      
     <div className="algorithm_section">
+      <hr className='line_sep'></hr>
       <div className="algorithm_text">  
        
       { (!("unselected" in UserSelection)) && 

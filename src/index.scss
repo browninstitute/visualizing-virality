@@ -67,6 +67,9 @@ body{
       // aspect-ratio: 352.08/96.01;
       // max-height: 15vh;
       @media only screen and (max-width: 961px) and (orientation: portrait) {
+        width: 60vw;
+      }
+      @media only screen and (max-width: 600px) and (orientation: portrait) {
         width: 80vw;
       }
       
@@ -86,7 +89,13 @@ body{
       font-size:  min(0.9vw, 1.5vh);
       width: 27vw;
       @media only screen and (max-width: 961px) and (orientation: portrait) {
+        width: 54vw;
+        line-height:  min(1.7vw, 0.7rem);
+        font-size:  min(1.5vw, 0.5rem);
+      }
+      @media only screen and (max-width: 600px) and (orientation: portrait) {
         width: 70vw;
+        line-height:  min(2.1vw, 1.5rem);
         font-size:  min(2.1vw, 1.5rem);
       }
 
@@ -102,9 +111,14 @@ body{
         height: auto;
         
         @media only screen and (max-width: 961px) and (orientation: portrait) {
+          max-height: 6vh;
+          max-width: 6vw;
+        }
+        @media only screen and (max-width: 600px) and (orientation: portrait) {
           max-height: 12vh;
           max-width: 10vw;
         }
+  
         aspect-ratio: 1/1;
       }
       
@@ -122,6 +136,14 @@ body{
       p {
           font-weight:normal;
           margin-top: min(0.5vw, 8vh);
+          
+          @media only screen and (max-width: 961px) and (orientation: portrait) {
+            margin-top: 0;
+          }
+          @media only screen and (max-width: 600px) and (orientation: portrait) {
+            
+            margin-top: min(0.5vw, 8vh);
+          }
           margin-bottom: 0;
           
         }
@@ -141,6 +163,10 @@ body{
             height: auto;
             border-radius: 5%;
             @media only screen and (max-width: 961px) and (orientation: portrait) {
+              max-width:20vw;
+              max-height:8vh;
+            }
+            @media only screen and (max-width: 600px) and (orientation: portrait) {
               max-width:25vw;
               max-height:10vh;
             }
@@ -154,6 +180,10 @@ body{
             height: auto;          
             border-radius: 5%;
             @media only screen and (max-width: 961px) and (orientation: portrait) {
+              max-width:20vw;
+              max-height:8vh;
+            }
+            @media only screen and (max-width: 600px) and (orientation: portrait) {
               max-width:35vw;
               max-height:15vh;
             }
@@ -172,12 +202,20 @@ body{
       font-size: min(0.9vw, 1.5vh);
       
       @media only screen and (max-width: 961px) and (orientation: portrait) {
+        margin-left: min(6vw, 6vh);
+        margin-top: 0;
+        font-size: min(1.5vw, 0.5rem);
+        height: 2vw;
+        font-size:  min(1.5vw, 0.5rem); 
+      }
+      @media only screen and (max-width: 600px) and (orientation: portrait) {
         margin-left: min(10vw, 14vh);
         margin-top: min(0.2vw, 0.2vh);
         font-size: min(1.5vw, 0.5rem);
         height: 3vw;
         font-size:  min(2.1vw, 1.5rem);
       }
+      
 
       width: 90.00%;
       div {
@@ -274,7 +312,7 @@ body{
               padding-bottom: 1.1rem;
               padding-left: 3rem;
               padding-right: 3rem;
-              font-size:5rem;
+              font-size:4.2vw;
               @media only screen and (max-width: 961px) and (orientation: portrait) {
                 text-align: center;
                 font-size:4rem;
@@ -1221,7 +1259,14 @@ body{
                       position: inline-block;
                       z-index: 21; 
                     }
+                    @media only screen and (max-width: 961px) and (orientation: portrait) {
+                      width: 200%; 
+                      height: 200%;  
+                      top: -30%;  
+                      left: 9%;
+                    }
                   }
+                  
                 }
                 #main{
                   z-index: 20;
@@ -1579,6 +1624,11 @@ body{
       @media only screen and (max-width: 961px) and (orientation: portrait) {
         height: 40vh;
       }
+      .line_sep{
+        color: white;  /* old IE */
+        
+        width:80%;
+      }
 
       display: flex;
       align-items: center;
@@ -1588,6 +1638,9 @@ body{
       .algorithm_tweet_container{
         width: 30vw;
         @media only screen and (max-width: 961px) and (orientation: portrait) {
+          width: 60vw;
+        }
+        @media only screen and (max-width: 600px)  and (orientation: portrait){
           width: 80vw;
         }
         margin: 5%
@@ -1598,7 +1651,7 @@ body{
         color: white;
         font-size: 3vmin;
         @media only screen and (max-width: 961px) and (orientation: portrait) {
-          font-size: min(3.6vmin,2rem);
+          font-size: min(3.2vmin,2rem);
           margin-left: 10%;
           margin-right: 10%;
         }
@@ -1622,7 +1675,7 @@ body{
 
         margin-top: 2%;
         @media only screen and (max-width: 961px) and (orientation: portrait) {
-          font-size: min(3.5vmin,2rem);
+          font-size: min(2.5vmin,1.2rem);
           margin-top: 10%;
         }
         text-align: center;
@@ -1633,7 +1686,7 @@ body{
       .cit_list{
         font-size: 2vmin;
         @media only screen and (max-width: 961px) and (orientation: portrait) {
-          font-size: min(3.5vmin,2rem);
+          font-size: min(3.0vmin,1.6rem);
         }
         a{
           text-decoration:none;
@@ -1671,18 +1724,18 @@ body{
       justify-content: center;
       flex-direction: column;
       @media only screen and (max-width: 961px) and (orientation: portrait) {
-        height: 70vh;      
+           height: 60vh;   
       }
-      @media only screen and (max-width: 600px) {
+      @media only screen and (max-width: 600px)  and (orientation: portrait) {
         
-        height: 60vh;
+        height: 70vh;
       }
       .outro_text{
         width: 100vw;
         
         font-size: 3.5vmin;
         @media only screen and (max-width: 961px) and (orientation: portrait) {
-            font-size: min(3.5vmin,2rem);
+            font-size: min(3vmin,1.5rem);
           
         }
 
@@ -1695,7 +1748,7 @@ body{
         
         font-size: 2vmin;
         @media only screen and (max-width: 961px) and (orientation: portrait) {
-            font-size: min(3.5vmin,2rem);
+            font-size: min(3.0vmin,1.5rem);
           
         
         }
@@ -1712,6 +1765,9 @@ body{
         
         width: 30vw;
         @media only screen and (max-width: 961px) and (orientation: portrait) {
+          width: 60vw;
+        }
+        @media only screen and (max-width: 600px)  and (orientation: portrait) {
           width: 80vw;
         }
 
@@ -1734,11 +1790,12 @@ body{
           width: 30vw;
 
           @media only screen and (max-width: 961px) and (orientation: portrait) {
+            height: 25vh;
+            width: 60vw; 
+          }
+          @media only screen and (max-width: 600px)  and (orientation: portrait) {
             width: 80vw;
             width: 35vh;
-          }
-          @media only screen and (max-width: 600px) {
-            height: 25vh;
           }
 
           color: #1d84c3; /* blue colors for links too */
@@ -1769,9 +1826,14 @@ body{
               font-size:  min(0.9vw, 1.5vh);
               width: 27vw;
               @media only screen and (max-width: 961px) and (orientation: portrait) {
+                font-size:  min(1.5vw, 0.5rem);
+                width: 60vw;
                 
+              }
+              @media only screen and (max-width: 600px) and (orientation: portrait) {
                 font-size:  min(2.1vw, 1.5rem);
-                width: 80vw
+                width: 80vw;
+                
               }
               aspect-ratio: 316.86/53.38;
         
@@ -1781,9 +1843,13 @@ body{
                   max-height: 8vh;
                   max-width: 4vw;
                   @media only screen and (max-width: 961px) and (orientation: portrait) {
-                      max-height: 12vh;
-                      max-width: 10vw;
+                      max-height: 6vh;
+                      max-width: 6vw;
                     
+                  }
+                  @media only screen and (max-width: 600px)  and (orientation: portrait) {
+                    max-height: 12vh;
+                      max-width: 10vw;
                   }
                   width: auto;
                   height: auto;
@@ -1807,7 +1873,7 @@ body{
       @media only screen and (max-width: 961px) and (orientation: portrait) {
         height: 60vh;
       }
-      @media only screen and (max-width: 600px) {
+      @media only screen and (max-width: 600px)  and (orientation: portrait){
         height: 40vh;
       }
 

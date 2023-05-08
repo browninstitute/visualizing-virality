@@ -126,7 +126,7 @@ export function GITHUB({UserSelection}){
                     <div className='highlight_text'>
                         <motion.ul>
                             <motion.li style={styles_with_css({opacity:opacity_s1})}>
-                                We showed you the users that together made the tweet "viral".
+                                We showed you the users that together made the tweet "viral."
                             </motion.li>
                             <motion.li style={styles_with_css({opacity:opacity_s2})}>
                                 &nbsp;But how did Twitter itself aide in the journey?

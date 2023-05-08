@@ -3,6 +3,11 @@ import {styles_with_css} from'./motion.ts'
 export function CITATIONS(){
     return(
         <div className="citations_section">
+            
+            <div className='cit_text'>
+                Thank You! <br/>
+                -Sahil Patel &amp; Samia Menon
+            </div>
             <hr className='line_end'></hr>
             <div className="cit_text"> 
                 References
@@ -76,7 +81,7 @@ export function CITATIONS(){
             <div className="cit_text"> 
             Also check out the accompanying
             <a href='https://knightcolumbia.org/content/understanding-social-media-recommendation-algorithms'>
-            <span style={styles_with_css({color:"#1DA1F2"})}> essay </span> 
+            <span style={styles_with_css({color:"#1DA1F2"})}> article </span> 
             </a>
             on the subject.
             </div>

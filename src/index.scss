@@ -96,7 +96,7 @@ body{
       @media only screen and (max-width: 600px) and (orientation: portrait) {
         width: 70vw;
         line-height:  min(2.1vw, 1.5rem);
-        font-size:  min(1.9vw, 1.3rem);
+        font-size:  min(1.925vw, 1.31rem);
       }
 
 
@@ -1842,7 +1842,8 @@ body{
                 
               }
               @media only screen and (max-width: 600px) and (orientation: portrait) {
-                font-size:  min(1.9vw, 1.3rem);
+                
+                font-size:  min(1.925vw, 1.31rem);
                 width: 80vw;
                 
               }

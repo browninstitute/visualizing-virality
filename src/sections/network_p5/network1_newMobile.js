@@ -169,9 +169,10 @@
                 onboardingTextY = 0.85*(fp5.displayHeight*0.9);
             }
 
-            fp5.text(onboardingText, onboardingTextX, onboardingTextY);
-            fp5.text(selection_user.username + "\n\n" + retweetSum + " RTs " + likeSum + "  ♡  " + replySum  + " 💬",  fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/7) );
-
+            fp5.textSize((fp5.displayHeight*0.9/75)/load_factor);
+            fp5.text(selection_user.username,  fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), (fp5.displayHeight*0.9/7))
+            fp5.text(retweetSum + " RTs " + likeSum + "  ♡  " + replySum  + " 💬",  fp5.displayWidth/30+(fp5.displayWidth/60)+(fp5.displayWidth/30), ((fp5.displayHeight*0.9)/5.9) );
+  
             fp5.textSize((fp5.displayHeight*0.9/60)/load_factor);
             let yAxTop = fp5.int(fp5.map(3000,0,max_bar_height,histogram_y+histogram_height,histogram_y));
 
